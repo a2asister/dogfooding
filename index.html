@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雷雨形成 - 乌云积聚与电荷产生展示程序</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 3D 场景容器 -->
+        <div id="canvas-container"></div>
+        
+        <!-- 顶部标题栏 -->
+        <header class="header">
+            <h1>雷雨形成科普展示</h1>
+            <div class="header-controls">
+                <button id="help-btn" class="icon-btn" title="帮助">?</button>
+            </div>
+        </header>
+        
+        <!-- 左侧控制面板 -->
+        <aside class="control-panel" id="control-panel">
+            <div class="panel-header">
+                <h2>模拟控制</h2>
+                <button id="toggle-panel" class="icon-btn">✕</button>
+            </div>
+            
+            <!-- 播放控制 -->
+            <section class="control-section">
+                <h3>播放控制</h3>
+                <div class="playback-controls">
+                    <button id="play-btn" class="control-btn active" title="播放/暂停">
+                        <span id="play-icon">▶</span>
+                    </button>
+                    <button id="replay-btn" class="control-btn" title="重播">
+                        <span>↺</span>
+                    </button>
+                </div>
+                <div class="speed-control">
+                    <label for="speed-slider">模拟速度:</label>
+                    <input type="range" id="speed-slider" min="0.25" max="3" step="0.25" value="1">
+                    <span id="speed-value">1x</span>
+                </div>
+            </section>
+            
+            <!-- 参数调节 -->
+            <section class="control-section">
+                <h3>环境参数</h3>
+                <div class="param-control">
+                    <label for="moisture-slider">水汽含量:</label>
+                    <input type="range" id="moisture-slider" min="20" max="100" step="5" value="60">
+                    <span id="moisture-value">60%</span>
+                </div>
+                <div class="param-control">
+                    <label for="updraft-slider">上升气流强度:</label>
+                    <input type="range" id="updraft-slider" min="1" max="10" step="1" value="5">
+                    <span id="updraft-value">5级</span>
+                </div>
+                <div class="param-control">
+                    <label for="tempdiff-slider">温度差:</label>
+                    <input type="range" id="tempdiff-slider" min="5" max="20" step="1" value="12">
+                    <span id="tempdiff-value">12°C</span>
+                </div>
+            </section>
+            
+            <!-- 视角控制 -->
+            <section class="control-section">
+                <h3>视角控制</h3>
+                <div class="view-controls">
+                    <button id="view-overview" class="view-btn active">全景</button>
+                    <button id="view-close" class="view-btn">近距观察</button>
+                    <button id="view-inside" class="view-btn">内部视角</button>
+                </div>
+                <div class="free-look-hint">
+                    <small>提示：按住鼠标左键拖动可自由旋转视角，滚轮缩放</small>
+                </div>
+            </section>
+            
+            <!-- 显示选项 -->
+            <section class="control-section">
+                <h3>显示选项</h3>
+                <div class="toggle-control">
+                    <label>
+                        <input type="checkbox" id="show-knowledge" checked>
+                        <span>知识点提示</span>
+                    </label>
+                </div>
+                <div class="toggle-control">
+                    <label>
+                        <input type="checkbox" id="show-data" checked>
+                        <span>科学数据</span>
+                    </label>
+                </div>
+                <div class="toggle-control">
+                    <label>
+                        <input type="checkbox" id="show-particles" checked>
+                        <span>粒子效果</span>
+                    </label>
+                </div>
+            </section>
+            
+            <!-- 截图按钮 -->
+            <section class="control-section">
+                <button id="screenshot-btn" class="primary-btn">
+                    📷 保存截图
+                </button>
+            </section>
+        </aside>
+        
+        <!-- 右侧科学数据面板 -->
+        <aside class="data-panel" id="data-panel">
+            <div class="panel-header">
+                <h2>科学数据</h2>
+                <button id="toggle-data" class="icon-btn">✕</button>
+            </div>
+            
+            <div class="data-items">
+                <div class="data-item">
+                    <div class="data-label">模拟阶段</div>
+                    <div class="data-value" id="stage-value">准备中</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">乌云厚度</div>
+                    <div class="data-value"><span id="cloud-thickness">0</span> 米</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">乌云密度</div>
+                    <div class="data-value"><span id="cloud-density">0</span>%</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">正电荷密度</div>
+                    <div class="data-value positive"><span id="positive-charge">0</span> C/m³</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">负电荷密度</div>
+                    <div class="data-value negative"><span id="negative-charge">0</span> C/m³</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">电荷分离度</div>
+                    <div class="data-value"><span id="charge-separation">0</span>%</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">闪电电压</div>
+                    <div class="data-value"><span id="lightning-voltage">0</span> MV</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">闪电电流</div>
+                    <div class="data-value"><span id="lightning-current">0</span> kA</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">雷声强度</div>
+                    <div class="data-value"><span id="thunder-intensity">0</span> dB</div>
+                </div>
+                <div class="data-item">
+                    <div class="data-label">模拟时间</div>
+                    <div class="data-value"><span id="simulation-time">0</span> 秒</div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- 知识点提示容器 -->
+        <div id="knowledge-container" class="knowledge-container"></div>
+        
+        <!-- 底部状态栏 -->
+        <footer class="status-bar">
+            <div class="status-info">
+                <span id="status-text">就绪 - 点击播放开始模拟</span>
+            </div>
+            <div class="panel-toggles">
+                <button id="show-control-panel" class="toggle-panel-btn">⚙️ 控制面板</button>
+                <button id="show-data-panel" class="toggle-panel-btn">📊 数据面板</button>
+            </div>
+        </footer>
+        
+        <!-- 帮助弹窗 -->
+        <div id="help-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>使用帮助</h2>
+                    <button id="close-help" class="icon-btn">✕</button>
+                </div>
+                <div class="modal-body">
+                    <h3>操作说明</h3>
+                    <ul>
+                        <li><strong>鼠标左键拖动：</strong>旋转视角</li>
+                        <li><strong>鼠标滚轮：</strong>缩放场景</li>
+                        <li><strong>右键拖动：</strong>平移场景</li>
+                    </ul>
+                    
+                    <h3>雷雨形成原理</h3>
+                    <ol>
+                        <li><strong>水汽上升：</strong>地面水汽受热上升</li>
+                        <li><strong>冷却凝结：</strong>上升过程中冷却，形成云滴</li>
+                        <li><strong>乌云积聚：</strong>云滴不断增多，形成乌云</li>
+                        <li><strong>电荷分离：</strong>水滴与冰晶碰撞摩擦，正负电荷分离</li>
+                        <li><strong>放电现象：</strong>电荷积累到一定程度，发生放电形成闪电</li>
+                        <li><strong>雷声产生：</strong>闪电加热空气，空气膨胀产生雷声</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Three.js 库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/app.js" type="module"></script>
+</body>
+</html>
