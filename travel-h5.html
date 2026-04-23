@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>旅游探索</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background-color: #fff;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .page {
+            display: none;
+            padding: 15px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .carousel-inner {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            width: 25%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 30px 15px 15px;
+        }
+
+        .carousel-caption h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .carousel-caption p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .carousel-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-indicator.active {
+            background: white;
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-title::after {
+            content: '更多 >';
+            font-size: 12px;
+            color: #667eea;
+            font-weight: normal;
+        }
+
+        .waterfall {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .attraction-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .attraction-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .attraction-card img {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .attraction-card .info {
+            padding: 12px;
+        }
+
+        .attraction-card .info h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .attraction-card .info .location {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .attraction-card .info .price {
+            font-size: 13px;
+            color: #ff6b35;
+            font-weight: 600;
+        }
+
+        .attraction-card .info .price::before {
+            content: '¥';
+            font-size: 10px;
+        }
+
+        .attraction-card .info .rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .attraction-card .info .rating .stars {
+            color: #ffc107;
+        }
+
+        .detail-page {
+            padding: 0;
+        }
+
+        .detail-header {
+            position: relative;
+        }
+
+        .detail-header img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .detail-header .back-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 36px;
+            height: 36px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .detail-content {
+            padding: 20px;
+        }
+
+        .detail-content h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .detail-content .meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .detail-content .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .detail-content .price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .detail-content .price-section .price {
+            font-size: 24px;
+            color: #ff6b35;
+            font-weight: 600;
+        }
+
+        .detail-content .price-section .price::before {
+            content: '¥';
+            font-size: 14px;
+        }
+
+        .detail-content .price-section .price span {
+            font-size: 12px;
+            color: #999;
+            font-weight: normal;
+        }
+
+        .detail-content .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .detail-content .section {
+            margin-bottom: 20px;
+        }
+
+        .detail-content .section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-content .section p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #666;
+            text-align: justify;
+        }
+
+        .detail-content .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .detail-content .gallery img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 120px);
+            padding: 15px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .chat-message {
+            display: flex;
+            margin-bottom: 15px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .chat-message .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .chat-message.bot .avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin-right: 10px;
+        }
+
+        .chat-message.user .avatar {
+            background: #ff6b35;
+            margin-left: 10px;
+        }
+
+        .chat-message .content {
+            max-width: 70%;
+            padding: 12px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.6;
+            word-break: break-word;
+        }
+
+        .chat-message.bot .content {
+            background: white;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .chat-message.user .content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .chat-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 8px 15px;
+            font-size: 14px;
+            background: transparent;
+        }
+
+        .chat-send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: transform 0.2s;
+        }
+
+        .chat-send-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .quick-replies {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .quick-reply {
+            padding: 8px 15px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #667eea;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-reply:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .settings-container {
+            padding: 15px;
+        }
+
+        .settings-section {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .settings-section-title {
+            padding: 15px;
+            font-size: 14px;
+            color: #999;
+            background: #f8f9fa;
+            font-weight: 500;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-item:hover {
+            background: #f9f9f9;
+        }
+
+        .settings-item .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .settings-item .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .settings-item .text h4 {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .settings-item .text p {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .settings-item .arrow {
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 28px;
+            background: #ddd;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #667eea;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(22px);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-right: 15px;
+        }
+
+        .user-info h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .user-info p {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 600px;
+            height: 60px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px 15px;
+            transition: transform 0.2s;
+        }
+
+        .nav-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-item .icon {
+            font-size: 22px;
+            margin-bottom: 3px;
+            color: #999;
+            transition: color 0.2s;
+        }
+
+        .nav-item .label {
+            font-size: 11px;
+            color: #999;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active .icon,
+        .nav-item.active .label {
+            color: #667eea;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #999;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="page-title">旅游探索</h1>
+        </div>
+
+        <div id="home-page" class="page active">
+            <div class="carousel">
+                <div class="carousel-inner" id="carousel-inner">
+                    <div class="carousel-item">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=美丽%20黄山%20云海%20日出%20风景%20高清%20摄影&image_size=landscape_16_9" alt="黄山">
+                        <div class="carousel-caption">
+                            <h3>黄山云海</h3>
+                            <p>五岳归来不看山，黄山归来不看岳</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=三亚%20海滩%20日落%20椰树%20风景%20高清%20摄影&image_size=landscape_16_9" alt="三亚">
+                        <div class="carousel-caption">
+                            <h3>三亚海滨</h3>
+                            <p>阳光沙滩，碧海蓝天</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=西湖%20断桥%20雪景%20杭州%20风景%20高清%20摄影&image_size=landscape_16_9" alt="西湖">
+                        <div class="carousel-caption">
+                            <h3>西湖断桥</h3>
+                            <p>欲把西湖比西子，淡妆浓抹总相宜</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=九寨沟%20彩池%20瀑布%20风景%20高清%20摄影&image_size=landscape_16_9" alt="九寨沟">
+                        <div class="carousel-caption">
+                            <h3>九寨沟</h3>
+                            <p>九寨归来不看水</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-indicators" id="carousel-indicators">
+                    <span class="carousel-indicator active" data-index="0"></span>
+                    <span class="carousel-indicator" data-index="1"></span>
+                    <span class="carousel-indicator" data-index="2"></span>
+                    <span class="carousel-indicator" data-index="3"></span>
+                </div>
+            </div>
+
+            <h2 class="section-title">热门景点</h2>
+            <div class="waterfall" id="attractions-list">
+            </div>
+            <div class="loading" id="loading">加载中...</div>
+        </div>
+
+        <div id="detail-page" class="page detail-page">
+            <div class="detail-header">
+                <img id="detail-image" src="" alt="">
+                <div class="back-btn" id="back-btn">←</div>
+            </div>
+            <div class="detail-content">
+                <h2 id="detail-title"></h2>
+                <div class="meta">
+                    <div class="meta-item">
+                        <span>📍</span>
+                        <span id="detail-location"></span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⭐</span>
+                        <span id="detail-rating"></span>
+                    </div>
+                    <div class="meta-item">
+                        <span>👥</span>
+                        <span id="detail-visitors"></span>
+                    </div>
+                </div>
+
+                <div class="price-section">
+                    <div class="price" id="detail-price"></div>
+                    <button class="btn" id="book-btn">立即预订</button>
+                </div>
+
+                <div class="section">
+                    <h3>📖 景点介绍</h3>
+                    <p id="detail-description"></p>
+                </div>
+
+                <div class="section">
+                    <h3>🖼️ 更多图片</h3>
+                    <div class="gallery" id="detail-gallery"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="chat-page" class="page">
+            <div class="quick-replies">
+                <span class="quick-reply" data-msg="推荐热门景点">推荐热门景点</span>
+                <span class="quick-reply" data-msg="如何预订门票">如何预订门票</span>
+                <span class="quick-reply" data-msg="退款政策">退款政策</span>
+                <span class="quick-reply" data-msg="联系人工客服">联系人工客服</span>
+            </div>
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chat-input" placeholder="输入您的问题...">
+                    <button class="chat-send-btn" id="chat-send">➤</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="settings-page" class="page">
+            <div class="user-profile">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                    <h3>旅行者</h3>
+                    <p>探索世界的美好</p>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">账户设置</div>
+                <div class="settings-item">
+                    <div class="left">
+                        <div class="icon" style="background: #e3f2fd; color: #2196f3;">👤</div>
+                        <div class="text">
+                            <h4>个人信息</h4>
+                            <p>修改头像、昵称等</p>
+                        </div>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+                <div class="settings-item">
+                    <div class="left">
+                        <div class="icon" style="background: #e8f5e9; color: #4caf50;">🔐</div>
+                        <div class="text">
+                            <h4>账号安全</h4>
+                            <p>修改密码、绑定手机</p>
+                        </div>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">通知设置</div>
+                <div class="settings-item" id="notification-toggle">
+                    <div class="left">
+                        <div class="icon" style="background: #fff3e0; color: #ff9800;">🔔</div>
+                        <div class="text">
+                            <h4>消息通知</h4>
+                            <p>接收订单、促销等通知</p>
+                        </div>
+                    </div>
+                    <div class="toggle-switch active"></div>
+                </div>
+                <div class="settings-item" id="sound-toggle">
+                    <div class="left">
+                        <div class="icon" style="background: #fce4ec; color: #e91e63;">🔊</div>
+                        <div class="text">
+                            <h4>声音提醒</h4>
+                            <p>新消息时播放提示音</p>
+                        </div>
+                    </div>
+                    <div class="toggle-switch active"></div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">通用设置</div>
+                <div class="settings-item">
+                    <div class="left">
+                        <div class="icon" style="background: #f3e5f5; color: #9c27b0;">🌐</div>
+                        <div class="text">
+                            <h4>语言设置</h4>
+                            <p>简体中文</p>
+                        </div>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+                <div class="settings-item">
+                    <div class="left">
+                        <div class="icon" style="background: #e0f7fa; color: #00bcd4;">💰</div>
+                        <div class="text">
+                            <h4>货币设置</h4>
+                            <p>人民币 (¥)</p>
+                        </div>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">关于</div>
+                <div class="settings-item">
+                    <div class="left">
+                        <div class="icon" style="background: #ede7f6; color: #673ab7;">ℹ️</div>
+                        <div class="text">
+                            <h4>关于我们</h4>
+                            <p>旅游探索 v1.0.0</p>
+                        </div>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+                <div class="settings-item">
+                    <div class="left">
+                        <div class="icon" style="background: #f1f8e9; color: #8bc34a;">💬</div>
+                        <div class="text">
+                            <h4>意见反馈</h4>
+                            <p>帮助我们做得更好</p>
+                        </div>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+                <div class="settings-item" id="clear-cache">
+                    <div class="left">
+                        <div class="icon" style="background: #ffebee; color: #f44336;">🗑️</div>
+                        <div class="text">
+                            <h4>清除缓存</h4>
+                            <p>释放存储空间</p>
+                        </div>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-page="home">
+                <span class="icon">🏠</span>
+                <span class="label">首页</span>
+            </div>
+            <div class="nav-item" data-page="detail">
+                <span class="icon">📋</span>
+                <span class="label">详情页</span>
+            </div>
+            <div class="nav-item" data-page="chat">
+                <span class="icon">💬</span>
+                <span class="label">智能客服</span>
+            </div>
+            <div class="nav-item" data-page="settings">
+                <span class="icon">⚙️</span>
+                <span class="label">设置</span>
+            </div>
+        </nav>
+
+        <div class="toast" id="toast"></div>
+    </div>
+
+    <script>
+        const attractions = [
+            {
+                id: 1,
+                name: '黄山风景区',
+                location: '安徽黄山',
+                price: 190,
+                rating: 4.9,
+                visitors: '3.2万',
+                description: '黄山位于安徽省南部黄山市境内，有72峰，主峰莲花峰海拔1864米。黄山是世界文化与自然双重遗产，世界地质公园，国家AAAAA级旅游景区，国家级风景名胜区，全国文明风景旅游区示范点，中华十大名山，天下第一奇山。黄山以"五绝"（奇松、怪石、云海、温泉、冬雪）及历史遗存、书画、文学、传说、名人"五胜"著称于世，有"五岳归来不看山，黄山归来不看岳"之名。',
+                image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=黄山%20迎客松%20云海%20风景%20高清%20摄影&image_size=square',
+                gallery: [
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=黄山%20云海%20日出%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=黄山%20怪石%20飞来石%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=黄山%2奇松%20连理松%20风景%20高清%20摄影&image_size=square'
+                ]
+            },
+            {
+                id: 2,
+                name: '三亚蜈支洲岛',
+                location: '海南三亚',
+                price: 144,
+                rating: 4.8,
+                visitors: '2.8万',
+                description: '蜈支洲岛位于三亚市海棠湾内，是海南岛周围为数不多的有淡水资源和丰富植被的小岛，有二千多种植物，种类繁多。蜈支洲岛享有"中国马尔代夫"的美誉，同时也是世界上为数不多的唯一没有礁石或者鹅卵石混杂的海岛，是国内最佳潜水基地。岛上绮丽的自然风光，极具特色的各类度假别墅、木屋及酒吧、网球场、海鲜餐厅等配套设施。',
+                image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=三亚%20蜈支洲岛%20海滩%20海水%20风景%20高清%20摄影&image_size=square',
+                gallery: [
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=三亚%20潜水%20珊瑚%20海洋生物%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=三亚%20沙滩%20躺椅%20度假%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=三亚%20日落%20海景%20浪漫%20风景%20高清%20摄影&image_size=square'
+                ]
+            },
+            {
+                id: 3,
+                name: '西湖风景区',
+                location: '浙江杭州',
+                price: 0,
+                rating: 4.9,
+                visitors: '5.6万',
+                description: '西湖，位于浙江省杭州市西湖区，是中国大陆首批国家重点风景名胜区和中国十大风景名胜之一。西湖三面环山，面积约6.39平方千米，东西宽约2.8千米，南北长约3.2千米，绕湖一周近15千米。湖中被孤山、白堤、苏堤、杨公堤分隔，按面积大小分别为外西湖、西里湖、北里湖、小南湖及岳湖等五片水面，苏堤、白堤越过湖面，小瀛洲、湖心亭、阮公墩三个小岛鼎立于外西湖湖心。',
+                image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=西湖%20断桥%20春天%20桃花%20风景%20高清%20摄影&image_size=square',
+                gallery: [
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=西湖%20苏堤%20杨柳%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=西湖%20雷峰塔%20夜景%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=西湖%2荷花%20夏天%20风景%20高清%20摄影&image_size=square'
+                ]
+            },
+            {
+                id: 4,
+                name: '九寨沟风景区',
+                location: '四川阿坝',
+                price: 169,
+                rating: 4.9,
+                visitors: '2.1万',
+                description: '九寨沟位于四川省阿坝藏族羌族自治州九寨沟县境内，是中国第一个以保护自然风景为主要目的的自然保护区。九寨沟国家级自然保护区主要保护对象是以大熊猫、金丝猴等珍稀动物及其自然生态环境。有74种国家保护珍稀植物，有18种国家保护动物，还有丰富的古生物化石、古冰川地貌。"九寨归来不看水"，是对九寨沟景色真实的诠释。泉、瀑、河、滩108个海子，构成一个个五彩斑斓的瑶池玉盆。',
+                image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=九寨沟%20五彩池%20风景%20高清%20摄影&image_size=square',
+                gallery: [
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=九寨沟%20瀑布%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=九寨沟%20彩林%20秋天%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=九寨沟%20海子%20清澈%20风景%20高清%20摄影&image_size=square'
+                ]
+            },
+            {
+                id: 5,
+                name: '丽江古城',
+                location: '云南丽江',
+                price: 50,
+                rating: 4.8,
+                visitors: '4.3万',
+                description: '丽江古城位于云南省丽江市古城区，又名大研镇，坐落在丽江坝中部，始建于宋末元初，地处云贵高原，面积为7.279平方公里。丽江古城内的街道依山傍水修建，以红色角砾岩铺就，有四方街、木府、五凤楼、黑龙潭、文昌宫、王丕震纪念馆、雪山书院、王家庄基督教堂、方国瑜故居、白马龙潭寺、顾彼得旧居、净莲寺、普贤寺等景点。丽江是中国以整座古城申报世界文化遗产获得成功的两座古城之一。',
+                image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=丽江古城%20夜景%20四方街%20风景%20高清%20摄影&image_size=square',
+                gallery: [
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=丽江%20玉龙雪山%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=丽江古城%2河流%20小桥%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=丽江%2纳西族%2建筑%20风景%20高清%20摄影&image_size=square'
+                ]
+            },
+            {
+                id: 6,
+                name: '张家界国家森林公园',
+                location: '湖南张家界',
+                price: 225,
+                rating: 4.9,
+                visitors: '3.5万',
+                description: '张家界国家森林公园位于湖南省西北部张家界市境内。1982年9月25日，经中华人民共和国国务院批准，将原来的张家界林场正式命名为"张家界国家森林公园"，也是中国第一个国家森林公园。1992年12月，因奇特的石英砂岩大峰林被联合国列入《世界自然遗产名录》，2004年2月被列入世界地质公园。公园自然风光以峰称奇、以谷显幽、以林见秀。其间有奇峰3000多座，如人如兽、如器如物，形象逼真，气势壮观，有"三千奇峰，八百秀水"之美称。',
+                image: 'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=张家界%20奇峰%20云雾%20风景%20高清%20摄影&image_size=square',
+                gallery: [
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=张家界%2金鞭溪%20峡谷%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=张家界%2天门山%2玻璃栈道%20风景%20高清%20摄影&image_size=square',
+                    'https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=张家界%2宝峰湖%2山水%20风景%20高清%20摄影&image_size=square'
+                ]
+            }
+        ];
+
+        const botResponses = {
+            '推荐热门景点': '目前我们平台推荐的热门景点有：\n\n🏔️ 黄山风景区 - 天下第一奇山\n🏖️ 三亚蜈支洲岛 - 中国马尔代夫\n🌿 西湖风景区 - 人间天堂\n💧 九寨沟风景区 - 童话世界\n🏰 丽江古城 - 纳西风情\n🗻 张家界国家森林公园 - 奇峰三千\n\n您对哪个景点感兴趣呢？',
+            '如何预订门票': '预订门票非常简单！\n\n1️⃣ 浏览景点，选择您想要前往的景点\n2️⃣ 点击景点卡片进入详情页\n3️⃣ 点击"立即预订"按钮\n4️⃣ 选择日期和票数\n5️⃣ 填写游客信息并完成支付\n\n支付成功后，您会收到确认短信和电子票，凭电子票即可入园游览。如有任何问题，随时联系我哦！',
+            '退款政策': '我们的退款政策如下：\n\n✅ 出发前7天：全额退款\n✅ 出发前3-7天：退款90%\n✅ 出发前1-3天：退款70%\n❌ 出发当天：不予退款\n\n⚠️ 特殊节假日（如春节、国庆等）：出发前15天可全额退款，15天内不予退款。\n\n退款申请审核通过后，款项将在3-5个工作日内原路返回。如需协助，请告诉我您的订单号。',
+            '联系人工客服': '如需联系人工客服，您可以通过以下方式：\n\n📞 客服热线：400-888-8888\n  服务时间：9:00 - 21:00\n\n📧 邮箱：service@travel.com\n\n💬 在线客服：点击首页右上角"客服"按钮\n\n或者您也可以直接在这里告诉我您的问题，我会尽力帮助您解决！',
+            'default': '您好！我是旅游探索的智能客服小助手 🤖\n\n我可以为您提供以下服务：\n- 🏔️ 景点推荐与介绍\n- 🎫 门票预订咨询\n- 💳 订单查询与退款\n- ❓ 常见问题解答\n- 📞 联系人工客服\n\n请问有什么可以帮助您的吗？'
+        };
+
+        let currentCarouselIndex = 0;
+        let carouselInterval;
+        let currentPage = 'home';
+        let selectedAttraction = null;
+
+        function init() {
+            renderAttractions();
+            initCarousel();
+            initNavigation();
+            initChat();
+            initSettings();
+            initDetailPage();
+        }
+
+        function renderAttractions() {
+            const container = document.getElementById('attractions-list');
+            container.innerHTML = attractions.map((item, index) => `
+                <div class="attraction-card" data-id="${item.id}">
+                    <img src="${item.image}" alt="${item.name}" style="height: ${120 + (index % 3) * 30}px">
+                    <div class="info">
+                        <h3>${item.name}</h3>
+                        <div class="location">📍 ${item.location}</div>
+                        <div class="price">${item.price === 0 ? '免费' : item.price}</div>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span>${item.rating} (${item.visitors}人去过)</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.attraction-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = parseInt(card.dataset.id);
+                    showAttractionDetail(id);
+                });
+            });
+        }
+
+        function showAttractionDetail(id) {
+            selectedAttraction = attractions.find(a => a.id === id);
+            if (!selectedAttraction) return;
+
+            document.getElementById('detail-image').src = selectedAttraction.image;
+            document.getElementById('detail-title').textContent = selectedAttraction.name;
+            document.getElementById('detail-location').textContent = selectedAttraction.location;
+            document.getElementById('detail-rating').textContent = `${selectedAttraction.rating}分`;
+            document.getElementById('detail-visitors').textContent = `${selectedAttraction.visitors}人去过`;
+            document.getElementById('detail-description').textContent = selectedAttraction.description;
+            document.getElementById('detail-price').innerHTML = selectedAttraction.price === 0 ? '免费' : `${selectedAttraction.price}<span>起</span>`;
+
+            const gallery = document.getElementById('detail-gallery');
+            gallery.innerHTML = selectedAttraction.gallery.map(img => `
+                <img src="${img}" alt="景点图片">
+            `).join('');
+
+            switchPage('detail');
+        }
+
+        function initCarousel() {
+            const inner = document.getElementById('carousel-inner');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+
+            function updateCarousel() {
+                inner.style.transform = `translateX(-${currentCarouselIndex * 25}%)`;
+                indicators.forEach((ind, idx) => {
+                    ind.classList.toggle('active', idx === currentCarouselIndex);
+                });
+            }
+
+            function nextSlide() {
+                currentCarouselIndex = (currentCarouselIndex + 1) % 4;
+                updateCarousel();
+            }
+
+            carouselInterval = setInterval(nextSlide, 3000);
+
+            indicators.forEach(ind => {
+                ind.addEventListener('click', () => {
+                    currentCarouselIndex = parseInt(ind.dataset.index);
+                    updateCarousel();
+                });
+            });
+
+            let startX, moveX;
+            inner.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                clearInterval(carouselInterval);
+            });
+
+            inner.addEventListener('touchmove', (e) => {
+                moveX = e.touches[0].clientX;
+            });
+
+            inner.addEventListener('touchend', () => {
+                if (startX - moveX > 50) {
+                    currentCarouselIndex = (currentCarouselIndex + 1) % 4;
+                } else if (moveX - startX > 50) {
+                    currentCarouselIndex = (currentCarouselIndex - 1 + 4) % 4;
+                }
+                updateCarousel();
+                carouselInterval = setInterval(nextSlide, 3000);
+            });
+        }
+
+        function initNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const pages = {
+                'home': '旅游探索',
+                'detail': '景点详情',
+                'chat': '智能客服',
+                'settings': '用户设置'
+            };
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const page = item.dataset.page;
+                    switchPage(page);
+                });
+            });
+        }
+
+        function switchPage(pageName) {
+            const pages = {
+                'home': '旅游探索',
+                'detail': '景点详情',
+                'chat': '智能客服',
+                'settings': '用户设置'
+            };
+
+            currentPage = pageName;
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.toggle('active', item.dataset.page === pageName);
+            });
+
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(`${pageName}-page`).classList.add('active');
+
+            document.getElementById('page-title').textContent = pages[pageName];
+
+            window.scrollTo(0, 0);
+        }
+
+        function initChat() {
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+            const chatMessages = document.getElementById('chat-messages');
+            const quickReplies = document.querySelectorAll('.quick-reply');
+
+            addMessage('bot', botResponses['default']);
+
+            function sendMessage(msg) {
+                if (!msg.trim()) return;
+
+                addMessage('user', msg);
+                chatInput.value = '';
+
+                setTimeout(() => {
+                    let response = botResponses[msg];
+                    if (!response) {
+                        response = '感谢您的提问！让我为您查询一下...\n\n如果您有其他问题，可以尝试点击快捷回复，或者直接在这里输入您的问题。我会尽力为您解答！';
+                    }
+                    addMessage('bot', response);
+                }, 800);
+            }
+
+            function addMessage(type, content) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat-message ${type}`;
+                messageDiv.innerHTML = `
+                    <div class="avatar">${type === 'bot' ? '🤖' : '👤'}</div>
+                    <div class="content">${content.replace(/\n/g, '<br>')}</div>
+                `;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            chatSend.addEventListener('click', () => {
+                sendMessage(chatInput.value);
+            });
+
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage(chatInput.value);
+                }
+            });
+
+            quickReplies.forEach(reply => {
+                reply.addEventListener('click', () => {
+                    sendMessage(reply.dataset.msg);
+                });
+            });
+        }
+
+        function initSettings() {
+            const toggles = document.querySelectorAll('.settings-item[id$="-toggle"]');
+            const clearCache = document.getElementById('clear-cache');
+
+            toggles.forEach(item => {
+                const toggle = item.querySelector('.toggle-switch');
+                item.addEventListener('click', () => {
+                    toggle.classList.toggle('active');
+                    showToast(toggle.classList.contains('active') ? '已开启' : '已关闭');
+                });
+            });
+
+            document.querySelectorAll('.settings-item').forEach(item => {
+                if (!item.id) {
+                    item.addEventListener('click', () => {
+                        showToast('功能开发中，敬请期待');
+                    });
+                }
+            });
+
+            clearCache.addEventListener('click', () => {
+                showToast('缓存已清除');
+            });
+        }
+
+        function initDetailPage() {
+            const backBtn = document.getElementById('back-btn');
+            const bookBtn = document.getElementById('book-btn');
+
+            backBtn.addEventListener('click', () => {
+                switchPage('home');
+            });
+
+            bookBtn.addEventListener('click', () => {
+                showToast('预订功能开发中，敬请期待');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
