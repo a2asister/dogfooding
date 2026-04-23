@@ -946,7 +946,7 @@
         </div>
 
         <div class="plant-selector">
-            <div class="plant-card selected" data-plant="peashooter" data-cost="100">
+            <div class="plant-card" data-plant="peashooter" data-cost="100">
                 <span>🌱</span>
                 <span>豌豆射手</span>
                 <span class="plant-cost">100☀</span>
@@ -1053,7 +1053,7 @@
             sunCount: CONFIG.initialSun,
             wave: 1,
             kills: 0,
-            selectedPlant: 'peashooter',
+            selectedPlant: null,
             plants: [],
             zombies: [],
             bullets: [],
@@ -1121,9 +1121,16 @@
             card.addEventListener('click', () => {
                 if (card.classList.contains('disabled')) return;
                 
-                plantCards.forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-                gameState.selectedPlant = card.dataset.plant;
+                const isAlreadySelected = card.classList.contains('selected');
+                
+                if (isAlreadySelected) {
+                    card.classList.remove('selected');
+                    gameState.selectedPlant = null;
+                } else {
+                    plantCards.forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    gameState.selectedPlant = card.dataset.plant;
+                }
             });
         });
 
@@ -1194,12 +1201,22 @@
             `;
         }
 
+        // 取消植物选中
+        function deselectPlant() {
+            gameState.selectedPlant = null;
+            plantCards.forEach(card => {
+                card.classList.remove('selected');
+            });
+        }
+
         // 处理格子点击
         function handleCellClick(row, col, cell) {
             if (!gameState.isRunning || gameState.isPaused) return;
             if (cell.classList.contains('occupied')) return;
             
             const plantType = gameState.selectedPlant;
+            if (!plantType) return;
+            
             const plantConfig = PLANTS[plantType];
             
             if (gameState.sunCount < plantConfig.cost) return;
@@ -1244,6 +1261,8 @@
             plant.element = plantElement;
             gameBoard.appendChild(plantElement);
             gameState.plants.push(plant);
+            
+            deselectPlant();
             
             updateUI();
         }
@@ -1749,7 +1768,7 @@
                 sunCount: CONFIG.initialSun,
                 wave: 1,
                 kills: 0,
-                selectedPlant: 'peashooter',
+                selectedPlant: null,
                 plants: [],
                 zombies: [],
                 bullets: [],
@@ -1761,7 +1780,6 @@
             plantCards.forEach(card => {
                 card.classList.remove('selected');
             });
-            plantCards[0].classList.add('selected');
             
             initializeBoard();
             updateUI();
