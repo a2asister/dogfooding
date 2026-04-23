@@ -133,11 +133,161 @@
             justify-content: space-between;
         }
 
-        .section-title::after {
-            content: '更多 >';
+        .list-page {
+            padding: 0;
+        }
+
+        .list-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .list-back-btn {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .list-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .list-content {
+            padding: 15px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .filter-tab {
+            padding: 8px 16px;
+            background: #f5f5f5;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .filter-tab.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .list-attractions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .list-card {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .list-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .list-card-img {
+            width: 120px;
+            height: 100px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .list-card-info {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .list-card-top h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .list-card-top .location {
             font-size: 12px;
-            color: #667eea;
-            font-weight: normal;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .list-card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-card-bottom .rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .list-card-bottom .rating .stars {
+            color: #ffc107;
+        }
+
+        .list-card-bottom .price {
+            font-size: 16px;
+            color: #ff6b35;
+            font-weight: 600;
+        }
+
+        .list-card-bottom .price::before {
+            content: '¥';
+            font-size: 12px;
         }
 
         .waterfall {
@@ -695,28 +845,28 @@
         <div id="home-page" class="page active">
             <div class="carousel">
                 <div class="carousel-inner" id="carousel-inner">
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-id="1" style="cursor: pointer;">
                         <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=美丽%20黄山%20云海%20日出%20风景%20高清%20摄影&image_size=landscape_16_9" alt="黄山">
                         <div class="carousel-caption">
                             <h3>黄山云海</h3>
                             <p>五岳归来不看山，黄山归来不看岳</p>
                         </div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-id="2" style="cursor: pointer;">
                         <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=三亚%20海滩%20日落%20椰树%20风景%20高清%20摄影&image_size=landscape_16_9" alt="三亚">
                         <div class="carousel-caption">
                             <h3>三亚海滨</h3>
                             <p>阳光沙滩，碧海蓝天</p>
                         </div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-id="3" style="cursor: pointer;">
                         <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=西湖%20断桥%20雪景%20杭州%20风景%20高清%20摄影&image_size=landscape_16_9" alt="西湖">
                         <div class="carousel-caption">
                             <h3>西湖断桥</h3>
                             <p>欲把西湖比西子，淡妆浓抹总相宜</p>
                         </div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-id="4" style="cursor: pointer;">
                         <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=九寨沟%20彩池%20瀑布%20风景%20高清%20摄影&image_size=landscape_16_9" alt="九寨沟">
                         <div class="carousel-caption">
                             <h3>九寨沟</h3>
@@ -732,7 +882,10 @@
                 </div>
             </div>
 
-            <h2 class="section-title">热门景点</h2>
+            <div class="section-title">
+                <span>热门景点</span>
+                <span class="more-link" style="font-size: 12px; color: #667eea; font-weight: normal; cursor: pointer;">更多 ›</span>
+            </div>
             <div class="waterfall" id="attractions-list">
             </div>
             <div class="loading" id="loading">加载中...</div>
@@ -790,6 +943,27 @@
                 <div class="chat-input-container">
                     <input type="text" class="chat-input" id="chat-input" placeholder="输入您的问题...">
                     <button class="chat-send-btn" id="chat-send">➤</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="list-page" class="page list-page">
+            <div class="list-header">
+                <div class="list-back-btn" id="list-back-btn">←</div>
+                <div class="list-title">景点列表</div>
+            </div>
+            <div class="list-content">
+                <div class="search-bar">
+                    <input type="text" class="search-input" id="search-input" placeholder="搜索景点名称...">
+                </div>
+                <div class="filter-tabs" id="filter-tabs">
+                    <span class="filter-tab active" data-filter="all">全部</span>
+                    <span class="filter-tab" data-filter="免费">免费</span>
+                    <span class="filter-tab" data-filter="热门">热门</span>
+                    <span class="filter-tab" data-filter="山水">山水</span>
+                    <span class="filter-tab" data-filter="古镇">古镇</span>
+                </div>
+                <div class="list-attractions" id="list-attractions">
                 </div>
             </div>
         </div>
@@ -1046,6 +1220,8 @@
             initChat();
             initSettings();
             initDetailPage();
+            initListPage();
+            initMoreLink();
         }
 
         function renderAttractions() {
@@ -1096,6 +1272,7 @@
         function initCarousel() {
             const inner = document.getElementById('carousel-inner');
             const indicators = document.querySelectorAll('.carousel-indicator');
+            const carouselItems = document.querySelectorAll('.carousel-item');
 
             function updateCarousel() {
                 inner.style.transform = `translateX(-${currentCarouselIndex * 25}%)`;
@@ -1115,6 +1292,15 @@
                 ind.addEventListener('click', () => {
                     currentCarouselIndex = parseInt(ind.dataset.index);
                     updateCarousel();
+                });
+            });
+
+            carouselItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const id = parseInt(item.dataset.id);
+                    if (id) {
+                        showAttractionDetail(id);
+                    }
                 });
             });
 
@@ -1139,6 +1325,100 @@
             });
         }
 
+        function initMoreLink() {
+            const moreLink = document.querySelector('.more-link');
+            if (moreLink) {
+                moreLink.addEventListener('click', () => {
+                    switchPage('list');
+                });
+            }
+        }
+
+        function initListPage() {
+            const backBtn = document.getElementById('list-back-btn');
+            const searchInput = document.getElementById('search-input');
+            const filterTabs = document.querySelectorAll('.filter-tab');
+
+            backBtn.addEventListener('click', () => {
+                switchPage('home');
+            });
+
+            renderListAttractions(attractions);
+
+            searchInput.addEventListener('input', (e) => {
+                const keyword = e.target.value.toLowerCase();
+                const currentFilter = document.querySelector('.filter-tab.active').dataset.filter;
+                filterAndRenderList(keyword, currentFilter);
+            });
+
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const filter = tab.dataset.filter;
+                    const keyword = searchInput.value.toLowerCase();
+                    filterAndRenderList(keyword, filter);
+                });
+            });
+        }
+
+        function renderListAttractions(items) {
+            const container = document.getElementById('list-attractions');
+            if (items.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">暂无相关景点</p>';
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="list-card" data-id="${item.id}">
+                    <img src="${item.image}" alt="${item.name}" class="list-card-img">
+                    <div class="list-card-info">
+                        <div class="list-card-top">
+                            <h4>${item.name}</h4>
+                            <div class="location">📍 ${item.location}</div>
+                        </div>
+                        <div class="list-card-bottom">
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span>${item.rating}</span>
+                            </div>
+                            <div class="price">${item.price === 0 ? '免费' : item.price}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.querySelectorAll('.list-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = parseInt(card.dataset.id);
+                    showAttractionDetail(id);
+                });
+            });
+        }
+
+        function filterAndRenderList(keyword, filter) {
+            let filtered = attractions;
+
+            if (keyword) {
+                filtered = filtered.filter(item => 
+                    item.name.toLowerCase().includes(keyword) ||
+                    item.location.toLowerCase().includes(keyword)
+                );
+            }
+
+            if (filter !== 'all') {
+                filtered = filtered.filter(item => {
+                    if (filter === '免费') return item.price === 0;
+                    if (filter === '热门') return item.rating >= 4.8;
+                    if (filter === '山水') return item.name.includes('黄山') || item.name.includes('张家界') || item.name.includes('九寨沟');
+                    if (filter === '古镇') return item.name.includes('丽江') || item.name.includes('古城');
+                    return true;
+                });
+            }
+
+            renderListAttractions(filtered);
+        }
+
         function initNavigation() {
             const navItems = document.querySelectorAll('.nav-item');
             const pages = {
@@ -1160,6 +1440,7 @@
             const pages = {
                 'home': '旅游探索',
                 'detail': '景点详情',
+                'list': '景点列表',
                 'chat': '智能客服',
                 'settings': '用户设置'
             };
@@ -1175,7 +1456,9 @@
             });
             document.getElementById(`${pageName}-page`).classList.add('active');
 
-            document.getElementById('page-title').textContent = pages[pageName];
+            if (pages[pageName]) {
+                document.getElementById('page-title').textContent = pages[pageName];
+            }
 
             window.scrollTo(0, 0);
         }
