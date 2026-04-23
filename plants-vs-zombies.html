@@ -153,41 +153,647 @@
             cursor: default;
         }
 
+        /* 植物基础样式 */
         .plant {
             position: absolute;
             width: 60px;
             height: 60px;
-            background: radial-gradient(circle at 30% 30%, #66bb6a, #43a047);
-            border-radius: 50%;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 10;
+            transition: transform 0.1s ease;
         }
 
-        .plant::before {
-            content: '🌱';
-            font-size: 2rem;
+        /* 豌豆射手样式 */
+        .peashooter {
+            animation: plantBreathing 2s ease-in-out infinite;
         }
 
+        .peashooter-body {
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle at 30% 30%, #81c784, #4caf50, #388e3c);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3), inset 0 -5px 10px rgba(0,0,0,0.2);
+        }
+
+        .peashooter-mouth {
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 15px;
+            background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+            border-radius: 0 10px 10px 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .peashooter-mouth.shooting {
+            animation: mouthShoot 0.2s ease;
+        }
+
+        .peashooter-leaf {
+            position: absolute;
+            width: 20px;
+            height: 12px;
+            background: linear-gradient(to right, #66bb6a, #4caf50);
+            border-radius: 0 10px 10px 0;
+            transform-origin: left center;
+        }
+
+        .peashooter-leaf.left {
+            left: -15px;
+            top: 10px;
+            transform: rotate(-20deg);
+            animation: leafWaveLeft 3s ease-in-out infinite;
+        }
+
+        .peashooter-leaf.right {
+            left: -15px;
+            bottom: 10px;
+            transform: rotate(20deg);
+            animation: leafWaveRight 3s ease-in-out infinite;
+        }
+
+        .peashooter-eye {
+            position: absolute;
+            width: 8px;
+            height: 10px;
+            background: radial-gradient(circle at 30% 30%, #fff, #e0e0e0);
+            border-radius: 50%;
+            top: 12px;
+            box-shadow: inset 0 -2px 3px rgba(0,0,0,0.2);
+        }
+
+        .peashooter-eye.left {
+            left: 12px;
+        }
+
+        .peashooter-eye.right {
+            right: 12px;
+        }
+
+        .peashooter-pupil {
+            position: absolute;
+            width: 4px;
+            height: 5px;
+            background: #212121;
+            border-radius: 50%;
+            top: 3px;
+            right: 1px;
+        }
+
+        /* 向日葵样式 */
+        .sunflower {
+            animation: plantBreathing 2s ease-in-out infinite;
+        }
+
+        .sunflower-stem {
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 20px;
+            background: linear-gradient(to bottom, #66bb6a, #4caf50);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .sunflower-center {
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(circle at 30% 30%, #ffeb3b, #ffc107, #ff9800);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 3px 10px rgba(255,152,0,0.5);
+            z-index: 2;
+        }
+
+        .sunflower-center.producing {
+            animation: sunflowerGlow 0.5s ease;
+        }
+
+        .sunflower-petal {
+            position: absolute;
+            width: 12px;
+            height: 20px;
+            background: linear-gradient(to bottom, #fff59d, #ffee58, #ffeb3b);
+            border-radius: 50% 50% 50% 50%;
+            transform-origin: center bottom;
+            box-shadow: 0 2px 5px rgba(255,235,59,0.5);
+        }
+
+        .sunflower-petal:nth-child(1) { top: -18px; left: 50%; transform: translateX(-50%); animation: petalWave1 2s ease-in-out infinite; }
+        .sunflower-petal:nth-child(2) { top: -12px; right: -5px; transform: rotate(45deg); animation: petalWave2 2s ease-in-out infinite; }
+        .sunflower-petal:nth-child(3) { top: 5px; right: -15px; transform: rotate(90deg); animation: petalWave3 2s ease-in-out infinite; }
+        .sunflower-petal:nth-child(4) { bottom: 5px; right: -15px; transform: rotate(135deg); animation: petalWave4 2s ease-in-out infinite; }
+        .sunflower-petal:nth-child(5) { bottom: -18px; left: 50%; transform: translateX(-50%) rotate(180deg); animation: petalWave5 2s ease-in-out infinite; }
+        .sunflower-petal:nth-child(6) { bottom: 5px; left: -15px; transform: rotate(225deg); animation: petalWave6 2s ease-in-out infinite; }
+        .sunflower-petal:nth-child(7) { top: 5px; left: -15px; transform: rotate(270deg); animation: petalWave7 2s ease-in-out infinite; }
+        .sunflower-petal:nth-child(8) { top: -12px; left: -5px; transform: rotate(315deg); animation: petalWave8 2s ease-in-out infinite; }
+
+        .sunflower-face {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 15px;
+        }
+
+        .sunflower-eye {
+            position: absolute;
+            width: 4px;
+            height: 5px;
+            background: #333;
+            border-radius: 50%;
+            top: 2px;
+        }
+
+        .sunflower-eye.left { left: 3px; }
+        .sunflower-eye.right { right: 3px; }
+
+        .sunflower-smile {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 5px;
+            border: 2px solid #333;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* 坚果墙样式 */
+        .wallnut {
+            animation: plantBreathing 3s ease-in-out infinite;
+        }
+
+        .wallnut-body {
+            width: 55px;
+            height: 55px;
+            background: radial-gradient(ellipse at 30% 30%, #a1887f, #8d6e63, #795548);
+            border-radius: 40% 40% 45% 45%;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3), inset 0 -5px 15px rgba(0,0,0,0.3), inset 0 5px 10px rgba(255,255,255,0.2);
+        }
+
+        .wallnut-body.damaged {
+            animation: wallnutShake 0.1s ease-in-out;
+        }
+
+        .wallnut-cracks {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .wallnut-crack {
+            position: absolute;
+            background: rgba(0,0,0,0.6);
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .wallnut-crack.visible {
+            opacity: 1;
+        }
+
+        .wallnut-crack-1 {
+            width: 2px;
+            height: 20px;
+            top: 5px;
+            left: 15px;
+            transform: rotate(-15deg);
+        }
+
+        .wallnut-crack-2 {
+            width: 15px;
+            height: 2px;
+            top: 20px;
+            left: 10px;
+        }
+
+        .wallnut-crack-3 {
+            width: 2px;
+            height: 15px;
+            top: 15px;
+            right: 20px;
+            transform: rotate(20deg);
+        }
+
+        .wallnut-crack-4 {
+            width: 12px;
+            height: 2px;
+            bottom: 25px;
+            right: 15px;
+            transform: rotate(-10deg);
+        }
+
+        .wallnut-crack-5 {
+            width: 2px;
+            height: 18px;
+            bottom: 5px;
+            left: 20px;
+            transform: rotate(10deg);
+        }
+
+        .wallnut-eye {
+            position: absolute;
+            width: 8px;
+            height: 10px;
+            background: radial-gradient(circle at 30% 30%, #fff, #e0e0e0);
+            border-radius: 50%;
+            top: 18px;
+            box-shadow: inset 0 -2px 3px rgba(0,0,0,0.3);
+        }
+
+        .wallnut-eye.left { left: 12px; }
+        .wallnut-eye.right { right: 12px; }
+
+        .wallnut-pupil {
+            position: absolute;
+            width: 4px;
+            height: 5px;
+            background: #212121;
+            border-radius: 50%;
+            top: 3px;
+            left: 2px;
+        }
+
+        .wallnut-eyebrow {
+            position: absolute;
+            width: 12px;
+            height: 3px;
+            background: #5d4037;
+            border-radius: 2px;
+            top: 12px;
+        }
+
+        .wallnut-eyebrow.left { left: 10px; transform: rotate(-10deg); }
+        .wallnut-eyebrow.right { right: 10px; transform: rotate(10deg); }
+
+        .wallnut-mouth {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 8px;
+            background: #4e342e;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+        }
+
+        .wallnut-tooth {
+            position: absolute;
+            width: 4px;
+            height: 5px;
+            background: #fff;
+            top: 0;
+        }
+
+        .wallnut-tooth:nth-child(1) { left: 2px; }
+        .wallnut-tooth:nth-child(2) { left: 6px; }
+        .wallnut-tooth:nth-child(3) { left: 10px; }
+
+        /* 僵尸样式 */
         .zombie {
             position: absolute;
             width: 50px;
-            height: 60px;
-            background: #795548;
-            border-radius: 10px 10px 5px 5px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 70px;
             z-index: 20;
             transition: left 0.1s linear;
         }
 
-        .zombie::before {
-            content: '🧟';
-            font-size: 1.8rem;
+        .zombie.walking {
+            animation: zombieWalk 0.5s ease-in-out infinite;
+        }
+
+        .zombie.attacking {
+            animation: zombieAttack 0.3s ease-in-out infinite;
+        }
+
+        .zombie-head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 28px;
+            background: linear-gradient(135deg, #81c784, #66bb6a, #4caf50);
+            border-radius: 40% 40% 45% 45%;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3), inset 0 -3px 8px rgba(0,0,0,0.2);
+        }
+
+        .zombie-eye {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle at 30% 30%, #fff, #bdbdbd);
+            border-radius: 50%;
+            top: 10px;
+        }
+
+        .zombie-eye.left { left: 5px; }
+        .zombie-eye.right { right: 5px; }
+
+        .zombie-pupil {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #d32f2f;
+            border-radius: 50%;
+            top: 2px;
+            left: 1px;
+        }
+
+        .zombie-mouth {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 6px;
+            background: #3e2723;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+
+        .zombie-teeth {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .zombie-tooth {
+            width: 2px;
+            height: 3px;
+            background: #fff;
+        }
+
+        .zombie-hair {
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 8px;
+            background: #33691e;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .zombie-body {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 25px;
+            background: linear-gradient(135deg, #5d4037, #4e342e, #3e2723);
+            border-radius: 5px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+        }
+
+        .zombie-arm {
+            position: absolute;
+            width: 8px;
+            height: 20px;
+            background: linear-gradient(to bottom, #81c784, #66bb6a);
+            border-radius: 4px;
+            top: 28px;
+            transform-origin: top center;
+        }
+
+        .zombie-arm.left {
+            left: 2px;
+            animation: armSwingLeft 0.5s ease-in-out infinite;
+        }
+
+        .zombie-arm.right {
+            right: 2px;
+            animation: armSwingRight 0.5s ease-in-out infinite;
+        }
+
+        .zombie.attacking .zombie-arm.left {
+            animation: armAttackLeft 0.3s ease-in-out infinite;
+        }
+
+        .zombie.attacking .zombie-arm.right {
+            animation: armAttackRight 0.3s ease-in-out infinite;
+        }
+
+        .zombie-leg {
+            position: absolute;
+            width: 10px;
+            height: 18px;
+            background: linear-gradient(to bottom, #5d4037, #4e342e);
+            border-radius: 0 0 5px 5px;
+            bottom: 0;
+            transform-origin: top center;
+        }
+
+        .zombie-leg.left {
+            left: 12px;
+            animation: legSwingLeft 0.5s ease-in-out infinite;
+        }
+
+        .zombie-leg.right {
+            right: 12px;
+            animation: legSwingRight 0.5s ease-in-out infinite;
+        }
+
+        .zombie.attacking .zombie-leg.left,
+        .zombie.attacking .zombie-leg.right {
+            animation: none;
+        }
+
+        /* 子弹样式增强 */
+        .bullet {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle at 30% 30%, #a5d6a7, #81c784, #66bb6a);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #81c784, 0 0 20px rgba(129, 199, 132, 0.5);
+            z-index: 15;
+            animation: bulletSpin 0.3s linear infinite;
+        }
+
+        /* 阳光样式增强 */
+        .sun-drop {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background: radial-gradient(circle at 30% 30%, #fff9c4, #fff176, #ffee58, #ffeb3b);
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ffeb3b, 0 0 30px rgba(255, 235, 59, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            z-index: 30;
+            animation: sunPulse 1.5s ease-in-out infinite, float 2s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .sun-drop:hover {
+            transform: scale(1.3);
+            box-shadow: 0 0 20px #ffeb3b, 0 0 40px rgba(255, 235, 59, 0.8);
+        }
+
+        .sun-drop::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #fff, #fff9c4);
+            border-radius: 50%;
+        }
+
+        /* 所有动画定义 */
+        @keyframes plantBreathing {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        @keyframes leafWaveLeft {
+            0%, 100% { transform: rotate(-20deg); }
+            50% { transform: rotate(-30deg); }
+        }
+
+        @keyframes leafWaveRight {
+            0%, 100% { transform: rotate(20deg); }
+            50% { transform: rotate(30deg); }
+        }
+
+        @keyframes mouthShoot {
+            0% { width: 20px; }
+            50% { width: 25px; background: #81c784; }
+            100% { width: 20px; }
+        }
+
+        @keyframes petalWave1 {
+            0%, 100% { transform: translateX(-50%) scaleY(1); }
+            50% { transform: translateX(-50%) scaleY(1.1); }
+        }
+
+        @keyframes petalWave2 {
+            0%, 100% { transform: rotate(45deg) scaleY(1); }
+            50% { transform: rotate(45deg) scaleY(1.1); }
+        }
+
+        @keyframes petalWave3 {
+            0%, 100% { transform: rotate(90deg) scaleY(1); }
+            50% { transform: rotate(90deg) scaleY(1.1); }
+        }
+
+        @keyframes petalWave4 {
+            0%, 100% { transform: rotate(135deg) scaleY(1); }
+            50% { transform: rotate(135deg) scaleY(1.1); }
+        }
+
+        @keyframes petalWave5 {
+            0%, 100% { transform: translateX(-50%) rotate(180deg) scaleY(1); }
+            50% { transform: translateX(-50%) rotate(180deg) scaleY(1.1); }
+        }
+
+        @keyframes petalWave6 {
+            0%, 100% { transform: rotate(225deg) scaleY(1); }
+            50% { transform: rotate(225deg) scaleY(1.1); }
+        }
+
+        @keyframes petalWave7 {
+            0%, 100% { transform: rotate(270deg) scaleY(1); }
+            50% { transform: rotate(270deg) scaleY(1.1); }
+        }
+
+        @keyframes petalWave8 {
+            0%, 100% { transform: rotate(315deg) scaleY(1); }
+            50% { transform: rotate(315deg) scaleY(1.1); }
+        }
+
+        @keyframes sunflowerGlow {
+            0% { box-shadow: 0 3px 10px rgba(255,152,0,0.5); }
+            50% { box-shadow: 0 3px 30px rgba(255,152,0,1), 0 0 50px rgba(255,235,59,0.8); }
+            100% { box-shadow: 0 3px 10px rgba(255,152,0,0.5); }
+        }
+
+        @keyframes wallnutShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+
+        @keyframes zombieWalk {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @keyframes zombieAttack {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        @keyframes armSwingLeft {
+            0%, 100% { transform: rotate(-20deg); }
+            50% { transform: rotate(20deg); }
+        }
+
+        @keyframes armSwingRight {
+            0%, 100% { transform: rotate(20deg); }
+            50% { transform: rotate(-20deg); }
+        }
+
+        @keyframes armAttackLeft {
+            0%, 100% { transform: rotate(-20deg); }
+            50% { transform: rotate(-60deg); }
+        }
+
+        @keyframes armAttackRight {
+            0%, 100% { transform: rotate(20deg); }
+            50% { transform: rotate(60deg); }
+        }
+
+        @keyframes legSwingLeft {
+            0%, 100% { transform: rotate(-15deg); }
+            50% { transform: rotate(15deg); }
+        }
+
+        @keyframes legSwingRight {
+            0%, 100% { transform: rotate(15deg); }
+            50% { transform: rotate(-15deg); }
+        }
+
+        @keyframes bulletSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes sunPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes damageFlash {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.5) hue-rotate(30deg); }
         }
 
         .bullet {
@@ -350,10 +956,10 @@
                 <span>向日葵</span>
                 <span class="plant-cost">50☀</span>
             </div>
-            <div class="plant-card" data-plant="wallnut" data-cost="50">
+            <div class="plant-card" data-plant="wallnut" data-cost="75">
                 <span>🌰</span>
                 <span>坚果墙</span>
-                <span class="plant-cost">50☀</span>
+                <span class="plant-cost">75☀</span>
             </div>
         </div>
 
@@ -377,27 +983,42 @@
             <p>击杀数量: <span id="final-kills">0</span></p>
             <button class="restart-btn" id="restart-btn">重新开始</button>
         </div>
+
+        <div class="game-over" id="game-win" style="display: none; background: rgba(76, 175, 80, 0.95);">
+            <h2>🎉 恭喜通关！🎉</h2>
+            <p>你成功抵御了10波僵尸的入侵！</p>
+            <p>击杀数量: <span id="win-kills">0</span></p>
+            <p>你是真正的花园守护者！</p>
+            <button class="restart-btn" id="restart-btn-win" style="color: #4caf50;">再玩一次</button>
+        </div>
     </div>
 
     <script>
-        // 游戏配置
+        // 游戏配置 - 平衡调整
         const CONFIG = {
             rows: 5,
             cols: 9,
             cellWidth: 80,
             cellHeight: 80,
-            initialSun: 50,
-            sunDropInterval: 8000,
+            initialSun: 150,
+            sunDropInterval: 6000,
             sunValue: 25,
-            zombieSpawnInterval: 10000,
-            zombieSpeed: 0.5,
-            plantShootInterval: 1500,
-            bulletSpeed: 5,
-            bulletDamage: 20,
-            sunflowerSunInterval: 5000,
+            zombieSpawnInterval: 12000,
+            zombieSpeed: 0.3,
+            zombieSpeedMax: 0.8,
+            zombieSpeedIncrement: 0.03,
+            zombieHealthBase: 70,
+            zombieHealthIncrement: 12,
+            zombieHealthMax: 200,
+            plantShootInterval: 1400,
+            bulletSpeed: 6,
+            bulletDamage: 25,
+            sunflowerSunInterval: 4500,
+            waveInterval: 60000,
+            winningWave: 10,
         };
 
-        // 植物类型配置
+        // 植物类型配置 - 平衡调整
         const PLANTS = {
             peashooter: {
                 cost: 100,
@@ -416,7 +1037,7 @@
                 isWallnut: false
             },
             wallnut: {
-                cost: 50,
+                cost: 75,
                 health: 400,
                 emoji: '🌰',
                 canShoot: false,
@@ -506,6 +1127,73 @@
             });
         });
 
+        // 创建豌豆射手HTML结构
+        function createPeashooterHTML() {
+            return `
+                <div class="peashooter-body">
+                    <div class="peashooter-mouth"></div>
+                    <div class="peashooter-leaf left"></div>
+                    <div class="peashooter-leaf right"></div>
+                    <div class="peashooter-eye left">
+                        <div class="peashooter-pupil"></div>
+                    </div>
+                    <div class="peashooter-eye right">
+                        <div class="peashooter-pupil"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 创建向日葵HTML结构
+        function createSunflowerHTML() {
+            return `
+                <div class="sunflower-stem"></div>
+                <div class="sunflower-center producing">
+                    <div class="sunflower-petal"></div>
+                    <div class="sunflower-petal"></div>
+                    <div class="sunflower-petal"></div>
+                    <div class="sunflower-petal"></div>
+                    <div class="sunflower-petal"></div>
+                    <div class="sunflower-petal"></div>
+                    <div class="sunflower-petal"></div>
+                    <div class="sunflower-petal"></div>
+                    <div class="sunflower-face">
+                        <div class="sunflower-eye left"></div>
+                        <div class="sunflower-eye right"></div>
+                        <div class="sunflower-smile"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 创建坚果墙HTML结构
+        function createWallnutHTML() {
+            return `
+                <div class="wallnut-body">
+                    <div class="wallnut-cracks">
+                        <div class="wallnut-crack wallnut-crack-1"></div>
+                        <div class="wallnut-crack wallnut-crack-2"></div>
+                        <div class="wallnut-crack wallnut-crack-3"></div>
+                        <div class="wallnut-crack wallnut-crack-4"></div>
+                        <div class="wallnut-crack wallnut-crack-5"></div>
+                    </div>
+                    <div class="wallnut-eyebrow left"></div>
+                    <div class="wallnut-eyebrow right"></div>
+                    <div class="wallnut-eye left">
+                        <div class="wallnut-pupil"></div>
+                    </div>
+                    <div class="wallnut-eye right">
+                        <div class="wallnut-pupil"></div>
+                    </div>
+                    <div class="wallnut-mouth">
+                        <div class="wallnut-tooth"></div>
+                        <div class="wallnut-tooth"></div>
+                        <div class="wallnut-tooth"></div>
+                    </div>
+                </div>
+            `;
+        }
+
         // 处理格子点击
         function handleCellClick(row, col, cell) {
             if (!gameState.isRunning || gameState.isPaused) return;
@@ -534,14 +1222,24 @@
             };
             
             const plantElement = document.createElement('div');
-            plantElement.className = 'plant';
+            plantElement.className = `plant ${plantType}`;
             plantElement.style.left = plant.x + 'px';
             plantElement.style.top = plant.y + 'px';
-            plantElement.innerHTML = plantConfig.emoji;
-            plantElement.style.fontSize = '2rem';
-            plantElement.style.background = 'transparent';
-            plantElement.style.boxShadow = 'none';
             plantElement.dataset.plantId = plant.id;
+            
+            let plantHTML = '';
+            switch (plantType) {
+                case 'peashooter':
+                    plantHTML = createPeashooterHTML();
+                    break;
+                case 'sunflower':
+                    plantHTML = createSunflowerHTML();
+                    break;
+                case 'wallnut':
+                    plantHTML = createWallnutHTML();
+                    break;
+            }
+            plantElement.innerHTML = plantHTML;
             
             plant.element = plantElement;
             gameBoard.appendChild(plantElement);
@@ -622,6 +1320,19 @@
             }
         }
 
+        // 触发向日葵产阳光动画
+        function triggerSunflowerGlow(plant) {
+            if (plant.type !== 'sunflower') return;
+            
+            const center = plant.element.querySelector('.sunflower-center');
+            if (center) {
+                center.classList.add('producing');
+                setTimeout(() => {
+                    center.classList.remove('producing');
+                }, 500);
+            }
+        }
+
         // 向日葵产生阳光
         function sunflowerProduceSun(plant) {
             if (!gameState.isRunning || gameState.isPaused) return;
@@ -631,6 +1342,8 @@
             if (now - plant.lastSunTime < CONFIG.sunflowerSunInterval) return;
             
             plant.lastSunTime = now;
+            
+            triggerSunflowerGlow(plant);
             
             const sunDrop = {
                 id: Date.now() + Math.random(),
@@ -662,34 +1375,89 @@
             }, 5000);
         }
 
+        // 创建僵尸HTML结构
+        function createZombieHTML() {
+            return `
+                <div class="zombie-hair"></div>
+                <div class="zombie-head">
+                    <div class="zombie-eye left">
+                        <div class="zombie-pupil"></div>
+                    </div>
+                    <div class="zombie-eye right">
+                        <div class="zombie-pupil"></div>
+                    </div>
+                    <div class="zombie-mouth">
+                        <div class="zombie-teeth">
+                            <div class="zombie-tooth"></div>
+                            <div class="zombie-tooth"></div>
+                            <div class="zombie-tooth"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="zombie-body"></div>
+                <div class="zombie-arm left"></div>
+                <div class="zombie-arm right"></div>
+                <div class="zombie-leg left"></div>
+                <div class="zombie-leg right"></div>
+            `;
+        }
+
+        // 计算僵尸属性（带上限）
+        function calculateZombieStats(wave) {
+            const health = Math.min(
+                CONFIG.zombieHealthBase + (wave - 1) * CONFIG.zombieHealthIncrement,
+                CONFIG.zombieHealthMax
+            );
+            const speed = Math.min(
+                CONFIG.zombieSpeed + (wave - 1) * CONFIG.zombieSpeedIncrement,
+                CONFIG.zombieSpeedMax
+            );
+            return { health, speed };
+        }
+
         // 生成僵尸
         function spawnZombie() {
             if (!gameState.isRunning || gameState.isPaused) return;
             
             const row = Math.floor(Math.random() * CONFIG.rows);
             const x = CONFIG.cols * CONFIG.cellWidth + 5;
+            const stats = calculateZombieStats(gameState.wave);
             
             const zombie = {
                 id: Date.now() + Math.random(),
                 row,
                 x,
-                y: row * CONFIG.cellHeight + 5 + 10,
-                health: 100 + gameState.wave * 20,
-                maxHealth: 100 + gameState.wave * 20,
-                speed: CONFIG.zombieSpeed + gameState.wave * 0.05,
+                y: row * CONFIG.cellHeight + 5 + 5,
+                health: stats.health,
+                maxHealth: stats.health,
+                speed: stats.speed,
                 element: null,
                 attacking: false
             };
             
             const zombieElement = document.createElement('div');
-            zombieElement.className = 'zombie';
+            zombieElement.className = 'zombie walking';
             zombieElement.style.left = x + 'px';
             zombieElement.style.top = zombie.y + 'px';
             zombieElement.dataset.zombieId = zombie.id;
+            zombieElement.innerHTML = createZombieHTML();
             
             zombie.element = zombieElement;
             gameBoard.appendChild(zombieElement);
             gameState.zombies.push(zombie);
+        }
+
+        // 触发豌豆射手射击动画
+        function triggerShootAnimation(plant) {
+            if (plant.type !== 'peashooter') return;
+            
+            const mouth = plant.element.querySelector('.peashooter-mouth');
+            if (mouth) {
+                mouth.classList.add('shooting');
+                setTimeout(() => {
+                    mouth.classList.remove('shooting');
+                }, 200);
+            }
         }
 
         // 植物射击
@@ -704,6 +1472,8 @@
             if (now - plant.lastShootTime < CONFIG.plantShootInterval) return;
             
             plant.lastShootTime = now;
+            
+            triggerShootAnimation(plant);
             
             const bullet = {
                 id: Date.now() + Math.random(),
@@ -726,6 +1496,54 @@
             gameState.bullets.push(bullet);
         }
 
+        // 更新坚果墙裂纹效果
+        function updateWallnutCracks(plant) {
+            if (plant.type !== 'wallnut') return;
+            
+            const healthPercent = plant.health / plant.maxHealth;
+            const cracks = plant.element.querySelectorAll('.wallnut-crack');
+            
+            cracks.forEach(crack => {
+                crack.classList.remove('visible');
+            });
+            
+            if (healthPercent <= 0.75) {
+                cracks[0]?.classList.add('visible');
+                cracks[2]?.classList.add('visible');
+            }
+            if (healthPercent <= 0.5) {
+                cracks[1]?.classList.add('visible');
+                cracks[3]?.classList.add('visible');
+            }
+            if (healthPercent <= 0.25) {
+                cracks[4]?.classList.add('visible');
+            }
+        }
+
+        // 触发坚果墙受伤动画
+        function triggerWallnutDamage(plant) {
+            if (plant.type !== 'wallnut') return;
+            
+            const body = plant.element.querySelector('.wallnut-body');
+            if (body) {
+                body.classList.add('damaged');
+                setTimeout(() => {
+                    body.classList.remove('damaged');
+                }, 100);
+            }
+        }
+
+        // 更新僵尸动画状态
+        function updateZombieAnimation(zombie, isAttacking) {
+            if (isAttacking) {
+                zombie.element.classList.remove('walking');
+                zombie.element.classList.add('attacking');
+            } else {
+                zombie.element.classList.remove('attacking');
+                zombie.element.classList.add('walking');
+            }
+        }
+
         // 游戏主循环
         function gameLoop() {
             if (!gameState.isRunning || gameState.isPaused) {
@@ -736,6 +1554,7 @@
             for (const plant of gameState.plants) {
                 plantShoot(plant);
                 sunflowerProduceSun(plant);
+                updateWallnutCracks(plant);
             }
             
             for (let i = gameState.bullets.length - 1; i >= 0; i--) {
@@ -790,14 +1609,21 @@
                 if (blockedPlant) {
                     if (!zombie.attacking) {
                         zombie.attacking = true;
+                        updateZombieAnimation(zombie, true);
                     }
                     blockedPlant.health -= 1;
+                    triggerWallnutDamage(blockedPlant);
                     
                     if (blockedPlant.health <= 0) {
                         removePlant(blockedPlant);
                         zombie.attacking = false;
+                        updateZombieAnimation(zombie, false);
                     }
                 } else {
+                    if (zombie.attacking) {
+                        zombie.attacking = false;
+                        updateZombieAnimation(zombie, false);
+                    }
                     zombie.x -= zombie.speed;
                     zombie.element.style.left = zombie.x + 'px';
                 }
@@ -855,9 +1681,13 @@
             if (!gameState.isRunning || gameState.isPaused) return;
             gameState.wave++;
             updateUI();
+            
+            if (gameState.wave > CONFIG.winningWave) {
+                gameWin();
+            }
         }
 
-        // 游戏结束
+        // 游戏结束（失败）
         function gameOver() {
             gameState.isRunning = false;
             
@@ -873,6 +1703,30 @@
             finalWaveElement.textContent = gameState.wave;
             finalKillsElement.textContent = gameState.kills;
             gameOverElement.style.display = 'block';
+        }
+
+        // 游戏胜利
+        function gameWin() {
+            gameState.isRunning = false;
+            
+            for (const interval of gameState.intervals) {
+                clearInterval(interval);
+            }
+            gameState.intervals = [];
+            
+            if (gameState.animationFrameId) {
+                cancelAnimationFrame(gameState.animationFrameId);
+            }
+            
+            const winKillsElement = document.getElementById('win-kills');
+            if (winKillsElement) {
+                winKillsElement.textContent = gameState.kills;
+            }
+            
+            const winElement = document.getElementById('game-win');
+            if (winElement) {
+                winElement.style.display = 'block';
+            }
         }
 
         // 重置游戏
@@ -913,6 +1767,10 @@
             updateUI();
             
             gameOverElement.style.display = 'none';
+            const winElement = document.getElementById('game-win');
+            if (winElement) {
+                winElement.style.display = 'none';
+            }
             startBtn.style.display = 'block';
             pauseBtn.style.display = 'none';
         }
@@ -939,7 +1797,7 @@
             }, CONFIG.zombieSpawnInterval);
             gameState.intervals.push(zombieInterval);
             
-            const waveInterval = setInterval(increaseWave, 30000);
+            const waveInterval = setInterval(increaseWave, CONFIG.waveInterval);
             gameState.intervals.push(waveInterval);
             
             gameLoop();
@@ -953,6 +1811,12 @@
 
         // 重新开始
         restartBtn.addEventListener('click', resetGame);
+
+        // 胜利界面重新开始
+        const restartBtnWin = document.getElementById('restart-btn-win');
+        if (restartBtnWin) {
+            restartBtnWin.addEventListener('click', resetGame);
+        }
 
         // 初始化
         initializeBoard();
