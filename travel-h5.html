@@ -1431,6 +1431,13 @@
             navItems.forEach(item => {
                 item.addEventListener('click', () => {
                     const page = item.dataset.page;
+                    
+                    if (page === 'detail' && !selectedAttraction) {
+                        showToast('请先选择一个景点查看详情');
+                        switchPage('list');
+                        return;
+                    }
+                    
                     switchPage(page);
                 });
             });
@@ -1444,6 +1451,11 @@
                 'chat': '智能客服',
                 'settings': '用户设置'
             };
+
+            if (pageName === 'detail' && !selectedAttraction) {
+                showToast('请先选择一个景点查看详情');
+                pageName = 'list';
+            }
 
             currentPage = pageName;
 
