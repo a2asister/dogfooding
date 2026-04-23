@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC P2P 文件传输</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header class="header">
+            <h1>WebRTC P2P 文件传输</h1>
+            <p class="subtitle">纯前端点对点传输，数据不走服务器</p>
+        </header>
+
+        <!-- 连接状态显示 -->
+        <div class="connection-status" id="connectionStatus">
+            <span class="status-dot" id="statusDot"></span>
+            <span class="status-text" id="statusText">未连接</span>
+        </div>
+
+        <!-- 房间连接区域 -->
+        <div class="section" id="connectionSection">
+            <h2>连接设置</h2>
+            
+            <!-- 房间信息 -->
+            <div class="room-info" id="roomInfo">
+                <div class="input-group">
+                    <label for="roomId">房间 ID：</label>
+                    <div class="room-input-container">
+                        <input type="text" id="roomId" readonly placeholder="点击生成房间 ID">
+                        <button id="generateRoomBtn" class="btn btn-primary">生成房间</button>
+                        <button id="copyRoomBtn" class="btn btn-secondary" disabled>复制</button>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="joinRoomId">加入房间：</label>
+                    <div class="room-input-container">
+                        <input type="text" id="joinRoomId" placeholder="输入房间 ID 加入">
+                        <button id="joinRoomBtn" class="btn btn-primary">加入房间</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 信令交换区域（用于手动交换信令信息） -->
+            <div class="signaling-section" id="signalingSection" style="display: none;">
+                <h3>信令交换</h3>
+                <p class="hint-text">请通过聊天工具交换以下信令信息完成连接</p>
+                
+                <div class="signaling-group">
+                    <label>我的信令信息：</label>
+                    <div class="signaling-input-container">
+                        <textarea id="mySignaling" readonly placeholder="连接建立后会显示在此处"></textarea>
+                        <button id="copySignalingBtn" class="btn btn-secondary" disabled>复制</button>
+                    </div>
+                </div>
+                
+                <div class="signaling-group">
+                    <label>对方信令信息：</label>
+                    <div class="signaling-input-container">
+                        <textarea id="remoteSignaling" placeholder="粘贴对方的信令信息"></textarea>
+                        <button id="submitSignalingBtn" class="btn btn-primary">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文件传输区域 -->
+        <div class="section" id="transferSection" style="display: none;">
+            <h2>文件传输</h2>
+            
+            <!-- 文件选择区域 -->
+            <div class="file-select-section">
+                <div class="file-drop-area" id="fileDropArea">
+                    <input type="file" id="fileInput" multiple>
+                    <p>拖拽文件到此处或点击选择</p>
+                    <button id="selectFilesBtn" class="btn btn-primary">选择文件</button>
+                </div>
+                
+                <!-- 已选择文件列表 -->
+                <div class="selected-files" id="selectedFiles" style="display: none;">
+                    <h3>已选择文件 (<span id="selectedFilesCount">0</span>)</h3>
+                    <div class="file-list" id="selectedFilesList"></div>
+                    <button id="sendFilesBtn" class="btn btn-primary">发送文件</button>
+                    <button id="clearFilesBtn" class="btn btn-secondary">清空选择</button>
+                </div>
+            </div>
+            
+            <!-- 传输进度区域 -->
+            <div class="transfer-progress-section" id="transferProgressSection" style="display: none;">
+                <h3>传输进度</h3>
+                <div class="transfer-item" id="currentTransferItem">
+                    <div class="transfer-header">
+                        <span class="transfer-filename" id="transferFilename">文件名</span>
+                        <span class="transfer-status" id="transferStatus">准备中</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <span class="progress-text" id="progressText">0%</span>
+                    </div>
+                    <div class="transfer-details">
+                        <div class="detail-item">
+                            <span class="detail-label">已传输：</span>
+                            <span class="detail-value" id="transferredSize">0 KB</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">总大小：</span>
+                            <span class="detail-value" id="totalSize">0 KB</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">传输速度：</span>
+                            <span class="detail-value" id="transferSpeed">0 KB/s</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">剩余时间：</span>
+                            <span class="detail-value" id="remainingTime">计算中</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 传输历史区域 -->
+            <div class="transfer-history-section" id="transferHistorySection" style="display: none;">
+                <h3>传输历史</h3>
+                <div class="transfer-list" id="transferHistoryList"></div>
+            </div>
+        </div>
+
+        <!-- 错误提示区域 -->
+        <div class="error-section" id="errorSection" style="display: none;">
+            <div class="error-message" id="errorMessage"></div>
+            <button id="retryBtn" class="btn btn-primary" style="display: none;">重试</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
