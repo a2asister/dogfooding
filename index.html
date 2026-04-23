@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风力发电展示系统</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app">
+        <div id="canvas-container"></div>
+        
+        <div id="top-bar">
+            <h1>风力发电展示系统</h1>
+            <div id="top-controls">
+                <button id="help-btn" class="icon-btn">❓ 帮助</button>
+                <button id="fullscreen-btn" class="icon-btn">⛶ 全屏</button>
+            </div>
+        </div>
+        
+        <div id="control-panel">
+            <div class="panel-section">
+                <h3>⚡ 播放控制</h3>
+                <div class="control-group">
+                    <button id="play-btn" class="control-btn active">▶ 播放</button>
+                    <button id="pause-btn" class="control-btn">⏸ 暂停</button>
+                    <button id="reset-btn" class="control-btn">↺ 重置</button>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <h3>🌬️ 风速调节 (1-12级)</h3>
+                <div class="control-group">
+                    <input type="range" id="wind-speed" min="1" max="12" value="5">
+                    <span id="wind-speed-value">5级</span>
+                </div>
+                <div class="wind-levels">
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                    <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                    <span>11</span><span>12</span>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <h3>🔧 风机类型</h3>
+                <div class="control-group">
+                    <button id="horizontal-type" class="type-btn active">水平轴风机</button>
+                    <button id="vertical-type" class="type-btn">垂直轴风机</button>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <h3>🌍 场景选择</h3>
+                <div class="control-group">
+                    <button id="land-scene" class="scene-btn active">陆地风场</button>
+                    <button id="sea-scene" class="scene-btn">海上风场</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="data-panel">
+            <div class="panel-section">
+                <h3>📊 实时数据</h3>
+                <div class="data-grid">
+                    <div class="data-item">
+                        <label>当前风速</label>
+                        <span id="current-wind-speed">10.8 m/s</span>
+                    </div>
+                    <div class="data-item">
+                        <label>风机转速</label>
+                        <span id="turbine-speed">15.2 rpm</span>
+                    </div>
+                    <div class="data-item">
+                        <label>输出功率</label>
+                        <span id="power-output">2.5 MW</span>
+                    </div>
+                    <div class="data-item">
+                        <label>累计发电量</label>
+                        <span id="total-energy">0.00 kWh</span>
+                    </div>
+                    <div class="data-item">
+                        <label>齿轮箱转速</label>
+                        <span id="gearbox-speed">1520 rpm</span>
+                    </div>
+                    <div class="data-item">
+                        <label>发电机状态</label>
+                        <span id="generator-status" class="status-running">运行中</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel-section">
+                <h3>ℹ️ 部件说明</h3>
+                <div class="info-text">
+                    点击风机部件查看详细信息
+                </div>
+            </div>
+        </div>
+        
+        <div id="tooltip" class="hidden"></div>
+        
+        <div id="part-detail-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="part-title">部件详情</h2>
+                <div id="part-description"></div>
+            </div>
+        </div>
+        
+        <div id="help-modal" class="modal hidden">
+            <div class="modal-content large">
+                <span class="close-btn">&times;</span>
+                <h2>📚 风力发电科普知识</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="principle">工作原理</button>
+                    <button class="tab-btn" data-tab="turbine">风机结构</button>
+                    <button class="tab-btn" data-tab="energy">清洁能源</button>
+                    <button class="tab-btn" data-tab="operation">操作指南</button>
+                </div>
+                <div class="tab-content active" id="tab-principle">
+                    <h3>风力发电的基本原理</h3>
+                    <p>风力发电是利用风能转化为电能的一种发电方式。其基本原理是利用风力带动风车叶片旋转，再通过增速机将旋转的速度提升，来促使发电机发电。</p>
+                    <h4>能量转换过程：</h4>
+                    <ol>
+                        <li><strong>风能 → 机械能</strong>：风吹过叶片产生升力，带动叶片旋转</li>
+                        <li><strong>低速机械能 → 高速机械能</strong>：通过齿轮箱增速，将叶片的低转速转换为发电机所需的高转速</li>
+                        <li><strong>机械能 → 电能</strong>：高速旋转的转子在定子中产生感应电流</li>
+                        <li><strong>电能 → 电网</strong>：通过变流器将发电机输出的电能转换为符合电网标准的电能</li>
+                    </ol>
+                </div>
+                <div class="tab-content" id="tab-turbine">
+                    <h3>风力发电机组结构</h3>
+                    <h4>水平轴风机主要部件：</h4>
+                    <ul>
+                        <li><strong>叶片</strong>：捕捉风能，将风能转化为旋转机械能。通常由3片组成，采用空气动力学设计。</li>
+                        <li><strong>轮毂</strong>：连接叶片和主轴的部件，承受巨大的载荷。</li>
+                        <li><strong>机舱</strong>：容纳传动系统和发电机的外壳，位于塔架顶部。</li>
+                        <li><strong>主轴</strong>：将叶片的旋转传递给齿轮箱。</li>
+                        <li><strong>齿轮箱</strong>：增速装置，将叶片的低转速（约10-20转/分钟）提升到发电机所需的高转速（约1000-1500转/分钟）。</li>
+                        <li><strong>发电机</strong>：将机械能转化为电能。常用的有异步发电机和永磁同步发电机。</li>
+                        <li><strong>偏航系统</strong>：使风机始终对准风向，最大化风能捕获。</li>
+                        <li><strong>变桨系统</strong>：调节叶片角度，控制转速和功率输出。</li>
+                        <li><strong>塔架</strong>：支撑机舱和叶片的结构，通常由钢材制成。</li>
+                        <li><strong>基础</strong>：固定塔架，承受风机的全部载荷。</li>
+                    </ul>
+                    <h4>垂直轴风机特点：</h4>
+                    <p>垂直轴风机的旋转轴垂直于地面，主要优点是不需要对准风向，适用于风向多变的地区。常见类型有达里厄型（Darrieus）和萨沃纽斯型（Savonius）。</p>
+                </div>
+                <div class="tab-content" id="tab-energy">
+                    <h3>清洁能源的优势</h3>
+                    <h4>风能的优势：</h4>
+                    <ul>
+                        <li><strong>可再生</strong>：风能是太阳能的一种转化形式，只要太阳存在，风能就不会枯竭。</li>
+                        <li><strong>零排放</strong>：风力发电过程中不产生任何污染物和温室气体。</li>
+                        <li><strong>成本持续下降</strong>：随着技术进步，风力发电成本已接近甚至低于传统化石能源。</li>
+                        <li><strong>占地少</strong>：风机塔架占地面积小，下方土地仍可用于农业或其他用途。</li>
+                        <li><strong>分布式能源</strong>：可在用电负荷附近建设，减少输电损耗。</li>
+                    </ul>
+                    <h4>中国风电发展现状：</h4>
+                    <p>中国是全球最大的风电市场，累计装机容量连续多年位居世界第一。风电已成为中国能源结构转型的重要组成部分，为实现"双碳"目标发挥着重要作用。</p>
+                </div>
+                <div class="tab-content" id="tab-operation">
+                    <h3>操作指南</h3>
+                    <h4>基本操作：</h4>
+                    <ul>
+                        <li><strong>播放/暂停</strong>：控制模拟的运行和暂停状态</li>
+                        <li><strong>重置</strong>：将所有参数恢复到初始状态</li>
+                        <li><strong>风速调节</strong>：拖动滑块调节风速（1-12级），观察风机转速和功率变化</li>
+                        <li><strong>风机类型</strong>：在水平轴和垂直轴风机之间切换</li>
+                        <li><strong>场景选择</strong>：在陆地风场和海上风场场景之间切换</li>
+                    </ul>
+                    <h4>交互功能：</h4>
+                    <ul>
+                        <li><strong>鼠标拖拽</strong>：旋转视角，从不同角度观察风机</li>
+                        <li><strong>鼠标滚轮</strong>：缩放视图</li>
+                        <li><strong>点击部件</strong>：查看风机各部件的详细说明</li>
+                    </ul>
+                    <h4>全屏模式：</h4>
+                    <p>点击右上角的全屏按钮可进入全屏演示模式，适合展厅和教学场景使用。按ESC键可退出全屏。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/scene/BaseScene.js"></script>
+    <script src="js/scene/LandScene.js"></script>
+    <script src="js/scene/SeaScene.js"></script>
+    <script src="js/turbine/BaseTurbine.js"></script>
+    <script src="js/turbine/HorizontalTurbine.js"></script>
+    <script src="js/turbine/VerticalTurbine.js"></script>
+    <script src="js/animation/WindParticles.js"></script>
+    <script src="js/animation/EnergyFlow.js"></script>
+    <script src="js/ui/Controls.js"></script>
+    <script src="js/ui/DataDisplay.js"></script>
+    <script src="js/ui/PartDetails.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
