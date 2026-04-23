@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>火山喷发演示程序 - 优化版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ff6b35;
+            text-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .canvas-container {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .control-panel {
+            background: rgba(26, 26, 46, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            width: 100%;
+            max-width: 800px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .control-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .control-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .control-item label {
+            display: flex;
+            justify-content: space-between;
+            color: #ff9f69;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .control-item label span {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, #ff6b35, #ffcc00);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 107, 53, 0.8);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #ff6b35, #ff4500);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+        }
+
+        .btn-stop {
+            background: linear-gradient(135deg, #6b5b95, #4a4063);
+            color: white;
+            box-shadow: 0 4px 15px rgba(107, 91, 149, 0.4);
+        }
+
+        .btn-stop:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 91, 149, 0.6);
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .btn-reset:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.6);
+        }
+
+        .status-bar {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .status-bar span {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .status-bar .status-active {
+            color: #ff6b35;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ccc;
+            font-size: 0.85rem;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .legend-magma { background: linear-gradient(135deg, #ff4500, #ff6b35); }
+        .legend-cooling { background: linear-gradient(135deg, #8b4513, #a0522d); }
+        .legend-solid { background: #555; }
+
+        .performance-info {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 12px;
+            border-radius: 5px;
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌋 火山喷发演示</h1>
+    
+    <div class="canvas-container">
+        <canvas id="volcanoCanvas" width="800" height="500"></canvas>
+        <div class="performance-info" id="perfInfo">FPS: 60 | 粒子: 0</div>
+    </div>
+
+    <div class="control-panel">
+        <div class="control-group">
+            <div class="control-item">
+                <label>
+                    🌡️ 喷发温度
+                    <span id="tempValue">800°C</span>
+                </label>
+                <input type="range" id="temperature" min="500" max="1500" value="800" step="50">
+            </div>
+
+            <div class="control-item">
+                <label>
+                    📏 喷发强度
+                    <span id="areaValue">中等</span>
+                </label>
+                <input type="range" id="area" min="1" max="5" value="3">
+            </div>
+
+            <div class="control-item">
+                <label>
+                    ⚡ 喷发速度
+                    <span id="speedValue">中等</span>
+                </label>
+                <input type="range" id="speed" min="1" max="5" value="3">
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn-start" id="startBtn">🔥 开始喷发</button>
+            <button class="btn-stop" id="stopBtn">🌑 停止喷发</button>
+            <button class="btn-reset" id="resetBtn">🔄 重置</button>
+        </div>
+
+        <div class="status-bar">
+            <span>当前状态: <span id="statusText" class="status-active">准备就绪</span></span>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color legend-magma"></div>
+                <span>熔融岩浆</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color legend-cooling"></div>
+                <span>冷却中</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color legend-solid"></div>
+                <span>已凝固</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const canvas = document.getElementById('volcanoCanvas');
+            const ctx = canvas.getContext('2d');
+            const perfInfo = document.getElementById('perfInfo');
+
+            const CONFIG = {
+                MAX_PARTICLES: 500,
+                MAX_SMOKE: 150,
+                MAX_LAVA_FLOWS: 30,
+                MAX_GROUND_LAVA: 80,
+                MAX_ASH: 200,
+                MAX_FIRE: 50,
+                MAX_BOULDERS: 80
+            };
+
+            let isErupting = false;
+            let eruptionPhase = 'idle';
+            let eruptionTime = 0;
+            let frameCount = 0;
+            let lastTime = performance.now();
+            let fps = 60;
+
+            const controls = {
+                temperature: 800,
+                intensity: 3,
+                speed: 3
+            };
+
+            const volcano = {
+                x: canvas.width / 2,
+                y: canvas.height - 100,
+                width: 220,
+                height: 200,
+                craterWidth: 70,
+                craterHeight: 25
+            };
+
+            let magmaParticles = [];
+            let smokeParticles = [];
+            let lavaFlows = [];
+            let groundLava = [];
+            let ashParticles = [];
+            let fireParticles = [];
+            let boulders = [];
+
+            let particlePool = [];
+            let smokePool = [];
+            let lavaPool = [];
+            let groundLavaPool = [];
+            let ashPool = [];
+            let firePool = [];
+            let boulderPool = [];
+
+            const backgroundCache = document.createElement('canvas');
+            backgroundCache.width = canvas.width;
+            backgroundCache.height = canvas.height;
+            const bgCtx = backgroundCache.getContext('2d');
+
+            const temperatureSlider = document.getElementById('temperature');
+            const areaSlider = document.getElementById('area');
+            const speedSlider = document.getElementById('speed');
+            const tempValue = document.getElementById('tempValue');
+            const areaValue = document.getElementById('areaValue');
+            const speedValue = document.getElementById('speedValue');
+            const statusText = document.getElementById('statusText');
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const resetBtn = document.getElementById('resetBtn');
+
+            const intensityLabels = ['极弱', '较弱', '中等', '较强', '极强'];
+            const speedLabels = ['极慢', '较慢', '中等', '较快', '极快'];
+
+            const colorCache = {
+                lava: {},
+                smoke: {},
+                fire: {}
+            };
+
+            function getLavaColor(temperature, alpha = 1) {
+                const key = `${Math.round(temperature / 50) * 50}_${alpha.toFixed(2)}`;
+                if (colorCache.lava[key]) return colorCache.lava[key];
+                
+                const ratio = Math.max(0, Math.min(1, (temperature - 400) / 1100));
+                let r, g, b;
+                
+                if (ratio < 0.2) {
+                    const t = ratio / 0.2;
+                    r = Math.floor(100 * (1 - t) + 255 * t);
+                    g = Math.floor(50 * (1 - t) + 50 * t);
+                    b = Math.floor(50 * (1 - t) + 0 * t);
+                } else if (ratio < 0.5) {
+                    const t = (ratio - 0.2) / 0.3;
+                    r = 255;
+                    g = Math.floor(50 + 100 * t);
+                    b = 0;
+                } else if (ratio < 0.8) {
+                    const t = (ratio - 0.5) / 0.3;
+                    r = 255;
+                    g = Math.floor(150 + 80 * t);
+                    b = Math.floor(0 + 50 * t);
+                } else {
+                    const t = (ratio - 0.8) / 0.2;
+                    r = 255;
+                    g = Math.floor(230 + 25 * t);
+                    b = Math.floor(50 + 150 * t);
+                }
+                
+                colorCache.lava[key] = { r, g, b, rgba: `rgba(${r}, ${g}, ${b}, ${alpha})` };
+                return colorCache.lava[key];
+            }
+
+            function getCoolingColor(progress, alpha = 1) {
+                const hot = getLavaColor(800);
+                const r = Math.floor(hot.r * (1 - progress) + 85 * progress);
+                const g = Math.floor(hot.g * (1 - progress) + 85 * progress);
+                const b = Math.floor(hot.b * (1 - progress) + 85 * progress);
+                return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            }
+
+            function initBackgroundCache() {
+                const skyGradient = bgCtx.createLinearGradient(0, 0, 0, canvas.height);
+                skyGradient.addColorStop(0, '#0a0a15');
+                skyGradient.addColorStop(0.3, '#151530');
+                skyGradient.addColorStop(0.7, '#2d1b2e');
+                skyGradient.addColorStop(1, '#3d2b1f');
+                bgCtx.fillStyle = skyGradient;
+                bgCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+                bgCtx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                for (let i = 0; i < 50; i++) {
+                    const x = Math.random() * canvas.width;
+                    const y = Math.random() * (canvas.height - 200);
+                    const size = Math.random() * 1.5 + 0.5;
+                    bgCtx.beginPath();
+                    bgCtx.arc(x, y, size, 0, Math.PI * 2);
+                    bgCtx.fill();
+                }
+
+                const groundGradient = bgCtx.createLinearGradient(0, volcano.y, 0, canvas.height);
+                groundGradient.addColorStop(0, '#2d1b14');
+                groundGradient.addColorStop(0.5, '#1a1210');
+                groundGradient.addColorStop(1, '#0d0a09');
+                bgCtx.fillStyle = groundGradient;
+                bgCtx.fillRect(0, volcano.y, canvas.width, canvas.height - volcano.y);
+            }
+
+            function acquireParticle(type = 'magma') {
+                const pools = {
+                    magma: { pool: particlePool, active: magmaParticles, max: CONFIG.MAX_PARTICLES },
+                    smoke: { pool: smokePool, active: smokeParticles, max: CONFIG.MAX_SMOKE },
+                    lava: { pool: lavaPool, active: lavaFlows, max: CONFIG.MAX_LAVA_FLOWS },
+                    groundLava: { pool: groundLavaPool, active: groundLava, max: CONFIG.MAX_GROUND_LAVA },
+                    ash: { pool: ashPool, active: ashParticles, max: CONFIG.MAX_ASH },
+                    fire: { pool: firePool, active: fireParticles, max: CONFIG.MAX_FIRE },
+                    boulder: { pool: boulderPool, active: boulders, max: CONFIG.MAX_BOULDERS }
+                };
+
+                const config = pools[type];
+                if (!config) return null;
+
+                if (config.active.length >= config.max) {
+                    if (config.pool.length > 0) {
+                        const oldParticle = config.active.shift();
+                        config.pool.push(oldParticle);
+                    } else {
+                        return null;
+                    }
+                }
+
+                if (config.pool.length > 0) {
+                    return config.pool.pop();
+                }
+
+                return {};
+            }
+
+            function releaseParticle(particle, type) {
+                const pools = {
+                    magma: particlePool,
+                    smoke: smokePool,
+                    lava: lavaPool,
+                    groundLava: groundLavaPool,
+                    ash: ashPool,
+                    fire: firePool,
+                    boulder: boulderPool
+                };
+                if (pools[type]) {
+                    pools[type].push(particle);
+                }
+            }
+
+            function getEruptionMultiplier() {
+                if (!isErupting) return 0;
+                
+                const intensity = controls.intensity;
+                const speed = controls.speed;
+                
+                let phaseMultiplier = 1;
+                if (eruptionPhase === 'explosive') {
+                    phaseMultiplier = 1.5 + Math.sin(eruptionTime * 0.1) * 0.3;
+                } else if (eruptionPhase === 'declining') {
+                    const declineProgress = Math.min(1, eruptionTime / 180);
+                    phaseMultiplier = 1 - declineProgress * 0.5;
+                }
+                
+                return (intensity * 0.4 + 0.3) * (speed * 0.3 + 0.5) * phaseMultiplier;
+            }
+
+            function createMagmaParticle() {
+                const p = acquireParticle('magma');
+                if (!p) return null;
+
+                const baseX = volcano.x - volcano.craterWidth / 2 + Math.random() * volcano.craterWidth;
+                const baseY = volcano.y - volcano.height + volcano.craterHeight;
+                
+                const multiplier = getEruptionMultiplier();
+                const angle = (Math.random() - 0.5) * 0.8;
+                const speed = (Math.random() * 8 + 6) * multiplier;
+                
+                p.x = baseX + (Math.random() - 0.5) * 20;
+                p.y = baseY - Math.random() * 10;
+                p.vx = Math.sin(angle) * speed;
+                p.vy = -Math.cos(angle) * speed - 2;
+                p.gravity = 0.12;
+                p.size = Math.random() * 8 + 4;
+                p.temperature = controls.temperature + (Math.random() - 0.5) * 200;
+                p.alpha = 1;
+                p.life = 1;
+                p.hasGlow = Math.random() < 0.3;
+                p.trail = [];
+                p.type = 'magma';
+
+                magmaParticles.push(p);
+                return p;
+            }
+
+            function createBoulder() {
+                const b = acquireParticle('boulder');
+                if (!b) return null;
+
+                const baseX = volcano.x - volcano.craterWidth / 2 + Math.random() * volcano.craterWidth;
+                const baseY = volcano.y - volcano.height + volcano.craterHeight;
+                
+                const multiplier = getEruptionMultiplier();
+                const angle = (Math.random() - 0.5) * 1.2;
+                const speed = (Math.random() * 6 + 4) * multiplier;
+                
+                b.x = baseX + (Math.random() - 0.5) * 15;
+                b.y = baseY - Math.random() * 5;
+                b.vx = Math.sin(angle) * speed;
+                b.vy = -Math.cos(angle) * speed - 1;
+                b.gravity = 0.15;
+                b.size = Math.random() * 12 + 8;
+                b.rotation = Math.random() * Math.PI * 2;
+                b.rotationSpeed = (Math.random() - 0.5) * 0.2;
+                b.alpha = 1;
+                b.life = 1;
+                b.hot = Math.random() < 0.5;
+                b.temperature = b.hot ? controls.temperature * 0.6 : 500;
+                b.type = 'boulder';
+
+                boulders.push(b);
+                return b;
+            }
+
+            function createSmokeParticle() {
+                const s = acquireParticle('smoke');
+                if (!s) return null;
+
+                const baseX = volcano.x - volcano.craterWidth / 2 + Math.random() * volcano.craterWidth;
+                const baseY = volcano.y - volcano.height;
+                
+                const multiplier = getEruptionMultiplier();
+                const isHot = Math.random() < 0.4;
+                
+                s.x = baseX + (Math.random() - 0.5) * 30;
+                s.y = baseY - Math.random() * 20;
+                s.vx = (Math.random() - 0.5) * 1.5;
+                s.vy = -(Math.random() * 2 + 1) * (isHot ? multiplier * 1.5 : multiplier);
+                s.size = Math.random() * 30 + 20;
+                s.alpha = 0.25 + Math.random() * 0.25;
+                s.life = 1;
+                s.expansion = 0.15 + Math.random() * 0.1;
+                s.isHot = isHot;
+                s.grayBase = isHot ? 100 : 70;
+                s.type = 'smoke';
+
+                smokeParticles.push(s);
+                return s;
+            }
+
+            function createAshParticle() {
+                const a = acquireParticle('ash');
+                if (!a) return null;
+
+                const baseX = volcano.x - volcano.craterWidth / 2 + Math.random() * volcano.craterWidth;
+                const baseY = volcano.y - volcano.height - 50;
+                
+                const multiplier = getEruptionMultiplier();
+                
+                a.x = baseX + (Math.random() - 0.5) * 40;
+                a.y = baseY + (Math.random() - 0.5) * 30;
+                a.vx = (Math.random() - 0.5) * 2;
+                a.vy = -(Math.random() * 3 + 1) * multiplier;
+                a.size = Math.random() * 3 + 1;
+                a.alpha = 0.5 + Math.random() * 0.3;
+                a.life = 1;
+                a.swayPhase = Math.random() * Math.PI * 2;
+                a.swaySpeed = 0.02 + Math.random() * 0.03;
+                a.type = 'ash';
+
+                ashParticles.push(a);
+                return a;
+            }
+
+            function createFireParticle() {
+                const f = acquireParticle('fire');
+                if (!f) return null;
+
+                const baseX = volcano.x - volcano.craterWidth / 2 + Math.random() * volcano.craterWidth;
+                const baseY = volcano.y - volcano.height + volcano.craterHeight;
+                
+                const multiplier = getEruptionMultiplier();
+                
+                f.x = baseX + (Math.random() - 0.5) * 15;
+                f.y = baseY - Math.random() * 10;
+                f.vx = (Math.random() - 0.5) * 0.5;
+                f.vy = -(Math.random() * 4 + 2) * multiplier;
+                f.size = Math.random() * 15 + 10;
+                f.alpha = 0.8 + Math.random() * 0.2;
+                f.life = 1;
+                f.flicker = Math.random() * Math.PI * 2;
+                f.temperature = controls.temperature + 200;
+                f.type = 'fire';
+
+                fireParticles.push(f);
+                return f;
+            }
+
+            function createLavaFlow() {
+                const l = acquireParticle('lava');
+                if (!l) return null;
+
+                const side = Math.random() < 0.5 ? -1 : 1;
+                const startX = volcano.x + side * (volcano.craterWidth / 3 + Math.random() * 10);
+                const startY = volcano.y - volcano.height + volcano.craterHeight + 15;
+                
+                return initLavaFlow(l, startX, startY, side);
+            }
+
+            function createSlopeLavaFlow(startX, startY, particleVelocity) {
+                const l = acquireParticle('lava');
+                if (!l) return null;
+
+                const side = startX > volcano.x ? 1 : -1;
+                return initLavaFlow(l, startX, startY, side, true, particleVelocity);
+            }
+
+            function initLavaFlow(l, startX, startY, side, fromSlope = false, particleVelocity = 0) {
+                l.points = l.points || [];
+                l.points.length = 0;
+                l.points.push({ x: startX, y: startY });
+                
+                l.x = startX;
+                l.y = startY;
+                l.temperature = controls.temperature;
+                
+                const baseSpeed = (controls.speed * 0.4 + 0.4) * (Math.random() * 0.4 + 0.6);
+                if (fromSlope) {
+                    l.flowSpeed = baseSpeed * 0.8 + Math.abs(particleVelocity) * 0.05;
+                } else {
+                    l.flowSpeed = baseSpeed;
+                }
+                
+                l.width = (controls.intensity * 6 + 8) * (Math.random() * 0.4 + 0.6);
+                if (fromSlope) {
+                    l.width *= 0.7;
+                }
+                
+                l.life = 1;
+                l.solidifying = false;
+                l.surfaceTemperature = controls.temperature;
+                l.coreTemperature = controls.temperature;
+                l.side = side;
+                l.wobble = Math.random() * Math.PI * 2;
+                l.maxPoints = fromSlope ? 60 : 80;
+                l.fromSlope = fromSlope;
+                l.type = 'lava';
+
+                lavaFlows.push(l);
+                return l;
+            }
+
+            function createGroundLava(x, y) {
+                const g = acquireParticle('groundLava');
+                if (!g) return null;
+
+                g.x = x || (volcano.x + (Math.random() - 0.5) * 150);
+                g.y = y || (volcano.y + 10 + Math.random() * 20);
+                g.width = (controls.intensity * 12 + 15) * (Math.random() * 0.5 + 0.5);
+                g.height = 8 + Math.random() * 8;
+                g.temperature = controls.temperature;
+                g.surfaceTemperature = controls.temperature;
+                g.coreTemperature = controls.temperature;
+                g.life = 1;
+                g.solidifying = false;
+                g.solidified = false;
+                g.crackPattern = Math.random();
+                g.expansion = 1;
+                g.type = 'groundLava';
+
+                groundLava.push(g);
+                return g;
+            }
+
+            function updateMagmaParticles(dt) {
+                for (let i = magmaParticles.length - 1; i >= 0; i--) {
+                    const p = magmaParticles[i];
+                    
+                    p.vy += p.gravity;
+                    p.vx *= 0.995;
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    
+                    if (p.trail) {
+                        p.trail.push({ x: p.x, y: p.y, alpha: p.alpha * 0.8 });
+                        if (p.trail.length > 5) p.trail.shift();
+                    }
+                    
+                    if (!isErupting) {
+                        p.temperature -= 3 * dt;
+                        p.alpha -= 0.003 * dt;
+                        p.life -= 0.003 * dt;
+                    }
+                    
+                    const volcanoLeft = volcano.x - volcano.width / 2;
+                    const volcanoRight = volcano.x + volcano.width / 2;
+                    const volcanoBottom = volcano.y;
+                    const volcanoSlope = getVolcanoSurfaceY(p.x);
+                    
+                    if (p.y >= volcanoSlope && p.vy > 0) {
+                        const onVolcanoSlope = p.x >= volcanoLeft && p.x <= volcanoRight && p.y < volcanoBottom + 5;
+                        
+                        if (onVolcanoSlope) {
+                            if (Math.random() < 0.7) {
+                                createSlopeLavaFlow(p.x, p.y, p.vy);
+                            }
+                        } else {
+                            if (Math.random() < 0.3) {
+                                createGroundLava(p.x, p.y);
+                            }
+                        }
+                        
+                        releaseParticle(p, 'magma');
+                        magmaParticles.splice(i, 1);
+                    } else if (p.life <= 0 || p.alpha <= 0 || p.y > canvas.height || p.x < -50 || p.x > canvas.width + 50) {
+                        releaseParticle(p, 'magma');
+                        magmaParticles.splice(i, 1);
+                    }
+                }
+            }
+
+            function updateBoulders(dt) {
+                for (let i = boulders.length - 1; i >= 0; i--) {
+                    const b = boulders[i];
+                    
+                    b.vy += b.gravity;
+                    b.vx *= 0.99;
+                    b.x += b.vx;
+                    b.y += b.vy;
+                    b.rotation += b.rotationSpeed;
+                    
+                    if (!isErupting) {
+                        b.temperature -= 2 * dt;
+                        if (b.temperature < 400) b.hot = false;
+                    }
+                    
+                    const volcanoSlope = getVolcanoSurfaceY(b.x);
+                    if (b.y >= volcanoSlope) {
+                        if (Math.abs(b.vy) > 2) {
+                            b.vy *= -0.3;
+                            b.vx *= 0.8;
+                            b.rotationSpeed *= 0.9;
+                        } else {
+                            releaseParticle(b, 'boulder');
+                            boulders.splice(i, 1);
+                        }
+                    } else if (b.y > canvas.height || b.x < -50 || b.x > canvas.width + 50) {
+                        releaseParticle(b, 'boulder');
+                        boulders.splice(i, 1);
+                    }
+                }
+            }
+
+            function updateSmokeParticles(dt) {
+                for (let i = smokeParticles.length - 1; i >= 0; i--) {
+                    const s = smokeParticles[i];
+                    
+                    s.x += s.vx;
+                    s.y += s.vy;
+                    s.size += s.expansion * dt;
+                    s.alpha -= 0.001 * dt;
+                    s.life -= 0.0015 * dt;
+                    s.vy *= 0.998;
+                    s.vx += (Math.random() - 0.5) * 0.05;
+                    
+                    if (s.life <= 0 || s.alpha <= 0 || s.y < -100) {
+                        releaseParticle(s, 'smoke');
+                        smokeParticles.splice(i, 1);
+                    }
+                }
+            }
+
+            function updateAshParticles(dt) {
+                for (let i = ashParticles.length - 1; i >= 0; i--) {
+                    const a = ashParticles[i];
+                    
+                    a.swayPhase += a.swaySpeed * dt;
+                    const sway = Math.sin(a.swayPhase) * 0.5;
+                    
+                    a.x += a.vx + sway;
+                    a.y += a.vy;
+                    a.vy *= 0.999;
+                    a.alpha -= 0.0005 * dt;
+                    a.life -= 0.0008 * dt;
+                    
+                    if (a.life <= 0 || a.alpha <= 0 || a.y < -150) {
+                        releaseParticle(a, 'ash');
+                        ashParticles.splice(i, 1);
+                    }
+                }
+            }
+
+            function updateFireParticles(dt) {
+                for (let i = fireParticles.length - 1; i >= 0; i--) {
+                    const f = fireParticles[i];
+                    
+                    f.x += f.vx;
+                    f.y += f.vy;
+                    f.vy *= 0.98;
+                    f.flicker += 0.1 * dt;
+                    f.alpha -= 0.008 * dt;
+                    f.life -= 0.01 * dt;
+                    f.size *= 0.995;
+                    f.temperature -= 5 * dt;
+                    
+                    if (f.life <= 0 || f.alpha <= 0 || f.y < volcano.y - volcano.height - 50) {
+                        releaseParticle(f, 'fire');
+                        fireParticles.splice(i, 1);
+                    }
+                }
+            }
+
+            function getVolcanoSurfaceY(x) {
+                const volcanoLeft = volcano.x - volcano.width / 2;
+                const volcanoRight = volcano.x + volcano.width / 2;
+                
+                if (x < volcanoLeft || x > volcanoRight) {
+                    return volcano.y + 10;
+                }
+                
+                const dx = Math.abs(x - volcano.x);
+                const craterHalfWidth = volcano.craterWidth / 2;
+                const bottomY = volcano.y;
+                const craterY = volcano.y - volcano.height + volcano.craterHeight;
+                
+                if (dx <= craterHalfWidth) {
+                    return craterY;
+                } else {
+                    const totalSideX = volcano.width / 2 - craterHalfWidth;
+                    const totalSideY = bottomY - craterY;
+                    const progress = (dx - craterHalfWidth) / totalSideX;
+                    return craterY + totalSideY * progress;
+                }
+            }
+
+            function updateLavaFlows(dt) {
+                for (let i = lavaFlows.length - 1; i >= 0; i--) {
+                    const lava = lavaFlows[i];
+                    if (!lava.points || lava.points.length < 1) {
+                        releaseParticle(lava, 'lava');
+                        lavaFlows.splice(i, 1);
+                        continue;
+                    }
+                    
+                    const lastPoint = lava.points[lava.points.length - 1];
+                    
+                    const volcanoLeft = volcano.x - volcano.width / 2;
+                    const volcanoRight = volcano.x + volcano.width / 2;
+                    const volcanoBottom = volcano.y;
+                    
+                    const dx = lastPoint.x - volcano.x;
+                    const currentSurfaceY = getVolcanoSurfaceY(lastPoint.x);
+                    
+                    const xOnVolcano = lastPoint.x >= volcanoLeft && lastPoint.x <= volcanoRight;
+                    const reachedFoot = lastPoint.y >= volcanoBottom - 15;
+                    
+                    let newX = lastPoint.x;
+                    let newY = lastPoint.y;
+                    
+                    lava.wobble += 0.02 * dt;
+                    const wobbleOffset = Math.sin(lava.wobble) * 0.25;
+                    
+                    const flowDir = dx >= 0 ? 1 : -1;
+                    
+                    if (xOnVolcano && !reachedFoot) {
+                        const nextSurfaceY = getVolcanoSurfaceY(lastPoint.x + flowDir * 2);
+                        const slopeGradient = (nextSurfaceY - currentSurfaceY) / 2;
+                        
+                        const horizontalSpeed = lava.flowSpeed * (0.5 + Math.abs(slopeGradient) * 0.4);
+                        
+                        newX = lastPoint.x + flowDir * horizontalSpeed * dt + wobbleOffset * lava.flowSpeed * 0.2 * dt;
+                        
+                        if (newX < volcano.x - volcano.width / 2) {
+                            newX = volcano.x - volcano.width / 2;
+                        } else if (newX > volcano.x + volcano.width / 2) {
+                            newX = volcano.x + volcano.width / 2;
+                        }
+                        
+                        newY = getVolcanoSurfaceY(newX);
+                        
+                        if (lava.solidifying) {
+                            const viscosity = 1 + (1 - lava.surfaceTemperature / controls.temperature) * 3;
+                            lava.flowSpeed *= 0.998 / viscosity;
+                        }
+                    } else {
+                        newX += flowDir * lava.flowSpeed * 0.4 * dt + wobbleOffset * lava.flowSpeed * 0.2 * dt;
+                        newY += lava.flowSpeed * 0.25 * dt;
+                        
+                        if (Math.random() < 0.015) {
+                            createGroundLava(newX, newY);
+                        }
+                        
+                        if (lava.solidifying) {
+                            lava.flowSpeed *= 0.996;
+                        }
+                    }
+                    
+                    lava.points.push({ x: newX, y: newY });
+                    
+                    if (lava.points.length > lava.maxPoints) {
+                        lava.points.shift();
+                    }
+                    
+                    if (!isErupting) {
+                        lava.surfaceTemperature -= 1.2 * dt;
+                        lava.coreTemperature -= 0.4 * dt;
+                        lava.solidifying = true;
+                        lava.life -= 0.0008 * dt;
+                    }
+                    
+                    if (lava.life <= 0 || lava.surfaceTemperature < 320 || newY > canvas.height + 50) {
+                        releaseParticle(lava, 'lava');
+                        lavaFlows.splice(i, 1);
+                    }
+                }
+            }
+
+            function updateGroundLava(dt) {
+                for (let i = groundLava.length - 1; i >= 0; i--) {
+                    const lava = groundLava[i];
+                    
+                    if (!isErupting || lava.solidifying) {
+                        lava.surfaceTemperature -= 0.3 * dt;
+                        lava.coreTemperature -= 0.15 * dt;
+                        lava.solidifying = true;
+                        
+                        if (lava.surfaceTemperature < 400) {
+                            lava.solidified = true;
+                        }
+                    }
+                    
+                    if (!lava.solidified && lava.surfaceTemperature > 500) {
+                        lava.expansion += 0.0005 * dt;
+                        lava.x += (Math.random() - 0.5) * 0.1;
+                    }
+                    
+                    if (lava.solidified) {
+                        lava.life -= 0.0003 * dt;
+                    }
+                    
+                    if (lava.life <= 0) {
+                        releaseParticle(lava, 'groundLava');
+                        groundLava.splice(i, 1);
+                    }
+                }
+            }
+
+            function spawnParticles(dt) {
+                if (!isErupting) return;
+                
+                const multiplier = getEruptionMultiplier();
+                if (multiplier <= 0) return;
+                
+                const magmaCount = Math.max(1, Math.floor(3 * multiplier * dt));
+                let magmaCreated = false;
+                for (let i = 0; i < magmaCount; i++) {
+                    if (i === 0 || Math.random() < 0.8) {
+                        createMagmaParticle();
+                        magmaCreated = true;
+                    }
+                }
+                
+                const boulderChance = 0.05 * multiplier * dt;
+                if (Math.random() < boulderChance) {
+                    createBoulder();
+                }
+                
+                const lavaFlowChance = 0.02 * multiplier * dt;
+                if (Math.random() < lavaFlowChance && lavaFlows.length < CONFIG.MAX_LAVA_FLOWS * 0.5) {
+                    createLavaFlow();
+                }
+                
+                const smokeCount = Math.max(1, Math.floor(2 * multiplier * dt));
+                let smokeCreated = false;
+                for (let i = 0; i < smokeCount; i++) {
+                    if (i === 0 || Math.random() < 0.7) {
+                        createSmokeParticle();
+                        smokeCreated = true;
+                    }
+                }
+                
+                const ashChance = 0.08 * multiplier * dt;
+                if (Math.random() < ashChance) {
+                    createAshParticle();
+                }
+                
+                const fireCount = Math.max(1, Math.floor(2 * multiplier * dt));
+                let fireCreated = false;
+                for (let i = 0; i < fireCount; i++) {
+                    if (i === 0 || Math.random() < 0.6) {
+                        createFireParticle();
+                        fireCreated = true;
+                    }
+                }
+            }
+
+            function drawVolcano() {
+                ctx.save();
+                
+                ctx.beginPath();
+                ctx.moveTo(volcano.x - volcano.width / 2, volcano.y);
+                ctx.lineTo(volcano.x + volcano.width / 2, volcano.y);
+                ctx.lineTo(volcano.x + volcano.craterWidth / 2, volcano.y - volcano.height + volcano.craterHeight);
+                ctx.quadraticCurveTo(
+                    volcano.x, volcano.y - volcano.height - 5,
+                    volcano.x - volcano.craterWidth / 2, volcano.y - volcano.height + volcano.craterHeight
+                );
+                ctx.closePath();
+                
+                const volcanoGradient = ctx.createLinearGradient(
+                    volcano.x - volcano.width / 2, volcano.y,
+                    volcano.x + volcano.width / 2, volcano.y - volcano.height
+                );
+                volcanoGradient.addColorStop(0, '#3d2b1f');
+                volcanoGradient.addColorStop(0.3, '#4a3328');
+                volcanoGradient.addColorStop(0.6, '#5c4033');
+                volcanoGradient.addColorStop(1, '#7a5c45');
+                ctx.fillStyle = volcanoGradient;
+                ctx.fill();
+                
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 12; i++) {
+                    const t = i / 12;
+                    const startX = volcano.x - volcano.width / 2 + t * volcano.width;
+                    const startY = volcano.y;
+                    const endX = volcano.x + (startX - volcano.x) * 0.25;
+                    const endY = volcano.y - volcano.height + 30;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.quadraticCurveTo(
+                        (startX + endX) / 2 + (Math.random() - 0.5) * 10,
+                        (startY + endY) / 2,
+                        endX, endY
+                    );
+                    ctx.stroke();
+                }
+                
+                if (isErupting) {
+                    const craterCenterX = volcano.x;
+                    const craterCenterY = volcano.y - volcano.height + volcano.craterHeight / 2;
+                    
+                    const glowGradient = ctx.createRadialGradient(
+                        craterCenterX, craterCenterY,
+                        0,
+                        craterCenterX, craterCenterY,
+                        volcano.craterWidth * 2
+                    );
+                    
+                    const tempColor = getLavaColor(controls.temperature);
+                    glowGradient.addColorStop(0, `rgba(255, 255, 220, 0.6)`);
+                    glowGradient.addColorStop(0.2, `rgba(${tempColor.r}, ${tempColor.g}, ${tempColor.b}, 0.4)`);
+                    glowGradient.addColorStop(0.5, `rgba(${tempColor.r * 0.6}, ${tempColor.g * 0.4}, ${tempColor.b * 0.2}, 0.2)`);
+                    glowGradient.addColorStop(1, `rgba(0, 0, 0, 0)`);
+                    
+                    ctx.beginPath();
+                    ctx.arc(craterCenterX, craterCenterY, volcano.craterWidth * 2, 0, Math.PI * 2);
+                    ctx.fillStyle = glowGradient;
+                    ctx.fill();
+                    
+                    const craterGradient = ctx.createRadialGradient(
+                        craterCenterX, craterCenterY,
+                        0,
+                        craterCenterX, craterCenterY,
+                        volcano.craterWidth / 2
+                    );
+                    
+                    craterGradient.addColorStop(0, `rgba(255, 255, 200, 0.95)`);
+                    craterGradient.addColorStop(0.2, `rgba(255, 200, 50, 0.9)`);
+                    craterGradient.addColorStop(0.5, `rgba(${tempColor.r}, ${tempColor.g}, ${tempColor.b}, 0.8)`);
+                    craterGradient.addColorStop(0.8, `rgba(${tempColor.r * 0.5}, ${tempColor.g * 0.3}, 0, 0.6)`);
+                    craterGradient.addColorStop(1, 'rgba(60, 30, 15, 0.4)');
+                    
+                    ctx.beginPath();
+                    ctx.ellipse(
+                        craterCenterX,
+                        craterCenterY,
+                        volcano.craterWidth / 2,
+                        volcano.craterHeight / 2,
+                        0, 0, Math.PI * 2
+                    );
+                    ctx.fillStyle = craterGradient;
+                    ctx.fill();
+                }
+                
+                ctx.restore();
+            }
+
+            function drawSmoke() {
+                ctx.save();
+                ctx.globalCompositeOperation = 'source-over';
+                
+                smokeParticles.forEach(s => {
+                    const gradient = ctx.createRadialGradient(
+                        s.x, s.y, 0,
+                        s.x, s.y, s.size
+                    );
+                    
+                    const gray = s.grayBase + (s.isHot ? 20 : 0);
+                    gradient.addColorStop(0, `rgba(${gray}, ${gray}, ${gray}, ${s.alpha})`);
+                    gradient.addColorStop(1, `rgba(${gray}, ${gray}, ${gray}, 0)`);
+                    
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                });
+                
+                ctx.restore();
+            }
+
+            function drawAsh() {
+                ctx.save();
+                ctx.globalCompositeOperation = 'source-over';
+                
+                ashParticles.forEach(a => {
+                    ctx.fillStyle = `rgba(80, 80, 80, ${a.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(a.x, a.y, a.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                
+                ctx.restore();
+            }
+
+            function drawFire() {
+                ctx.save();
+                ctx.globalCompositeOperation = 'lighter';
+                
+                fireParticles.forEach(f => {
+                    const flickerAlpha = f.alpha * (0.7 + Math.sin(f.flicker) * 0.3);
+                    const tempColor = getLavaColor(f.temperature);
+                    
+                    const gradient = ctx.createRadialGradient(
+                        f.x, f.y, 0,
+                        f.x, f.y, f.size
+                    );
+                    
+                    gradient.addColorStop(0, `rgba(255, 255, 200, ${flickerAlpha * 0.8})`);
+                    gradient.addColorStop(0.3, `rgba(255, 200, 50, ${flickerAlpha * 0.6})`);
+                    gradient.addColorStop(0.7, `rgba(${tempColor.r}, ${tempColor.g}, ${tempColor.b}, ${flickerAlpha * 0.3})`);
+                    gradient.addColorStop(1, `rgba(${tempColor.r * 0.5}, 0, 0, 0)`);
+                    
+                    ctx.beginPath();
+                    ctx.arc(f.x, f.y, f.size, 0, Math.PI * 2);
+                    ctx.fillStyle = gradient;
+                    ctx.fill();
+                });
+                
+                ctx.restore();
+            }
+
+            function drawMagmaParticles() {
+                ctx.save();
+                
+                magmaParticles.forEach(p => {
+                    const tempColor = getLavaColor(p.temperature, p.alpha);
+                    
+                    if (p.hasGlow && p.temperature > 700) {
+                        const glowGradient = ctx.createRadialGradient(
+                            p.x, p.y, 0,
+                            p.x, p.y, p.size * 2.5
+                        );
+                        glowGradient.addColorStop(0, `rgba(${tempColor.r}, ${tempColor.g}, ${tempColor.b}, ${p.alpha * 0.4})`);
+                        glowGradient.addColorStop(1, `rgba(${tempColor.r}, ${tempColor.g}, ${tempColor.b}, 0)`);
+                        
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size * 2.5, 0, Math.PI * 2);
+                        ctx.fillStyle = glowGradient;
+                        ctx.fill();
+                    }
+                    
+                    ctx.fillStyle = tempColor.rgba;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    if (p.temperature > 900) {
+                        ctx.fillStyle = `rgba(255, 255, 200, ${p.alpha * 0.6})`;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size * 0.5, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
+                
+                ctx.restore();
+            }
+
+            function drawBoulders() {
+                ctx.save();
+                
+                boulders.forEach(b => {
+                    ctx.save();
+                    ctx.translate(b.x, b.y);
+                    ctx.rotate(b.rotation);
+                    
+                    if (b.hot) {
+                        const tempColor = getLavaColor(b.temperature, 0.3);
+                        const glowGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, b.size * 1.5);
+                        glowGradient.addColorStop(0, `rgba(${tempColor.r}, ${tempColor.g}, ${tempColor.b}, 0.4)`);
+                        glowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+                        
+                        ctx.beginPath();
+                        ctx.arc(0, 0, b.size * 1.5, 0, Math.PI * 2);
+                        ctx.fillStyle = glowGradient;
+                        ctx.fill();
+                    }
+                    
+                    ctx.beginPath();
+                    const sides = 6;
+                    for (let i = 0; i < sides; i++) {
+                        const angle = (i / sides) * Math.PI * 2;
+                        const radius = b.size * (0.7 + Math.sin(i * 2.5) * 0.3);
+                        const px = Math.cos(angle) * radius;
+                        const py = Math.sin(angle) * radius;
+                        if (i === 0) {
+                            ctx.moveTo(px, py);
+                        } else {
+                            ctx.lineTo(px, py);
+                        }
+                    }
+                    ctx.closePath();
+                    
+                    if (b.hot) {
+                        const tempColor = getLavaColor(b.temperature);
+                        ctx.fillStyle = `rgba(${Math.floor(tempColor.r * 0.7 + 60)}, ${Math.floor(tempColor.g * 0.5 + 40)}, ${Math.floor(tempColor.b * 0.3 + 20)}, 1)`;
+                    } else {
+                        ctx.fillStyle = '#5a4030';
+                    }
+                    ctx.fill();
+                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                    
+                    ctx.restore();
+                });
+                
+                ctx.restore();
+            }
+
+            function drawLavaFlows() {
+                ctx.save();
+                
+                lavaFlows.forEach(lava => {
+                    if (!lava.points || lava.points.length < 2) return;
+                    
+                    const points = lava.points;
+                    const tempRatio = Math.max(0, (lava.coreTemperature - 350) / (controls.temperature - 350));
+                    const halfWidth = lava.width / 2;
+                    
+                    let leftEdge = [];
+                    let rightEdge = [];
+                    
+                    for (let i = 0; i < points.length; i++) {
+                        const point = points[i];
+                        
+                        let normalX = 0;
+                        let normalY = 0;
+                        
+                        if (i === 0) {
+                            const nextPoint = points[1];
+                            const dx = nextPoint.x - point.x;
+                            const dy = nextPoint.y - point.y;
+                            const len = Math.sqrt(dx * dx + dy * dy) || 1;
+                            normalX = -dy / len;
+                            normalY = dx / len;
+                        } else if (i === points.length - 1) {
+                            const prevPoint = points[i - 1];
+                            const dx = point.x - prevPoint.x;
+                            const dy = point.y - prevPoint.y;
+                            const len = Math.sqrt(dx * dx + dy * dy) || 1;
+                            normalX = -dy / len;
+                            normalY = dx / len;
+                        } else {
+                            const prevPoint = points[i - 1];
+                            const nextPoint = points[i + 1];
+                            const dx1 = point.x - prevPoint.x;
+                            const dy1 = point.y - prevPoint.y;
+                            const dx2 = nextPoint.x - point.x;
+                            const dy2 = nextPoint.y - point.y;
+                            const len1 = Math.sqrt(dx1 * dx1 + dy1 * dy1) || 1;
+                            const len2 = Math.sqrt(dx2 * dx2 + dy2 * dy2) || 1;
+                            normalX = (-(dy1 / len1) - (dy2 / len2)) / 2;
+                            normalY = (dx1 / len1 + dx2 / len2) / 2;
+                            const nLen = Math.sqrt(normalX * normalX + normalY * normalY) || 1;
+                            normalX /= nLen;
+                            normalY /= nLen;
+                        }
+                        
+                        const widthMultiplier = 0.8 + Math.sin(i * 0.1 + lava.wobble) * 0.2;
+                        const currentWidth = halfWidth * widthMultiplier;
+                        
+                        leftEdge.push({
+                            x: point.x + normalX * currentWidth,
+                            y: point.y + normalY * currentWidth
+                        });
+                        rightEdge.push({
+                            x: point.x - normalX * currentWidth,
+                            y: point.y - normalY * currentWidth
+                        });
+                    }
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(leftEdge[0].x, leftEdge[0].y);
+                    
+                    for (let i = 1; i < leftEdge.length; i++) {
+                        const prevPoint = leftEdge[i - 1];
+                        const curPoint = leftEdge[i];
+                        const midX = (prevPoint.x + curPoint.x) / 2;
+                        const midY = (prevPoint.y + curPoint.y) / 2;
+                        ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, midX, midY);
+                    }
+                    
+                    ctx.lineTo(rightEdge[rightEdge.length - 1].x, rightEdge[rightEdge.length - 1].y);
+                    
+                    for (let i = rightEdge.length - 2; i >= 0; i--) {
+                        const nextPoint = rightEdge[i + 1];
+                        const curPoint = rightEdge[i];
+                        const midX = (nextPoint.x + curPoint.x) / 2;
+                        const midY = (nextPoint.y + curPoint.y) / 2;
+                        ctx.quadraticCurveTo(nextPoint.x, nextPoint.y, midX, midY);
+                    }
+                    
+                    ctx.closePath();
+                    
+                    let baseColor;
+                    if (lava.solidifying) {
+                        baseColor = getCoolingColor(1 - tempRatio, 1);
+                    } else {
+                        const tempColor = getLavaColor(lava.coreTemperature, 1);
+                        baseColor = tempColor.rgba;
+                    }
+                    
+                    ctx.fillStyle = baseColor;
+                    ctx.globalAlpha = lava.life;
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                    
+                    if (tempRatio > 0.4 && !lava.solidifying) {
+                        ctx.save();
+                        ctx.globalCompositeOperation = 'lighter';
+                        
+                        const lastPoint = points[points.length - 1];
+                        const tempColor = getLavaColor(lava.coreTemperature);
+                        
+                        const glowGradient = ctx.createRadialGradient(
+                            lastPoint.x, lastPoint.y, 0,
+                            lastPoint.x, lastPoint.y, lava.width * 2.5
+                        );
+                        glowGradient.addColorStop(0, `rgba(255, 255, 200, ${lava.life * 0.6})`);
+                        glowGradient.addColorStop(0.3, `rgba(255, 220, 100, ${lava.life * 0.4})`);
+                        glowGradient.addColorStop(0.6, `rgba(${tempColor.r}, ${tempColor.g}, ${tempColor.b}, ${lava.life * 0.2})`);
+                        glowGradient.addColorStop(1, `rgba(${tempColor.r * 0.5}, 0, 0, 0)`);
+                        
+                        ctx.beginPath();
+                        ctx.arc(lastPoint.x, lastPoint.y, lava.width * 2.5, 0, Math.PI * 2);
+                        ctx.fillStyle = glowGradient;
+                        ctx.fill();
+                        
+                        ctx.restore();
+                    }
+                    
+                    if (tempRatio > 0.3 && !lava.solidifying) {
+                        ctx.save();
+                        ctx.globalCompositeOperation = 'lighter';
+                        
+                        for (let i = 1; i < points.length - 1; i += 3) {
+                            const point = points[i];
+                            const progress = i / points.length;
+                            const highlightAlpha = (0.5 + Math.sin(i * 0.2 + lava.wobble * 2) * 0.3) * lava.life;
+                            
+                            const highlightGradient = ctx.createRadialGradient(
+                                point.x, point.y - 2, 0,
+                                point.x, point.y - 2, lava.width * 0.6
+                            );
+                            highlightGradient.addColorStop(0, `rgba(255, 255, 220, ${highlightAlpha * 0.5})`);
+                            highlightGradient.addColorStop(0.5, `rgba(255, 240, 150, ${highlightAlpha * 0.3})`);
+                            highlightGradient.addColorStop(1, `rgba(255, 200, 50, 0)`);
+                            
+                            ctx.beginPath();
+                            ctx.ellipse(point.x, point.y - 1, lava.width * 0.5, lava.width * 0.25, 0, 0, Math.PI * 2);
+                            ctx.fillStyle = highlightGradient;
+                            ctx.fill();
+                        }
+                        
+                        ctx.restore();
+                    }
+                    
+                    if (lava.solidifying && tempRatio < 0.7) {
+                        const crackProgress = 1 - tempRatio;
+                        ctx.strokeStyle = `rgba(40, 30, 25, ${crackProgress * lava.life * 0.6})`;
+                        ctx.lineWidth = 1.5;
+                        
+                        for (let i = 2; i < points.length - 2; i += 4) {
+                            const point = points[i];
+                            const angle = Math.random() * Math.PI * 2;
+                            const length = lava.width * (0.3 + Math.random() * 0.4);
+                            
+                            ctx.beginPath();
+                            ctx.moveTo(point.x, point.y);
+                            ctx.lineTo(
+                                point.x + Math.cos(angle) * length,
+                                point.y + Math.sin(angle) * length
+                            );
+                            ctx.stroke();
+                        }
+                    }
+                });
+                
+                ctx.restore();
+            }
+
+            function drawGroundLava() {
+                if (groundLava.length === 0) return;
+                
+                ctx.save();
+                
+                const sortedLava = [...groundLava].sort((a, b) => a.x - b.x);
+                
+                const groups = [];
+                let currentGroup = [sortedLava[0]];
+                
+                for (let i = 1; i < sortedLava.length; i++) {
+                    const lava = sortedLava[i];
+                    const lastInGroup = currentGroup[currentGroup.length - 1];
+                    
+                    const distance = lava.x - lastInGroup.x;
+                    const mergeThreshold = Math.max(lava.width, lastInGroup.width) * 1.5;
+                    
+                    if (distance < mergeThreshold) {
+                        currentGroup.push(lava);
+                    } else {
+                        groups.push(currentGroup);
+                        currentGroup = [lava];
+                    }
+                }
+                if (currentGroup.length > 0) {
+                    groups.push(currentGroup);
+                }
+                
+                const time = performance.now() / 1000;
+                
+                groups.forEach(group => {
+                    if (group.length === 0) return;
+                    
+                    const avgTempRatio = group.reduce((sum, l) => {
+                        return sum + Math.max(0, (l.coreTemperature - 350) / (controls.temperature - 350));
+                    }, 0) / group.length;
+                    
+                    const avgLife = group.reduce((sum, l) => sum + l.life, 0) / group.length;
+                    const allSolidified = group.every(l => l.solidified);
+                    const anySolidifying = group.some(l => l.solidifying);
+                    
+                    if (!allSolidified && avgTempRatio > 0.25) {
+                        const minX = Math.min(...group.map(l => l.x - l.width * l.expansion));
+                        const maxX = Math.max(...group.map(l => l.x + l.width * l.expansion));
+                        const centerX = (minX + maxX) / 2;
+                        const centerY = group.reduce((sum, l) => sum + l.y, 0) / group.length;
+                        const totalWidth = maxX - minX;
+                        
+                        const hottest = group.reduce((h, l) => 
+                            l.coreTemperature > h.coreTemperature ? l : h, group[0]);
+                        const tempColor = getLavaColor(hottest.coreTemperature);
+                        
+                        const glowGradient = ctx.createRadialGradient(
+                            centerX, centerY, 0,
+                            centerX, centerY, totalWidth * 0.8
+                        );
+                        glowGradient.addColorStop(0, `rgba(255, 220, 150, ${avgLife * 0.35})`);
+                        glowGradient.addColorStop(0.4, `rgba(${tempColor.r}, ${tempColor.g}, ${tempColor.b}, ${avgLife * 0.25})`);
+                        glowGradient.addColorStop(1, `rgba(${tempColor.r * 0.4}, 0, 0, 0)`);
+                        
+                        ctx.beginPath();
+                        ctx.ellipse(centerX, centerY, totalWidth * 0.8, totalWidth * 0.3, 0, 0, Math.PI * 2);
+                        ctx.fillStyle = glowGradient;
+                        ctx.fill();
+                    }
+                    
+                    ctx.beginPath();
+                    
+                    const firstLava = group[0];
+                    const lastLava = group[group.length - 1];
+                    const baseY = group.reduce((sum, l) => sum + l.y, 0) / group.length;
+                    
+                    if (group.length === 1) {
+                        const lava = group[0];
+                        const width = lava.width * lava.expansion;
+                        const height = lava.height * lava.expansion;
+                        
+                        ctx.ellipse(lava.x, lava.y, width, height, 0, 0, Math.PI * 2);
+                    } else {
+                        const topPoints = [];
+                        const bottomPoints = [];
+                        
+                        for (let i = 0; i < group.length; i++) {
+                            const lava = group[i];
+                            const width = lava.width * lava.expansion;
+                            const height = lava.height * lava.expansion;
+                            
+                            const waveOffset = Math.sin(time * 2 + lava.x * 0.02 + lava.crackPattern * 10) * 2;
+                            
+                            topPoints.push({
+                                x: lava.x,
+                                y: lava.y - height / 2 + waveOffset
+                            });
+                            bottomPoints.push({
+                                x: lava.x,
+                                y: lava.y + height / 2
+                            });
+                        }
+                        
+                        const firstWidth = group[0].width * group[0].expansion;
+                        const firstHeight = group[0].height * group[0].expansion;
+                        ctx.moveTo(
+                            firstLava.x - firstWidth / 2,
+                            firstLava.y
+                        );
+                        
+                        ctx.quadraticCurveTo(
+                            firstLava.x - firstWidth / 2,
+                            topPoints[0].y,
+                            topPoints[0].x,
+                            topPoints[0].y
+                        );
+                        
+                        for (let i = 1; i < topPoints.length; i++) {
+                            const prevPoint = topPoints[i - 1];
+                            const curPoint = topPoints[i];
+                            const midX = (prevPoint.x + curPoint.x) / 2;
+                            const midY = (prevPoint.y + curPoint.y) / 2;
+                            ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, midX, midY);
+                        }
+                        
+                        const lastWidth = lastLava.width * lastLava.expansion;
+                        const lastHeight = lastLava.height * lastLava.expansion;
+                        ctx.quadraticCurveTo(
+                            lastLava.x + lastWidth / 2,
+                            topPoints[topPoints.length - 1].y,
+                            lastLava.x + lastWidth / 2,
+                            lastLava.y
+                        );
+                        
+                        for (let i = bottomPoints.length - 1; i >= 0; i--) {
+                            const point = bottomPoints[i];
+                            if (i === bottomPoints.length - 1) {
+                                ctx.lineTo(point.x, point.y);
+                            } else {
+                                const nextPoint = bottomPoints[i + 1];
+                                const midX = (point.x + nextPoint.x) / 2;
+                                const midY = (point.y + nextPoint.y) / 2;
+                                ctx.quadraticCurveTo(nextPoint.x, nextPoint.y, midX, midY);
+                            }
+                        }
+                        
+                        ctx.closePath();
+                    }
+                    
+                    let fillStyle;
+                    if (allSolidified) {
+                        fillStyle = `rgba(85, 85, 85, ${avgLife})`;
+                    } else if (anySolidifying) {
+                        fillStyle = getCoolingColor(1 - avgTempRatio, avgLife);
+                    } else {
+                        const hottest = group.reduce((h, l) => 
+                            l.coreTemperature > h.coreTemperature ? l : h, group[0]);
+                        const tempColor = getLavaColor(hottest.coreTemperature, avgLife);
+                        fillStyle = tempColor.rgba;
+                    }
+                    
+                    ctx.fillStyle = fillStyle;
+                    ctx.fill();
+                    
+                    if (!allSolidified && avgTempRatio > 0.4) {
+                        ctx.save();
+                        ctx.globalCompositeOperation = 'lighter';
+                        
+                        for (let i = 0; i < group.length; i++) {
+                            const lava = group[i];
+                            const width = lava.width * lava.expansion;
+                            const height = lava.height * lava.expansion;
+                            const tempRatio = Math.max(0, (lava.coreTemperature - 350) / (controls.temperature - 350));
+                            
+                            if (tempRatio > 0.5) {
+                                const waveOffset = Math.sin(time * 3 + lava.x * 0.03 + lava.crackPattern * 15) * 3;
+                                
+                                const highlightGradient = ctx.createRadialGradient(
+                                    lava.x + waveOffset, lava.y - height * 0.3, 0,
+                                    lava.x + waveOffset, lava.y - height * 0.3, width * 0.6
+                                );
+                                highlightGradient.addColorStop(0, `rgba(255, 255, 220, ${lava.life * 0.5})`);
+                                highlightGradient.addColorStop(0.5, `rgba(255, 240, 150, ${lava.life * 0.3})`);
+                                highlightGradient.addColorStop(1, `rgba(255, 200, 50, 0)`);
+                                
+                                ctx.beginPath();
+                                ctx.ellipse(
+                                    lava.x + waveOffset, 
+                                    lava.y - height * 0.25, 
+                                    width * 0.45, 
+                                    height * 0.25, 
+                                    0, 0, Math.PI * 2
+                                );
+                                ctx.fillStyle = highlightGradient;
+                                ctx.fill();
+                            }
+                        }
+                        
+                        ctx.restore();
+                    }
+                    
+                    if (allSolidified) {
+                        const anyCrackPattern = group.some(l => l.crackPattern > 0);
+                        if (anyCrackPattern) {
+                            ctx.strokeStyle = `rgba(50, 50, 50, ${avgLife * 0.5})`;
+                            ctx.lineWidth = 1.5;
+                            
+                            for (let i = 0; i < group.length; i++) {
+                                const lava = group[i];
+                                const width = lava.width * lava.expansion;
+                                const height = lava.height * lava.expansion;
+                                
+                                const crackCount = Math.floor(2 + lava.crackPattern * 4);
+                                
+                                for (let j = 0; j < crackCount; j++) {
+                                    const angle = (j / crackCount) * Math.PI * 2 + lava.crackPattern * 10;
+                                    const startX = lava.x + Math.cos(angle) * width * 0.25;
+                                    const startY = lava.y + Math.sin(angle) * height * 0.25;
+                                    const endX = lava.x + Math.cos(angle) * width * 0.7;
+                                    const endY = lava.y + Math.sin(angle) * height * 0.6;
+                                    
+                                    ctx.beginPath();
+                                    ctx.moveTo(startX, startY);
+                                    ctx.lineTo(
+                                        endX + (Math.random() - 0.5) * 4,
+                                        endY + (Math.random() - 0.5) * 4
+                                    );
+                                    ctx.stroke();
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                ctx.restore();
+            }
+
+            function updateEruptionPhase(dt) {
+                if (!isErupting) {
+                    eruptionPhase = 'idle';
+                    return;
+                }
+                
+                eruptionTime += dt;
+                
+                if (eruptionTime < 60) {
+                    eruptionPhase = 'explosive';
+                } else {
+                    eruptionPhase = 'declining';
+                }
+            }
+
+            function animate(currentTime) {
+                const deltaTime = currentTime - lastTime;
+                lastTime = currentTime;
+                
+                const dt = Math.min(deltaTime / 16.67, 3);
+                
+                frameCount++;
+                if (frameCount % 30 === 0) {
+                    fps = Math.round(1000 / (deltaTime + 1));
+                    const totalParticles = magmaParticles.length + smokeParticles.length + 
+                                           lavaFlows.length + groundLava.length + 
+                                           ashParticles.length + fireParticles.length + boulders.length;
+                    perfInfo.textContent = `FPS: ${fps} | 粒子: ${totalParticles}`;
+                }
+                
+                updateEruptionPhase(dt);
+                spawnParticles(dt);
+                
+                updateMagmaParticles(dt);
+                updateBoulders(dt);
+                updateSmokeParticles(dt);
+                updateAshParticles(dt);
+                updateFireParticles(dt);
+                updateLavaFlows(dt);
+                updateGroundLava(dt);
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(backgroundCache, 0, 0);
+                
+                drawVolcano();
+                drawLavaFlows();
+                drawGroundLava();
+                drawFire();
+                drawMagmaParticles();
+                drawBoulders();
+                drawAsh();
+                drawSmoke();
+                
+                if (!isErupting && 
+                    magmaParticles.length === 0 && 
+                    smokeParticles.length === 0 && 
+                    lavaFlows.length === 0 && 
+                    ashParticles.length === 0 && 
+                    fireParticles.length === 0 &&
+                    boulders.length === 0 &&
+                    (groundLava.length === 0 || groundLava.every(l => l.solidified))) {
+                    statusText.textContent = '已完全凝固';
+                    statusText.className = '';
+                }
+                
+                requestAnimationFrame(animate);
+            }
+
+            function updateControlDisplay() {
+                tempValue.textContent = `${controls.temperature}°C`;
+                areaValue.textContent = intensityLabels[controls.intensity - 1];
+                speedValue.textContent = speedLabels[controls.speed - 1];
+            }
+
+            temperatureSlider.addEventListener('input', (e) => {
+                controls.temperature = parseInt(e.target.value);
+                updateControlDisplay();
+            });
+
+            areaSlider.addEventListener('input', (e) => {
+                controls.intensity = parseInt(e.target.value);
+                updateControlDisplay();
+            });
+
+            speedSlider.addEventListener('input', (e) => {
+                controls.speed = parseInt(e.target.value);
+                updateControlDisplay();
+            });
+
+            startBtn.addEventListener('click', () => {
+                isErupting = true;
+                eruptionTime = 0;
+                eruptionPhase = 'explosive';
+                statusText.textContent = '正在喷发';
+                statusText.className = 'status-active';
+            });
+
+            stopBtn.addEventListener('click', () => {
+                isErupting = false;
+                statusText.textContent = '岩浆冷却中...';
+                statusText.className = '';
+            });
+
+            resetBtn.addEventListener('click', () => {
+                isErupting = false;
+                eruptionPhase = 'idle';
+                eruptionTime = 0;
+                
+                magmaParticles.forEach(p => releaseParticle(p, 'magma'));
+                smokeParticles.forEach(s => releaseParticle(s, 'smoke'));
+                lavaFlows.forEach(l => releaseParticle(l, 'lava'));
+                groundLava.forEach(g => releaseParticle(g, 'groundLava'));
+                ashParticles.forEach(a => releaseParticle(a, 'ash'));
+                fireParticles.forEach(f => releaseParticle(f, 'fire'));
+                boulders.forEach(b => releaseParticle(b, 'boulder'));
+                
+                magmaParticles = [];
+                smokeParticles = [];
+                lavaFlows = [];
+                groundLava = [];
+                ashParticles = [];
+                fireParticles = [];
+                boulders = [];
+                
+                statusText.textContent = '准备就绪';
+                statusText.className = 'status-active';
+            });
+
+            initBackgroundCache();
+            updateControlDisplay();
+            requestAnimationFrame(animate);
+        })();
+    </script>
+</body>
+</html>
