@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班级座位管理系统</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <div id="login-page" class="page active">
+            <div class="login-container">
+                <div class="login-header">
+                    <div class="logo">
+                        <span class="logo-icon">🎒</span>
+                        <h1>班级座位管理系统</h1>
+                    </div>
+                    <p class="subtitle">轻松管理，智能编排</p>
+                </div>
+                <form id="login-form" class="login-form">
+                    <div class="form-group">
+                        <label for="username">账号</label>
+                        <input type="text" id="username" name="username" placeholder="请输入班主任账号" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" name="password" placeholder="请输入密码" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember-me">
+                            <span>记住账号</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">登 录</button>
+                </form>
+                <div class="login-footer">
+                    <p>账号由学校统一分配，如有问题请联系管理员</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="main-page" class="page">
+            <header class="main-header">
+                <div class="header-left">
+                    <div class="logo-small">
+                        <span class="logo-icon">🎒</span>
+                        <h2>座位管理系统</h2>
+                    </div>
+                    <div class="class-selector">
+                        <label>当前班级：</label>
+                        <select id="current-class-select">
+                            <option value="">请选择班级</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span class="user-name" id="current-user">班主任</span>
+                        <button id="logout-btn" class="btn btn-text">退出登录</button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="main-content">
+                <aside class="sidebar">
+                    <nav class="sidebar-nav">
+                        <button class="nav-item active" data-page="seating">
+                            <span class="nav-icon">🪑</span>
+                            <span>座位编排</span>
+                        </button>
+                        <button class="nav-item" data-page="students">
+                            <span class="nav-icon">👨‍🎓</span>
+                            <span>学生管理</span>
+                        </button>
+                        <button class="nav-item" data-page="history">
+                            <span class="nav-icon">📋</span>
+                            <span>历史记录</span>
+                        </button>
+                        <button class="nav-item" data-page="classes">
+                            <span class="nav-icon">🏫</span>
+                            <span>班级管理</span>
+                        </button>
+                        <button class="nav-item" data-page="settings">
+                            <span class="nav-icon">⚙️</span>
+                            <span>基础设置</span>
+                        </button>
+                    </nav>
+                </aside>
+
+                <main class="content-area">
+                    <div id="page-seating" class="content-page active">
+                        <div class="page-header">
+                            <h1>座位编排</h1>
+                            <div class="page-actions">
+                                <button id="auto-sort-btn" class="btn btn-secondary">
+                                    <span>📊</span> 自动排序
+                                </button>
+                                <button id="save-seating-btn" class="btn btn-primary">
+                                    <span>💾</span> 保存座位
+                                </button>
+                                <button id="export-btn" class="btn btn-success">
+                                    <span>📤</span> 导出
+                                </button>
+                                <button id="print-btn" class="btn btn-warning">
+                                    <span>🖨️</span> 打印
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="seating-container">
+                            <div class="classroom-config">
+                                <div class="config-group">
+                                    <label>行数：</label>
+                                    <input type="number" id="row-count" min="1" max="20" value="6">
+                                </div>
+                                <div class="config-group">
+                                    <label>列数：</label>
+                                    <input type="number" id="col-count" min="1" max="15" value="8">
+                                </div>
+                                <div class="config-group">
+                                    <label>过道位置：</label>
+                                    <select id="aisle-position">
+                                        <option value="none">无过道</option>
+                                        <option value="middle">中间过道</option>
+                                        <option value="left">左侧过道</option>
+                                        <option value="right">右侧过道</option>
+                                    </select>
+                                </div>
+                                <button id="apply-config-btn" class="btn btn-secondary">应用配置</button>
+                            </div>
+
+                            <div class="classroom-layout">
+                                <div class="teacher-desk">
+                                    <span>👩‍🏫 讲台</span>
+                                </div>
+                                <div id="seating-grid" class="seating-grid">
+                                </div>
+                            </div>
+
+                            <div class="unassigned-students">
+                                <h3>未分配座位的学生</h3>
+                                <div id="unassigned-list" class="student-list">
+                                    <p class="empty-hint">暂无未分配座位的学生</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="page-students" class="content-page">
+                        <div class="page-header">
+                            <h1>学生管理</h1>
+                            <div class="page-actions">
+                                <button id="import-students-btn" class="btn btn-primary">
+                                    <span>📥</span> 导入学生
+                                </button>
+                                <button id="add-student-btn" class="btn btn-secondary">
+                                    <span>➕</span> 添加学生
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="search-bar">
+                            <input type="text" id="student-search" placeholder="搜索学生姓名或学号...">
+                        </div>
+
+                        <div class="students-table-container">
+                            <table class="students-table">
+                                <thead>
+                                    <tr>
+                                        <th>学号</th>
+                                        <th>姓名</th>
+                                        <th>性别</th>
+                                        <th>身高 (cm)</th>
+                                        <th>视力情况</th>
+                                        <th>学习小组</th>
+                                        <th>座位位置</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="students-table-body">
+                                    <tr>
+                                        <td colspan="8" class="empty-cell">暂无学生数据</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="page-history" class="content-page">
+                        <div class="page-header">
+                            <h1>历史记录</h1>
+                            <div class="page-actions">
+                                <button id="clear-history-btn" class="btn btn-danger">
+                                    <span>🗑️</span> 清空历史
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="history-list" id="history-list">
+                            <div class="empty-state">
+                                <span class="empty-icon">📋</span>
+                                <p>暂无座位调整历史记录</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="page-classes" class="content-page">
+                        <div class="page-header">
+                            <h1>班级管理</h1>
+                            <div class="page-actions">
+                                <button id="add-class-btn" class="btn btn-primary">
+                                    <span>➕</span> 新建班级
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="classes-grid" id="classes-grid">
+                            <div class="empty-state">
+                                <span class="empty-icon">🏫</span>
+                                <p>暂无班级，请点击上方按钮创建</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="page-settings" class="content-page">
+                        <div class="page-header">
+                            <h1>基础设置</h1>
+                        </div>
+
+                        <div class="settings-container">
+                            <div class="settings-section">
+                                <h2>座位标签设置</h2>
+                                <div class="tags-manager">
+                                    <div class="tag-input-group">
+                                        <input type="text" id="new-tag-name" placeholder="输入标签名称">
+                                        <input type="color" id="new-tag-color" value="#FF6B6B">
+                                        <button id="add-tag-btn" class="btn btn-primary">添加标签</button>
+                                    </div>
+                                    <div class="tags-list" id="tags-list">
+                                        <p class="empty-hint">暂无自定义标签</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h2>系统设置</h2>
+                                <div class="settings-form">
+                                    <div class="form-row">
+                                        <label>默认行数：</label>
+                                        <input type="number" id="default-rows" min="1" max="20" value="6">
+                                    </div>
+                                    <div class="form-row">
+                                        <label>默认列数：</label>
+                                        <input type="number" id="default-cols" min="1" max="15" value="8">
+                                    </div>
+                                    <button id="save-settings-btn" class="btn btn-primary">保存设置</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <div id="modal-overlay" class="modal-overlay">
+            <div id="modal" class="modal">
+                <div class="modal-header">
+                    <h3 id="modal-title">标题</h3>
+                    <button id="modal-close" class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                </div>
+                <div class="modal-footer" id="modal-footer">
+                </div>
+            </div>
+        </div>
+
+        <div id="auto-sort-modal" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>自动排序</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>排序依据：</label>
+                        <select id="sort-criteria">
+                            <option value="height">按身高从矮到高</option>
+                            <option value="height-desc">按身高从高到矮</option>
+                            <option value="vision">按视力情况（近视优先前座）</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>排序方向：</label>
+                        <select id="sort-direction">
+                            <option value="front-to-back">从前到后</option>
+                            <option value="left-to-right">从左到右</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary modal-cancel">取消</button>
+                    <button id="confirm-sort-btn" class="btn btn-primary">确认排序</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="add-student-modal" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 id="add-student-title">添加学生</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="student-form">
+                        <input type="hidden" id="edit-student-id">
+                        <div class="form-group">
+                            <label>学号 *</label>
+                            <input type="text" id="student-id" required placeholder="请输入学号">
+                        </div>
+                        <div class="form-group">
+                            <label>姓名 *</label>
+                            <input type="text" id="student-name" required placeholder="请输入姓名">
+                        </div>
+                        <div class="form-group">
+                            <label>性别</label>
+                            <select id="student-gender">
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>身高 (cm)</label>
+                            <input type="number" id="student-height" min="100" max="200" placeholder="请输入身高">
+                        </div>
+                        <div class="form-group">
+                            <label>视力情况</label>
+                            <select id="student-vision">
+                                <option value="正常">正常</option>
+                                <option value="轻度近视">轻度近视</option>
+                                <option value="中度近视">中度近视</option>
+                                <option value="高度近视">高度近视</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>学习小组</label>
+                            <input type="text" id="student-group" placeholder="请输入小组名称（如：一组、二组）">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary modal-cancel">取消</button>
+                    <button id="save-student-btn" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="add-class-modal" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 id="add-class-title">新建班级</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="class-form">
+                        <input type="hidden" id="edit-class-id">
+                        <div class="form-group">
+                            <label>班级名称 *</label>
+                            <input type="text" id="class-name" required placeholder="如：一年级(1)班">
+                        </div>
+                        <div class="form-group">
+                            <label>年级</label>
+                            <select id="class-grade">
+                                <option value="一年级">一年级</option>
+                                <option value="二年级">二年级</option>
+                                <option value="三年级">三年级</option>
+                                <option value="四年级">四年级</option>
+                                <option value="五年级">五年级</option>
+                                <option value="六年级">六年级</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>默认行数</label>
+                            <input type="number" id="class-rows" min="1" max="20" value="6">
+                        </div>
+                        <div class="form-group">
+                            <label>默认列数</label>
+                            <input type="number" id="class-cols" min="1" max="15" value="8">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary modal-cancel">取消</button>
+                    <button id="save-class-btn" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="import-modal" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>导入学生名单</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="import-info">
+                        <h4>支持的格式：</h4>
+                        <p>请上传Excel文件（.xlsx, .xls）或CSV文件</p>
+                        <h4>数据格式要求：</h4>
+                        <ul>
+                            <li>第一行：表头（学号、姓名、性别、身高、视力、小组）</li>
+                            <li>从第二行开始：学生数据</li>
+                        </ul>
+                    </div>
+                    <div class="file-upload-area" id="file-upload-area">
+                        <input type="file" id="import-file" accept=".csv,.xlsx,.xls" hidden>
+                        <div class="upload-placeholder">
+                            <span class="upload-icon">📁</span>
+                            <p>点击或拖拽文件到此处</p>
+                        </div>
+                        <div class="file-info" id="file-info" style="display: none;">
+                            <span class="file-name"></span>
+                            <button class="btn btn-text remove-file">移除</button>
+                        </div>
+                    </div>
+                    <div id="preview-area" style="display: none;">
+                        <h4>数据预览：</h4>
+                        <div class="preview-table-container">
+                            <table class="preview-table" id="preview-table">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary modal-cancel">取消</button>
+                    <button id="confirm-import-btn" class="btn btn-primary" disabled>确认导入</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="export-modal" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>导出座位表</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="export-options">
+                        <div class="export-option">
+                            <input type="radio" id="export-excel" name="export-type" value="excel" checked>
+                            <label for="export-excel">
+                                <span class="format-icon">📊</span>
+                                <div>
+                                    <div class="format-name">Excel 格式</div>
+                                    <div class="format-desc">可编辑的表格文件</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="export-option">
+                            <input type="radio" id="export-pdf" name="export-type" value="pdf">
+                            <label for="export-pdf">
+                                <span class="format-icon">📄</span>
+                                <div>
+                                    <div class="format-name">PDF 格式</div>
+                                    <div class="format-desc">适合打印和存档</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>文件名称：</label>
+                        <input type="text" id="export-filename" placeholder="座位表">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary modal-cancel">取消</button>
+                    <button id="confirm-export-btn" class="btn btn-primary">导出</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="seat-detail-modal" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>座位详情</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body" id="seat-detail-body">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary modal-cancel">关闭</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
