@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>景区智慧管理动态大屏</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <!-- 引入 ECharts GL 用于地图和3D效果 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts-gl@2.0.9/dist/echarts-gl.min.js"></script>
+</head>
+<body>
+    <!-- 大屏容器 -->
+    <div class="dashboard-container">
+        <!-- 顶部标题栏 -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="title-icon"></div>
+                <h1 class="main-title">景区智慧管理动态大屏</h1>
+            </div>
+            <div class="header-center">
+                <div class="system-time" id="systemTime">2026年04月24日 14:30:25</div>
+                <div class="system-status">
+                    <span class="status-dot status-normal"></span>
+                    系统运行正常
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" id="exportBtn">数据导出</button>
+                <button class="header-btn" id="historyBtn">历史查询</button>
+                <button class="header-btn emergency-btn" id="emergencyBtn">应急处置</button>
+            </div>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main class="dashboard-main">
+            <!-- 左侧面板 -->
+            <section class="panel panel-left">
+                <!-- 客流管理模块 -->
+                <div class="module module-passenger">
+                    <div class="module-header">
+                        <h2 class="module-title">客流管理</h2>
+                        <div class="module-actions">
+                            <span class="refresh-btn" title="刷新数据">⟳</span>
+                        </div>
+                    </div>
+                    <div class="module-content">
+                        <!-- 实时客流统计 -->
+                        <div class="realtime-stats">
+                            <div class="stat-card">
+                                <div class="stat-label">今日接待量</div>
+                                <div class="stat-value" id="todayVisitors">12,845</div>
+                                <div class="stat-trend trend-up">↑ 12.5%</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">累计接待量</div>
+                                <div class="stat-value" id="totalVisitors">1,256,890</div>
+                                <div class="stat-trend trend-up">↑ 8.2%</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">最大承载量</div>
+                                <div class="stat-value" id="maxCapacity">50,000</div>
+                                <div class="stat-ratio">当前负载: 25.7%</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 客流来源地 -->
+                        <div class="chart-row">
+                            <div class="chart-container">
+                                <h3 class="chart-title">客流来源地分布</h3>
+                                <div id="sourceMap" class="chart"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- 游客画像 -->
+                        <div class="chart-row double-chart">
+                            <div class="chart-container">
+                                <h3 class="chart-title">年龄分布</h3>
+                                <div id="ageChart" class="chart"></div>
+                            </div>
+                            <div class="chart-container">
+                                <h3 class="chart-title">性别分布</h3>
+                                <div id="genderChart" class="chart"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-row">
+                            <div class="chart-container">
+                                <h3 class="chart-title">出行方式</h3>
+                                <div id="transportChart" class="chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 设备运维模块 -->
+                <div class="module module-equipment">
+                    <div class="module-header">
+                        <h2 class="module-title">设备运维</h2>
+                        <div class="module-actions">
+                            <span class="alarm-badge" id="equipmentAlarms">3</span>
+                        </div>
+                    </div>
+                    <div class="module-content">
+                        <!-- 设备状态概览 -->
+                        <div class="equipment-overview">
+                            <div class="equipment-type">
+                                <div class="equipment-icon icon-gate"></div>
+                                <div class="equipment-info">
+                                    <div class="equipment-name">闸机系统</div>
+                                    <div class="equipment-status">
+                                        <span class="status-normal">正常: 28</span>
+                                        <span class="status-warning">故障: 2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="equipment-type">
+                                <div class="equipment-icon icon-bus"></div>
+                                <div class="equipment-info">
+                                    <div class="equipment-name">观光车辆</div>
+                                    <div class="equipment-status">
+                                        <span class="status-normal">正常: 15</span>
+                                        <span class="status-warning">故障: 1</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="equipment-type">
+                                <div class="equipment-icon icon-boat"></div>
+                                <div class="equipment-info">
+                                    <div class="equipment-name">游船系统</div>
+                                    <div class="equipment-status">
+                                        <span class="status-normal">正常: 10</span>
+                                        <span class="status-normal">故障: 0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="equipment-type">
+                                <div class="equipment-icon icon-light"></div>
+                                <div class="equipment-info">
+                                    <div class="equipment-name">路灯系统</div>
+                                    <div class="equipment-status">
+                                        <span class="status-normal">正常: 450</span>
+                                        <span class="status-warning">故障: 5</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="equipment-type">
+                                <div class="equipment-icon icon-toilet"></div>
+                                <div class="equipment-info">
+                                    <div class="equipment-name">卫生间设施</div>
+                                    <div class="equipment-status">
+                                        <span class="status-normal">正常: 32</span>
+                                        <span class="status-warning">故障: 1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 故障报警列表 -->
+                        <div class="alarm-list">
+                            <h3 class="chart-title">故障报警</h3>
+                            <div class="alarm-items">
+                                <div class="alarm-item alarm-high">
+                                    <div class="alarm-level">紧急</div>
+                                    <div class="alarm-content">
+                                        <div class="alarm-title">主入口闸机 #03 故障</div>
+                                        <div class="alarm-time">10分钟前</div>
+                                    </div>
+                                    <button class="alarm-handle">处理</button>
+                                </div>
+                                <div class="alarm-item alarm-medium">
+                                    <div class="alarm-level">一般</div>
+                                    <div class="alarm-content">
+                                        <div class="alarm-title">观光车 #12 电量不足</div>
+                                        <div class="alarm-time">25分钟前</div>
+                                    </div>
+                                    <button class="alarm-handle">处理</button>
+                                </div>
+                                <div class="alarm-item alarm-low">
+                                    <div class="alarm-level">提示</div>
+                                    <div class="alarm-content">
+                                        <div class="alarm-title">卫生间 #08 纸量不足</div>
+                                        <div class="alarm-time">1小时前</div>
+                                    </div>
+                                    <button class="alarm-handle">处理</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 维护工单进度 -->
+                        <div class="workorder-progress">
+                            <h3 class="chart-title">维护工单</h3>
+                            <div id="workorderChart" class="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 中间主区域 -->
+            <section class="panel panel-center">
+                <!-- 安全防控模块 -->
+                <div class="module module-security">
+                    <div class="module-header">
+                        <h2 class="module-title">安全防控</h2>
+                        <div class="module-actions">
+                            <div class="monitor-count">监控点: <span id="monitorCount">526</span>/500+</div>
+                        </div>
+                    </div>
+                    <div class="module-content">
+                        <!-- 客流热力图 -->
+                        <div class="heatmap-container">
+                            <h3 class="chart-title">各区域客流热力图</h3>
+                            <div id="heatmapChart" class="chart heatmap-chart"></div>
+                            <!-- 客流预警信息 -->
+                            <div class="warning-overlay" id="warningOverlay">
+                                <div class="warning-item warning-high">
+                                    <span class="warning-icon">⚠</span>
+                                    <div class="warning-content">
+                                        <div class="warning-title">核心景区客流预警</div>
+                                        <div class="warning-desc">当前客流已达区域承载上限的 85%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 监控视频区域 -->
+                        <div class="monitor-section">
+                            <h3 class="chart-title">实时监控画面</h3>
+                            <div class="monitor-grid">
+                                <div class="monitor-item active">
+                                    <div class="monitor-preview">
+                                        <div class="monitor-placeholder">主入口</div>
+                                    </div>
+                                    <div class="monitor-info">
+                                        <span class="monitor-name">主入口 #01</span>
+                                        <span class="monitor-status online">在线</span>
+                                    </div>
+                                </div>
+                                <div class="monitor-item">
+                                    <div class="monitor-preview">
+                                        <div class="monitor-placeholder">核心景点A</div>
+                                    </div>
+                                    <div class="monitor-info">
+                                        <span class="monitor-name">核心景点A</span>
+                                        <span class="monitor-status online">在线</span>
+                                    </div>
+                                </div>
+                                <div class="monitor-item">
+                                    <div class="monitor-preview">
+                                        <div class="monitor-placeholder">游步道B</div>
+                                    </div>
+                                    <div class="monitor-info">
+                                        <span class="monitor-name">游步道B</span>
+                                        <span class="monitor-status online">在线</span>
+                                    </div>
+                                </div>
+                                <div class="monitor-item">
+                                    <div class="monitor-preview">
+                                        <div class="monitor-placeholder">停车场</div>
+                                    </div>
+                                    <div class="monitor-info">
+                                        <span class="monitor-name">停车场入口</span>
+                                        <span class="monitor-status online">在线</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="monitor-expand-btn" id="expandMonitorBtn">查看更多监控点位</button>
+                        </div>
+                        
+                        <!-- 区域客流统计 -->
+                        <div class="area-stats">
+                            <h3 class="chart-title">各区域客流实时统计</h3>
+                            <div id="areaFlowChart" class="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 右侧面板 -->
+            <section class="panel panel-right">
+                <!-- 环境监测模块 -->
+                <div class="module module-environment">
+                    <div class="module-header">
+                        <h2 class="module-title">环境监测</h2>
+                        <div class="module-actions">
+                            <span class="refresh-btn" title="刷新数据">⟳</span>
+                        </div>
+                    </div>
+                    <div class="module-content">
+                        <!-- 环境指标卡片 -->
+                        <div class="env-cards">
+                            <div class="env-card">
+                                <div class="env-icon icon-air"></div>
+                                <div class="env-info">
+                                    <div class="env-label">空气质量</div>
+                                    <div class="env-value">优</div>
+                                    <div class="env-sub">PM2.5: 12 μg/m³</div>
+                                </div>
+                            </div>
+                            <div class="env-card">
+                                <div class="env-icon icon-temp"></div>
+                                <div class="env-info">
+                                    <div class="env-label">温度</div>
+                                    <div class="env-value">22.5°C</div>
+                                    <div class="env-sub">体感: 23°C</div>
+                                </div>
+                            </div>
+                            <div class="env-card">
+                                <div class="env-icon icon-humidity"></div>
+                                <div class="env-info">
+                                    <div class="env-label">湿度</div>
+                                    <div class="env-value">65%</div>
+                                    <div class="env-sub">适宜</div>
+                                </div>
+                            </div>
+                            <div class="env-card">
+                                <div class="env-icon icon-water"></div>
+                                <div class="env-info">
+                                    <div class="env-label">水质</div>
+                                    <div class="env-value">Ⅰ类</div>
+                                    <div class="env-sub">达标</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 环境趋势图 -->
+                        <div class="env-chart">
+                            <h3 class="chart-title">24小时环境变化趋势</h3>
+                            <div id="envTrendChart" class="chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 营收统计模块 -->
+                <div class="module module-revenue">
+                    <div class="module-header">
+                        <h2 class="module-title">营收统计</h2>
+                        <div class="module-actions">
+                            <select class="time-select" id="timeSelect">
+                                <option value="today">今日</option>
+                                <option value="week">本周</option>
+                                <option value="month">本月</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="module-content">
+                        <!-- 营收概览 -->
+                        <div class="revenue-overview">
+                            <div class="revenue-total">
+                                <div class="revenue-label">总营收</div>
+                                <div class="revenue-value">¥ 1,256,890</div>
+                                <div class="revenue-trend trend-up">较昨日 +15.2%</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 营收分类 -->
+                        <div class="revenue-breakdown">
+                            <div class="revenue-item">
+                                <div class="revenue-icon icon-ticket"></div>
+                                <div class="revenue-info">
+                                    <div class="revenue-name">门票收入</div>
+                                    <div class="revenue-amount">¥ 892,450</div>
+                                </div>
+                                <div class="revenue-ratio">71.0%</div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-icon icon-food"></div>
+                                <div class="revenue-info">
+                                    <div class="revenue-name">餐饮收入</div>
+                                    <div class="revenue-amount">¥ 215,680</div>
+                                </div>
+                                <div class="revenue-ratio">17.2%</div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-icon icon-shop"></div>
+                                <div class="revenue-info">
+                                    <div class="revenue-name">文创收入</div>
+                                    <div class="revenue-amount">¥ 108,560</div>
+                                </div>
+                                <div class="revenue-ratio">8.6%</div>
+                            </div>
+                            <div class="revenue-item">
+                                <div class="revenue-icon icon-rent"></div>
+                                <div class="revenue-info">
+                                    <div class="revenue-name">租赁收入</div>
+                                    <div class="revenue-amount">¥ 40,200</div>
+                                </div>
+                                <div class="revenue-ratio">3.2%</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 营收趋势图 -->
+                        <div class="revenue-chart">
+                            <h3 class="chart-title">营收趋势</h3>
+                            <div id="revenueChart" class="chart"></div>
+                        </div>
+                        
+                        <!-- 业态占比 -->
+                        <div class="revenue-pie">
+                            <h3 class="chart-title">各业态营收占比</h3>
+                            <div id="revenuePieChart" class="chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 人员调度模块 -->
+                <div class="module module-staff">
+                    <div class="module-header">
+                        <h2 class="module-title">人员调度</h2>
+                        <div class="module-actions">
+                            <button class="dispatch-btn" id="dispatchBtn">一键调度</button>
+                        </div>
+                    </div>
+                    <div class="module-content">
+                        <!-- 人员概览 -->
+                        <div class="staff-overview">
+                            <div class="staff-type">
+                                <div class="staff-icon icon-security"></div>
+                                <div class="staff-info">
+                                    <div class="staff-name">安保人员</div>
+                                    <div class="staff-status">
+                                        <span class="status-on">在岗: 45</span>
+                                        <span class="status-off">休息: 12</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="staff-type">
+                                <div class="staff-icon icon-cleaner"></div>
+                                <div class="staff-info">
+                                    <div class="staff-name">保洁人员</div>
+                                    <div class="staff-status">
+                                        <span class="status-on">在岗: 38</span>
+                                        <span class="status-off">休息: 8</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="staff-type">
+                                <div class="staff-icon icon-service"></div>
+                                <div class="staff-info">
+                                    <div class="staff-name">客服人员</div>
+                                    <div class="staff-status">
+                                        <span class="status-on">在岗: 15</span>
+                                        <span class="status-off">休息: 5</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 排班信息 -->
+                        <div class="schedule-section">
+                            <h3 class="chart-title">今日排班</h3>
+                            <div class="schedule-table">
+                                <div class="schedule-row header">
+                                    <div class="schedule-col">岗位</div>
+                                    <div class="schedule-col">班次</div>
+                                    <div class="schedule-col">时间</div>
+                                    <div class="schedule-col">人数</div>
+                                    <div class="schedule-col">状态</div>
+                                </div>
+                                <div class="schedule-row">
+                                    <div class="schedule-col">安保</div>
+                                    <div class="schedule-col">早班</div>
+                                    <div class="schedule-col">08:00-16:00</div>
+                                    <div class="schedule-col">20人</div>
+                                    <div class="schedule-col"><span class="shift-status active">进行中</span></div>
+                                </div>
+                                <div class="schedule-row">
+                                    <div class="schedule-col">安保</div>
+                                    <div class="schedule-col">中班</div>
+                                    <div class="schedule-col">12:00-20:00</div>
+                                    <div class="schedule-col">25人</div>
+                                    <div class="schedule-col"><span class="shift-status active">进行中</span></div>
+                                </div>
+                                <div class="schedule-row">
+                                    <div class="schedule-col">保洁</div>
+                                    <div class="schedule-col">早班</div>
+                                    <div class="schedule-col">07:00-15:00</div>
+                                    <div class="schedule-col">18人</div>
+                                    <div class="schedule-col"><span class="shift-status active">进行中</span></div>
+                                </div>
+                                <div class="schedule-row">
+                                    <div class="schedule-col">客服</div>
+                                    <div class="schedule-col">全天</div>
+                                    <div class="schedule-col">09:00-17:00</div>
+                                    <div class="schedule-col">15人</div>
+                                    <div class="schedule-col"><span class="shift-status active">进行中</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 人员分布 -->
+                        <div class="staff-distribution">
+                            <h3 class="chart-title">人员分布图</h3>
+                            <div id="staffChart" class="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 弹窗：监控放大 -->
+    <div class="modal" id="monitorModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 class="modal-title">监控详情</h3>
+                <button class="modal-close" id="closeMonitorModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="monitor-detail">
+                    <div class="monitor-large">
+                        <div class="monitor-placeholder large">主入口 #01 实时画面</div>
+                    </div>
+                    <div class="monitor-info-detail">
+                        <div class="info-item">
+                            <span class="info-label">监控名称:</span>
+                            <span class="info-value">主入口 #01</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">位置:</span>
+                            <span class="info-value">景区南大门入口</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">状态:</span>
+                            <span class="info-value online">在线</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">分辨率:</span>
+                            <span class="info-value">1920×1080</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">最后更新:</span>
+                            <span class="info-value">刚刚</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="monitor-selector">
+                    <h4>切换监控点位</h4>
+                    <div class="monitor-list">
+                        <div class="monitor-select-item active" data-id="01">主入口 #01</div>
+                        <div class="monitor-select-item" data-id="02">主入口 #02</div>
+                        <div class="monitor-select-item" data-id="03">核心景点A</div>
+                        <div class="monitor-select-item" data-id="04">核心景点B</div>
+                        <div class="monitor-select-item" data-id="05">游步道A</div>
+                        <div class="monitor-select-item" data-id="06">游步道B</div>
+                        <div class="monitor-select-item" data-id="07">停车场入口</div>
+                        <div class="monitor-select-item" data-id="08">游客中心</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗：应急处置 -->
+    <div class="modal" id="emergencyModal">
+        <div class="modal-content medium">
+            <div class="modal-header">
+                <h3 class="modal-title">应急处置中心</h3>
+                <button class="modal-close" id="closeEmergencyModal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="emergency-types">
+                    <div class="emergency-type">
+                        <div class="emergency-icon icon-missing">👤</div>
+                        <div class="emergency-info">
+                            <h4>游客走失</h4>
+                            <p>快速定位、广播寻人、调阅监控</p>
+                            <button class="emergency-action" data-type="missing">启动预案</button>
+                        </div>
+                    </div>
+                    <div class="emergency-type">
+                        <div class="emergency-icon icon-fault">⚙</div>
+                        <div class="emergency-info">
+                            <h4>设备故障</h4>
+                            <p>报修登记、派单处理、进度跟踪</p>
+                            <button class="emergency-action" data-type="fault">启动预案</button>
+                        </div>
+                    </div>
+                    <div class="emergency-type">
+                        <div class="emergency-icon icon-safety">⚠</div>
+                        <div class="emergency-info">
+                            <h4>安全隐患</h4>
+                            <p>风险评估、隔离处置、通报预警</p>
+                            <button class="emergency-action" data-type="safety">启动预案</button>
+                        </div>
+                    </div>
+                    <div class="emergency-type">
+                        <div class="emergency-icon icon-medical">🏥</div>
+                        <div class="emergency-info">
+                            <h4>医疗急救</h4>
+                            <p>急救呼叫、就近救援、医疗支援</p>
+                            <button class="emergency-action" data-type="medical">启动预案</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="emergency-resources">
+                    <h4>应急资源</h4>
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">应急指挥车</span>
+                            <span class="resource-count">2 辆可用</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">急救药品箱</span>
+                            <span class="resource-count">15 个点位</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">安保应急队</span>
+                            <span class="resource-count">30 人待命</span>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">消防器材</span>
+                            <span class="resource-count">50 处</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入 JavaScript 文件 -->
+    <script src="js/config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
