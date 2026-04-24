@@ -1,0 +1,200 @@
+.plot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.plot:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.plot-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.plot-icon {
+  font-size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plot-empty {
+  background: linear-gradient(135deg, #8B7355 0%, #6B5344 100%);
+  border: 3px solid #5D4037;
+}
+
+.plot-empty:hover {
+  background: linear-gradient(135deg, #9B8365 0%, #7B6354 100%);
+}
+
+.plot-plowed {
+  background: linear-gradient(135deg, #A1887F 0%, #8D6E63 100%);
+  border: 3px solid #795548;
+}
+
+.plot-plowed:hover {
+  background: linear-gradient(135deg, #B1988F 0%, #9D7E73 100%);
+}
+
+.plot-growing {
+  background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
+  border: 3px solid #4CAF50;
+}
+
+.plot-ready {
+  background: linear-gradient(135deg, #FFD54F 0%, #FFC107 100%);
+  border: 3px solid #FF9800;
+  animation: glow 2s infinite;
+}
+
+.plot-ready:hover {
+  background: linear-gradient(135deg, #FFE57F 0%, #FFD54F 100%);
+}
+
+.plot-withered {
+  background: linear-gradient(135deg, #9E9E9E 0%, #757575 100%);
+  border: 3px solid #616161;
+}
+
+.plot-selected {
+  border: 3px solid var(--primary-green) !important;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
+}
+
+.has-weed {
+  background: linear-gradient(135deg, #A5D6A7 0%, #81C784 100%) !important;
+}
+
+.has-pest {
+  background: linear-gradient(135deg, #FFCC80 0%, #FFB74D 100%) !important;
+}
+
+.crop-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.crop-emoji {
+  font-size: 48px;
+  margin-bottom: 4px;
+}
+
+.growth-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.growth-bar-bg {
+  width: 80%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.growth-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.plot-status {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.status-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--white);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.sell-price {
+  font-size: 10px;
+  color: var(--gold-yellow);
+  font-weight: 600;
+}
+
+.plot-overlays {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  gap: 2px;
+}
+
+.overlay-icon {
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.weed-icon {
+  border: 2px solid #4CAF50;
+}
+
+.pest-icon {
+  border: 2px solid #FF9800;
+}
+
+.time-remaining-tooltip {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--white);
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .plot-icon {
+    font-size: 36px;
+  }
+  
+  .crop-emoji {
+    font-size: 36px;
+  }
+  
+  .status-text {
+    font-size: 10px;
+  }
+}
