@@ -4,6 +4,9 @@ import Header from './components/Header';
 import FarmView from './components/FarmView';
 import BottomNav from './components/BottomNav';
 import Warehouse from './components/Warehouse';
+import Friends from './components/Friends';
+import Shop from './components/Shop';
+import Tasks from './components/Tasks';
 import './styles/global.css';
 import './App.css';
 
@@ -31,30 +34,9 @@ function AppContent() {
       
       <main className="main-content">
         {activeTab === 'farm' && <FarmView />}
-        
-        {activeTab === 'friends' && (
-          <div className="placeholder-content">
-            <span className="placeholder-icon">👥</span>
-            <h2>好友系统</h2>
-            <p>功能开发中...</p>
-          </div>
-        )}
-        
-        {activeTab === 'shop' && (
-          <div className="placeholder-content">
-            <span className="placeholder-icon">🛒</span>
-            <h2>道具商城</h2>
-            <p>功能开发中...</p>
-          </div>
-        )}
-        
-        {activeTab === 'tasks' && (
-          <div className="placeholder-content">
-            <span className="placeholder-icon">📋</span>
-            <h2>任务中心</h2>
-            <p>功能开发中...</p>
-          </div>
-        )}
+        {activeTab === 'friends' && <Friends />}
+        {activeTab === 'shop' && <Shop />}
+        {activeTab === 'tasks' && <Tasks />}
       </main>
       
       <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />

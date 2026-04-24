@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { GameState, CropType, ItemType, WarehouseItem } from '../types';
-import { createInitialGameState, createCropInstance, addExperience, getCropGrowthProgress } from '../utils/gameUtils';
-import { CROPS, FERTILIZER_SPEED_BOOST, STORAGE_KEY } from '../config/gameConfig';
+import type { GameState, CropType, ItemType, WarehouseItem, DailyTask, Friend } from '../types';
+import { createInitialGameState, createCropInstance, addExperience, getCropGrowthProgress, generateId } from '../utils/gameUtils';
+import { CROPS, FERTILIZER_SPEED_BOOST, STORAGE_KEY, ITEM_INFO, MAX_STEAL_PER_CROP } from '../config/gameConfig';
 
 type GameAction =
   | { type: 'LOAD_STATE'; payload: GameState }
@@ -17,7 +17,15 @@ type GameAction =
   | { type: 'SELL_CROP'; payload: { cropType: CropType; quantity: number } }
   | { type: 'ADD_EXPERIENCE'; payload: { experience: number } }
   | { type: 'ADD_GOLD'; payload: { amount: number } }
-  | { type: 'ADD_ITEM'; payload: { itemType: ItemType; quantity: number } };
+  | { type: 'ADD_ITEM'; payload: { itemType: ItemType; quantity: number } }
+  | { type: 'BUY_ITEM'; payload: { itemType: ItemType; price: number } }
+  | { type: 'BUY_SEED'; payload: { cropType: CropType; price: number } }
+  | { type: 'UPDATE_TASK_PROGRESS'; payload: { taskId: string; progress: number } }
+  | { type: 'CLAIM_TASK_REWARD'; payload: { taskId: string } }
+  | { type: 'STEAL_FROM_FRIEND'; payload: { friendId: string; plotId: string } }
+  | { type: 'USE_PROTECTION_CARD' }
+  | { type: 'DAILY_RESET' }
+  | { type: 'SET_FRIENDS'; payload: Friend[] };
 
 interface GameContextType {
   state: GameState;
@@ -29,9 +37,34 @@ interface GameContextType {
   sellCrop: (cropType: CropType, quantity: number) => void;
   addGold: (amount: number) => void;
   addExperience: (experience: number) => void;
+  buyItem: (itemType: ItemType, price: number) => void;
+  buySeed: (cropType: CropType, price: number) => void;
+  updateTaskProgress: (taskId: string, progress: number) => void;
+  claimTaskReward: (taskId: string) => void;
+  stealFromFriend: (friendId: string, plotId: string) => void;
+  useProtectionCard: () => void;
+  setFriends: (friends: Friend[]) => void;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
+
+const updateTaskProgressInternal = (
+  tasks: DailyTask[],
+  taskId: string,
+  progress: number
+): DailyTask[] => {
+  return tasks.map(task => {
+    if (task.id === taskId && !task.completed) {
+      const newCurrent = Math.min(task.current + progress, task.target);
+      return {
+        ...task,
+        current: newCurrent,
+        completed: newCurrent >= task.target,
+      };
+    }
+    return task;
+  });
+};
 
 const gameReducer = (state: GameState, action: GameAction): GameState => {
   switch (action.type) {
@@ -95,11 +128,13 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       });
       
       const playerWithExp = addExperience(state.player, 5);
+      const updatedTasks = updateTaskProgressInternal(state.dailyTasks, 'plant_3', 1);
       
       return {
         ...state,
         plots: updatedPlots,
         player: playerWithExp.player,
+        dailyTasks: updatedTasks,
       };
     }
     
@@ -143,10 +178,13 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         crop.experience
       );
       
+      const updatedTasks = updateTaskProgressInternal(state.dailyTasks, 'harvest_2', 1);
+      
       return {
         ...state,
         plots: updatedPlots,
         player: playerWithExp.player,
+        dailyTasks: updatedTasks,
       };
     }
     
@@ -165,11 +203,20 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       if (itemType === 'fertilizer') {
         updatedPlots = state.plots.map(plot => {
           if (plot.id === plotId && plot.crop) {
+            const now = Date.now();
+            const elapsed = now - plot.crop.plantedAt;
+            const currentMultiplier = plot.crop.growthSpeedMultiplier;
+            const newMultiplier = currentMultiplier * (1 + FERTILIZER_SPEED_BOOST);
+            
+            const effectiveElapsed = elapsed * currentMultiplier;
+            const newPlantedAt = now - (effectiveElapsed / newMultiplier);
+            
             return {
               ...plot,
               crop: {
                 ...plot.crop,
-                growthSpeedMultiplier: plot.crop.growthSpeedMultiplier * (1 + FERTILIZER_SPEED_BOOST),
+                growthSpeedMultiplier: newMultiplier,
+                plantedAt: newPlantedAt,
               },
             };
           }
@@ -234,6 +281,8 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
         );
       }
       
+      const updatedTasks = updateTaskProgressInternal(state.dailyTasks, 'sell_100', goldEarned);
+      
       return {
         ...state,
         player: {
@@ -241,6 +290,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
           gold: state.player.gold + goldEarned,
           warehouse: updatedWarehouse,
         },
+        dailyTasks: updatedTasks,
       };
     }
     
@@ -266,6 +316,185 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
             [action.payload.itemType]: state.player.items[action.payload.itemType] + action.payload.quantity,
           },
         },
+      };
+    }
+    
+    case 'BUY_ITEM': {
+      const { itemType, price } = action.payload;
+      if (state.player.gold < price) return state;
+      
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          gold: state.player.gold - price,
+          items: {
+            ...state.player.items,
+            [itemType]: state.player.items[itemType] + 1,
+          },
+        },
+      };
+    }
+    
+    case 'BUY_SEED': {
+      const { cropType, price } = action.payload;
+      if (state.player.gold < price) return state;
+      
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          gold: state.player.gold - price,
+        },
+      };
+    }
+    
+    case 'UPDATE_TASK_PROGRESS': {
+      const { taskId, progress } = action.payload;
+      const updatedTasks = state.dailyTasks.map(task => {
+        if (task.id === taskId && !task.completed) {
+          const newCurrent = Math.min(task.current + progress, task.target);
+          return {
+            ...task,
+            current: newCurrent,
+            completed: newCurrent >= task.target,
+          };
+        }
+        return task;
+      });
+      return { ...state, dailyTasks: updatedTasks };
+    }
+    
+    case 'CLAIM_TASK_REWARD': {
+      const { taskId } = action.payload;
+      const task = state.dailyTasks.find(t => t.id === taskId);
+      if (!task || !task.completed || task.claimed) return state;
+      
+      const updatedTasks = state.dailyTasks.map(t =>
+        t.id === taskId ? { ...t, claimed: true } : t
+      );
+      
+      let updatedPlayer = { ...state.player };
+      
+      if (task.reward.gold) {
+        updatedPlayer.gold += task.reward.gold;
+      }
+      if (task.reward.experience) {
+        const expResult = addExperience(updatedPlayer, task.reward.experience);
+        updatedPlayer = expResult.player;
+      }
+      if (task.reward.items) {
+        Object.entries(task.reward.items).forEach(([itemType, quantity]) => {
+          if (quantity) {
+            updatedPlayer.items[itemType as ItemType] += quantity;
+          }
+        });
+      }
+      
+      return { ...state, player: updatedPlayer, dailyTasks: updatedTasks };
+    }
+    
+    case 'STEAL_FROM_FRIEND': {
+      const { friendId, plotId } = action.payload;
+      
+      if (state.player.dailyStealsRemaining <= 0) return state;
+      
+      const friend = state.friends.find(f => f.id === friendId);
+      if (!friend || friend.isProtected) return state;
+      
+      const plot = friend.plots.find(p => p.id === plotId);
+      if (!plot || plot.status !== 'ready' || !plot.crop) return state;
+      
+      const crop = CROPS[plot.crop.type];
+      if (!crop) return state;
+      
+      const updatedFriends = state.friends.map(f => {
+        if (f.id === friendId) {
+          return {
+            ...f,
+            plots: f.plots.map(p => {
+              if (p.id === plotId) {
+                return {
+                  ...p,
+                  status: 'empty' as const,
+                  crop: null,
+                };
+              }
+              return p;
+            }),
+          };
+        }
+        return f;
+      });
+      
+      let updatedWarehouse: WarehouseItem[];
+      const existingItem = state.player.warehouse.find(
+        item => item.cropType === plot.crop!.type
+      );
+      
+      if (existingItem) {
+        updatedWarehouse = state.player.warehouse.map(item =>
+          item.cropType === plot.crop!.type
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        updatedWarehouse = [...state.player.warehouse, { cropType: plot.crop.type, quantity: 1 }];
+      }
+      
+      const updatedTasks = updateTaskProgressInternal(state.dailyTasks, 'steal_1', 1);
+      
+      return {
+        ...state,
+        friends: updatedFriends,
+        player: {
+          ...state.player,
+          dailyStealsRemaining: state.player.dailyStealsRemaining - 1,
+          warehouse: updatedWarehouse,
+        },
+        dailyTasks: updatedTasks,
+      };
+    }
+    
+    case 'USE_PROTECTION_CARD': {
+      if (state.player.items.protectionCard <= 0) return state;
+      
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          items: {
+            ...state.player.items,
+            protectionCard: state.player.items.protectionCard - 1,
+          },
+          protectionTimeEnd: Date.now() + 2 * 60 * 60 * 1000,
+        },
+      };
+    }
+    
+    case 'DAILY_RESET': {
+      const today = new Date().toDateString();
+      if (state.player.lastSignInDate === today) return state;
+      
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          dailyStealsRemaining: 10 + Math.floor(state.player.level / 2),
+        },
+        dailyTasks: state.dailyTasks.map(task => ({
+          ...task,
+          current: 0,
+          completed: false,
+          claimed: false,
+        })),
+      };
+    }
+    
+    case 'SET_FRIENDS': {
+      return {
+        ...state,
+        friends: action.payload,
       };
     }
     
@@ -346,6 +575,34 @@ export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     dispatch({ type: 'ADD_EXPERIENCE', payload: { experience } });
   };
   
+  const buyItem = (itemType: ItemType, price: number) => {
+    dispatch({ type: 'BUY_ITEM', payload: { itemType, price } });
+  };
+  
+  const buySeed = (cropType: CropType, price: number) => {
+    dispatch({ type: 'BUY_SEED', payload: { cropType, price } });
+  };
+  
+  const updateTaskProgress = (taskId: string, progress: number) => {
+    dispatch({ type: 'UPDATE_TASK_PROGRESS', payload: { taskId, progress } });
+  };
+  
+  const claimTaskReward = (taskId: string) => {
+    dispatch({ type: 'CLAIM_TASK_REWARD', payload: { taskId } });
+  };
+  
+  const stealFromFriend = (friendId: string, plotId: string) => {
+    dispatch({ type: 'STEAL_FROM_FRIEND', payload: { friendId, plotId } });
+  };
+  
+  const useProtectionCard = () => {
+    dispatch({ type: 'USE_PROTECTION_CARD' });
+  };
+  
+  const setFriends = (friends: Friend[]) => {
+    dispatch({ type: 'SET_FRIENDS', payload: friends });
+  };
+  
   const value: GameContextType = {
     state,
     dispatch,
@@ -356,6 +613,13 @@ export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     sellCrop,
     addGold,
     addExperience,
+    buyItem,
+    buySeed,
+    updateTaskProgress,
+    claimTaskReward,
+    stealFromFriend,
+    useProtectionCard,
+    setFriends,
   };
   
   return (

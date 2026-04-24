@@ -78,6 +78,15 @@ export const INITIAL_ITEMS: PlayerItems = {
   reclamationCard: 0,
 };
 
+export const ITEM_PRICES: Record<ItemType, number> = {
+  fertilizer: 20,
+  herbicide: 25,
+  pesticide: 25,
+  speedCard: 100,
+  protectionCard: 50,
+  reclamationCard: 200,
+};
+
 export const getExperienceToNextLevel = (level: number): number => {
   return 100 + (level - 1) * 50;
 };
@@ -91,6 +100,49 @@ export const getMaxPlots = (level: number): number => {
 };
 
 export const INITIAL_PLOTS_COUNT = 6;
+
+export const DAILY_TASKS = [
+  {
+    id: 'plant_3',
+    name: '勤劳农夫',
+    description: '今日播种3次',
+    target: 3,
+    reward: {
+      gold: 50,
+      experience: 20,
+    },
+  },
+  {
+    id: 'harvest_2',
+    name: '丰收季节',
+    description: '今日收获2次',
+    target: 2,
+    reward: {
+      gold: 80,
+      experience: 30,
+    },
+  },
+  {
+    id: 'sell_100',
+    name: '商业大亨',
+    description: '今日卖出价值100金币的作物',
+    target: 100,
+    reward: {
+      gold: 30,
+      items: { fertilizer: 2 },
+    },
+  },
+  {
+    id: 'steal_1',
+    name: '小偷小摸',
+    description: '今日偷取好友1次',
+    target: 1,
+    reward: {
+      gold: 20,
+      experience: 10,
+    },
+  },
+];
 export const FERTILIZER_SPEED_BOOST = 0.2;
 export const DAILY_STEAL_LIMIT = 10;
 export const PROTECTION_DURATION = 2 * 60 * 60 * 1000;

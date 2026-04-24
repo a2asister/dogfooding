@@ -1,0 +1,351 @@
+.friends-page {
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.friends-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.friends-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--dark-gray);
+  margin: 0;
+}
+
+.steal-count-info {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.no-friends {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.no-friends-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.no-friends p {
+  font-size: 16px;
+  color: var(--dark-gray);
+  margin: 0 0 8px 0;
+}
+
+.no-friends .hint {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.friends-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.friend-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+}
+
+.friend-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.friend-card.has-stealable {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 255, 255, 0.95));
+  border: 2px solid var(--gold-yellow);
+  animation: pulse 2s infinite;
+}
+
+.friend-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.friend-avatar {
+  font-size: 40px;
+}
+
+.friend-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.friend-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.friend-level {
+  font-size: 12px;
+  color: var(--gray);
+}
+
+.friend-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.protected-badge-small {
+  font-size: 16px;
+}
+
+.ready-badge {
+  padding: 4px 8px;
+  background: var(--light-gray);
+  border-radius: 12px;
+  font-size: 12px;
+  color: var(--gray);
+}
+
+.ready-badge.stealable {
+  background: linear-gradient(135deg, var(--gold-yellow), var(--warning-orange));
+  color: var(--white);
+  font-weight: 600;
+}
+
+.arrow-icon {
+  font-size: 20px;
+  color: var(--gray);
+}
+
+.friend-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.friend-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: var(--primary-green);
+  cursor: pointer;
+  padding: 8px;
+}
+
+.friend-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.friend-avatar-large {
+  font-size: 48px;
+}
+
+.friend-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.friend-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.friend-level {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.protected-badge {
+  padding: 4px 12px;
+  background: linear-gradient(135deg, var(--sky-blue), #64b5f6);
+  border-radius: 12px;
+  font-size: 12px;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.steal-info {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.steal-remaining {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.friend-farm {
+  flex: 1;
+}
+
+.farm-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--dark-gray);
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.friend-plots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.friend-plot {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+.friend-plot:hover {
+  transform: scale(1.02);
+}
+
+.friend-plot.stealable {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 255, 255, 0.9));
+  border: 2px solid var(--gold-yellow);
+  animation: bounce 1s infinite;
+}
+
+.friend-plot.empty {
+  background: var(--soil-brown);
+}
+
+.friend-plot.plowed {
+  background: var(--dark-brown);
+}
+
+.friend-plot.growing {
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.friend-plot.ready {
+  background: rgba(255, 215, 0, 0.15);
+}
+
+.friend-plot.withered {
+  background: rgba(158, 158, 158, 0.3);
+}
+
+.plot-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crop-emoji {
+  font-size: 32px;
+}
+
+.empty-icon,
+.plowed-icon,
+.withered-icon {
+  font-size: 24px;
+  opacity: 0.7;
+}
+
+.plot-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: 4px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.status-text {
+  font-size: 10px;
+  color: var(--white);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.steal-hint {
+  font-size: 10px;
+  color: var(--warning-orange);
+  font-weight: 600;
+}
+
+.protected-hint {
+  font-size: 10px;
+  color: var(--gray);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 215, 0, 0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 480px) {
+  .friend-plots {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .friend-avatar-large {
+    font-size: 36px;
+  }
+
+  .friend-name {
+    font-size: 16px;
+  }
+
+  .crop-emoji {
+    font-size: 24px;
+  }
+}

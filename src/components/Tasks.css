@@ -1,0 +1,255 @@
+.tasks-page {
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.tasks-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--dark-gray);
+  margin: 0;
+}
+
+.task-stats {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.tasks-progress-summary {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.summary-text {
+  font-size: 14px;
+  color: var(--dark-gray);
+  font-weight: 500;
+}
+
+.no-tasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.no-tasks-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.no-tasks p {
+  font-size: 16px;
+  color: var(--dark-gray);
+  margin: 0 0 8px 0;
+}
+
+.no-tasks .hint {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border: 2px solid transparent;
+}
+
+.task-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.task-card.completed {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.05), rgba(255, 255, 255, 0.95));
+}
+
+.task-card.completed:not(.claimed) {
+  border-color: var(--gold-yellow);
+  animation: pulse 2s infinite;
+}
+
+.task-card.claimed {
+  opacity: 0.7;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.task-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.task-icon {
+  font-size: 32px;
+}
+
+.task-icon.claimed {
+  opacity: 0.6;
+}
+
+.task-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.task-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--black);
+}
+
+.task-description {
+  font-size: 12px;
+  color: var(--gray);
+}
+
+.claim-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  background: linear-gradient(135deg, var(--gold-yellow), var(--warning-orange));
+  color: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.claim-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
+.claim-btn:active {
+  transform: scale(0.98);
+}
+
+.claimed-badge {
+  padding: 6px 12px;
+  background: var(--light-gray);
+  border-radius: 12px;
+  font-size: 12px;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.task-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: var(--gray);
+}
+
+.reward-text {
+  font-size: 12px;
+  color: var(--primary-green);
+  font-weight: 500;
+}
+
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-bar-bg {
+  flex: 1;
+  height: 8px;
+  background: var(--light-gray);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--light-green), var(--primary-green));
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.progress-bar-fill.completed {
+  background: linear-gradient(90deg, var(--gold-yellow), var(--warning-orange));
+}
+
+.progress-percent {
+  font-size: 12px;
+  color: var(--gray);
+  font-weight: 500;
+  min-width: 40px;
+  text-align: right;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 215, 0, 0);
+  }
+}
+
+@media (max-width: 480px) {
+  .task-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .claim-btn {
+    align-self: flex-start;
+  }
+
+  .progress-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-name {
+    font-size: 14px;
+  }
+}
