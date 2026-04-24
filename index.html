@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>沼气形成动态展示系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2E7D32;
+            --primary-light-green: #4CAF50;
+            --accent-light-green: #81C784;
+            --background-green: #E8F5E9;
+            --dark-green: #1B5E20;
+            --biogas-yellow: #FFC107;
+            --biogas-orange: #FF9800;
+            --text-dark: #1A237E;
+            --text-light: #ECEFF1;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--background-green) 0%, #F1F8E9 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 15px 0;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-light-green));
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+        }
+
+        .header h1 {
+            color: var(--text-light);
+            font-size: 2.2em;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            gap: 10px;
+            min-height: 0;
+        }
+
+        .animation-area {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .svg-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .data-panel {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .data-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--primary-green);
+            border-bottom: 2px solid var(--accent-light-green);
+            padding-bottom: 8px;
+            margin-bottom: 5px;
+        }
+
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, var(--background-green), #F1F8E9);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .data-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+        }
+
+        .data-label {
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.95em;
+        }
+
+        .data-value {
+            font-weight: bold;
+            color: var(--primary-green);
+            font-size: 1.1em;
+            font-family: 'Consolas', monospace;
+        }
+
+        .data-value.unit {
+            font-size: 0.8em;
+            color: #666;
+            margin-left: 3px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #E0E0E0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-light-green), var(--accent-light-green));
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+
+        .explanation-panel {
+            background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: auto;
+        }
+
+        .explanation-title {
+            font-size: 1em;
+            font-weight: bold;
+            color: #F57F17;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .explanation-title::before {
+            content: "💡";
+        }
+
+        .explanation-text {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #3E2723;
+            text-align: justify;
+        }
+
+        .control-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 15px 25px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-button {
+            width: 48px;
+            height: 48px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-light-green));
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+
+        .control-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+        }
+
+        .control-button:active {
+            transform: translateY(0);
+        }
+
+        .control-button.paused {
+            background: linear-gradient(135deg, var(--biogas-orange), #FFB74D);
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--background-green);
+            padding: 8px 15px;
+            border-radius: 25px;
+        }
+
+        .speed-label {
+            font-size: 0.9em;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .speed-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .speed-btn {
+            padding: 5px 12px;
+            border: 2px solid var(--primary-green);
+            background: white;
+            color: var(--primary-green);
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .speed-btn.active {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .speed-btn:hover:not(.active) {
+            background: var(--background-green);
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--background-green);
+            padding: 8px 20px;
+            border-radius: 25px;
+        }
+
+        .step-label {
+            font-size: 0.9em;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .step-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #BDBDBD;
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: var(--primary-light-green);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .config-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 100;
+        }
+
+        .config-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--primary-green);
+            border-radius: 20px;
+            color: var(--primary-green);
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .config-btn:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .config-panel {
+            position: absolute;
+            top: 60px;
+            right: 15px;
+            width: 400px;
+            max-height: 80vh;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            display: none;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .config-panel.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .config-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-light-green);
+        }
+
+        .config-section {
+            margin-bottom: 20px;
+        }
+
+        .config-section-title {
+            font-size: 1em;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            padding-left: 8px;
+            border-left: 3px solid var(--primary-light-green);
+        }
+
+        .config-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .config-item label {
+            font-size: 0.9em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .config-item input[type="text"],
+        .config-item input[type="number"],
+        .config-item select {
+            padding: 8px 12px;
+            border: 1px solid #DDD;
+            border-radius: 6px;
+            font-size: 0.9em;
+            transition: border-color 0.3s ease;
+        }
+
+        .config-item input:focus,
+        .config-item select:focus {
+            outline: none;
+            border-color: var(--primary-light-green);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .config-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #EEE;
+        }
+
+        .config-btn-primary {
+            flex: 1;
+            padding: 10px 20px;
+            background: var(--primary-green);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .config-btn-primary:hover {
+            background: var(--dark-green);
+        }
+
+        .config-btn-secondary {
+            flex: 1;
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid var(--primary-green);
+            border-radius: 8px;
+            color: var(--primary-green);
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .config-btn-secondary:hover {
+            background: var(--background-green);
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(26, 35, 126, 0.95);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            max-width: 250px;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(26, 35, 126, 0.95);
+        }
+
+        .tooltip.show {
+            opacity: 1;
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 100;
+        }
+
+        .fullscreen-btn button {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--primary-green);
+            border-radius: 20px;
+            color: var(--primary-green);
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-btn button:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes floatMicrobe {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(5px, -8px) scale(1.1); }
+            50% { transform: translate(-3px, -12px) scale(0.95); }
+            75% { transform: translate(8px, -5px) scale(1.05); }
+        }
+
+        @keyframes bubbleRise {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0.9;
+            }
+            25% {
+                transform: translateY(-40px) translateX(5px) scale(1.1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-80px) translateX(-3px) scale(0.9);
+                opacity: 0.7;
+            }
+            75% {
+                transform: translateY(-120px) translateX(8px) scale(1.05);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-160px) translateX(0) scale(0.7);
+                opacity: 0;
+            }
+        }
+
+        @keyframes flameFlicker {
+            0%, 100% {
+                transform: scaleY(1) scaleX(1);
+                opacity: 1;
+            }
+            20% {
+                transform: scaleY(1.15) scaleX(0.95);
+                opacity: 0.95;
+            }
+            40% {
+                transform: scaleY(0.9) scaleX(1.05);
+                opacity: 1;
+            }
+            60% {
+                transform: scaleY(1.1) scaleX(0.98);
+                opacity: 0.9;
+            }
+            80% {
+                transform: scaleY(0.95) scaleX(1.02);
+                opacity: 1;
+            }
+        }
+
+        @keyframes gasFlow {
+            0% {
+                stroke-dashoffset: 0;
+            }
+            100% {
+                stroke-dashoffset: -30;
+            }
+        }
+
+        @keyframes liquidWobble {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-3px);
+            }
+        }
+
+        @keyframes storagePulse {
+            0%, 100% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.1);
+            }
+        }
+
+        @keyframes rawMaterialMove {
+            0% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(200px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes lightPulse {
+            0%, 100% {
+                filter: brightness(1) drop-shadow(0 0 5px #FFD54F);
+            }
+            50% {
+                filter: brightness(1.3) drop-shadow(0 0 15px #FFD54F);
+            }
+        }
+
+        @keyframes microbePulse {
+            0%, 100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.9;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes pipeGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 3px #FFB74D);
+            }
+            50% {
+                filter: drop-shadow(0 0 8px #FF9800);
+            }
+        }
+
+        .gas-flow-enhanced {
+            stroke-dasharray: 15, 10;
+            animation: gasFlow 0.8s linear infinite;
+        }
+
+        .flame-active {
+            animation: flameFlicker 0.3s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+
+        .liquid-wobble {
+            animation: liquidWobble 2s ease-in-out infinite;
+        }
+
+        .storage-pulse {
+            animation: storagePulse 1.5s ease-in-out infinite;
+        }
+
+        .light-pulse {
+            animation: lightPulse 1s ease-in-out infinite;
+        }
+
+        .pipe-glow {
+            animation: pipeGlow 1.5s ease-in-out infinite;
+        }
+
+        .microbe-swim {
+            animation: floatMicrobe 3s ease-in-out infinite;
+        }
+
+        .bubble-rise {
+            animation: bubbleRise 3s ease-in-out infinite;
+        }
+
+        .data-value-transition {
+            transition: all 0.5s ease-out;
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.85em;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .legend-text {
+            color: #555;
+        }
+
+        .gas-flow {
+            stroke-dasharray: 10, 5;
+            animation: dash 1s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -15;
+            }
+        }
+
+        .microbe {
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .organic-matter {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header class="header">
+            <h1>🌿 沼气形成动态展示系统</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <div class="animation-area" id="animationArea">
+                <div class="fullscreen-btn">
+                    <button id="fullscreenBtn" title="全屏">⛶ 全屏</button>
+                </div>
+                
+                <div class="config-toggle">
+                    <button class="config-btn" id="configBtn">⚙️ 配置</button>
+                </div>
+
+                <svg class="svg-container" id="mainSvg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <linearGradient id="tankGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#5D4037;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#3E2723;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="gasGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FFF59D;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#FFD54F;stop-opacity:0.6" />
+                        </linearGradient>
+                        <linearGradient id="fermentGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#8D6E63;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#5D4037;stop-opacity:1" />
+                        </linearGradient>
+                        <radialGradient id="flameGradient" cx="50%" cy="100%" r="100%">
+                            <stop offset="0%" style="stop-color:#FFD54F;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#FF9800;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#F44336;stop-opacity:0" />
+                        </radialGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+                        </marker>
+                    </defs>
+
+                    <rect x="0" y="0" width="1200" height="700" fill="#F1F8E9"/>
+                    
+                    <text x="600" y="40" text-anchor="middle" font-size="20" font-weight="bold" fill="#2E7D32">沼气生成全流程演示</text>
+
+                    <g id="inputArea" data-tooltip="原料投入区：秸秆、粪便等有机废弃物通过进料口进入发酵罐">
+                        <rect x="50" y="200" width="180" height="120" rx="10" fill="#A1887F" stroke="#6D4C41" stroke-width="3"/>
+                        <text x="140" y="235" text-anchor="middle" font-size="16" font-weight="bold" fill="#3E2723">原料储料池</text>
+                        <text x="140" y="260" text-anchor="middle" font-size="12" fill="#5D4037">秸秆 / 粪便 / 有机物</text>
+                        
+                        <g id="rawMaterial1" class="organic-matter" transform="translate(80, 280)">
+                            <ellipse cx="0" cy="0" rx="20" ry="15" fill="#8D6E63"/>
+                            <ellipse cx="30" cy="5" rx="18" ry="12" fill="#795548"/>
+                            <ellipse cx="15" cy="25" rx="22" ry="14" fill="#6D4C41"/>
+                        </g>
+                        
+                        <path d="M 230 280 L 280 280" stroke="#795548" stroke-width="8" stroke-linecap="round"/>
+                        <polygon points="270,270 285,280 270,290" fill="#795548"/>
+                        
+                        <circle cx="90" cy="180" r="15" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+                        <text x="90" y="185" text-anchor="middle" font-size="16" fill="#2E7D32">1</text>
+                    </g>
+
+                    <g id="fermenter" data-tooltip="厌氧发酵罐：密封环境下，厌氧细菌分解有机物产生沼气">
+                        <rect x="320" y="150" width="200" height="350" rx="15" fill="url(#tankGradient)" stroke="#3E2723" stroke-width="4"/>
+                        
+                        <rect x="330" y="160" width="180" height="30" fill="rgba(76, 175, 80, 0.3)"/>
+                        <text x="420" y="182" text-anchor="middle" font-size="12" fill="#1B5E20">气体层</text>
+                        
+                        <rect id="fermentLiquid" x="330" y="190" width="180" height="280" fill="url(#fermentGradient)" opacity="0.9"/>
+                        <text x="420" y="360" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFECB3">厌氧发酵</text>
+                        
+                        <g id="microbes">
+                            <circle class="microbe" cx="370" cy="280" r="8" fill="#4CAF50" opacity="0.7"/>
+                            <circle class="microbe" cx="430" cy="320" r="6" fill="#66BB6A" opacity="0.6"/>
+                            <circle class="microbe" cx="390" cy="400" r="7" fill="#81C784" opacity="0.6"/>
+                            <circle class="microbe" cx="450" cy="360" r="5" fill="#A5D6A7" opacity="0.5"/>
+                        </g>
+                        
+                        <g id="bubbles">
+                        </g>
+                        
+                        <text x="420" y="530" text-anchor="middle" font-size="14" fill="#8D6E63">沼渣 / 沼液排出</text>
+                        
+                        <circle cx="420" cy="130" r="15" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+                        <text x="420" y="135" text-anchor="middle" font-size="16" fill="#2E7D32">2</text>
+                        
+                        <rect x="300" y="250" width="18" height="100" rx="3" fill="#607D8B" stroke="#455A64" stroke-width="2"/>
+                        <rect x="298" y="248" width="22" height="15" rx="2" fill="#78909C" stroke="#455A64" stroke-width="1"/>
+                    </g>
+
+                    <g id="gasPipe" data-tooltip="沼气输送管道：将产生的沼气输送到储气柜">
+                        <path d="M 520 180 H 580" stroke="#FFB74D" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M 580 180 V 120" stroke="#FFB74D" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M 580 120 H 720" stroke="#FFB74D" stroke-width="8" stroke-linecap="round" class="gas-flow"/>
+                        <path d="M 720 120 V 180" stroke="#FFB74D" stroke-width="8" stroke-linecap="round"/>
+                        
+                        <circle cx="720" cy="100" r="15" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+                        <text x="720" y="105" text-anchor="middle" font-size="16" fill="#2E7D32">3</text>
+                    </g>
+
+                    <g id="gasTank" data-tooltip="储气柜：储存收集到的沼气，根据气量自动升降">
+                        <rect x="680" y="180" width="120" height="250" rx="10" fill="#CFD8DC" stroke="#78909C" stroke-width="3"/>
+                        
+                        <g id="tankInner">
+                            <rect id="gasStorage" x="690" y="190" width="100" height="80" rx="8" fill="url(#gasGradient)" stroke="#FFD54F" stroke-width="2"/>
+                            <text id="gasLevel" x="740" y="240" text-anchor="middle" font-size="12" fill="#F57F17" font-weight="bold">储气</text>
+                        </g>
+                        
+                        <rect x="680" y="430" width="120" height="80" rx="8" fill="#90A4AE" stroke="#607D8B" stroke-width="2"/>
+                        <text x="740" y="475" text-anchor="middle" font-size="13" fill="#37474F" font-weight="bold">水封槽</text>
+                        
+                        <line x1="680" y1="200" x2="680" y2="420" stroke="#78909C" stroke-width="1" stroke-dasharray="5,3"/>
+                        <line x1="800" y1="200" x2="800" y2="420" stroke="#78909C" stroke-width="1" stroke-dasharray="5,3"/>
+                    </g>
+
+                    <g id="utilization" data-tooltip="沼气利用：沼气可用于燃烧取暖、烹饪或发电">
+                        <path d="M 800 300 H 900" stroke="#FFB74D" stroke-width="8" stroke-linecap="round" class="gas-flow"/>
+                        
+                        <rect x="900" y="180" width="120" height="120" rx="10" fill="#FFCC80" stroke="#F57C00" stroke-width="3"/>
+                        <text x="960" y="215" text-anchor="middle" font-size="14" font-weight="bold" fill="#BF360C">燃烧器</text>
+                        
+                        <g id="flame" opacity="0">
+                            <ellipse cx="960" cy="280" rx="25" ry="35" fill="url(#flameGradient)" filter="url(#glow)"/>
+                            <ellipse cx="960" cy="285" rx="15" ry="25" fill="#FFEB3B" opacity="0.9"/>
+                        </g>
+                        
+                        <rect x="900" y="350" width="120" height="120" rx="10" fill="#90CAF9" stroke="#1976D2" stroke-width="3"/>
+                        <text x="960" y="385" text-anchor="middle" font-size="14" font-weight="bold" fill="#0D47A1">发电机</text>
+                        <text x="960" y="410" text-anchor="middle" font-size="12" fill="#1565C0">沼气发电</text>
+                        
+                        <g id="lightBulb">
+                            <circle cx="960" cy="455" r="20" fill="#FFF9C4" stroke="#FDD835" stroke-width="2"/>
+                            <rect x="950" y="475" width="20" height="8" rx="2" fill="#9E9E9E"/>
+                        </g>
+                        
+                        <path d="M 1020 300 H 1100" stroke="#FFB74D" stroke-width="8" stroke-linecap="round"/>
+                        <polygon points="1090,290 1105,300 1090,310" fill="#FF9800"/>
+                        
+                        <text x="1070" y="280" text-anchor="middle" font-size="16" font-weight="bold" fill="#2E7D32">能源输出</text>
+                        <text x="1070" y="300" text-anchor="middle" font-size="12" fill="#388E3C">热能 / 电能</text>
+                        
+                        <circle cx="1070" cy="250" r="15" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+                        <text x="1070" y="255" text-anchor="middle" font-size="16" fill="#2E7D32">4</text>
+                    </g>
+
+                    <g id="cycleArrow">
+                        <path d="M 1050 550 Q 600 650 150 550" fill="none" stroke="#2E7D32" stroke-width="3" stroke-dasharray="10,5" opacity="0.5"/>
+                        <polygon points="155,545 165,550 155,555" fill="#2E7D32" opacity="0.5"/>
+                        <text x="600" y="610" text-anchor="middle" font-size="12" fill="#2E7D32" opacity="0.7">沼渣沼液还田 → 有机废弃物再利用</text>
+                    </g>
+
+                    <g id="flowLabels" font-size="13" fill="#555">
+                        <text x="140" y="350" text-anchor="middle">原料投入</text>
+                        <text x="420" y="80" text-anchor="middle">厌氧发酵</text>
+                        <text x="650" y="130" text-anchor="middle">气体输送</text>
+                        <text x="740" y="360" text-anchor="middle">气体储存</text>
+                        <text x="1000" y="150" text-anchor="middle">能源利用</text>
+                    </g>
+                </svg>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #8D6E63;"></div>
+                        <span class="legend-text">有机原料</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #4CAF50;"></div>
+                        <span class="legend-text">厌氧菌群</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #FFB74D;"></div>
+                        <span class="legend-text">沼气 (甲烷)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #FF9800;"></div>
+                        <span class="legend-text">能源输出</span>
+                    </div>
+                </div>
+
+                <div class="tooltip" id="tooltip"></div>
+
+                <div class="config-panel" id="configPanel">
+                    <h3 class="config-title">⚙️ 系统配置</h3>
+                    
+                    <div class="config-section">
+                        <h4 class="config-section-title">原料设置</h4>
+                        <div class="config-item">
+                            <label>原料类型</label>
+                            <select id="configMaterialType">
+                                <option value="straw">农作物秸秆</option>
+                                <option value="manure">畜禽粪便</option>
+                                <option value="municipal">城市污泥</option>
+                                <option value="mixed">混合原料</option>
+                            </select>
+                        </div>
+                        <div class="config-item">
+                            <label>原料配比 (C/N比)</label>
+                            <input type="number" id="configCNRatio" min="10" max="50" value="25">
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h4 class="config-section-title">发酵参数</h4>
+                        <div class="config-item">
+                            <label>发酵温度 (°C)</label>
+                            <input type="number" id="configTemp" min="10" max="60" value="35">
+                        </div>
+                        <div class="config-item">
+                            <label>PH值</label>
+                            <input type="number" id="configPH" min="5" max="9" step="0.1" value="7.0">
+                        </div>
+                        <div class="config-item">
+                            <label>发酵天数 (天)</label>
+                            <input type="number" id="configDays" min="10" max="60" value="30">
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h4 class="config-section-title">动画设置</h4>
+                        <div class="config-item">
+                            <label>动画速度倍数</label>
+                            <select id="configSpeed">
+                                <option value="0.5">0.5x (慢速)</option>
+                                <option value="1" selected>1x (正常)</option>
+                                <option value="1.5">1.5x (快速)</option>
+                                <option value="2">2x (极快)</option>
+                            </select>
+                        </div>
+                        <div class="config-item">
+                            <label>循环模式</label>
+                            <select id="configLoop">
+                                <option value="true">自动循环</option>
+                                <option value="false">单次播放</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h4 class="config-section-title">展示文字</h4>
+                        <div class="config-item">
+                            <label>主标题</label>
+                            <input type="text" id="configTitle" value="沼气形成动态展示系统">
+                        </div>
+                    </div>
+
+                    <div class="config-buttons">
+                        <button class="config-btn-secondary" id="resetConfig">恢复默认</button>
+                        <button class="config-btn-primary" id="saveConfig">保存设置</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-panel">
+                <h3 class="data-title">📊 实时数据监测</h3>
+                
+                <div class="data-item">
+                    <span class="data-label">发酵温度</span>
+                    <span class="data-value" id="tempValue">35.0<span class="data-value unit">°C</span></span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="tempBar" style="width: 58%;"></div>
+                </div>
+
+                <div class="data-item">
+                    <span class="data-label">PH值</span>
+                    <span class="data-value" id="phValue">7.0</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="phBar" style="width: 50%;"></div>
+                </div>
+
+                <div class="data-item">
+                    <span class="data-label">原料配比 (C/N)</span>
+                    <span class="data-value" id="cnValue">25<span class="data-value unit">:1</span></span>
+                </div>
+
+                <div class="data-item">
+                    <span class="data-label">产气速率</span>
+                    <span class="data-value" id="gasRate">0.5<span class="data-value unit">m³/h</span></span>
+                </div>
+
+                <div class="data-item">
+                    <span class="data-label">甲烷浓度</span>
+                    <span class="data-value" id="methaneLevel">55<span class="data-value unit">%</span></span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="methaneBar" style="width: 55%;"></div>
+                </div>
+
+                <div class="data-item">
+                    <span class="data-label">储气柜储量</span>
+                    <span class="data-value" id="storageLevel">30<span class="data-value unit">%</span></span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="storageBar" style="width: 30%;"></div>
+                </div>
+
+                <div class="explanation-panel">
+                    <h4 class="explanation-title" id="stepTitle">沼气形成原理</h4>
+                    <p class="explanation-text" id="explanationText">
+                        沼气是有机物在厌氧条件下，经多种微生物的分解代谢作用而产生的一种混合气体。
+                        主要成分是甲烷(CH₄)和二氧化碳(CO₂)，此外还有少量的硫化氢、氢气、一氧化碳等。
+                        沼气发酵是一个复杂的生物化学过程，分为水解发酵、产酸、产甲烷三个主要阶段。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-panel">
+            <div class="control-group">
+                <button class="control-button" id="prevStep" title="上一步">⏮</button>
+                <button class="control-button paused" id="playPause" title="播放/暂停">▶</button>
+                <button class="control-button" id="nextStep" title="下一步">⏭</button>
+            </div>
+
+            <div class="step-indicator">
+                <span class="step-label">当前步骤:</span>
+                <div class="step-dots">
+                    <div class="step-dot active" data-step="0"></div>
+                    <div class="step-dot" data-step="1"></div>
+                    <div class="step-dot" data-step="2"></div>
+                    <div class="step-dot" data-step="3"></div>
+                    <div class="step-dot" data-step="4"></div>
+                </div>
+                <span class="step-label" id="currentStepLabel">原料投入</span>
+            </div>
+
+            <div class="speed-control">
+                <span class="speed-label">速度:</span>
+                <div class="speed-buttons">
+                    <button class="speed-btn" data-speed="0.5">0.5x</button>
+                    <button class="speed-btn active" data-speed="1">1x</button>
+                    <button class="speed-btn" data-speed="1.5">1.5x</button>
+                    <button class="speed-btn" data-speed="2">2x</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <button class="control-button" id="rewind" title="快退">⏪</button>
+                <button class="control-button" id="forward" title="快进">⏩</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const defaultConfig = {
+            materialType: 'mixed',
+            CNRatio: 25,
+            temperature: 35,
+            pH: 7.0,
+            days: 30,
+            speedMultiplier: 1,
+            loopMode: true,
+            title: '沼气形成动态展示系统'
+        };
+
+        let config = { ...defaultConfig };
+        let isPlaying = false;
+        let currentStep = 0;
+        let animationProgress = 0;
+        let speed = 1;
+        let animationFrame = null;
+        let lastTimestamp = 0;
+        let lastDataUpdateTime = 0;
+
+        let currentTempDisplay = config.temperature;
+        let currentPHDisplay = config.pH;
+        let targetTemp = config.temperature;
+        let targetPH = config.pH;
+
+        let activeBubbles = [];
+        let gasPipeElements = [];
+        let movingMaterials = [];
+
+        const steps = [
+            {
+                name: '原料投入',
+                explanation: '有机废弃物（如秸秆、粪便、城市污泥等）被收集并送入沼气池。原料需经过预处理，调整碳氮比(C/N)至20-30:1，水分含量调整至80%左右，为微生物创造最佳生长环境。沼渣沼液作为有机肥料还田，实现物质循环利用。',
+                duration: 4000
+            },
+            {
+                name: '水解发酵',
+                explanation: '第一阶段：水解发酵阶段。纤维素、蛋白质、脂肪等大分子有机物在发酵细菌的作用下，分解为单糖、氨基酸、脂肪酸等小分子化合物。同时产生氢气、二氧化碳等气体。这是沼气发酵的起始步骤。',
+                duration: 5000
+            },
+            {
+                name: '产酸',
+                explanation: '第二阶段：产氢产乙酸阶段。上一阶段产生的小分子化合物在产氢产乙酸菌的作用下，进一步转化为乙酸、氢气和二氧化碳。此阶段产生的乙酸是产甲烷菌的主要底物，氢气也能被产甲烷菌利用。',
+                duration: 5000
+            },
+            {
+                name: '产甲烷',
+                explanation: '第三阶段：产甲烷阶段。这是沼气发酵的核心阶段。产甲烷菌将乙酸、氢气和二氧化碳转化为甲烷(CH₄)。产甲烷菌是严格厌氧菌，对环境条件敏感，适宜温度为35°C（中温）或55°C（高温），PH值需维持在6.5-7.5之间。',
+                duration: 6000
+            },
+            {
+                name: '收集利用',
+                explanation: '产生的沼气主要成分为甲烷(50-70%)和二氧化碳(30-40%)，可直接燃烧用于炊事、取暖，或通过沼气发电机组发电。每立方米沼气约相当于0.7公斤标准煤，可发电约1.5度。沼渣和沼液是优质有机肥料，实现了农业废弃物的资源化利用。',
+                duration: 5000
+            }
+        ];
+
+        const stepDots = document.querySelectorAll('.step-dot');
+        const playPauseBtn = document.getElementById('playPause');
+        const prevStepBtn = document.getElementById('prevStep');
+        const nextStepBtn = document.getElementById('nextStep');
+        const rewindBtn = document.getElementById('rewind');
+        const forwardBtn = document.getElementById('forward');
+        const speedButtons = document.querySelectorAll('.speed-btn');
+        const configBtn = document.getElementById('configBtn');
+        const configPanel = document.getElementById('configPanel');
+        const saveConfigBtn = document.getElementById('saveConfig');
+        const resetConfigBtn = document.getElementById('resetConfig');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const tooltip = document.getElementById('tooltip');
+        const tooltipElements = document.querySelectorAll('[data-tooltip]');
+
+        const tempValue = document.getElementById('tempValue');
+        const phValue = document.getElementById('phValue');
+        const cnValue = document.getElementById('cnValue');
+        const gasRate = document.getElementById('gasRate');
+        const methaneLevel = document.getElementById('methaneLevel');
+        const storageLevel = document.getElementById('storageLevel');
+        const tempBar = document.getElementById('tempBar');
+        const phBar = document.getElementById('phBar');
+        const methaneBar = document.getElementById('methaneBar');
+        const storageBar = document.getElementById('storageBar');
+        const stepTitle = document.getElementById('stepTitle');
+        const explanationText = document.getElementById('explanationText');
+        const currentStepLabel = document.getElementById('currentStepLabel');
+
+        const flame = document.getElementById('flame');
+        const gasStorage = document.getElementById('gasStorage');
+        const tankInner = document.getElementById('tankInner');
+        const bubblesContainer = document.getElementById('bubbles');
+        const rawMaterial1 = document.getElementById('rawMaterial1');
+        const lightBulb = document.getElementById('lightBulb');
+        const microbes = document.querySelectorAll('.microbe');
+        const mainSvg = document.getElementById('mainSvg');
+
+        function init() {
+            loadConfig();
+            currentTempDisplay = config.temperature;
+            currentPHDisplay = config.pH;
+            targetTemp = config.temperature;
+            targetPH = config.pH;
+            updateUI(false);
+            updateStorage(0, 0);
+            bindEvents();
+            updateStepDisplay();
+            initGasPipes();
+        }
+
+        function initGasPipes() {
+            const gasPaths = document.querySelectorAll('.gas-flow');
+            gasPaths.forEach((path, index) => {
+                gasPipeElements.push({
+                    element: path,
+                    index: index,
+                    active: false
+                });
+            });
+        }
+
+        function loadConfig() {
+            const saved = localStorage.getItem('biogasConfig');
+            if (saved) {
+                try {
+                    config = { ...defaultConfig, ...JSON.parse(saved) };
+                } catch (e) {
+                    config = { ...defaultConfig };
+                }
+            }
+            applyConfigToUI();
+        }
+
+        function applyConfigToUI() {
+            document.getElementById('configMaterialType').value = config.materialType;
+            document.getElementById('configCNRatio').value = config.CNRatio;
+            document.getElementById('configTemp').value = config.temperature;
+            document.getElementById('configPH').value = config.pH;
+            document.getElementById('configDays').value = config.days;
+            document.getElementById('configSpeed').value = config.speedMultiplier;
+            document.getElementById('configLoop').value = config.loopMode.toString();
+            document.getElementById('configTitle').value = config.title;
+            
+            speed = config.speedMultiplier;
+            updateSpeedButtons();
+        }
+
+        function bindEvents() {
+            playPauseBtn.addEventListener('click', togglePlayPause);
+            prevStepBtn.addEventListener('click', goToPrevStep);
+            nextStepBtn.addEventListener('click', goToNextStep);
+            rewindBtn.addEventListener('click', rewindAnimation);
+            forwardBtn.addEventListener('click', forwardAnimation);
+            
+            speedButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    speed = parseFloat(btn.dataset.speed);
+                    updateSpeedButtons();
+                });
+            });
+
+            configBtn.addEventListener('click', toggleConfigPanel);
+            saveConfigBtn.addEventListener('click', saveConfig);
+            resetConfigBtn.addEventListener('click', resetConfig);
+            
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+            tooltipElements.forEach(el => {
+                el.addEventListener('mouseenter', showTooltip);
+                el.addEventListener('mouseleave', hideTooltip);
+                el.addEventListener('mousemove', moveTooltip);
+                
+                el.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    showTooltip(e, el);
+                });
+                el.addEventListener('touchend', hideTooltip);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!configPanel.contains(e.target) && !configBtn.contains(e.target)) {
+                    configPanel.classList.remove('show');
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                switch(e.code) {
+                    case 'Space':
+                        e.preventDefault();
+                        togglePlayPause();
+                        break;
+                    case 'ArrowLeft':
+                        goToPrevStep();
+                        break;
+                    case 'ArrowRight':
+                        goToNextStep();
+                        break;
+                    case 'KeyF':
+                        toggleFullscreen();
+                        break;
+                }
+            });
+        }
+
+        function updateSpeedButtons() {
+            speedButtons.forEach(btn => {
+                const btnSpeed = parseFloat(btn.dataset.speed);
+                btn.classList.toggle('active', Math.abs(btnSpeed - speed) < 0.0001);
+            });
+        }
+
+        function togglePlayPause() {
+            isPlaying = !isPlaying;
+            playPauseBtn.classList.toggle('paused', !isPlaying);
+            playPauseBtn.textContent = isPlaying ? '⏸' : '▶';
+            
+            if (isPlaying) {
+                lastTimestamp = performance.now();
+                lastDataUpdateTime = lastTimestamp;
+                animate();
+            } else {
+                if (animationFrame) {
+                    cancelAnimationFrame(animationFrame);
+                    animationFrame = null;
+                }
+            }
+        }
+
+        function goToPrevStep() {
+            currentStep = Math.max(0, currentStep - 1);
+            animationProgress = 0;
+            updateStepDisplay();
+            resetAnimationsForStep();
+            if (isPlaying) {
+                cancelAnimationFrame(animationFrame);
+                lastTimestamp = performance.now();
+                animate();
+            }
+        }
+
+        function goToNextStep() {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+            } else if (config.loopMode) {
+                currentStep = 0;
+            }
+            animationProgress = 0;
+            updateStepDisplay();
+            resetAnimationsForStep();
+            if (isPlaying) {
+                cancelAnimationFrame(animationFrame);
+                lastTimestamp = performance.now();
+                animate();
+            }
+        }
+
+        function resetAnimationsForStep() {
+            movingMaterials = [];
+        }
+
+        function rewindAnimation() {
+            animationProgress = Math.max(0, animationProgress - 0.2);
+            updateAnimations();
+        }
+
+        function forwardAnimation() {
+            animationProgress = Math.min(1, animationProgress + 0.2);
+            updateAnimations();
+        }
+
+        function toggleConfigPanel() {
+            configPanel.classList.toggle('show');
+        }
+
+        function saveConfig() {
+            config.materialType = document.getElementById('configMaterialType').value;
+            config.CNRatio = parseInt(document.getElementById('configCNRatio').value);
+            config.temperature = parseFloat(document.getElementById('configTemp').value);
+            config.pH = parseFloat(document.getElementById('configPH').value);
+            config.days = parseInt(document.getElementById('configDays').value);
+            config.speedMultiplier = parseFloat(document.getElementById('configSpeed').value);
+            config.loopMode = document.getElementById('configLoop').value === 'true';
+            config.title = document.getElementById('configTitle').value;
+            
+            localStorage.setItem('biogasConfig', JSON.stringify(config));
+            speed = config.speedMultiplier;
+            targetTemp = config.temperature;
+            targetPH = config.pH;
+            updateSpeedButtons();
+            updateUI(false);
+            configPanel.classList.remove('show');
+        }
+
+        function resetConfig() {
+            config = { ...defaultConfig };
+            targetTemp = config.temperature;
+            targetPH = config.pH;
+            applyConfigToUI();
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                fullscreenBtn.textContent = '⛶ 退出全屏';
+            } else {
+                document.exitFullscreen();
+                fullscreenBtn.textContent = '⛶ 全屏';
+            }
+        }
+
+        function showTooltip(e, element) {
+            const target = element || e.currentTarget;
+            tooltip.textContent = target.dataset.tooltip;
+            tooltip.classList.add('show');
+            
+            const rect = target.getBoundingClientRect();
+            const animArea = document.getElementById('animationArea');
+            const areaRect = animArea.getBoundingClientRect();
+            
+            tooltip.style.left = (rect.left - areaRect.left + rect.width / 2 - 125) + 'px';
+            tooltip.style.top = (rect.top - areaRect.top - 45) + 'px';
+        }
+
+        function hideTooltip() {
+            tooltip.classList.remove('show');
+        }
+
+        function moveTooltip(e) {
+            const animArea = document.getElementById('animationArea');
+            const areaRect = animArea.getBoundingClientRect();
+            
+            tooltip.style.left = (e.clientX - areaRect.left - 125) + 'px';
+            tooltip.style.top = (e.clientY - areaRect.top - 45) + 'px';
+        }
+
+        function updateStepDisplay() {
+            stepDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentStep);
+            });
+            
+            currentStepLabel.textContent = steps[currentStep].name;
+            stepTitle.textContent = '💡 ' + steps[currentStep].name + '阶段';
+            explanationText.textContent = steps[currentStep].explanation;
+        }
+
+        function updateUI(forceUpdate = false) {
+            const baseCN = config.CNRatio;
+            cnValue.innerHTML = baseCN + '<span class="data-value unit">:1</span>';
+            
+            if (forceUpdate) {
+                currentTempDisplay = targetTemp;
+                currentPHDisplay = targetPH;
+            }
+            
+            const tempPercent = Math.min(100, Math.max(0, (currentTempDisplay - 10) / 50 * 100));
+            const phPercent = Math.min(100, Math.max(0, (currentPHDisplay - 5) / 4 * 100));
+            
+            tempValue.innerHTML = currentTempDisplay.toFixed(1) + '<span class="data-value unit">°C</span>';
+            phValue.textContent = currentPHDisplay.toFixed(1);
+            tempBar.style.width = tempPercent + '%';
+            phBar.style.width = phPercent + '%';
+        }
+
+        function updateDataValues(deltaTime) {
+            const dataUpdateInterval = 2000;
+            
+            if (deltaTime - lastDataUpdateTime > dataUpdateInterval) {
+                lastDataUpdateTime = deltaTime;
+                
+                targetTemp = config.temperature + (Math.random() - 0.5) * 0.8;
+                targetPH = config.pH + (Math.random() - 0.5) * 0.08;
+                
+                targetTemp = Math.max(config.temperature - 0.5, Math.min(config.temperature + 0.5, targetTemp));
+                targetPH = Math.max(config.pH - 0.1, Math.min(config.pH + 0.1, targetPH));
+            }
+            
+            const lerpFactor = 0.05;
+            currentTempDisplay = currentTempDisplay + (targetTemp - currentTempDisplay) * lerpFactor;
+            currentPHDisplay = currentPHDisplay + (targetPH - currentPHDisplay) * lerpFactor;
+            
+            updateUI(false);
+        }
+
+        function createBubble(startProgress) {
+            const bubble = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            const x = 355 + Math.random() * 130;
+            const startY = 450;
+            const r = 4 + Math.random() * 6;
+            
+            const colors = ['#81C784', '#A5D6A7', '#C8E6C9', '#FFD54F', '#FFECB3', '#FFE082'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            bubble.setAttribute('cx', x);
+            bubble.setAttribute('cy', startY);
+            bubble.setAttribute('r', r);
+            bubble.setAttribute('fill', color);
+            bubble.setAttribute('opacity', 0.8);
+            
+            const bubbleData = {
+                element: bubble,
+                x: x,
+                y: startY,
+                radius: r,
+                speed: 0.8 + Math.random() * 1.2,
+                wobble: (Math.random() - 0.5) * 0.5,
+                wobblePhase: Math.random() * Math.PI * 2,
+                startProgress: startProgress,
+                color: color
+            };
+            
+            activeBubbles.push(bubbleData);
+            bubblesContainer.appendChild(bubble);
+            
+            return bubbleData;
+        }
+
+        function updateBubbles(progress, step) {
+            const safeStep = isNaN(step) ? 0 : Math.floor(step);
+            const safeSpeed = isNaN(speed) ? 1 : Math.max(0.1, speed);
+            
+            if (safeStep < 1 || safeStep > 3) {
+                activeBubbles.forEach(b => {
+                    if (b.element.parentNode) {
+                        b.element.parentNode.removeChild(b.element);
+                    }
+                });
+                activeBubbles = [];
+                return;
+            }
+            
+            const maxBubbles = 8 + safeStep * 4;
+            
+            if (activeBubbles.length < maxBubbles && Math.random() < 0.1 * safeSpeed) {
+                createBubble(progress);
+            }
+            
+            activeBubbles = activeBubbles.filter(bubble => {
+                bubble.y -= bubble.speed * safeSpeed;
+                bubble.wobblePhase += 0.05;
+                const wobbleOffset = Math.sin(bubble.wobblePhase) * bubble.wobble * 10;
+                
+                bubble.element.setAttribute('cy', bubble.y);
+                bubble.element.setAttribute('cx', bubble.x + wobbleOffset);
+                
+                const scale = 1 + (1 - (450 - bubble.y) / 300) * 0.3;
+                const opacity = Math.max(0, 0.8 - (450 - bubble.y) / 300 * 0.8);
+                bubble.element.setAttribute('opacity', opacity);
+                bubble.element.setAttribute('r', bubble.radius * scale);
+                
+                if (bubble.y < 180) {
+                    if (bubble.element.parentNode) {
+                        bubble.element.parentNode.removeChild(bubble.element);
+                    }
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        function updateGasPipes(step, progress) {
+            const safeStep = isNaN(step) ? 0 : Math.floor(step);
+            
+            gasPipeElements.forEach((pipe, index) => {
+                const shouldBeActive = safeStep >= 2;
+                
+                if (shouldBeActive && !pipe.active) {
+                    pipe.element.classList.remove('gas-flow');
+                    pipe.element.classList.add('gas-flow-enhanced', 'pipe-glow');
+                    pipe.active = true;
+                } else if (!shouldBeActive && pipe.active) {
+                    pipe.element.classList.remove('gas-flow-enhanced', 'pipe-glow');
+                    pipe.element.classList.add('gas-flow');
+                    pipe.active = false;
+                }
+            });
+        }
+
+        function updateMicrobes(step, progress) {
+            const safeStep = isNaN(step) ? 0 : Math.floor(step);
+            
+            if (safeStep < 1) {
+                microbes.forEach(m => {
+                    m.classList.remove('microbe-swim');
+                    m.style.opacity = '0.3';
+                });
+                return;
+            }
+            
+            const intensity = Math.min(1, (safeStep - 0.5) / 2);
+            
+            microbes.forEach((m, index) => {
+                m.classList.add('microbe-swim');
+                m.style.opacity = (0.4 + intensity * 0.5).toString();
+                m.style.animationDelay = (index * 0.3) + 's';
+                m.style.animationDuration = (2 + index * 0.5) + 's';
+            });
+        }
+
+        function createMovingMaterial() {
+            const material = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            material.setAttribute('class', 'organic-matter');
+            
+            const colors = ['#8D6E63', '#795548', '#6D4C41', '#A1887F'];
+            
+            for (let i = 0; i < 3; i++) {
+                const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                const cx = 15 + i * 25 + (Math.random() - 0.5) * 10;
+                const cy = 15 + (Math.random() - 0.5) * 10;
+                const rx = 12 + Math.random() * 8;
+                const ry = 8 + Math.random() * 6;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                ellipse.setAttribute('cx', cx);
+                ellipse.setAttribute('cy', cy);
+                ellipse.setAttribute('rx', rx);
+                ellipse.setAttribute('ry', ry);
+                ellipse.setAttribute('fill', color);
+                
+                material.appendChild(ellipse);
+            }
+            
+            const materialData = {
+                element: material,
+                x: 100,
+                y: 280,
+                speed: 0.5 + Math.random() * 0.3
+            };
+            
+            mainSvg.appendChild(material);
+            movingMaterials.push(materialData);
+            
+            return materialData;
+        }
+
+        function updateMovingMaterials(step, progress) {
+            const safeStep = isNaN(step) ? 0 : Math.floor(step);
+            const safeProgress = isNaN(progress) ? 0 : Math.max(0, Math.min(1, progress));
+            const safeSpeed = isNaN(speed) ? 1 : Math.max(0.1, speed);
+            
+            if (safeStep !== 0) {
+                movingMaterials.forEach(m => {
+                    if (m.element.parentNode) {
+                        m.element.parentNode.removeChild(m.element);
+                    }
+                });
+                movingMaterials = [];
+                return;
+            }
+            
+            if (movingMaterials.length < 5 && Math.random() < 0.02 * safeSpeed) {
+                createMovingMaterial();
+            }
+            
+            movingMaterials = movingMaterials.filter(mat => {
+                mat.x += mat.speed * safeSpeed * 2;
+                
+                const transform = `translate(${mat.x}, ${mat.y})`;
+                mat.element.setAttribute('transform', transform);
+                
+                const opacity = Math.max(0, 1 - (mat.x - 100) / 200);
+                mat.element.style.opacity = opacity;
+                
+                if (mat.x > 300) {
+                    if (mat.element.parentNode) {
+                        mat.element.parentNode.removeChild(mat.element);
+                    }
+                    return false;
+                }
+                return true;
+            });
+            
+            if (safeProgress > 0.3) {
+                const moveX = safeProgress * 150;
+                const opacity = Math.max(0.3, 1 - safeProgress * 0.7);
+                rawMaterial1.style.transform = `translate(${80 + moveX}px, 280px)`;
+                rawMaterial1.style.opacity = opacity;
+            } else {
+                rawMaterial1.style.transform = 'translate(80px, 280px)';
+                rawMaterial1.style.opacity = '1';
+            }
+        }
+
+        function updateStorage(step, progress) {
+            const safeProgress = isNaN(progress) ? 0 : Math.max(0, Math.min(1, progress));
+            const safeStep = isNaN(step) ? 0 : Math.floor(step);
+            
+            if (safeStep < 2) {
+                gasStorage.setAttribute('height', 60);
+                gasStorage.setAttribute('y', 210);
+                gasStorage.classList.remove('storage-pulse');
+                
+                storageLevel.innerHTML = '0<span class="data-value unit">%</span>';
+                storageBar.style.width = '0%';
+                gasRate.innerHTML = '0.0<span class="data-value unit">m³/h</span>';
+                methaneLevel.innerHTML = '0<span class="data-value unit">%</span>';
+                methaneBar.style.width = '0%';
+                return;
+            }
+            
+            const storageBase = Math.min(85, (safeStep - 2) * 25 + 10);
+            const currentStorage = Math.min(90, storageBase + safeProgress * 20);
+            
+            storageLevel.innerHTML = Math.floor(currentStorage) + '<span class="data-value unit">%</span>';
+            storageBar.style.width = currentStorage + '%';
+            
+            const gasHeight = 60 + (currentStorage / 100) * 140;
+            const gasY = 210 + (140 - gasHeight) * 0.6;
+            
+            gasStorage.setAttribute('height', Math.max(60, gasHeight));
+            gasStorage.setAttribute('y', Math.min(210, gasY));
+            gasStorage.classList.add('storage-pulse');
+            
+            if (safeStep >= 2) {
+                const gasRateBase = 0.3 + (safeStep - 2) * 0.15;
+                const currentRate = (gasRateBase + safeProgress * 0.25).toFixed(1);
+                gasRate.innerHTML = currentRate + '<span class="data-value unit">m³/h</span>';
+            }
+            
+            if (safeStep >= 3) {
+                const methaneBase = 52 + (safeStep - 3) * 6;
+                const currentMethane = Math.min(72, methaneBase + safeProgress * 12);
+                methaneLevel.innerHTML = Math.floor(currentMethane) + '<span class="data-value unit">%</span>';
+                methaneBar.style.width = currentMethane + '%';
+            }
+        }
+
+        function updateFlame(step, progress) {
+            const safeStep = isNaN(step) ? 0 : Math.floor(step);
+            const safeProgress = isNaN(progress) ? 0 : Math.max(0, Math.min(1, progress));
+            
+            if (safeStep !== 4) {
+                flame.style.opacity = '0';
+                flame.classList.remove('flame-active');
+                lightBulb.querySelector('circle').setAttribute('fill', '#FFF9C4');
+                lightBulb.querySelector('circle').removeAttribute('filter');
+                lightBulb.classList.remove('light-pulse');
+                return;
+            }
+            
+            const flameOpacity = 0.4 + safeProgress * 0.6;
+            const flameScale = 0.7 + safeProgress * 0.6;
+            
+            flame.style.opacity = flameOpacity;
+            flame.style.transform = `scale(${flameScale})`;
+            flame.style.transformOrigin = 'center bottom';
+            flame.classList.add('flame-active');
+            
+            if (safeProgress > 0.4) {
+                lightBulb.querySelector('circle').setAttribute('fill', '#FFF59D');
+                lightBulb.querySelector('circle').setAttribute('filter', 'url(#glow)');
+                lightBulb.classList.add('light-pulse');
+            } else {
+                lightBulb.querySelector('circle').setAttribute('fill', '#FFF9C4');
+                lightBulb.querySelector('circle').removeAttribute('filter');
+                lightBulb.classList.remove('light-pulse');
+            }
+        }
+
+        function updateAnimations() {
+            const progress = animationProgress;
+            const step = currentStep;
+            
+            updateDataValues(performance.now());
+            updateMovingMaterials(step, progress);
+            updateBubbles(progress, step);
+            updateGasPipes(step, progress);
+            updateMicrobes(step, progress);
+            updateStorage(step, progress);
+            updateFlame(step, progress);
+        }
+
+        function animate(timestamp) {
+            if (!isPlaying) return;
+            
+            const safeSpeed = isNaN(speed) ? 1 : Math.max(0.1, speed);
+            
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const delta = (timestamp - lastTimestamp) * safeSpeed;
+            lastTimestamp = timestamp;
+            
+            const safeStep = isNaN(currentStep) ? 0 : Math.floor(currentStep);
+            const currentStepDuration = steps[Math.min(steps.length - 1, Math.max(0, safeStep))].duration;
+            
+            const progressIncrement = delta / currentStepDuration;
+            if (!isNaN(progressIncrement) && isFinite(progressIncrement)) {
+                animationProgress += progressIncrement;
+            }
+            
+            if (isNaN(animationProgress) || !isFinite(animationProgress)) {
+                animationProgress = 0;
+            }
+            
+            if (animationProgress >= 1) {
+                animationProgress = 0;
+                
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                } else if (config.loopMode) {
+                    currentStep = 0;
+                    movingMaterials = [];
+                } else {
+                    isPlaying = false;
+                    playPauseBtn.classList.add('paused');
+                    playPauseBtn.textContent = '▶';
+                    return;
+                }
+                
+                updateStepDisplay();
+            }
+            
+            updateAnimations();
+            
+            animationFrame = requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('error', (e) => {
+            console.error('Error:', e.error);
+            if (isPlaying) {
+                try {
+                    if (animationFrame) {
+                        cancelAnimationFrame(animationFrame);
+                    }
+                    lastTimestamp = performance.now();
+                    animationFrame = requestAnimationFrame(animate);
+                } catch (err) {
+                    console.error('Recovery failed:', err);
+                }
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>
