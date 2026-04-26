@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>酒店价格与利润配置系统</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>酒店价格与利润配置系统</h1>
+            <div class="header-info">
+                <span class="date-display" id="currentDate"></span>
+                <button class="btn btn-secondary" id="exportData">导出数据</button>
+                <button class="btn btn-secondary" id="importData">导入数据</button>
+            </div>
+        </header>
+
+        <nav class="navigation">
+            <button class="nav-item active" data-module="baseline">基准房价配置</button>
+            <button class="nav-item" data-module="monitoring">实时数据监测</button>
+            <button class="nav-item" data-module="pricing">智能调价触发</button>
+            <button class="nav-item" data-module="intervention">人工干预管控</button>
+            <button class="nav-item" data-module="analysis">数据复盘</button>
+        </nav>
+
+        <main class="main-content">
+            <!-- 基准房价配置模块 -->
+            <section id="baseline-module" class="module active">
+                <div class="module-header">
+                    <h2>基准房价配置</h2>
+                    <div class="module-actions">
+                        <button class="btn btn-primary" id="addRoomType">添加房型</button>
+                    </div>
+                </div>
+
+                <div class="module-content">
+                    <div class="config-section">
+                        <h3>房型基础配置</h3>
+                        <div class="room-types-container" id="roomTypesContainer">
+                            <!-- 动态生成房型卡片 -->
+                        </div>
+                    </div>
+
+                    <div class="config-section">
+                        <h3>分级调价系数配置</h3>
+                        <div class="pricing-coefficients" id="pricingCoefficients">
+                            <div class="coefficient-group">
+                                <h4>淡旺季系数</h4>
+                                <div class="coefficient-form">
+                                    <div class="form-group">
+                                        <label>淡季系数</label>
+                                        <input type="number" id="offSeasonCoeff" step="0.1" min="0" max="2" value="0.8">
+                                        <span class="unit">倍</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>平季系数</label>
+                                        <input type="number" id="normalSeasonCoeff" step="0.1" min="0" max="2" value="1.0">
+                                        <span class="unit">倍</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>旺季系数</label>
+                                        <input type="number" id="peakSeasonCoeff" step="0.1" min="0" max="3" value="1.3">
+                                        <span class="unit">倍</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="coefficient-group">
+                                <h4>工作日/周末系数</h4>
+                                <div class="coefficient-form">
+                                    <div class="form-group">
+                                        <label>工作日系数</label>
+                                        <input type="number" id="weekdayCoeff" step="0.1" min="0" max="2" value="0.95">
+                                        <span class="unit">倍</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>周末系数</label>
+                                        <input type="number" id="weekendCoeff" step="0.1" min="0" max="2" value="1.1">
+                                        <span class="unit">倍</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="coefficient-group">
+                                <h4>节假日/活动系数</h4>
+                                <div class="coefficient-form">
+                                    <div class="form-group">
+                                        <label>节假日系数</label>
+                                        <input type="number" id="holidayCoeff" step="0.1" min="0" max="3" value="1.5">
+                                        <span class="unit">倍</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>本地活动系数</label>
+                                        <input type="number" id="eventCoeff" step="0.1" min="0" max="3" value="1.2">
+                                        <span class="unit">倍</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary" id="saveCoefficients">保存系数配置</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 实时数据监测模块 -->
+            <section id="monitoring-module" class="module">
+                <div class="module-header">
+                    <h2>实时数据监测</h2>
+                    <div class="module-actions">
+                        <button class="btn btn-primary" id="refreshData">刷新数据</button>
+                        <span class="last-update" id="lastUpdate">最后更新: --</span>
+                    </div>
+                </div>
+
+                <div class="module-content">
+                    <div class="dashboard-cards">
+                        <div class="dashboard-card">
+                            <div class="card-icon">🏨</div>
+                            <div class="card-info">
+                                <div class="card-value" id="totalInventory">0</div>
+                                <div class="card-label">总房间数</div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-icon">📊</div>
+                            <div class="card-info">
+                                <div class="card-value" id="availableRooms">0</div>
+                                <div class="card-label">可预订房间</div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-icon">📈</div>
+                            <div class="card-info">
+                                <div class="card-value" id="bookingRate">0%</div>
+                                <div class="card-label">预订率</div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-icon">⏰</div>
+                            <div class="card-info">
+                                <div class="card-value" id="todayBookings">0</div>
+                                <div class="card-label">今日新增预订</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="monitoring-sections">
+                        <div class="monitoring-section">
+                            <h3>各房型库存实时状态</h3>
+                            <div class="inventory-table-container">
+                                <table class="data-table" id="inventoryTable">
+                                    <thead>
+                                        <tr>
+                                            <th>房型</th>
+                                            <th>总房数</th>
+                                            <th>已预订</th>
+                                            <th>剩余</th>
+                                            <th>预订率</th>
+                                            <th>状态</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 动态生成 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="monitoring-section">
+                            <h3>历史同期经营数据</h3>
+                            <div class="history-data-container" id="historyDataContainer">
+                                <!-- 动态生成历史数据对比 -->
+                            </div>
+                        </div>
+
+                        <div class="monitoring-section">
+                            <h3>周边竞品价格监测</h3>
+                            <div class="competitor-table-container">
+                                <table class="data-table" id="competitorTable">
+                                    <thead>
+                                        <tr>
+                                            <th>竞品酒店</th>
+                                            <th>房型类型</th>
+                                            <th>挂牌价</th>
+                                            <th>历史均价</th>
+                                            <th>价格变动</th>
+                                            <th>数据有效性</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 动态生成 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="filter-info">
+                                <span class="filter-badge">已过滤异常数据: <span id="filteredCount">0</span> 条</span>
+                                <span class="filter-description">过滤规则: 短期秒杀、虚假调价、异常波动</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 智能调价触发模块 -->
+            <section id="pricing-module" class="module">
+                <div class="module-header">
+                    <h2>智能调价触发</h2>
+                    <div class="module-actions">
+                        <div class="toggle-container">
+                            <label class="toggle-label">自动调价</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="autoPricingToggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-content">
+                    <div class="threshold-config">
+                        <h3>核心调价阈值配置</h3>
+                        <div class="threshold-form">
+                            <div class="form-group">
+                                <label>核心预订进度阈值</label>
+                                <div class="threshold-input-group">
+                                    <input type="range" id="thresholdRange" min="30" max="90" value="65">
+                                    <span class="threshold-value" id="thresholdValue">65%</span>
+                                </div>
+                                <div class="threshold-description">
+                                    未达阈值时自动小幅降价加速去化，超阈值且订单稳定则稳步涨价
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>价格调整幅度</label>
+                                <div class="adjustment-config">
+                                    <div class="adjustment-item">
+                                        <span>低于阈值降价幅度</span>
+                                        <input type="number" id="belowThresholdAdjust" min="1" max="20" value="5">
+                                        <span class="unit">%</span>
+                                    </div>
+                                    <div class="adjustment-item">
+                                        <span>高于阈值涨价幅度</span>
+                                        <input type="number" id="aboveThresholdAdjust" min="1" max="20" value="8">
+                                        <span class="unit">%</span>
+                                    </div>
+                                    <div class="adjustment-item">
+                                        <span>订单异常微调幅度</span>
+                                        <input type="number" id="abnormalAdjust" min="1" max="10" value="3">
+                                        <span class="unit">%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>竞品跟进策略</label>
+                                <div class="competitor-strategy">
+                                    <select id="competitorStrategy" class="form-select">
+                                        <option value="follow">适度跟进</option>
+                                        <option value="conservative">保守跟进</option>
+                                        <option value="aggressive">积极跟进</option>
+                                        <option value="ignore">不跟进</option>
+                                    </select>
+                                    <div class="strategy-description" id="strategyDescription">
+                                        适度跟进：当竞品价格变动超过10%时，调整幅度为竞品的50%
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary" id="savePricingConfig">保存调价配置</button>
+                        </div>
+                    </div>
+
+                    <div class="pricing-log">
+                        <h3>调价记录</h3>
+                        <div class="log-container" id="pricingLogContainer">
+                            <!-- 动态生成调价日志 -->
+                            <div class="empty-log">暂无调价记录</div>
+                        </div>
+                    </div>
+
+                    <div class="current-pricing-status">
+                        <h3>当前调价状态</h3>
+                        <div class="status-cards" id="statusCards">
+                            <!-- 动态生成各房型调价状态 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 人工干预管控模块 -->
+            <section id="intervention-module" class="module">
+                <div class="module-header">
+                    <h2>人工干预管控</h2>
+                </div>
+
+                <div class="module-content">
+                    <div class="intervention-tabs">
+                        <button class="tab-btn active" data-tab="price-lock">价格锁定</button>
+                        <button class="tab-btn" data-tab="manual-adjust">手动调价</button>
+                        <button class="tab-btn" data-tab="promotions">促销配置</button>
+                        <button class="tab-btn" data-tab="operation-log">操作日志</button>
+                    </div>
+
+                    <!-- 价格锁定标签页 -->
+                    <div id="price-lock-tab" class="tab-content active">
+                        <div class="lock-config">
+                            <div class="lock-form">
+                                <div class="form-group">
+                                    <label>选择房型</label>
+                                    <select id="lockRoomType" class="form-select">
+                                        <option value="">全部房型</option>
+                                    </select>
+                                </div>
+                                <div class="form-group date-range-group">
+                                    <label>锁定日期范围</label>
+                                    <div class="date-range">
+                                        <input type="date" id="lockStartDate">
+                                        <span>至</span>
+                                        <input type="date" id="lockEndDate">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>锁定渠道</label>
+                                    <select id="lockChannel" class="form-select">
+                                        <option value="all">全部渠道</option>
+                                        <option value="direct">官网直订</option>
+                                        <option value="ctrip">携程</option>
+                                        <option value="fliggy">飞猪</option>
+                                        <option value="meituan">美团</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>锁定原因</label>
+                                    <input type="text" id="lockReason" placeholder="请输入锁定原因">
+                                </div>
+                                <div class="form-actions">
+                                    <button class="btn btn-danger" id="lockPriceBtn">锁定价格</button>
+                                    <button class="btn btn-secondary" id="unlockPriceBtn">解除锁定</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="active-locks">
+                            <h4>当前锁定列表</h4>
+                            <table class="data-table" id="locksTable">
+                                <thead>
+                                    <tr>
+                                        <th>房型</th>
+                                        <th>日期范围</th>
+                                        <th>渠道</th>
+                                        <th>锁定价格</th>
+                                        <th>锁定原因</th>
+                                        <th>操作人</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 手动调价标签页 -->
+                    <div id="manual-adjust-tab" class="tab-content">
+                        <div class="manual-adjust-form">
+                            <div class="form-group">
+                                <label>选择房型</label>
+                                <select id="adjustRoomType" class="form-select">
+                                    <!-- 动态生成 -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>调价类型</label>
+                                <div class="adjust-type-options">
+                                    <label class="radio-label">
+                                        <input type="radio" name="adjustType" value="fixed" checked>
+                                        <span>固定价格</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="adjustType" value="percentage">
+                                        <span>按比例调整</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="fixedPriceGroup">
+                                <label>设置价格</label>
+                                <input type="number" id="fixedPrice" min="0" step="1" placeholder="请输入固定价格">
+                                <span class="unit">元</span>
+                            </div>
+                            <div class="form-group" id="percentageGroup" style="display: none;">
+                                <label>调整比例</label>
+                                <input type="number" id="percentageAdjust" min="-50" max="100" step="1" placeholder="请输入调整比例">
+                                <span class="unit">%</span>
+                                <div class="adjust-hint">正值为涨价，负值为降价</div>
+                            </div>
+                            <div class="form-group">
+                                <label>生效日期范围</label>
+                                <div class="date-range">
+                                    <input type="date" id="adjustStartDate">
+                                    <span>至</span>
+                                    <input type="date" id="adjustEndDate">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>调整原因</label>
+                                <input type="text" id="adjustReason" placeholder="请输入调整原因">
+                            </div>
+                            <button class="btn btn-primary" id="applyManualAdjust">应用调整</button>
+                        </div>
+                    </div>
+
+                    <!-- 促销配置标签页 -->
+                    <div id="promotions-tab" class="tab-content">
+                        <div class="promotions-header">
+                            <button class="btn btn-primary" id="addPromotion">新建促销</button>
+                        </div>
+                        <div class="promotions-list" id="promotionsList">
+                            <!-- 动态生成促销列表 -->
+                        </div>
+                    </div>
+
+                    <!-- 操作日志标签页 -->
+                    <div id="operation-log-tab" class="tab-content">
+                        <div class="log-filter">
+                            <div class="form-group">
+                                <label>操作类型</label>
+                                <select id="logTypeFilter" class="form-select">
+                                    <option value="">全部类型</option>
+                                    <option value="lock">价格锁定</option>
+                                    <option value="unlock">解除锁定</option>
+                                    <option value="manual">手动调价</option>
+                                    <option value="promotion">促销配置</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>日期范围</label>
+                                <div class="date-range">
+                                    <input type="date" id="logStartDate">
+                                    <span>至</span>
+                                    <input type="date" id="logEndDate">
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary" id="filterLogs">筛选</button>
+                        </div>
+                        <div class="operation-log-table">
+                            <table class="data-table" id="operationLogTable">
+                                <thead>
+                                    <tr>
+                                        <th>操作时间</th>
+                                        <th>操作类型</th>
+                                        <th>操作内容</th>
+                                        <th>房型</th>
+                                        <th>价格变动</th>
+                                        <th>操作人</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 数据复盘模块 -->
+            <section id="analysis-module" class="module">
+                <div class="module-header">
+                    <h2>数据复盘</h2>
+                    <div class="module-actions">
+                        <div class="date-filter">
+                            <label>统计周期</label>
+                            <select id="analysisPeriod" class="form-select">
+                                <option value="7">最近7天</option>
+                                <option value="30" selected>最近30天</option>
+                                <option value="90">最近90天</option>
+                                <option value="custom">自定义</option>
+                            </select>
+                            <div id="customDateRange" style="display: none;">
+                                <input type="date" id="analysisStartDate">
+                                <span>至</span>
+                                <input type="date" id="analysisEndDate">
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" id="generateReport">生成报告</button>
+                    </div>
+                </div>
+
+                <div class="module-content">
+                    <div class="kpi-cards">
+                        <div class="kpi-card">
+                            <div class="kpi-icon">📊</div>
+                            <div class="kpi-info">
+                                <div class="kpi-label">平均出租率</div>
+                                <div class="kpi-value" id="avgOccupancy">0%</div>
+                                <div class="kpi-trend" id="occupancyTrend">
+                                    <span class="trend-up">↑ 0%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">💰</div>
+                            <div class="kpi-info">
+                                <div class="kpi-label">平均营收 (ADR)</div>
+                                <div class="kpi-value" id="avgRevenue">¥0</div>
+                                <div class="kpi-trend" id="revenueTrend">
+                                    <span class="trend-up">↑ 0%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">📈</div>
+                            <div class="kpi-info">
+                                <div class="kpi-label">累计利润</div>
+                                <div class="kpi-value" id="totalProfit">¥0</div>
+                                <div class="kpi-trend" id="profitTrend">
+                                    <span class="trend-up">↑ 0%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon">🔄</div>
+                            <div class="kpi-info">
+                                <div class="kpi-label">调价次数</div>
+                                <div class="kpi-value" id="pricingCount">0</div>
+                                <div class="kpi-trend">
+                                    <span>自动: <span id="autoCount">0</span> | 手动: <span id="manualCount">0</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-sections">
+                        <div class="analysis-section">
+                            <h3>调价效果分析</h3>
+                            <div class="pricing-effect-container" id="pricingEffectContainer">
+                                <div class="effect-summary">
+                                    <div class="effect-item">
+                                        <div class="effect-label">调价后预订量变化</div>
+                                        <div class="effect-value" id="bookingChange">+0%</div>
+                                    </div>
+                                    <div class="effect-item">
+                                        <div class="effect-label">调价后营收变化</div>
+                                        <div class="effect-value" id="revenueChange">+0%</div>
+                                    </div>
+                                    <div class="effect-item">
+                                        <div class="effect-label">调价后利润变化</div>
+                                        <div class="effect-value" id="profitChange">+0%</div>
+                                    </div>
+                                </div>
+                                <div class="effect-chart-placeholder" id="effectChart">
+                                    <div class="chart-title">调价效果趋势图</div>
+                                    <div class="chart-content">
+                                        <!-- 简单的模拟图表 -->
+                                        <div class="chart-bars" id="chartBars">
+                                            <!-- 动态生成 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analysis-section">
+                            <h3>房型业绩排行</h3>
+                            <div class="room-performance-table">
+                                <table class="data-table" id="roomPerformanceTable">
+                                    <thead>
+                                        <tr>
+                                            <th>排名</th>
+                                            <th>房型</th>
+                                            <th>出租率</th>
+                                            <th>平均房价</th>
+                                            <th>RevPAR</th>
+                                            <th>利润贡献</th>
+                                            <th>调价效果</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 动态生成 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="analysis-section">
+                            <h3>调价规则优化建议</h3>
+                            <div class="suggestions-container" id="suggestionsContainer">
+                                <div class="suggestion-item">
+                                    <div class="suggestion-icon">💡</div>
+                                    <div class="suggestion-content">
+                                        <div class="suggestion-title">基于历史数据分析</div>
+                                        <div class="suggestion-text">系统将根据历史调价效果自动优化调价规则，持续提升收益管理效率。</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 模态框 - 添加房型 -->
+    <div id="roomTypeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>添加房型</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>房型名称</label>
+                    <input type="text" id="roomTypeName" placeholder="如：标准间、大床房、豪华套房">
+                </div>
+                <div class="form-group">
+                    <label>房间总数</label>
+                    <input type="number" id="roomTypeCount" min="1" step="1" placeholder="请输入房间数量">
+                </div>
+                <div class="form-group">
+                    <label>平季基准售价</label>
+                    <input type="number" id="roomTypeBasePrice" min="0" step="1" placeholder="请输入基准售价">
+                    <span class="unit">元/晚</span>
+                </div>
+                <div class="form-group">
+                    <label>单房保本成本底价</label>
+                    <input type="number" id="roomTypeCostPrice" min="0" step="1" placeholder="请输入保本成本">
+                    <span class="unit">元/晚</span>
+                </div>
+                <div class="form-group">
+                    <label>房型描述</label>
+                    <textarea id="roomTypeDesc" rows="3" placeholder="可选：房型面积、设施配置等描述"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelRoomType">取消</button>
+                <button class="btn btn-primary" id="saveRoomType">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框 - 添加促销 -->
+    <div id="promotionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>新建促销活动</h3>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>促销名称</label>
+                    <input type="text" id="promotionName" placeholder="如：周末特惠、连住优惠">
+                </div>
+                <div class="form-group">
+                    <label>促销类型</label>
+                    <select id="promotionType" class="form-select">
+                        <option value="discount">折扣优惠</option>
+                        <option value="fixed">固定减价</option>
+                        <option value="package">打包套餐</option>
+                    </select>
+                </div>
+                <div class="form-group" id="promotionDiscountGroup">
+                    <label>折扣力度</label>
+                    <input type="number" id="promotionDiscount" min="1" max="99" step="1" placeholder="如：85表示85折">
+                    <span class="unit">折</span>
+                </div>
+                <div class="form-group" id="promotionFixedGroup" style="display: none;">
+                    <label>减免金额</label>
+                    <input type="number" id="promotionFixed" min="0" step="1" placeholder="请输入减免金额">
+                    <span class="unit">元</span>
+                </div>
+                <div class="form-group">
+                    <label>适用房型</label>
+                    <select id="promotionRoomType" class="form-select">
+                        <option value="">全部房型</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>活动时间</label>
+                    <div class="date-range">
+                        <input type="date" id="promotionStartDate">
+                        <span>至</span>
+                        <input type="date" id="promotionEndDate">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>使用条件</label>
+                    <textarea id="promotionConditions" rows="3" placeholder="如：需提前3天预订、限连住2晚以上等"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelPromotion">取消</button>
+                <button class="btn btn-primary" id="savePromotion">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/modules/baseline.js"></script>
+    <script src="js/modules/monitoring.js"></script>
+    <script src="js/modules/pricing.js"></script>
+    <script src="js/modules/intervention.js"></script>
+    <script src="js/modules/analysis.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
