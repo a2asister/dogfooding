@@ -1,0 +1,243 @@
+.container {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  height: 100%;
+  overflow: auto;
+}
+
+.title {
+  color: #f3f4f6;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 16px;
+}
+
+.usersSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.usersList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.userCard {
+  background: #111827;
+  border-radius: 8px;
+  padding: 12px;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.userCard.active {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.userHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.userName {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.userRole {
+  color: #9ca3af;
+  font-size: 10px;
+  background: #374151;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.userInfo {
+  margin-bottom: 8px;
+}
+
+.username {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.permissions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.permBadge {
+  color: white;
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.switchButton,
+.logoutButton {
+  width: 100%;
+  background: #374151;
+  color: #e5e7eb;
+  border: none;
+  border-radius: 4px;
+  padding: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.switchButton:hover,
+.logoutButton:hover {
+  background: #4b5563;
+}
+
+.currentBadge {
+  display: block;
+  text-align: center;
+  color: #3b82f6;
+  font-size: 11px;
+  padding: 6px;
+}
+
+.logsSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.logsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.currentUserInfo {
+  background: #111827;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  color: #e5e7eb;
+  font-size: 13px;
+}
+
+.currentUserInfo strong {
+  color: #3b82f6;
+}
+
+.currentPerms {
+  margin-left: 8px;
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.logoutButton {
+  width: auto;
+  padding: 6px 12px;
+  background: #374151;
+}
+
+.logsList {
+  background: #111827;
+  border-radius: 8px;
+  padding: 12px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.logItem {
+  padding: 10px;
+  border-bottom: 1px solid #374151;
+  margin-bottom: 8px;
+}
+
+.logItem:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.logHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.logUser {
+  color: #3b82f6;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.logTime {
+  color: #6b7280;
+  font-size: 10px;
+}
+
+.logContent {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.logAction {
+  color: #e5e7eb;
+  font-size: 12px;
+}
+
+.logTarget {
+  color: #9ca3af;
+  font-size: 11px;
+  background: #374151;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.logDetails {
+  color: #6b7280;
+  font-size: 11px;
+  margin: 0;
+}
+
+.emptyLogs {
+  color: #6b7280;
+  font-size: 13px;
+  text-align: center;
+  padding: 30px;
+}
+
+.adminNotice {
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 6px;
+  color: #93c5fd;
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}

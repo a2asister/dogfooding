@@ -1,0 +1,107 @@
+.container {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  height: 100%;
+  overflow: auto;
+}
+
+.title {
+  color: #f3f4f6;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.selectorLabel {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.select {
+  background: #374151;
+  color: #e5e7eb;
+  border: 1px solid #4b5563;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.alerts {
+  margin-bottom: 16px;
+}
+
+.alertItem {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #fca5a5;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.chartsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chartContainer {
+  background: #111827;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.chartTitle {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.analysisContainer {
+  background: #111827;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.analysisGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.analysisItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.analysisLabel {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.analysisValue {
+  color: #3b82f6;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.analysisValue.warning {
+  color: #ef4444;
+}

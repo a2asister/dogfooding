@@ -1,0 +1,126 @@
+.container {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  height: 100%;
+  overflow: auto;
+}
+
+.title {
+  color: #f3f4f6;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.summaryCards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.summaryCard {
+  background: #111827;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.summaryValue {
+  display: block;
+  color: #3b82f6;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.summaryLabel {
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 16px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dateRange {
+  display: flex;
+  gap: 16px;
+}
+
+.dateRange label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.dateRange input {
+  background: #374151;
+  color: #e5e7eb;
+  border: 1px solid #4b5563;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.dateRange input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.exportButton {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.exportButton:hover {
+  background: #2563eb;
+}
+
+.exportButton:disabled {
+  background: #4b5563;
+  cursor: not-allowed;
+}
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.chartCard {
+  background: #111827;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.chartTitle {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 1200px) {
+  .summaryCards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .chartsGrid {
+    grid-template-columns: 1fr;
+  }
+}

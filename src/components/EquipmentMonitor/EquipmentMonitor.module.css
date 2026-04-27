@@ -1,0 +1,250 @@
+.container {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  height: 100%;
+  overflow: auto;
+}
+
+.title {
+  color: #f3f4f6;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.statCard {
+  background: #111827;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+.statCard.online {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.statCard.online .statValue {
+  color: #22c55e;
+}
+
+.statCard.offline {
+  background: rgba(107, 114, 128, 0.1);
+  border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+.statCard.offline .statValue {
+  color: #9ca3af;
+}
+
+.statCard.fault {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.statCard.fault .statValue {
+  color: #ef4444;
+}
+
+.statValue {
+  display: block;
+  color: #e5e7eb;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.statLabel {
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.typeStats {
+  background: #111827;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.typeStatItem {
+  display: grid;
+  grid-template-columns: 80px 60px 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.typeStatItem:last-child {
+  margin-bottom: 0;
+}
+
+.typeLabel {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.typeValue {
+  color: #e5e7eb;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.typeBar {
+  height: 6px;
+  background: #374151;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.typeBarFill {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filterSelect {
+  flex: 1;
+  background: #374151;
+  color: #e5e7eb;
+  border: 1px solid #4b5563;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.devicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.deviceCard {
+  background: #111827;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.deviceHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.deviceType {
+  color: #3b82f6;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.deviceId {
+  color: #6b7280;
+  font-size: 10px;
+  margin-left: auto;
+}
+
+.deviceName {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 12px 0;
+}
+
+.deviceInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.infoLabel {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+.infoValue {
+  color: #e5e7eb;
+  font-size: 11px;
+}
+
+.detailsButton {
+  width: 100%;
+  background: #374151;
+  color: #9ca3af;
+  border: none;
+  border-radius: 4px;
+  padding: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.detailsButton:hover {
+  background: #4b5563;
+}
+
+.details {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #374151;
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.detailItem:last-child {
+  margin-bottom: 0;
+}
+
+.detailLabel {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+.detailValue {
+  color: #e5e7eb;
+  font-size: 11px;
+}
+
+.emptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #6b7280;
+  padding: 40px;
+  font-size: 14px;
+}

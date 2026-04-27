@@ -1,0 +1,190 @@
+.container {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  height: 100%;
+  overflow: auto;
+}
+
+.title {
+  color: #f3f4f6;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.statsBar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.statItem {
+  flex: 1;
+  background: #111827;
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+.statItem.critical {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.statValue {
+  display: block;
+  color: #e5e7eb;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.statItem.critical .statValue {
+  color: #ef4444;
+}
+
+.statLabel {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filterSelect {
+  flex: 1;
+  background: #374151;
+  color: #e5e7eb;
+  border: 1px solid #4b5563;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.alarmsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.alarmWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.alarmCard {
+  background: #111827;
+  border-radius: 8px;
+  padding: 12px;
+  border-left: 4px solid;
+}
+
+.alarmHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.levelBadge {
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.alarmType {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.alarmTime {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+.alarmDescription {
+  color: #d1d5db;
+  font-size: 13px;
+  margin: 0 0 8px 0;
+}
+
+.alarmLocation {
+  color: #9ca3af;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.alarmFooter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusBadge {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.statusBadgeProcessing {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.statusBadgeResolved {
+  background: rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.handler,
+.duration {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+.processButton,
+.resolveButton {
+  margin-left: auto;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.processButton:hover,
+.resolveButton:hover {
+  background: #2563eb;
+}
+
+.emptyState {
+  text-align: center;
+  color: #6b7280;
+  padding: 40px;
+  font-size: 14px;
+}

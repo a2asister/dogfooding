@@ -1,0 +1,93 @@
+.container {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  height: 100%;
+}
+
+.title {
+  color: #f3f4f6;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.map {
+  width: 100%;
+  height: calc(100% - 40px);
+  border-radius: 8px;
+}
+
+.roadSegment {
+  transition: opacity 0.3s ease;
+}
+
+.roadSegment:hover {
+  opacity: 0.8;
+}
+
+.labelBg {
+  pointer-events: none;
+}
+
+.roadLabel {
+  font-size: 14px;
+  font-weight: 600;
+  fill: #f3f4f6;
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
+.roadSpeed {
+  font-size: 11px;
+  fill: #9ca3af;
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
+.intersection {
+  cursor: pointer;
+}
+
+.intersection circle {
+  transition: r 0.2s ease, opacity 0.2s ease;
+}
+
+.glowCircle {
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.intersectionLabel {
+  font-size: 11px;
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+
+.intersectionSignal {
+  font-size: 10px;
+  text-anchor: middle;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.accidentMarker {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.legend {
+  pointer-events: none;
+}

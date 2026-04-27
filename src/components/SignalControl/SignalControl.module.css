@@ -1,0 +1,267 @@
+.container {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  height: 100%;
+  overflow: auto;
+}
+
+.title {
+  color: #f3f4f6;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 16px;
+}
+
+.intersectionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: #111827;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.lockedBadge {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.signalDisplay {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.signalLight {
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.signalInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.signalState {
+  color: #e5e7eb;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.lastModified {
+  color: #6b7280;
+  font-size: 11px;
+}
+
+.timingEditor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.timingRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timingRow label {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.timingRow input {
+  width: 80px;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  color: #e5e7eb;
+  padding: 4px 8px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.timingRow input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.currentTiming {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.timingItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.timingColor {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.editButton,
+.lockButton,
+.saveButton,
+.cancelButton {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editButton {
+  background: #3b82f6;
+  color: white;
+}
+
+.editButton:hover {
+  background: #2563eb;
+}
+
+.lockButton {
+  background: #6b7280;
+  color: white;
+}
+
+.lockButton:hover {
+  background: #4b5563;
+}
+
+.unlockButton {
+  background: #f59e0b;
+  color: white;
+}
+
+.unlockButton:hover {
+  background: #d97706;
+}
+
+.saveButton {
+  background: #22c55e;
+  color: white;
+}
+
+.saveButton:hover {
+  background: #16a34a;
+}
+
+.cancelButton {
+  background: #374151;
+  color: #9ca3af;
+}
+
+.cancelButton:hover {
+  background: #4b5563;
+}
+
+.logsPanel {
+  background: #111827;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.logsTitle {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.logsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.logItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px;
+  background: #1f2937;
+  border-radius: 6px;
+}
+
+.logUser {
+  color: #3b82f6;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.logAction {
+  color: #e5e7eb;
+  font-size: 12px;
+}
+
+.logTime {
+  color: #6b7280;
+  font-size: 10px;
+}
+
+.emptyLogs {
+  color: #6b7280;
+  font-size: 12px;
+  text-align: center;
+  padding: 20px;
+}
+
+.permissionNotice {
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 6px;
+  color: #fca5a5;
+  font-size: 12px;
+}
