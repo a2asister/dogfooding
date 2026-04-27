@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国象棋 - 传统对战游戏</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 主菜单 -->
+        <div id="menu-screen" class="screen active">
+            <div class="menu-container">
+                <h1 class="game-title">中国象棋</h1>
+                <p class="game-subtitle">经典对弈 · 智慧对决</p>
+                
+                <div class="menu-buttons">
+                    <button class="menu-btn primary" id="btn-pvp">双人对战</button>
+                    <button class="menu-btn secondary" id="btn-pvc">人机对战</button>
+                    <button class="menu-btn tertiary" id="btn-history">历史对局</button>
+                    <button class="menu-btn tertiary" id="btn-settings">游戏设置</button>
+                </div>
+                
+                <div class="menu-footer">
+                    <p>纯前端轻量化 · 无需登录 · 本地存储</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 难度选择 -->
+        <div id="difficulty-screen" class="screen">
+            <div class="menu-container">
+                <h2 class="screen-title">选择难度</h2>
+                
+                <div class="difficulty-options">
+                    <div class="difficulty-card" data-difficulty="easy">
+                        <div class="difficulty-icon">🌱</div>
+                        <h3>新手简易</h3>
+                        <p>适合刚入门的新手玩家</p>
+                        <div class="difficulty-stars">★☆☆</div>
+                    </div>
+                    
+                    <div class="difficulty-card selected" data-difficulty="normal">
+                        <div class="difficulty-icon">⚔️</div>
+                        <h3>普通进阶</h3>
+                        <p>有一定基础的玩家</p>
+                        <div class="difficulty-stars">★★☆</div>
+                    </div>
+                    
+                    <div class="difficulty-card" data-difficulty="hard">
+                        <div class="difficulty-icon">👑</div>
+                        <h3>高手硬核</h3>
+                        <p>挑战你的棋艺极限</p>
+                        <div class="difficulty-stars">★★★</div>
+                    </div>
+                </div>
+                
+                <div class="color-selection">
+                    <h3>选择执子</h3>
+                    <div class="color-options">
+                        <button class="color-btn red selected" data-color="red">
+                            <span class="color-preview red-color"></span>
+                            红方（先手）
+                        </button>
+                        <button class="color-btn black" data-color="black">
+                            <span class="color-preview black-color"></span>
+                            黑方（后手）
+                        </button>
+                        <button class="color-btn random" data-color="random">
+                            <span class="color-preview random-color"></span>
+                            随机分配
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="menu-buttons">
+                    <button class="menu-btn primary" id="btn-start-pvc">开始对局</button>
+                    <button class="menu-btn secondary" id="btn-back-menu">返回菜单</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏界面 -->
+        <div id="game-screen" class="screen">
+            <div class="game-container">
+                <!-- 顶部信息栏 -->
+                <div class="game-header">
+                    <div class="player-info black-player">
+                        <div class="player-color black"></div>
+                        <div class="player-details">
+                            <span class="player-name" id="black-player-name">黑方</span>
+                            <span class="player-status" id="black-status"></span>
+                        </div>
+                        <div class="player-timer" id="black-timer">00:00</div>
+                    </div>
+                    
+                    <div class="game-status">
+                        <div class="turn-indicator" id="turn-indicator">
+                            <span class="turn-color red"></span>
+                            <span class="turn-text">红方回合</span>
+                        </div>
+                        <div class="game-phase" id="game-phase">进行中</div>
+                    </div>
+                    
+                    <div class="player-info red-player">
+                        <div class="player-color red"></div>
+                        <div class="player-details">
+                            <span class="player-name" id="red-player-name">红方</span>
+                            <span class="player-status" id="red-status"></span>
+                        </div>
+                        <div class="player-timer" id="red-timer">00:00</div>
+                    </div>
+                </div>
+
+                <!-- 主游戏区域 -->
+                <div class="game-main">
+                    <!-- 左侧面板 - 操作按钮 -->
+                    <div class="side-panel left-panel">
+                        <h3>游戏操作</h3>
+                        <div class="action-buttons">
+                            <button class="action-btn" id="btn-pause">
+                                <span class="btn-icon">⏸️</span>
+                                暂停
+                            </button>
+                            <button class="action-btn" id="btn-resign">
+                                <span class="btn-icon">🏳️</span>
+                                认输
+                            </button>
+                            <button class="action-btn" id="btn-draw">
+                                <span class="btn-icon">🤝</span>
+                                和棋
+                            </button>
+                            <button class="action-btn" id="btn-undo">
+                                <span class="btn-icon">↩️</span>
+                                悔棋
+                            </button>
+                            <button class="action-btn" id="btn-hint">
+                                <span class="btn-icon">💡</span>
+                                提示
+                            </button>
+                            <button class="action-btn" id="btn-restart">
+                                <span class="btn-icon">🔄</span>
+                                重开
+                            </button>
+                        </div>
+                        
+                        <h3>对局信息</h3>
+                        <div class="game-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">总步数：</span>
+                                <span class="stat-value" id="total-moves">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">对局时长：</span>
+                                <span class="stat-value" id="game-duration">00:00</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">红方吃子：</span>
+                                <span class="stat-value" id="red-captures">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">黑方吃子：</span>
+                                <span class="stat-value" id="black-captures">0</span>
+                            </div>
+                        </div>
+                        
+                        <h3>被吃棋子</h3>
+                        <div class="captured-pieces">
+                            <div class="captured-section">
+                                <span class="captured-label">红方被吃：</span>
+                                <div class="captured-list" id="red-captured"></div>
+                            </div>
+                            <div class="captured-section">
+                                <span class="captured-label">黑方被吃：</span>
+                                <div class="captured-list" id="black-captured"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 棋盘区域 -->
+                    <div class="board-container">
+                        <div class="board-wrapper" id="board-wrapper">
+                            <div class="chessboard" id="chessboard">
+                                <!-- 棋盘网格和楚河汉界 -->
+                                <div class="board-grid" id="board-grid"></div>
+                                <div class="river" id="river">
+                                    <span class="river-text">楚 河</span>
+                                    <span class="river-text">汉 界</span>
+                                </div>
+                                <!-- 棋子层 -->
+                                <div class="pieces-layer" id="pieces-layer"></div>
+                                <!-- 交互层 -->
+                                <div class="interaction-layer" id="interaction-layer"></div>
+                                <!-- 高亮层 -->
+                                <div class="highlight-layer" id="highlight-layer"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- 提示消息 -->
+                        <div class="game-message" id="game-message"></div>
+                    </div>
+
+                    <!-- 右侧面板 - 走棋记录 -->
+                    <div class="side-panel right-panel">
+                        <h3>走棋记录</h3>
+                        <div class="move-history" id="move-history">
+                            <div class="move-list" id="move-list"></div>
+                        </div>
+                        
+                        <h3>步数回看</h3>
+                        <div class="move-controls">
+                            <button class="move-btn" id="btn-first">
+                                <span class="btn-icon">⏮️</span>
+                                开始
+                            </button>
+                            <button class="move-btn" id="btn-prev">
+                                <span class="btn-icon">◀️</span>
+                                上一步
+                            </button>
+                            <button class="move-btn" id="btn-next">
+                                <span class="btn-icon">▶️</span>
+                                下一步
+                            </button>
+                            <button class="move-btn" id="btn-last">
+                                <span class="btn-icon">⏭️</span>
+                                最新
+                            </button>
+                        </div>
+                        
+                        <div class="move-indicator">
+                            <span>当前步数：</span>
+                            <span id="current-move-index">0</span>
+                            <span>/</span>
+                            <span id="total-moves-count">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 底部控制栏 -->
+                <div class="game-footer">
+                    <button class="footer-btn" id="btn-footer-settings">
+                        <span class="btn-icon">⚙️</span>
+                        设置
+                    </button>
+                    <button class="footer-btn" id="btn-autoplay">
+                        <span class="btn-icon">▶️</span>
+                        自动演示
+                    </button>
+                    <button class="footer-btn" id="btn-save">
+                        <span class="btn-icon">💾</span>
+                        保存
+                    </button>
+                    <button class="footer-btn" id="btn-menu">
+                        <span class="btn-icon">🏠</span>
+                        返回菜单
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 历史对局界面 -->
+        <div id="history-screen" class="screen">
+            <div class="menu-container">
+                <h2 class="screen-title">历史对局</h2>
+                
+                <div class="history-filters">
+                    <div class="filter-group">
+                        <label>游戏模式：</label>
+                        <select id="filter-mode">
+                            <option value="all">全部</option>
+                            <option value="pvp">双人对战</option>
+                            <option value="pvc">人机对战</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>结果：</label>
+                        <select id="filter-result">
+                            <option value="all">全部</option>
+                            <option value="win">胜利</option>
+                            <option value="lose">失败</option>
+                            <option value="draw">和棋</option>
+                        </select>
+                    </div>
+                    <button class="menu-btn secondary" id="btn-refresh-history">刷新</button>
+                </div>
+                
+                <div class="history-list" id="history-list">
+                    <!-- 历史对局列表将由JS动态生成 -->
+                </div>
+                
+                <div class="menu-buttons">
+                    <button class="menu-btn secondary" id="btn-history-back">返回菜单</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 设置界面 -->
+        <div id="settings-screen" class="screen">
+            <div class="menu-container">
+                <h2 class="screen-title">游戏设置</h2>
+                
+                <div class="settings-container">
+                    <div class="settings-section">
+                        <h3>视觉设置</h3>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">棋盘主题</label>
+                            <div class="setting-control">
+                                <select id="setting-theme">
+                                    <option value="classic">经典木纹</option>
+                                    <option value="modern">现代简约</option>
+                                    <option value="paper">宣纸古风</option>
+                                    <option value="dark">深色模式</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">棋子样式</label>
+                            <div class="setting-control">
+                                <select id="setting-piece-style">
+                                    <option value="traditional">传统写实</option>
+                                    <option value="flat">扁平简约</option>
+                                    <option value="three-d">3D立体</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">棋盘缩放</label>
+                            <div class="setting-control">
+                                <input type="range" id="setting-scale" min="70" max="130" value="100">
+                                <span id="scale-value">100%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>游戏规则</h3>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">计时功能</label>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-timer" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">单步思考时间</label>
+                            <div class="setting-control">
+                                <select id="setting-move-time" disabled>
+                                    <option value="0">无限制</option>
+                                    <option value="30">30秒</option>
+                                    <option value="60">1分钟</option>
+                                    <option value="120">2分钟</option>
+                                    <option value="300">5分钟</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">总对局时间</label>
+                            <div class="setting-control">
+                                <select id="setting-total-time" disabled>
+                                    <option value="0">无限制</option>
+                                    <option value="300">5分钟</option>
+                                    <option value="600">10分钟</option>
+                                    <option value="1800">30分钟</option>
+                                    <option value="3600">60分钟</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>音效与动画</h3>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">音效开关</label>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-sound" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">落子动画</label>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-move-animation" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">吃子动画</label>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-capture-animation" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">音量</label>
+                            <div class="setting-control">
+                                <input type="range" id="setting-volume" min="0" max="100" value="70">
+                                <span id="volume-value">70%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>交互设置</h3>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">操作方式</label>
+                            <div class="setting-control">
+                                <select id="setting-operation">
+                                    <option value="both">点击+拖拽</option>
+                                    <option value="click">仅点击</option>
+                                    <option value="drag">仅拖拽</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">显示可行走点</label>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-show-moves" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">显示被攻击点</label>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-show-threats" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="setting-item">
+                            <label class="setting-label">误触防护</label>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="setting-accident-prevention" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-buttons">
+                    <button class="menu-btn primary" id="btn-save-settings">保存设置</button>
+                    <button class="menu-btn secondary" id="btn-restore-defaults">恢复默认</button>
+                    <button class="menu-btn tertiary" id="btn-settings-back">返回</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 对话框 -->
+        <div id="dialog-overlay" class="dialog-overlay hidden">
+            <div class="dialog" id="dialog">
+                <div class="dialog-header">
+                    <h3 class="dialog-title" id="dialog-title"></h3>
+                    <button class="dialog-close" id="btn-dialog-close">×</button>
+                </div>
+                <div class="dialog-content" id="dialog-content"></div>
+                <div class="dialog-footer" id="dialog-footer"></div>
+            </div>
+        </div>
+
+        <!-- 游戏结束弹窗 -->
+        <div id="game-over-overlay" class="game-over-overlay hidden">
+            <div class="game-over-dialog">
+                <div class="game-over-icon" id="game-over-icon"></div>
+                <h2 class="game-over-title" id="game-over-title"></h2>
+                <p class="game-over-message" id="game-over-message"></p>
+                <div class="game-over-stats" id="game-over-stats"></div>
+                <div class="game-over-buttons">
+                    <button class="menu-btn primary" id="btn-play-again">再来一局</button>
+                    <button class="menu-btn secondary" id="btn-review-game">复盘查看</button>
+                    <button class="menu-btn tertiary" id="btn-gameover-menu">返回菜单</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/chess.js"></script>
+    <script src="js/rules.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
