@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>电学小课堂 - 互动学习小游戏</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- 顶部标题栏 -->
+        <header class="game-header">
+            <h1>⚡ 电学小课堂</h1>
+            <div class="level-info">
+                <span id="current-level">第 1 关</span>
+                <span class="stars-display">
+                    <span class="star filled">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </span>
+            </div>
+        </header>
+
+        <!-- 主游戏区域 -->
+        <main class="game-main">
+            <!-- 电路图区域 -->
+            <div class="circuit-board" id="circuit-board">
+                <!-- 电路图将由JS动态生成 -->
+            </div>
+
+            <!-- 操作按钮区域 -->
+            <div class="action-buttons">
+                <button id="toggle-switch" class="btn btn-switch" disabled>
+                    🔌 合闸通电
+                </button>
+                <button id="reset-level" class="btn btn-reset">
+                    🔄 重置关卡
+                </button>
+            </div>
+        </main>
+
+        <!-- 元件素材面板 -->
+        <aside class="components-panel">
+            <h3>📦 元件库</h3>
+            <div class="components-list" id="components-list">
+                <!-- 元件将由JS动态生成 -->
+            </div>
+        </aside>
+
+        <!-- 提示区域 -->
+        <div class="hint-area" id="hint-area">
+            <p>请将元件拖拽到电路图的正确位置！</p>
+        </div>
+    </div>
+
+    <!-- 通关弹窗 -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal-content success-modal">
+            <div class="celebration-animation">
+                <div class="confetti"></div>
+                <div class="stars-animated">
+                    <span class="star-anim">★</span>
+                    <span class="star-anim">★</span>
+                    <span class="star-anim">★</span>
+                </div>
+            </div>
+            <h2>🎉 太棒了！</h2>
+            <p class="encouragement-text" id="encouragement-text">你成功点亮了灯泡！</p>
+            <div class="knowledge-tip" id="knowledge-tip">
+                <h4>💡 电学小知识</h4>
+                <p id="knowledge-content">电路通路是指电流可以完整循环的电路，此时用电器可以正常工作。</p>
+            </div>
+            <div class="modal-buttons">
+                <button id="next-level-btn" class="btn btn-primary">
+                    ▶ 下一关
+                </button>
+                <button id="replay-btn" class="btn btn-secondary">
+                    🔄 再玩一次
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 错误提示弹窗 -->
+    <div class="modal-overlay" id="error-modal">
+        <div class="modal-content error-modal">
+            <h2>❌ 电路连接有误</h2>
+            <p id="error-message">请检查电路连接是否正确，确保所有元件都已正确放置！</p>
+            <button id="close-error-btn" class="btn btn-secondary">
+                我知道了
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
