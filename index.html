@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>古诗词闯关小游戏</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1 class="game-title">🎯 古诗词闯关</h1>
+            <div class="level-info">
+                <span id="current-level">第 1 关</span>
+                <span class="level-divider">|</span>
+                <span id="grade-info">一年级上册</span>
+            </div>
+        </header>
+        
+        <main class="game-main">
+            <section class="poem-section">
+                <div class="poem-title" id="poem-title">咏鹅</div>
+                <div class="poem-author" id="poem-author">骆宾王</div>
+                <div class="poem-content" id="poem-content">
+                    <!-- 诗词内容将通过JS动态生成 -->
+                </div>
+            </section>
+            
+            <section class="word-bank-section">
+                <div class="word-bank-title">请选择正确的汉字</div>
+                <div class="word-bank" id="word-bank">
+                    <!-- 汉字选项将通过JS动态生成 -->
+                </div>
+            </section>
+            
+            <div class="action-buttons">
+                <button id="hint-btn" class="action-btn hint-btn">💡 提示</button>
+                <button id="reset-btn" class="action-btn reset-btn">🔄 重新开始</button>
+                <button id="info-btn" class="action-btn info-btn">📖 诗词释义</button>
+            </div>
+        </main>
+        
+        <footer class="game-footer">
+            <p class="encouragement" id="encouragement">加油！你一定能行！</p>
+        </footer>
+    </div>
+    
+    <div id="success-modal" class="modal hidden">
+        <div class="modal-content success-modal">
+            <div class="celebration-animation" id="celebration-animation">
+                <!-- 庆祝动画 -->
+            </div>
+            <h2 class="success-title">🎉 恭喜通关！</h2>
+            <div class="star-rating" id="star-rating">
+                <!-- 星级评分 -->
+            </div>
+            <p class="success-message" id="success-message">太棒了！你完美地完成了这首诗词的填写！</p>
+            <div class="modal-buttons">
+                <button id="next-level-btn" class="modal-btn next-btn">▶️ 下一关</button>
+                <button id="play-again-btn" class="modal-btn play-again-btn">🔄 再玩一次</button>
+                <button id="info-modal-btn" class="modal-btn info-modal-btn">📖 诗词释义</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content info-modal">
+            <div class="modal-header">
+                <h2 class="info-title" id="info-title">咏鹅 - 骆宾王</h2>
+                <button id="close-info-btn" class="close-btn">×</button>
+            </div>
+            <div class="info-content" id="info-content">
+                <!-- 诗词释义内容 -->
+            </div>
+        </div>
+    </div>
+    
+    <div id="error-toast" class="toast hidden">
+        <p id="error-message">填错了，再试一次吧！</p>
+    </div>
+    
+    <script src="js/data/poems.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
