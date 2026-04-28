@@ -1,0 +1,244 @@
+.home-page {
+  flex: 1;
+}
+
+/* Hero 区域 */
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.game-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.game-tagline {
+  font-size: 20px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.hero-actions .btn {
+  padding: 16px 48px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* 通用区域样式 */
+.intro-section,
+.beta-section,
+.features-section,
+.rewards-section,
+.download-section {
+  padding: 60px 0;
+  background-color: #fff;
+}
+
+.beta-section,
+.rewards-section {
+  background-color: #f8f9fa;
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #333;
+}
+
+/* 简介区域 */
+.intro-text {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #666;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 公测信息区域 */
+.beta-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.info-item {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.info-item h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.info-item p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* 游戏特色区域 */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.feature-item {
+  text-align: center;
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-item h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.feature-item p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 预约礼包区域 */
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.reward-item {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.reward-item:hover {
+  transform: translateY(-5px);
+}
+
+.reward-item h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1890ff;
+}
+
+.reward-item p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 下载区域 */
+.download-section {
+  text-align: center;
+}
+
+.download-text {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.download-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 0;
+  }
+
+  .game-title {
+    font-size: 36px;
+  }
+
+  .game-tagline {
+    font-size: 16px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 32px;
+    font-size: 16px;
+  }
+
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .intro-text {
+    font-size: 16px;
+  }
+
+  .beta-info,
+  .features-grid,
+  .rewards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .info-item,
+  .feature-item,
+  .reward-item {
+    padding: 20px;
+  }
+
+  .download-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .download-buttons .btn {
+    width: 100%;
+    max-width: 250px;
+    margin: 0;
+  }
+}

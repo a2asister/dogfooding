@@ -1,0 +1,138 @@
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 40px 0 20px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 底部导航 */
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #444;
+}
+
+.footer-link {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #1890ff;
+}
+
+/* 底部信息 */
+.footer-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.game-info {
+  flex: 1;
+  min-width: 250px;
+}
+
+.game-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.copyright {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.6;
+}
+
+.icp-link {
+  color: #999;
+  text-decoration: none;
+}
+
+.icp-link:hover {
+  color: #1890ff;
+}
+
+/* 联系方式 */
+.contact-info {
+  flex: 1;
+  min-width: 250px;
+  text-align: right;
+}
+
+.contact-item {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+
+/* 健康游戏忠告 */
+.health-warning {
+  padding-top: 20px;
+  border-top: 1px solid #444;
+}
+
+.warning-text {
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .footer {
+    padding: 32px 0 16px;
+  }
+
+  .footer-nav {
+    gap: 16px;
+    padding-bottom: 20px;
+  }
+
+  .footer-link {
+    font-size: 13px;
+  }
+
+  .footer-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .game-info,
+  .contact-info {
+    min-width: auto;
+    text-align: center;
+  }
+
+  .game-name {
+    font-size: 14px;
+  }
+
+  .copyright,
+  .contact-item,
+  .warning-text {
+    font-size: 11px;
+  }
+
+  .health-warning {
+    padding-top: 16px;
+  }
+}

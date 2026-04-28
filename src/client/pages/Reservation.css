@@ -1,0 +1,135 @@
+.reservation-page {
+  flex: 1;
+  padding: 40px 0;
+  background-color: #f5f5f5;
+}
+
+.reservation-form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 40px;
+}
+
+/* 渠道选择样式 */
+.channel-options {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.channel-option {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  border: 2px solid #d9d9d9;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.channel-option:hover {
+  border-color: #1890ff;
+}
+
+.channel-option.selected {
+  border-color: #1890ff;
+  background-color: #e6f7ff;
+}
+
+.channel-radio {
+  display: none;
+}
+
+.channel-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.channel-option.selected .channel-label {
+  color: #1890ff;
+}
+
+/* 用户协议样式 */
+.terms-label {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  font-size: 14px;
+  color: #666;
+}
+
+.terms-checkbox {
+  margin-right: 8px;
+  margin-top: 4px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.terms-text {
+  line-height: 1.6;
+}
+
+.terms-link {
+  color: #1890ff;
+  text-decoration: none;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+/* 成功消息样式 */
+.success-message {
+  text-align: center;
+}
+
+.success-message h3 {
+  font-size: 24px;
+  color: #52c41a;
+  margin-bottom: 16px;
+}
+
+.success-message p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .reservation-page {
+    padding: 20px 0;
+  }
+
+  .reservation-form-container {
+    padding: 24px;
+    margin: 0 16px;
+  }
+
+  .channel-options {
+    flex-direction: column;
+  }
+
+  .channel-option {
+    justify-content: center;
+    padding: 10px 20px;
+  }
+
+  .terms-label {
+    font-size: 13px;
+  }
+
+  .success-message h3 {
+    font-size: 20px;
+  }
+
+  .success-message p {
+    font-size: 14px;
+  }
+}

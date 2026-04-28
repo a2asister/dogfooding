@@ -1,0 +1,117 @@
+.query-page {
+  flex: 1;
+  padding: 40px 0;
+  background-color: #f5f5f5;
+}
+
+.query-form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 40px;
+}
+
+/* 查询结果样式 */
+.query-result {
+  margin-top: 32px;
+}
+
+.result-card {
+  padding: 32px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.status-not-found {
+  background-color: #fff7e6;
+  border: 1px solid #ffd591;
+}
+
+.status-pending {
+  background-color: #e6f7ff;
+  border: 1px solid #91d5ff;
+}
+
+.status-success {
+  background-color: #f6ffed;
+  border: 1px solid #b7eb8f;
+}
+
+.status-expired {
+  background-color: #fff1f0;
+  border: 1px solid #ffa39e;
+}
+
+.status-unknown {
+  background-color: #fafafa;
+  border: 1px solid #d9d9d9;
+}
+
+.result-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.status-not-found .result-title {
+  color: #fa8c16;
+}
+
+.status-pending .result-title {
+  color: #1890ff;
+}
+
+.status-success .result-title {
+  color: #52c41a;
+}
+
+.status-expired .result-title {
+  color: #ff4d4f;
+}
+
+.status-unknown .result-title {
+  color: #666;
+}
+
+.result-description {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.result-info {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .query-page {
+    padding: 20px 0;
+  }
+
+  .query-form-container {
+    padding: 24px;
+    margin: 0 16px;
+  }
+
+  .result-card {
+    padding: 20px;
+  }
+
+  .result-title {
+    font-size: 20px;
+  }
+
+  .result-description {
+    font-size: 14px;
+  }
+
+  .result-info {
+    font-size: 13px;
+  }
+}
