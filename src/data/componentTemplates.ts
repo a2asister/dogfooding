@@ -1,0 +1,303 @@
+import { ComponentCategory, ComponentType, DeviceConfig, DeviceType } from '../types';
+
+export const componentCategories: ComponentCategory[] = [
+  {
+    id: 'basic',
+    name: '基础组件',
+    icon: 'AppstoreOutlined',
+    components: [
+      {
+        type: ComponentType.TEXT,
+        name: '文本',
+        icon: 'FontSizeOutlined',
+        defaultStyle: {
+          width: 'auto',
+          height: 'auto',
+          fontSize: 16,
+          color: '#333333',
+          padding: 0,
+          margin: 0,
+        },
+        defaultProps: {
+          text: '这是一段文本',
+        },
+        description: '用于显示文本内容',
+      },
+      {
+        type: ComponentType.BUTTON,
+        name: '按钮',
+        icon: 'FireOutlined',
+        defaultStyle: {
+          width: 'auto',
+          height: 32,
+          padding: '4px 15px',
+          backgroundColor: '#1890ff',
+          color: '#ffffff',
+          borderRadius: 6,
+          fontSize: 14,
+          textAlign: 'center',
+        },
+        defaultProps: {
+          text: '按钮',
+        },
+        description: '用于触发交互事件',
+      },
+      {
+        type: ComponentType.IMAGE,
+        name: '图片',
+        icon: 'PictureOutlined',
+        defaultStyle: {
+          width: 200,
+          height: 150,
+          borderRadius: 4,
+        },
+        defaultProps: {
+          imageUrl: 'https://picsum.photos/200/150',
+        },
+        description: '用于展示图片内容',
+      },
+      {
+        type: ComponentType.INPUT,
+        name: '输入框',
+        icon: 'EditOutlined',
+        defaultStyle: {
+          width: 200,
+          height: 32,
+          padding: '4px 11px',
+          border: '1px solid #d9d9d9',
+          borderRadius: 6,
+          fontSize: 14,
+        },
+        defaultProps: {
+          placeholder: '请输入内容',
+        },
+        description: '用于接收用户输入',
+      },
+      {
+        type: ComponentType.SELECT,
+        name: '下拉选择',
+        icon: 'DownOutlined',
+        defaultStyle: {
+          width: 200,
+          height: 32,
+          border: '1px solid #d9d9d9',
+          borderRadius: 6,
+          fontSize: 14,
+        },
+        defaultProps: {
+          placeholder: '请选择',
+          options: [
+            { label: '选项1', value: 'option1' },
+            { label: '选项2', value: 'option2' },
+            { label: '选项3', value: 'option3' },
+          ],
+        },
+        description: '用于下拉选择',
+      },
+      {
+        type: ComponentType.DIVIDER,
+        name: '分割线',
+        icon: 'LineOutlined',
+        defaultStyle: {
+          width: '100%',
+          height: 1,
+          backgroundColor: '#e8e8e8',
+          margin: '16px 0',
+        },
+        defaultProps: {},
+        description: '用于分割内容区域',
+      },
+    ],
+  },
+  {
+    id: 'layout',
+    name: '布局容器',
+    icon: 'LayoutOutlined',
+    components: [
+      {
+        type: ComponentType.CONTAINER,
+        name: '容器',
+        icon: 'BorderOutlined',
+        defaultStyle: {
+          width: '100%',
+          height: 200,
+          padding: 16,
+          border: '1px dashed #d9d9d9',
+          borderRadius: 4,
+          display: 'flex',
+          flexDirection: 'column',
+        },
+        defaultProps: {},
+        description: '用于容纳其他组件的容器',
+      },
+      {
+        type: ComponentType.ROW,
+        name: '行容器',
+        icon: 'ColumnHeightOutlined',
+        defaultStyle: {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 16,
+        },
+        defaultProps: {},
+        description: '栅格布局 - 行',
+      },
+      {
+        type: ComponentType.COL,
+        name: '列容器',
+        icon: 'ColumnWidthOutlined',
+        defaultStyle: {
+          flex: 1,
+          minHeight: 50,
+          border: '1px dashed #d9d9d9',
+          borderRadius: 4,
+          padding: 8,
+        },
+        defaultProps: {},
+        description: '栅格布局 - 列',
+      },
+    ],
+  },
+  {
+    id: 'business',
+    name: '业务组件',
+    icon: 'AppstoreAddOutlined',
+    components: [
+      {
+        type: ComponentType.CARD,
+        name: '卡片',
+        icon: 'IdcardOutlined',
+        defaultStyle: {
+          width: 300,
+          height: 'auto',
+          backgroundColor: '#ffffff',
+          borderRadius: 8,
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+          padding: 16,
+        },
+        defaultProps: {
+          text: '卡片标题',
+        },
+        description: '用于展示卡片内容',
+      },
+      {
+        type: ComponentType.TABLE,
+        name: '表格',
+        icon: 'TableOutlined',
+        defaultStyle: {
+          width: '100%',
+          border: '1px solid #f0f0f0',
+          borderRadius: 4,
+        },
+        defaultProps: {},
+        description: '用于展示表格数据',
+      },
+      {
+        type: ComponentType.TABS,
+        name: '标签页',
+        icon: 'TabsOutlined',
+        defaultStyle: {
+          width: '100%',
+        },
+        defaultProps: {},
+        description: '用于切换不同内容区域',
+      },
+    ],
+  },
+  {
+    id: 'chart',
+    name: '图表组件',
+    icon: 'BarChartOutlined',
+    components: [
+      {
+        type: ComponentType.CONTAINER,
+        name: '柱状图',
+        icon: 'BarChartOutlined',
+        defaultStyle: {
+          width: 400,
+          height: 300,
+          backgroundColor: '#fafafa',
+          borderRadius: 8,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: '1px solid #e8e8e8',
+        },
+        defaultProps: {
+          text: '柱状图',
+        },
+        description: '用于展示柱状图数据',
+      },
+      {
+        type: ComponentType.CONTAINER,
+        name: '折线图',
+        icon: 'LineChartOutlined',
+        defaultStyle: {
+          width: 400,
+          height: 300,
+          backgroundColor: '#fafafa',
+          borderRadius: 8,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: '1px solid #e8e8e8',
+        },
+        defaultProps: {
+          text: '折线图',
+        },
+        description: '用于展示折线图数据',
+      },
+      {
+        type: ComponentType.CONTAINER,
+        name: '饼图',
+        icon: 'PieChartOutlined',
+        defaultStyle: {
+          width: 400,
+          height: 300,
+          backgroundColor: '#fafafa',
+          borderRadius: 8,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: '1px solid #e8e8e8',
+        },
+        defaultProps: {
+          text: '饼图',
+        },
+        description: '用于展示饼图数据',
+      },
+    ],
+  },
+];
+
+export const deviceConfigs: DeviceConfig[] = [
+  {
+    type: DeviceType.PC,
+    name: 'PC端',
+    width: 1200,
+    height: 800,
+    icon: 'DesktopOutlined',
+  },
+  {
+    type: DeviceType.TABLET,
+    name: '平板',
+    width: 768,
+    height: 1024,
+    icon: 'TabletOutlined',
+  },
+  {
+    type: DeviceType.MOBILE,
+    name: '移动端',
+    width: 375,
+    height: 667,
+    icon: 'MobileOutlined',
+  },
+  {
+    type: DeviceType.MINI_PROGRAM,
+    name: '小程序',
+    width: 375,
+    height: 667,
+    icon: 'WechatOutlined',
+  },
+];

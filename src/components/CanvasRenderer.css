@@ -1,0 +1,122 @@
+.canvas-component-wrapper {
+  position: relative;
+  box-sizing: border-box;
+  user-select: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.canvas-component-wrapper:hover {
+  outline: 2px dashed rgba(24, 144, 255, 0.5);
+  outline-offset: -2px;
+}
+
+.canvas-component-wrapper.selected {
+  outline: 2px solid #1890ff;
+  outline-offset: -2px;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+}
+
+.canvas-component-wrapper.dragging {
+  opacity: 0.8;
+  cursor: grabbing !important;
+}
+
+.canvas-component-wrapper.locked {
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+.canvas-component-wrapper.locked::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(200, 200, 200, 0.1),
+    rgba(200, 200, 200, 0.1) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  pointer-events: none;
+}
+
+.resize-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border: 1px solid #1890ff;
+  border-radius: 2px;
+  z-index: 10;
+}
+
+.resize-handle-nw {
+  top: -4px;
+  left: -4px;
+  cursor: nw-resize;
+}
+
+.resize-handle-n {
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: n-resize;
+}
+
+.resize-handle-ne {
+  top: -4px;
+  right: -4px;
+  cursor: ne-resize;
+}
+
+.resize-handle-e {
+  top: 50%;
+  right: -4px;
+  transform: translateY(-50%);
+  cursor: e-resize;
+}
+
+.resize-handle-se {
+  bottom: -4px;
+  right: -4px;
+  cursor: se-resize;
+}
+
+.resize-handle-s {
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: s-resize;
+}
+
+.resize-handle-sw {
+  bottom: -4px;
+  left: -4px;
+  cursor: sw-resize;
+}
+
+.resize-handle-w {
+  top: 50%;
+  left: -4px;
+  transform: translateY(-50%);
+  cursor: w-resize;
+}
+
+.component-label {
+  position: absolute;
+  top: -24px;
+  left: 0;
+  background: #1890ff;
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px 4px 0 0;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 10;
+}

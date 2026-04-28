@@ -1,0 +1,48 @@
+.editor-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.editor-main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.component-library-sider {
+  min-width: 280px !important;
+  max-width: 280px !important;
+  width: 280px !important;
+  flex: none;
+  background: #fff;
+  border-right: 1px solid #f0f0f0;
+}
+
+.property-panel-sider {
+  min-width: 320px !important;
+  max-width: 320px !important;
+  width: 320px !important;
+  flex: none;
+  background: #fff;
+  border-left: 1px solid #f0f0f0;
+}
+
+.canvas-content {
+  flex: 1;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.ant-layout-sider-trigger {
+  display: none;
+}
+
+.ant-layout-sider {
+  background: #fff !important;
+}
+
+.ant-layout {
+  background: #f5f5f5;
+}

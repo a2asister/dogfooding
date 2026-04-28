@@ -1,0 +1,83 @@
+.toolbar {
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.toolbar-left,
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 8px;
+}
+
+.logo-icon {
+  font-size: 20px;
+}
+
+.logo-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.divider {
+  width: 1px;
+  height: 20px;
+  background: #e8e8e8;
+  margin: 0 8px;
+}
+
+.toolbar .ant-btn {
+  height: 32px;
+}
+
+.toolbar .ant-btn-primary {
+  background: #1890ff;
+}
+
+.toolbar .ant-btn-primary:hover {
+  background: #40a9ff;
+}
+
+.toolbar .ant-btn-dangerous {
+  color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.toolbar .ant-btn-dangerous:hover {
+  color: #ff7875;
+  border-color: #ff7875;
+}
+
+.toolbar .ant-space-compact .ant-btn {
+  border-radius: 0;
+}
+
+.toolbar .ant-space-compact .ant-btn:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.toolbar .ant-space-compact .ant-btn:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.toolbar .ant-space-compact .ant-btn:only-child {
+  border-radius: 4px;
+}
+
+.toolbar .ant-dropdown-trigger {
+  cursor: pointer;
+}
