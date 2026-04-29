@@ -1,0 +1,23 @@
+{
+  "name": "daily-notes-app",
+  "version": "1.0.0",
+  "description": "每日笔记小产品 - 支持新建笔记、分类标签、时间归档、搜索查找、云端同步、历史记录与加密保护",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm run dev:backend & npm run dev:frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspace=backend && npm run build --workspace=frontend",
+    "start": "docker-compose up -d",
+    "stop": "docker-compose down",
+    "db:start": "docker-compose up -d mysql",
+    "db:stop": "docker-compose down mysql"
+  },
+  "keywords": ["notes", "daily", "react", "nestjs", "mysql", "docker"],
+  "author": "",
+  "license": "MIT"
+}
