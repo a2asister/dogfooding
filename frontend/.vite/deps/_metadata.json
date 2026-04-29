@@ -1,0 +1,73 @@
+{
+  "hash": "e65f2555",
+  "configHash": "4e39e49d",
+  "lockfileHash": "ae7e61c4",
+  "browserHash": "cf088be5",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "452e2500",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "1733f2b5",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "5a25d194",
+      "needsInterop": true
+    },
+    "antd": {
+      "src": "../../node_modules/antd/es/index.js",
+      "file": "antd.js",
+      "fileHash": "e5e4b5c1",
+      "needsInterop": false
+    },
+    "antd/locale/zh_CN": {
+      "src": "../../node_modules/antd/locale/zh_CN.js",
+      "file": "antd_locale_zh_CN.js",
+      "fileHash": "d45810c1",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "4538a03d",
+      "needsInterop": false
+    },
+    "dayjs": {
+      "src": "../../node_modules/dayjs/dayjs.min.js",
+      "file": "dayjs.js",
+      "fileHash": "e56dc2fb",
+      "needsInterop": true
+    },
+    "dayjs/locale/zh-cn": {
+      "src": "../../node_modules/dayjs/locale/zh-cn.js",
+      "file": "dayjs_locale_zh-cn.js",
+      "fileHash": "34d380dc",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-VL4ZD2YM": {
+      "file": "chunk-VL4ZD2YM.js"
+    },
+    "chunk-RUEOEXK2": {
+      "file": "chunk-RUEOEXK2.js"
+    },
+    "chunk-L6WMJ7WZ": {
+      "file": "chunk-L6WMJ7WZ.js"
+    },
+    "chunk-46F4FKHU": {
+      "file": "chunk-46F4FKHU.js"
+    },
+    "chunk-EQCVQC35": {
+      "file": "chunk-EQCVQC35.js"
+    }
+  }
+}
