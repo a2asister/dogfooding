@@ -1,0 +1,29 @@
+{
+  "name": "elective-course-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "大学选修课填报系统",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev -w server",
+    "dev:client": "npm run dev -w client",
+    "build:server": "npm run build -w server",
+    "build:client": "npm run build -w client",
+    "build": "npm run build:server && npm run build:client",
+    "start:server": "npm run start -w server",
+    "start": "npm run start:server"
+  },
+  "keywords": [
+    "elective",
+    "course",
+    "university",
+    "react",
+    "koa",
+    "mysql"
+  ],
+  "author": "",
+  "license": "MIT"
+}
