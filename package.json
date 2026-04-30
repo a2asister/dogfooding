@@ -1,0 +1,38 @@
+{
+  "name": "grand-canal-monitoring",
+  "version": "1.0.0",
+  "description": "京杭大运河污染大屏监控系统",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "start": "npm run build:frontend && npm run dev:backend",
+    "docker:db": "docker-compose up -d",
+    "docker:db:stop": "docker-compose down",
+    "clean": "docker-compose down -v",
+    "stop:all": "docker-compose down && pkill -f 'npm run' || true"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "@koa/cors": "^5.0.0",
+    "@koa/router": "^12.0.1",
+    "@types/body-parser": "^1.19.6",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/morgan": "^1.9.10",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "koa": "^2.15.0",
+    "koa-router": "^11.0.2",
+    "morgan": "^1.10.1"
+  }
+}
