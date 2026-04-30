@@ -1,0 +1,57 @@
+[
+  {
+    "id": "a1",
+    "name": "大熊猫团团",
+    "species": "大熊猫",
+    "venueId": "v1",
+    "status": "正常",
+    "health": 95,
+    "lastCheck": "2026-04-30T10:00:00Z",
+    "age": 5,
+    "gender": "雄性"
+  },
+  {
+    "id": "a2",
+    "name": "大熊猫圆圆",
+    "species": "大熊猫",
+    "venueId": "v1",
+    "status": "正常",
+    "health": 92,
+    "lastCheck": "2026-04-30T10:00:00Z",
+    "age": 4,
+    "gender": "雌性"
+  },
+  {
+    "id": "a3",
+    "name": "非洲狮辛巴",
+    "species": "非洲狮",
+    "venueId": "v2",
+    "status": "正常",
+    "health": 88,
+    "lastCheck": "2026-04-30T09:30:00Z",
+    "age": 7,
+    "gender": "雄性"
+  },
+  {
+    "id": "a4",
+    "name": "长颈鹿壮壮",
+    "species": "长颈鹿",
+    "venueId": "v3",
+    "status": "正常",
+    "health": 90,
+    "lastCheck": "2026-04-30T09:00:00Z",
+    "age": 3,
+    "gender": "雄性"
+  },
+  {
+    "id": "a5",
+    "name": "企鹅宝宝",
+    "species": "帝企鹅",
+    "venueId": "v4",
+    "status": "正常",
+    "health": 93,
+    "lastCheck": "2026-04-30T08:30:00Z",
+    "age": 2,
+    "gender": "雌性"
+  }
+]

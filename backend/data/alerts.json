@@ -1,0 +1,29 @@
+[
+  {
+    "id": "al1",
+    "type": "环境超标",
+    "severity": "警告",
+    "venueId": "v3",
+    "message": "草食动物区PM2.5值偏高",
+    "status": "未处理",
+    "createdAt": "2026-04-30T13:45:00Z"
+  },
+  {
+    "id": "al2",
+    "type": "设备故障",
+    "severity": "紧急",
+    "venueId": "v2",
+    "message": "喂食器-猛兽区需要维护",
+    "status": "处理中",
+    "createdAt": "2026-04-30T12:15:00Z"
+  },
+  {
+    "id": "al3",
+    "type": "人员拥堵",
+    "severity": "提醒",
+    "venueId": "v5",
+    "message": "海洋馆游客接近最大容量",
+    "status": "未处理",
+    "createdAt": "2026-04-30T13:30:00Z"
+  }
+]

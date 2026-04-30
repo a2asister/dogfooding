@@ -1,0 +1,47 @@
+[
+  {
+    "id": "e1",
+    "venueId": "v1",
+    "temperature": 24.5,
+    "humidity": 65,
+    "co2": 450,
+    "pm25": 12,
+    "timestamp": "2026-04-30T14:00:00Z"
+  },
+  {
+    "id": "e2",
+    "venueId": "v2",
+    "temperature": 22.3,
+    "humidity": 55,
+    "co2": 420,
+    "pm25": 15,
+    "timestamp": "2026-04-30T14:00:00Z"
+  },
+  {
+    "id": "e3",
+    "venueId": "v3",
+    "temperature": 25.1,
+    "humidity": 60,
+    "co2": 480,
+    "pm25": 18,
+    "timestamp": "2026-04-30T14:00:00Z"
+  },
+  {
+    "id": "e4",
+    "venueId": "v4",
+    "temperature": -2.5,
+    "humidity": 75,
+    "co2": 380,
+    "pm25": 8,
+    "timestamp": "2026-04-30T14:00:00Z"
+  },
+  {
+    "id": "e5",
+    "venueId": "v5",
+    "temperature": 26,
+    "humidity": 80,
+    "co2": 520,
+    "pm25": 10,
+    "timestamp": "2026-04-30T14:00:00Z"
+  }
+]

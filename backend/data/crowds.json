@@ -1,0 +1,23 @@
+[
+  {
+    "id": "c1",
+    "time": "2026-04-30T14:00:00Z",
+    "totalVisitors": 1234,
+    "density": 0.65,
+    "peakHour": "10:00-11:00",
+    "predictions": [
+      {
+        "hour": "15:00",
+        "visitors": 1100
+      },
+      {
+        "hour": "16:00",
+        "visitors": 900
+      },
+      {
+        "hour": "17:00",
+        "visitors": 500
+      }
+    ]
+  }
+]

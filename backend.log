@@ -1,0 +1,488 @@
+
+> zoo-management-backend@1.0.0 start
+> node src/app.js
+
+Thu, 30 Apr 2026 09:13:20 GMT koa deprecated Support for generators will be removed in v3. See the documentation for examples of how to convert old middleware https://github.com/koajs/koa/blob/master/docs/migration.md at src/app.js:11:5
+动物园管理系统后端服务已启动
+服务地址: http://localhost:3000
+[2026-04-30T09:13:20.664Z] [INFO] 动物园管理系统后端服务已启动，端口: 3000
+[2026-04-30T09:13:31.666Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:13:31.669Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:13:31.672Z] [INFO]   --> GET /api/overview 200 7ms 162b
+[2026-04-30T09:13:31.675Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:13:31.676Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:13:31.677Z] [INFO]   --> GET /api/animals 200 2ms 847b
+[2026-04-30T09:13:31.678Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:13:31.679Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:13:31.680Z] [INFO]   --> GET /api/venues 200 2ms 810b
+[2026-04-30T09:13:31.682Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:13:31.682Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:13:31.683Z] [INFO]   --> GET /api/crowds 200 2ms 239b
+[2026-04-30T09:13:31.684Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:13:31.684Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:13:31.685Z] [INFO]   --> GET /api/environments 200 2ms 597b
+[2026-04-30T09:13:31.686Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:13:31.686Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:13:31.687Z] [INFO]   --> GET /api/security 200 1ms 485b
+[2026-04-30T09:13:31.688Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:13:31.689Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:13:31.689Z] [INFO]   --> GET /api/devices 200 1ms 490b
+[2026-04-30T09:13:31.690Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:13:31.691Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:13:31.692Z] [INFO]   --> GET /api/alerts 200 2ms 535b
+[2026-04-30T09:14:01.672Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:14:01.672Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:14:01.674Z] [INFO]   --> GET /api/overview 200 2ms 162b
+[2026-04-30T09:14:01.675Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:14:01.677Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:14:01.681Z] [INFO]   --> GET /api/animals 200 6ms 847b
+[2026-04-30T09:14:01.683Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:14:01.684Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:14:01.686Z] [INFO]   --> GET /api/venues 200 3ms 810b
+[2026-04-30T09:14:01.689Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:14:01.689Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:14:01.691Z] [INFO]   --> GET /api/crowds 200 2ms 239b
+[2026-04-30T09:14:01.692Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:14:01.693Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:14:01.694Z] [INFO]   --> GET /api/environments 200 2ms 597b
+[2026-04-30T09:14:01.695Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:14:01.697Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:14:01.700Z] [INFO]   --> GET /api/security 200 4ms 485b
+[2026-04-30T09:14:01.703Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:14:01.703Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:14:01.704Z] [INFO]   --> GET /api/devices 200 1ms 490b
+[2026-04-30T09:14:01.706Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:14:01.707Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:14:01.709Z] [INFO]   --> GET /api/alerts 200 3ms 535b
+[2026-04-30T09:14:31.664Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:14:31.665Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:14:31.667Z] [INFO]   --> GET /api/overview 200 3ms 162b
+[2026-04-30T09:14:31.671Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:14:31.672Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:14:31.673Z] [INFO]   --> GET /api/animals 200 2ms 847b
+[2026-04-30T09:14:31.674Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:14:31.674Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:14:31.677Z] [INFO]   --> GET /api/venues 200 3ms 810b
+[2026-04-30T09:14:31.678Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:14:31.680Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:14:31.682Z] [INFO]   --> GET /api/crowds 200 4ms 239b
+[2026-04-30T09:14:31.683Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:14:31.684Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:14:31.686Z] [INFO]   --> GET /api/environments 200 3ms 597b
+[2026-04-30T09:14:31.688Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:14:31.689Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:14:31.690Z] [INFO]   --> GET /api/security 200 2ms 485b
+[2026-04-30T09:14:31.690Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:14:31.691Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:14:31.692Z] [INFO]   --> GET /api/devices 200 2ms 490b
+[2026-04-30T09:14:31.695Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:14:31.695Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:14:31.696Z] [INFO]   --> GET /api/alerts 200 1ms 535b
+[2026-04-30T09:17:12.778Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:17:12.780Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:17:12.780Z] [INFO]   --> GET /api/overview 200 2ms 162b
+[2026-04-30T09:17:12.781Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:17:12.781Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:17:12.782Z] [INFO]   --> GET /api/animals 200 1ms 847b
+[2026-04-30T09:17:12.784Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:17:12.785Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:17:12.785Z] [INFO]   --> GET /api/venues 200 1ms 810b
+[2026-04-30T09:17:12.786Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:17:12.786Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:17:12.787Z] [INFO]   --> GET /api/crowds 200 1ms 239b
+[2026-04-30T09:17:12.790Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:17:12.790Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:17:12.791Z] [INFO]   --> GET /api/environments 200 1ms 597b
+[2026-04-30T09:17:12.791Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:17:12.791Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:17:12.792Z] [INFO]   --> GET /api/security 200 1ms 485b
+[2026-04-30T09:17:12.793Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:17:12.793Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:17:12.794Z] [INFO]   --> GET /api/devices 200 1ms 490b
+[2026-04-30T09:17:12.794Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:17:12.794Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:17:12.795Z] [INFO]   --> GET /api/alerts 200 1ms 535b
+[2026-04-30T09:17:42.343Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:17:42.345Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:17:42.346Z] [INFO]   --> GET /api/overview 200 3ms 162b
+[2026-04-30T09:17:42.347Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:17:42.347Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:17:42.350Z] [INFO]   --> GET /api/animals 200 3ms 847b
+[2026-04-30T09:17:42.356Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:17:42.357Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:17:42.357Z] [INFO]   --> GET /api/venues 200 1ms 810b
+[2026-04-30T09:17:42.358Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:17:42.359Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:17:42.360Z] [INFO]   --> GET /api/crowds 200 2ms 239b
+[2026-04-30T09:17:42.362Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:17:42.363Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:17:42.364Z] [INFO]   --> GET /api/environments 200 2ms 597b
+[2026-04-30T09:17:42.365Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:17:42.368Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:17:42.370Z] [INFO]   --> GET /api/security 200 5ms 485b
+[2026-04-30T09:17:42.374Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:17:42.374Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:17:42.375Z] [INFO]   --> GET /api/devices 200 2ms 490b
+[2026-04-30T09:17:42.376Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:17:42.376Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:17:42.378Z] [INFO]   --> GET /api/alerts 200 1ms 535b
+[2026-04-30T09:18:12.345Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:18:12.346Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:18:12.347Z] [INFO]   --> GET /api/overview 200 2ms 162b
+[2026-04-30T09:18:12.348Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:18:12.349Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:18:12.352Z] [INFO]   --> GET /api/animals 200 4ms 847b
+[2026-04-30T09:18:12.355Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:18:12.356Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:18:12.357Z] [INFO]   --> GET /api/venues 200 2ms 810b
+[2026-04-30T09:18:12.358Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:18:12.358Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:18:12.359Z] [INFO]   --> GET /api/crowds 200 1ms 239b
+[2026-04-30T09:18:12.361Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:18:12.363Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:18:12.364Z] [INFO]   --> GET /api/environments 200 3ms 597b
+[2026-04-30T09:18:12.367Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:18:12.368Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:18:12.369Z] [INFO]   --> GET /api/security 200 2ms 485b
+[2026-04-30T09:18:12.371Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:18:12.373Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:18:12.374Z] [INFO]   --> GET /api/devices 200 3ms 490b
+[2026-04-30T09:18:12.374Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:18:12.375Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:18:12.376Z] [INFO]   --> GET /api/alerts 200 2ms 535b
+[2026-04-30T09:18:42.342Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:18:42.343Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:18:42.344Z] [INFO]   --> GET /api/overview 200 2ms 162b
+[2026-04-30T09:18:42.345Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:18:42.345Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:18:42.346Z] [INFO]   --> GET /api/animals 200 1ms 847b
+[2026-04-30T09:18:42.351Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:18:42.352Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:18:42.353Z] [INFO]   --> GET /api/venues 200 2ms 810b
+[2026-04-30T09:18:42.355Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:18:42.356Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:18:42.360Z] [INFO]   --> GET /api/crowds 200 5ms 239b
+[2026-04-30T09:18:42.361Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:18:42.382Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:18:42.404Z] [INFO]   --> GET /api/environments 200 43ms 597b
+[2026-04-30T09:18:42.424Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:18:42.446Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:18:42.447Z] [INFO]   --> GET /api/security 200 23ms 485b
+[2026-04-30T09:18:42.448Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:18:42.448Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:18:42.450Z] [INFO]   --> GET /api/devices 200 3ms 490b
+[2026-04-30T09:18:42.451Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:18:42.453Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:18:42.454Z] [INFO]   --> GET /api/alerts 200 3ms 535b
+[2026-04-30T09:19:12.345Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:19:12.346Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:19:12.347Z] [INFO]   --> GET /api/overview 200 2ms 162b
+[2026-04-30T09:19:12.350Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:19:12.350Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:19:12.351Z] [INFO]   --> GET /api/animals 200 2ms 847b
+[2026-04-30T09:19:12.356Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:19:12.358Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:19:12.361Z] [INFO]   --> GET /api/venues 200 5ms 810b
+[2026-04-30T09:19:12.362Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:19:12.363Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:19:12.364Z] [INFO]   --> GET /api/crowds 200 2ms 239b
+[2026-04-30T09:19:12.365Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:19:12.367Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:19:12.368Z] [INFO]   --> GET /api/environments 200 3ms 597b
+[2026-04-30T09:19:12.369Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:19:12.371Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:19:12.372Z] [INFO]   --> GET /api/security 200 3ms 485b
+[2026-04-30T09:19:12.374Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:19:12.377Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:19:12.380Z] [INFO]   --> GET /api/devices 200 6ms 490b
+[2026-04-30T09:19:12.383Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:19:12.384Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:19:12.386Z] [INFO]   --> GET /api/alerts 200 2ms 535b
+[2026-04-30T09:19:42.779Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:19:42.779Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:19:42.780Z] [INFO]   --> GET /api/overview 200 1ms 162b
+[2026-04-30T09:19:42.780Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:19:42.780Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:19:42.781Z] [INFO]   --> GET /api/animals 200 1ms 847b
+[2026-04-30T09:19:42.782Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:19:42.783Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:19:42.784Z] [INFO]   --> GET /api/venues 200 2ms 810b
+[2026-04-30T09:19:42.785Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:19:42.785Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:19:42.786Z] [INFO]   --> GET /api/crowds 200 1ms 239b
+[2026-04-30T09:19:42.787Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:19:42.788Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:19:42.789Z] [INFO]   --> GET /api/environments 200 2ms 597b
+[2026-04-30T09:19:42.789Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:19:42.790Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:19:42.790Z] [INFO]   --> GET /api/security 200 1ms 485b
+[2026-04-30T09:19:42.792Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:19:42.792Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:19:42.793Z] [INFO]   --> GET /api/devices 200 1ms 490b
+[2026-04-30T09:19:42.793Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:19:42.794Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:19:42.794Z] [INFO]   --> GET /api/alerts 200 1ms 535b
+[2026-04-30T09:20:12.785Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:20:12.786Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:20:12.786Z] [INFO]   --> GET /api/overview 200 1ms 162b
+[2026-04-30T09:20:12.787Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:20:12.787Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:20:12.788Z] [INFO]   --> GET /api/animals 200 1ms 847b
+[2026-04-30T09:20:12.789Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:20:12.790Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:20:12.791Z] [INFO]   --> GET /api/venues 200 2ms 810b
+[2026-04-30T09:20:12.792Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:20:12.792Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:20:12.793Z] [INFO]   --> GET /api/crowds 200 1ms 239b
+[2026-04-30T09:20:12.794Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:20:12.794Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:20:12.795Z] [INFO]   --> GET /api/environments 200 2ms 597b
+[2026-04-30T09:20:12.795Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:20:12.796Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:20:12.797Z] [INFO]   --> GET /api/security 200 2ms 485b
+[2026-04-30T09:20:12.797Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:20:12.798Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:20:12.798Z] [INFO]   --> GET /api/devices 200 1ms 490b
+[2026-04-30T09:20:12.799Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:20:12.799Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:20:12.800Z] [INFO]   --> GET /api/alerts 200 1ms 535b
+[2026-04-30T09:20:42.345Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:20:42.346Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:20:42.348Z] [INFO]   --> GET /api/overview 200 3ms 162b
+[2026-04-30T09:20:42.349Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:20:42.349Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:20:42.350Z] [INFO]   --> GET /api/animals 200 1ms 847b
+[2026-04-30T09:20:42.352Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:20:42.355Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:20:42.358Z] [INFO]   --> GET /api/venues 200 6ms 810b
+[2026-04-30T09:20:42.360Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:20:42.361Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:20:42.362Z] [INFO]   --> GET /api/crowds 200 2ms 239b
+[2026-04-30T09:20:42.363Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:20:42.364Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:20:42.365Z] [INFO]   --> GET /api/environments 200 2ms 597b
+[2026-04-30T09:20:42.366Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:20:42.367Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:20:42.368Z] [INFO]   --> GET /api/security 200 2ms 485b
+[2026-04-30T09:20:42.369Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:20:42.370Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:20:42.372Z] [INFO]   --> GET /api/devices 200 3ms 490b
+[2026-04-30T09:20:42.373Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:20:42.374Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:20:42.378Z] [INFO]   --> GET /api/alerts 200 5ms 535b
+[2026-04-30T09:21:12.348Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:21:12.348Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:21:12.349Z] [INFO]   --> GET /api/overview 200 1ms 162b
+[2026-04-30T09:21:12.351Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:21:12.352Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:21:12.353Z] [INFO]   --> GET /api/animals 200 2ms 847b
+[2026-04-30T09:21:12.357Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:21:12.358Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:21:12.359Z] [INFO]   --> GET /api/venues 200 2ms 810b
+[2026-04-30T09:21:12.362Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:21:12.363Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:21:12.364Z] [INFO]   --> GET /api/crowds 200 2ms 239b
+[2026-04-30T09:21:12.365Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:21:12.366Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:21:12.366Z] [INFO]   --> GET /api/environments 200 1ms 597b
+[2026-04-30T09:21:12.370Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:21:12.371Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:21:12.372Z] [INFO]   --> GET /api/security 200 2ms 485b
+[2026-04-30T09:21:12.373Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:21:12.373Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:21:12.376Z] [INFO]   --> GET /api/devices 200 2ms 490b
+[2026-04-30T09:21:12.376Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:21:12.377Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:21:12.377Z] [INFO]   --> GET /api/alerts 200 1ms 535b
+[2026-04-30T09:21:42.786Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:21:42.787Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:21:42.787Z] [INFO]   --> GET /api/overview 200 1ms 162b
+[2026-04-30T09:21:42.787Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:21:42.788Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:21:42.789Z] [INFO]   --> GET /api/animals 200 2ms 847b
+[2026-04-30T09:21:42.790Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:21:42.790Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:21:42.791Z] [INFO]   --> GET /api/venues 200 1ms 810b
+[2026-04-30T09:21:42.792Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:21:42.792Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:21:42.793Z] [INFO]   --> GET /api/crowds 200 1ms 239b
+[2026-04-30T09:21:42.794Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:21:42.796Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:21:42.796Z] [INFO]   --> GET /api/environments 200 2ms 597b
+[2026-04-30T09:21:42.797Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:21:42.798Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:21:42.798Z] [INFO]   --> GET /api/security 200 1ms 485b
+[2026-04-30T09:21:42.799Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:21:42.799Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:21:42.800Z] [INFO]   --> GET /api/devices 200 1ms 490b
+[2026-04-30T09:21:42.800Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:21:42.800Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:21:42.801Z] [INFO]   --> GET /api/alerts 200 1ms 535b
+[2026-04-30T09:22:12.785Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:22:12.786Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:22:12.786Z] [INFO]   --> GET /api/overview 200 1ms 162b
+[2026-04-30T09:22:12.787Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:22:12.787Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:22:12.788Z] [INFO]   --> GET /api/animals 200 1ms 847b
+[2026-04-30T09:22:12.789Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:22:12.790Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:22:12.792Z] [INFO]   --> GET /api/venues 200 3ms 810b
+[2026-04-30T09:22:12.793Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:22:12.795Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:22:12.795Z] [INFO]   --> GET /api/crowds 200 2ms 239b
+[2026-04-30T09:22:12.796Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:22:12.797Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:22:12.799Z] [INFO]   --> GET /api/environments 200 3ms 597b
+[2026-04-30T09:22:12.800Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:22:12.800Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:22:12.801Z] [INFO]   --> GET /api/security 200 1ms 485b
+[2026-04-30T09:22:12.802Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:22:12.803Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:22:12.803Z] [INFO]   --> GET /api/devices 200 1ms 490b
+[2026-04-30T09:22:12.804Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:22:12.804Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:22:12.805Z] [INFO]   --> GET /api/alerts 200 1ms 535b
+[2026-04-30T09:22:42.786Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:22:42.787Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:22:42.788Z] [INFO]   --> GET /api/overview 200 2ms 162b
+[2026-04-30T09:22:42.788Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:22:42.788Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:22:42.789Z] [INFO]   --> GET /api/animals 200 1ms 847b
+[2026-04-30T09:22:42.790Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:22:42.791Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:22:42.792Z] [INFO]   --> GET /api/venues 200 2ms 810b
+[2026-04-30T09:22:42.792Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:22:42.792Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:22:42.794Z] [INFO]   --> GET /api/crowds 200 2ms 239b
+[2026-04-30T09:22:42.795Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:22:42.796Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:22:42.796Z] [INFO]   --> GET /api/environments 200 1ms 597b
+[2026-04-30T09:22:42.797Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:22:42.797Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:22:42.798Z] [INFO]   --> GET /api/security 200 1ms 485b
+[2026-04-30T09:22:42.799Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:22:42.800Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:22:42.800Z] [INFO]   --> GET /api/devices 200 1ms 490b
+[2026-04-30T09:22:42.801Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:22:42.801Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:22:42.802Z] [INFO]   --> GET /api/alerts 200 1ms 535b
+[2026-04-30T09:23:23.864Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:23:23.865Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:23:23.866Z] [INFO]   --> GET /api/overview 200 2ms 162b
+[2026-04-30T09:23:23.866Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:23:23.867Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:23:23.867Z] [INFO]   --> GET /api/animals 200 1ms 847b
+[2026-04-30T09:23:23.869Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:23:23.871Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:23:23.872Z] [INFO]   --> GET /api/venues 200 3ms 810b
+[2026-04-30T09:23:23.873Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:23:23.875Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:23:23.875Z] [INFO]   --> GET /api/crowds 200 2ms 239b
+[2026-04-30T09:23:23.876Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:23:23.878Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:23:23.879Z] [INFO]   --> GET /api/environments 200 3ms 597b
+[2026-04-30T09:23:23.880Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:23:23.881Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:23:23.882Z] [INFO]   --> GET /api/security 200 2ms 485b
+[2026-04-30T09:23:23.883Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:23:23.884Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:23:23.885Z] [INFO]   --> GET /api/devices 200 2ms 490b
+[2026-04-30T09:23:23.886Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:23:23.886Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:23:23.888Z] [INFO]   --> GET /api/alerts 200 2ms 535b
+[2026-04-30T09:31:34.270Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:31:34.273Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:31:34.274Z] [INFO]   --> GET /api/overview 200 5ms 162b
+[2026-04-30T09:31:34.276Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:31:34.276Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:31:34.277Z] [INFO]   --> GET /api/animals 200 2ms 847b
+[2026-04-30T09:31:34.278Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:31:34.285Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:31:34.286Z] [INFO]   --> GET /api/venues 200 8ms 810b
+[2026-04-30T09:31:34.286Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:31:34.287Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:31:34.288Z] [INFO]   --> GET /api/crowds 200 1ms 239b
+[2026-04-30T09:31:34.291Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:31:34.292Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:31:34.293Z] [INFO]   --> GET /api/environments 200 2ms 597b
+[2026-04-30T09:31:34.295Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:31:34.296Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:31:34.296Z] [INFO]   --> GET /api/security 200 1ms 485b
+[2026-04-30T09:31:34.297Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:31:34.297Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:31:34.299Z] [INFO]   --> GET /api/alerts 200 2ms 535b
+[2026-04-30T09:31:34.299Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:31:34.300Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:31:34.301Z] [INFO]   --> GET /api/devices 200 2ms 490b
+[2026-04-30T09:32:04.281Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:32:04.283Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:32:04.285Z] [INFO]   --> GET /api/overview 200 4ms 162b
+[2026-04-30T09:32:04.287Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:32:04.288Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:32:04.288Z] [INFO]   --> GET /api/animals 200 1ms 847b
+[2026-04-30T09:32:04.289Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:32:04.291Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:32:04.292Z] [INFO]   --> GET /api/venues 200 3ms 810b
+[2026-04-30T09:32:04.293Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:32:04.295Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:32:04.297Z] [INFO]   --> GET /api/crowds 200 4ms 239b
+[2026-04-30T09:32:04.299Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:32:04.300Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:32:04.303Z] [INFO]   --> GET /api/environments 200 3ms 597b
+[2026-04-30T09:32:04.304Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:32:04.306Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:32:04.308Z] [INFO]   --> GET /api/security 200 4ms 485b
+[2026-04-30T09:32:04.310Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:32:04.312Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:32:04.315Z] [INFO]   --> GET /api/devices 200 5ms 490b
+[2026-04-30T09:32:04.317Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:32:04.320Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:32:04.321Z] [INFO]   --> GET /api/alerts 200 4ms 535b
+[2026-04-30T09:32:34.802Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:32:34.804Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:32:34.804Z] [INFO]   --> GET /api/overview 200 2ms 162b
+[2026-04-30T09:32:34.804Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:32:34.805Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:32:34.805Z] [INFO]   --> GET /api/animals 200 1ms 847b
+[2026-04-30T09:32:34.808Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:32:34.808Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:32:34.809Z] [INFO]   --> GET /api/venues 200 1ms 810b
+[2026-04-30T09:32:34.810Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:32:34.810Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:32:34.811Z] [INFO]   --> GET /api/crowds 200 1ms 239b
+[2026-04-30T09:32:34.811Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:32:34.812Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:32:34.813Z] [INFO]   --> GET /api/environments 200 2ms 597b
+[2026-04-30T09:32:34.814Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:32:34.814Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:32:34.814Z] [INFO]   --> GET /api/security 200 0ms 485b
+[2026-04-30T09:32:34.815Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:32:34.816Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:32:34.816Z] [INFO]   --> GET /api/devices 200 1ms 490b
+[2026-04-30T09:32:34.817Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:32:34.817Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:32:34.818Z] [INFO]   --> GET /api/alerts 200 1ms 535b
+[2026-04-30T09:33:04.811Z] [INFO]   <-- GET /api/overview
+[2026-04-30T09:33:04.812Z] [INFO] 请求处理完成: GET /api/overview - 200
+[2026-04-30T09:33:04.813Z] [INFO]   --> GET /api/overview 200 2ms 162b
+[2026-04-30T09:33:04.813Z] [INFO]   <-- GET /api/animals
+[2026-04-30T09:33:04.814Z] [INFO] 请求处理完成: GET /api/animals - 200
+[2026-04-30T09:33:04.816Z] [INFO]   --> GET /api/animals 200 3ms 847b
+[2026-04-30T09:33:04.817Z] [INFO]   <-- GET /api/venues
+[2026-04-30T09:33:04.818Z] [INFO] 请求处理完成: GET /api/venues - 200
+[2026-04-30T09:33:04.820Z] [INFO]   --> GET /api/venues 200 3ms 810b
+[2026-04-30T09:33:04.821Z] [INFO]   <-- GET /api/crowds
+[2026-04-30T09:33:04.823Z] [INFO] 请求处理完成: GET /api/crowds - 200
+[2026-04-30T09:33:04.825Z] [INFO]   --> GET /api/crowds 200 4ms 239b
+[2026-04-30T09:33:04.833Z] [INFO]   <-- GET /api/environments
+[2026-04-30T09:33:04.834Z] [INFO] 请求处理完成: GET /api/environments - 200
+[2026-04-30T09:33:04.834Z] [INFO]   --> GET /api/environments 200 1ms 597b
+[2026-04-30T09:33:04.835Z] [INFO]   <-- GET /api/security
+[2026-04-30T09:33:04.837Z] [INFO] 请求处理完成: GET /api/security - 200
+[2026-04-30T09:33:04.838Z] [INFO]   --> GET /api/security 200 3ms 485b
+[2026-04-30T09:33:04.839Z] [INFO]   <-- GET /api/devices
+[2026-04-30T09:33:04.842Z] [INFO] 请求处理完成: GET /api/devices - 200
+[2026-04-30T09:33:04.843Z] [INFO]   --> GET /api/devices 200 4ms 490b
+[2026-04-30T09:33:04.844Z] [INFO]   <-- GET /api/alerts
+[2026-04-30T09:33:04.845Z] [INFO] 请求处理完成: GET /api/alerts - 200
+[2026-04-30T09:33:04.846Z] [INFO]   --> GET /api/alerts 200 2ms 535b

@@ -1,0 +1,475 @@
+
+> zoo-management-frontend@1.0.0 dev
+> vite
+
+
+  VITE v4.5.14  ready in 594 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+17:28:24 [vite] hmr update /src/App.vue
+17:29:22 [vite] hmr update /src/App.vue
+Failed to resolve import "three" from "src/components/ParkOverview3D.vue". Does the file exist?
+Failed to resolve import "three" from "src/components/SecurityMonitor3D.vue". Does the file exist?
+Failed to resolve import "three" from "src/components/AlertMonitor3D.vue". Does the file exist?
+17:30:55 [vite] Internal server error: Failed to resolve import "three" from "src/components/ParkOverview3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/ParkOverview3D.vue:77:25
+  1  |  import { ref, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:55 [vite] Internal server error: Failed to resolve import "three" from "src/components/SecurityMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/SecurityMonitor3D.vue:80:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:55 [vite] Internal server error: Failed to resolve import "three" from "src/components/AlertMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/AlertMonitor3D.vue:123:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  import { apiService } from '../utils/api'
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:56 [vite] Internal server error: Failed to resolve import "three" from "src/components/ParkOverview3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/ParkOverview3D.vue:77:25
+  1  |  import { ref, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:56 [vite] Internal server error: Failed to resolve import "three" from "src/components/SecurityMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/SecurityMonitor3D.vue:80:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:56 [vite] Internal server error: Failed to resolve import "three" from "src/components/AlertMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/AlertMonitor3D.vue:123:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  import { apiService } from '../utils/api'
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:57 [vite] Internal server error: Failed to resolve import "three" from "src/components/ParkOverview3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/ParkOverview3D.vue:77:25
+  1  |  import { ref, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:57 [vite] Internal server error: Failed to resolve import "three" from "src/components/SecurityMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/SecurityMonitor3D.vue:80:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:57 [vite] Internal server error: Failed to resolve import "three" from "src/components/AlertMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/AlertMonitor3D.vue:123:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  import { apiService } from '../utils/api'
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:57 [vite] Internal server error: Failed to resolve import "three" from "src/components/ParkOverview3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/ParkOverview3D.vue:77:25
+  1  |  import { ref, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:57 [vite] Internal server error: Failed to resolve import "three" from "src/components/SecurityMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/SecurityMonitor3D.vue:80:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:57 [vite] Internal server error: Failed to resolve import "three" from "src/components/AlertMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/AlertMonitor3D.vue:123:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  import { apiService } from '../utils/api'
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:58 [vite] Internal server error: Failed to resolve import "three" from "src/components/ParkOverview3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/ParkOverview3D.vue:77:25
+  1  |  import { ref, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:58 [vite] Internal server error: Failed to resolve import "three" from "src/components/SecurityMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/SecurityMonitor3D.vue:80:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:58 [vite] Internal server error: Failed to resolve import "three" from "src/components/AlertMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/AlertMonitor3D.vue:123:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  import { apiService } from '../utils/api'
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:59 [vite] Internal server error: Failed to resolve import "three" from "src/components/ParkOverview3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/ParkOverview3D.vue:77:25
+  1  |  import { ref, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:59 [vite] Internal server error: Failed to resolve import "three" from "src/components/SecurityMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/SecurityMonitor3D.vue:80:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:59 [vite] Internal server error: Failed to resolve import "three" from "src/components/AlertMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/AlertMonitor3D.vue:123:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  import { apiService } from '../utils/api'
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:59 [vite] Internal server error: Failed to resolve import "three" from "src/components/ParkOverview3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/ParkOverview3D.vue:77:25
+  1  |  import { ref, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:59 [vite] Internal server error: Failed to resolve import "three" from "src/components/SecurityMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/SecurityMonitor3D.vue:80:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:30:59 [vite] Internal server error: Failed to resolve import "three" from "src/components/AlertMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/AlertMonitor3D.vue:123:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  import { apiService } from '../utils/api'
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:31:00 [vite] Internal server error: Failed to resolve import "three" from "src/components/ParkOverview3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/ParkOverview3D.vue:77:25
+  1  |  import { ref, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:31:00 [vite] Internal server error: Failed to resolve import "three" from "src/components/SecurityMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/SecurityMonitor3D.vue:80:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:31:00 [vite] Internal server error: Failed to resolve import "three" from "src/components/AlertMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/AlertMonitor3D.vue:123:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  import { apiService } from '../utils/api'
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:31:01 [vite] Internal server error: Failed to resolve import "three" from "src/components/ParkOverview3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/ParkOverview3D.vue:77:25
+  1  |  import { ref, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:31:01 [vite] Internal server error: Failed to resolve import "three" from "src/components/SecurityMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/SecurityMonitor3D.vue:80:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:31:01 [vite] Internal server error: Failed to resolve import "three" from "src/components/AlertMonitor3D.vue". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/src/components/AlertMonitor3D.vue:123:25
+  1  |  import { ref, computed, onMounted, onUnmounted, shallowRef, nextTick } from 'vue'
+  2  |  import * as THREE from 'three'
+     |                          ^
+  3  |  import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+  4  |  import { apiService } from '../utils/api'
+      at formatError (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44066:46)
+      at TransformContext.error (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44062:19)
+      at normalizeUrl (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41845:33)
+      at async file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41999:47
+      at async Promise.all (index 1)
+      at async TransformContext.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:41915:13)
+      at async Object.transform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:44356:30)
+      at async loadAndTransform (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:55088:29)
+      at async viteTransformMiddleware (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding/frontend/node_modules/vite/dist/node/chunks/dep-827b23df.js:64699:32)
+17:31:33 [vite] ✨ new dependencies optimized: three, three/examples/jsm/controls/OrbitControls.js
+17:31:33 [vite] ✨ optimized dependencies changed. reloading

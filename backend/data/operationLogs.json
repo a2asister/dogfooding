@@ -1,0 +1,29 @@
+[
+  {
+    "id": "ol1",
+    "userId": "u1",
+    "action": "登录系统",
+    "details": {
+      "ip": "192.168.1.100"
+    },
+    "timestamp": "2026-04-30T09:00:00Z"
+  },
+  {
+    "id": "ol2",
+    "userId": "u3",
+    "action": "查看动物状态",
+    "details": {
+      "animalId": "a1"
+    },
+    "timestamp": "2026-04-30T10:00:00Z"
+  },
+  {
+    "id": "ol3",
+    "userId": "u2",
+    "action": "处理告警",
+    "details": {
+      "alertId": "al2"
+    },
+    "timestamp": "2026-04-30T12:30:00Z"
+  }
+]

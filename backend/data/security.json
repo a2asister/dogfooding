@@ -1,0 +1,30 @@
+[
+  {
+    "id": "s1",
+    "name": "正门入口摄像头",
+    "location": "正门",
+    "status": "在线",
+    "lastUpdate": "2026-04-30T14:00:00Z"
+  },
+  {
+    "id": "s2",
+    "name": "熊猫馆监控1",
+    "location": "熊猫馆",
+    "status": "在线",
+    "lastUpdate": "2026-04-30T14:00:00Z"
+  },
+  {
+    "id": "s3",
+    "name": "猛兽区监控",
+    "location": "猛兽区",
+    "status": "在线",
+    "lastUpdate": "2026-04-30T14:00:00Z"
+  },
+  {
+    "id": "s4",
+    "name": "停车场监控",
+    "location": "停车场",
+    "status": "离线",
+    "lastUpdate": "2026-04-30T12:30:00Z"
+  }
+]

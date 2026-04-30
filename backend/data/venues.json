@@ -1,0 +1,47 @@
+[
+  {
+    "id": "v1",
+    "name": "熊猫馆",
+    "location": "东区A区",
+    "capacity": 50,
+    "currentVisitors": 32,
+    "status": "开放",
+    "description": "大熊猫专属展区"
+  },
+  {
+    "id": "v2",
+    "name": "猛兽区",
+    "location": "西区B区",
+    "capacity": 100,
+    "currentVisitors": 45,
+    "status": "开放",
+    "description": "狮子、老虎等猛兽展区"
+  },
+  {
+    "id": "v3",
+    "name": "草食动物区",
+    "location": "北区C区",
+    "capacity": 150,
+    "currentVisitors": 89,
+    "status": "开放",
+    "description": "长颈鹿、斑马等草食动物展区"
+  },
+  {
+    "id": "v4",
+    "name": "极地馆",
+    "location": "南区D区",
+    "capacity": 80,
+    "currentVisitors": 56,
+    "status": "开放",
+    "description": "企鹅、北极熊等极地动物展区"
+  },
+  {
+    "id": "v5",
+    "name": "海洋馆",
+    "location": "中心区E区",
+    "capacity": 200,
+    "currentVisitors": 120,
+    "status": "开放",
+    "description": "海洋生物展区"
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "u1",
+    "username": "admin",
+    "password": "admin123",
+    "role": "管理员",
+    "name": "张管理员",
+    "department": "运营部",
+    "status": "正常"
+  },
+  {
+    "id": "u2",
+    "username": "security",
+    "password": "security123",
+    "role": "安保人员",
+    "name": "李安保",
+    "department": "安保部",
+    "status": "正常"
+  },
+  {
+    "id": "u3",
+    "username": "keeper",
+    "password": "keeper123",
+    "role": "饲养员",
+    "name": "王饲养员",
+    "department": "动物养护部",
+    "status": "正常"
+  }
+]
