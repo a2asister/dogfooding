@@ -1,0 +1,13 @@
+[
+  {
+    "name": "规则 1",
+    "deviceId": "",
+    "type": "block",
+    "uploadLimit": 1,
+    "downloadLimit": 5,
+    "schedule": "",
+    "enabled": true,
+    "id": "1777537266789",
+    "createdAt": "2026-04-30T08:21:06.789Z"
+  }
+]

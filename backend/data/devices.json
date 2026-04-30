@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "mac": "AA:BB:CC:DD:EE:01",
+    "ip": "192.168.1.101",
+    "name": "客厅电视",
+    "note": "小米智能电视",
+    "type": "电视",
+    "online": true,
+    "firstSeen": "2026-04-30T08:23:26.924Z"
+  },
+  {
+    "id": "2",
+    "mac": "AA:BB:CC:DD:EE:02",
+    "ip": "192.168.1.102",
+    "name": "卧室手机",
+    "note": "iPhone 15",
+    "type": "手机",
+    "online": true,
+    "firstSeen": "2026-04-30T08:23:26.924Z"
+  },
+  {
+    "id": "3",
+    "mac": "AA:BB:CC:DD:EE:03",
+    "ip": "192.168.1.103",
+    "name": "书房电脑",
+    "note": "工作用台式机",
+    "type": "电脑",
+    "online": false,
+    "firstSeen": "2026-04-30T08:23:26.924Z"
+  }
+]

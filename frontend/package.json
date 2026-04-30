@@ -1,0 +1,31 @@
+{
+  "name": "home-network-manager-frontend",
+  "version": "1.0.0",
+  "description": "家庭局域网管理系统前端",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0",
+    "axios": "^1.6.8",
+    "chart.js": "^4.4.2",
+    "vue-chartjs": "^5.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.8",
+    "unocss": "^0.58.9",
+    "@unocss/reset": "^0.58.9"
+  },
+  "keywords": [
+    "vue",
+    "vite",
+    "unocss"
+  ],
+  "author": "",
+  "license": "MIT"
+}

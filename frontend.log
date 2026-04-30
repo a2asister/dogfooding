@@ -1,0 +1,49 @@
+
+> home-network-manager-frontend@1.0.0 dev
+> vite
+
+
+  VITE v5.4.21  ready in 824 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+16:31:14 [vite] hmr update /src/views/FileShare.vue
+16:31:14 [vite] Internal server error: Unexpected EOF in tag.
+  Plugin: vite:vue
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/src/views/FileShare.vue:2:22
+      at createCompilerError (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1378:17)
+      at emitError (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:3014:5)
+      at Object.onend (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:2610:11)
+      at Tokenizer.finish (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1246:14)
+      at Tokenizer.parse (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1224:10)
+      at Object.baseParse (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:3053:13)
+      at Object.parse (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-dom/dist/compiler-dom.cjs.js:910:23)
+      at Object.parse$1 [as parse] (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:1824:24)
+      at createDescriptor (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vitejs/plugin-vue/dist/index.mjs:71:43)
+      at handleHotUpdate (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vitejs/plugin-vue/dist/index.mjs:2198:26)
+      at async handleHMRUpdate (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:63718:31)
+      at async onHMRUpdate (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:63271:9)
+      at async FSWatcher.<anonymous> (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:63303:5)
+16:31:54 [vite] hmr update /src/views/FileShare.vue
+16:31:54 [vite] Internal server error: Element is missing end tag.
+  Plugin: vite:vue
+  File: /Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/src/views/FileShare.vue:276:1
+  274|  </template>
+  275|  
+  276|  <script setup>
+     |   ^
+  277|  import { ref, onMount
+      at createCompilerError (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1378:17)
+      at emitError (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:3014:5)
+      at Object.onend (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:2616:7)
+      at Tokenizer.finish (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1246:14)
+      at Tokenizer.parse (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:1224:10)
+      at Object.baseParse (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-core/dist/compiler-core.cjs.js:3053:13)
+      at Object.parse (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-dom/dist/compiler-dom.cjs.js:910:23)
+      at Object.parse$1 [as parse] (/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vue/compiler-sfc/dist/compiler-sfc.cjs.js:1824:24)
+      at createDescriptor (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vitejs/plugin-vue/dist/index.mjs:71:43)
+      at handleHotUpdate (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/@vitejs/plugin-vue/dist/index.mjs:2198:26)
+      at async handleHMRUpdate (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:63718:31)
+      at async onHMRUpdate (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:63271:9)
+      at async FSWatcher.<anonymous> (file:///Users/zhuxiansheng/Documents/demo/ai/dogfooding2/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:63303:5)
+16:32:23 [vite] hmr update /src/views/FileShare.vue
