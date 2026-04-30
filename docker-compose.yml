@@ -1,0 +1,52 @@
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: survey_system
+      MYSQL_USER: survey
+      MYSQL_PASSWORD: survey123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - survey-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_HOST: mysql
+      DATABASE_PORT: 3306
+      DATABASE_USER: survey
+      DATABASE_PASSWORD: survey123
+      DATABASE_NAME: survey_system
+      JWT_SECRET: your-secret-key
+    networks:
+      - survey-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      API_URL: http://backend:3001
+    networks:
+      - survey-network
+
+volumes:
+  mysql-data:
+
+networks:
+  survey-network:
+    driver: bridge
