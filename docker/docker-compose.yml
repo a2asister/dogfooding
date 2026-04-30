@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: smart_home_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: smart_home
+      MYSQL_USER: smart_home
+      MYSQL_PASSWORD: smart_home123
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/mysql_data:/var/lib/mysql
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - smart_home_network
+
+networks:
+  smart_home_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
