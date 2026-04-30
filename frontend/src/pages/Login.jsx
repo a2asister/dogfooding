@@ -1,0 +1,180 @@
+import { useState } from 'react';
+import { Form, Input, Button, Card, message, Tabs } from 'antd';
+import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
+const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
+  const { login, register } = useAuth();
+
+  const onLoginFinish = async (values) => {
+    setLoading(true);
+    const result = await login(values.username, values.password);
+    setLoading(false);
+
+    if (result.success) {
+      message.success('登录成功');
+      navigate('/cards');
+    } else {
+      message.error(result.message);
+    }
+  };
+
+  const onRegisterFinish = async (values) => {
+    if (values.password !== values.confirmPassword) {
+      message.error('两次密码输入不一致');
+      return;
+    }
+
+    setLoading(true);
+    const result = await register(values.username, values.email, values.password);
+    setLoading(false);
+
+    if (result.success) {
+      message.success('注册成功');
+      navigate('/cards');
+    } else {
+      message.error(result.message);
+    }
+  };
+
+  const loginForm = (
+    <Form
+      name="login"
+      onFinish={onLoginFinish}
+      autoComplete="off"
+      size="large"
+    >
+      <Form.Item
+        name="username"
+        rules={[{ required: true, message: '请输入用户名或邮箱' }]}
+      >
+        <Input 
+          prefix={<UserOutlined />} 
+          placeholder="用户名或邮箱" 
+        />
+      </Form.Item>
+
+      <Form.Item
+        name="password"
+        rules={[{ required: true, message: '请输入密码' }]}
+      >
+        <Input.Password
+          prefix={<LockOutlined />}
+          placeholder="密码"
+        />
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit" loading={loading} block>
+          登录
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+
+  const registerForm = (
+    <Form
+      name="register"
+      onFinish={onRegisterFinish}
+      autoComplete="off"
+      size="large"
+    >
+      <Form.Item
+        name="username"
+        rules={[
+          { required: true, message: '请输入用户名' },
+          { min: 3, max: 50, message: '用户名长度必须在3-50个字符之间' }
+        ]}
+      >
+        <Input 
+          prefix={<UserOutlined />} 
+          placeholder="用户名" 
+        />
+      </Form.Item>
+
+      <Form.Item
+        name="email"
+        rules={[
+          { required: true, message: '请输入邮箱' },
+          { type: 'email', message: '请输入有效的邮箱地址' }
+        ]}
+      >
+        <Input 
+          prefix={<MailOutlined />} 
+          placeholder="邮箱" 
+        />
+      </Form.Item>
+
+      <Form.Item
+        name="password"
+        rules={[
+          { required: true, message: '请输入密码' },
+          { min: 6, message: '密码至少需要6个字符' }
+        ]}
+      >
+        <Input.Password
+          prefix={<LockOutlined />}
+          placeholder="密码"
+        />
+      </Form.Item>
+
+      <Form.Item
+        name="confirmPassword"
+        rules={[{ required: true, message: '请确认密码' }]}
+      >
+        <Input.Password
+          prefix={<LockOutlined />}
+          placeholder="确认密码"
+        />
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit" loading={loading} block>
+          注册
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+
+  const tabItems = [
+    {
+      key: 'login',
+      label: '登录',
+      children: loginForm
+    },
+    {
+      key: 'register',
+      label: '注册',
+      children: registerForm
+    }
+  ];
+
+  return (
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+    }}>
+      <Card style={{ width: 400, boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+        <div style={{ textAlign: 'center', marginBottom: 24 }}>
+          <h1 style={{ marginBottom: 8, color: '#1890ff' }}>银行卡管理系统</h1>
+          <p style={{ color: '#666' }}>管理您的银行卡和交易记录</p>
+        </div>
+        <Tabs 
+          activeKey={isLogin ? 'login' : 'register'}
+          onChange={(key) => setIsLogin(key === 'login')}
+          items={tabItems}
+          centered
+        />
+      </Card>
+    </div>
+  );
+};
+
+export default Login;

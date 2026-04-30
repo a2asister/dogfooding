@@ -1,0 +1,16 @@
+{
+  "name": "bank-card-management",
+  "version": "1.0.0",
+  "description": "银行卡管理系统",
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "start:db": "docker-compose up -d mysql",
+    "start:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run dev",
+    "start:all": "./scripts/start-all.sh",
+    "stop:db": "docker-compose down"
+  },
+  "keywords": ["bank", "card", "management", "react", "express", "mysql"],
+  "author": "",
+  "license": "MIT"
+}
