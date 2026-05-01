@@ -1,0 +1,105 @@
+{
+  "projects": [
+    {
+      "id": "820e7d1e-5b70-4457-a724-e82edbd42fad",
+      "name": "电商平台重构项目",
+      "description": "重构现有电商平台，提升用户体验和系统性能",
+      "status": "active",
+      "progress": 65,
+      "startDate": "2026-01-15",
+      "endDate": "2026-08-30",
+      "budget": 500000,
+      "actualSpent": 320000,
+      "teamSize": 12,
+      "manager": "张三",
+      "createdAt": "2026-01-15T10:00:00Z",
+      "updatedAt": "2026-04-25T14:30:00Z"
+    },
+    {
+      "id": "4e487e8a-5a55-4876-a0b2-442c41fc517a",
+      "name": "企业办公系统升级",
+      "description": "升级企业内部办公系统，集成新的协作功能",
+      "status": "active",
+      "progress": 30,
+      "startDate": "2026-03-01",
+      "endDate": "2026-09-30",
+      "budget": 300000,
+      "actualSpent": 80000,
+      "teamSize": 8,
+      "manager": "李四",
+      "createdAt": "2026-03-01T09:00:00Z",
+      "updatedAt": "2026-04-20T11:00:00Z"
+    }
+  ],
+  "risks": [],
+  "riskRules": [
+    {
+      "id": "18a9c22d-795f-4f71-9398-e4b33f96714e",
+      "name": "进度延误风险",
+      "category": "schedule",
+      "description": "项目进度落后计划超过10%",
+      "condition": "project.progress < (100 * ((currentDate - startDate) / (endDate - startDate))) - 10",
+      "severity": "high",
+      "enabled": true,
+      "createdAt": "2026-01-01T00:00:00Z",
+      "updatedAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "9eb11a38-9d6c-4d92-8c30-484071e6a570",
+      "name": "成本超支风险",
+      "category": "cost",
+      "description": "实际支出超出预算超过10%",
+      "condition": "project.actualSpent > project.budget * 1.1",
+      "severity": "high",
+      "enabled": true,
+      "createdAt": "2026-01-01T00:00:00Z",
+      "updatedAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "0d5b620d-18d8-4acb-8d97-290588254879",
+      "name": "成本预警",
+      "category": "cost",
+      "description": "实际支出接近预算的90%",
+      "condition": "project.actualSpent > project.budget * 0.9 && project.actualSpent <= project.budget * 1.1",
+      "severity": "medium",
+      "enabled": true,
+      "createdAt": "2026-01-01T00:00:00Z",
+      "updatedAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "04c3dcef-4336-4b0d-bfc1-5249b7c78f9f",
+      "name": "关键人员流动风险",
+      "category": "staff",
+      "description": "项目关键人员离职或缺勤",
+      "condition": "project.teamSize < 8 && project.progress > 30",
+      "severity": "medium",
+      "enabled": true,
+      "createdAt": "2026-01-01T00:00:00Z",
+      "updatedAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "f24ce889-4f61-4de0-8db4-d2afd550814d",
+      "name": "外包进度风险",
+      "category": "outsourcing",
+      "description": "外包工作包进度滞后超过15%",
+      "condition": "project.progress < (100 * ((currentDate - startDate) / (endDate - startDate))) - 15",
+      "severity": "high",
+      "enabled": true,
+      "createdAt": "2026-01-01T00:00:00Z",
+      "updatedAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": "b1449a30-84c1-41bb-8159-a8f97cb1b3c1",
+      "name": "合规审查风险",
+      "category": "compliance",
+      "description": "项目存在未解决的合规问题",
+      "condition": "project.status === \"active\" && !project.complianceApproved",
+      "severity": "high",
+      "enabled": true,
+      "createdAt": "2026-01-01T00:00:00Z",
+      "updatedAt": "2026-01-01T00:00:00Z"
+    }
+  ],
+  "reports": [],
+  "rectifications": []
+}
