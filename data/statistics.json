@@ -1,0 +1,24 @@
+{
+  "total": 12,
+  "unread": 9,
+  "urgent": 3,
+  "bySource": {
+    "dingtalk": 3,
+    "wechat_work": 3,
+    "email": 3,
+    "ticket": 1,
+    "customer_service": 2
+  },
+  "byPriority": {
+    "urgent": 3,
+    "high": 1,
+    "medium": 2,
+    "low": 2
+  },
+  "byStatus": {
+    "unread": 5,
+    "read": 3,
+    "processing": 0,
+    "resolved": 0
+  }
+}

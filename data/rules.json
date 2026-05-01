@@ -1,0 +1,81 @@
+[
+  {
+    "id": "rule-001",
+    "name": "紧急消息自动标记",
+    "description": "将包含\"紧急\"、\"投诉\"、\"异常\"等关键词的消息自动标记为高优先级",
+    "conditions": {
+      "keywords": [
+        "紧急",
+        "投诉",
+        "异常",
+        "无法登录",
+        "错误"
+      ],
+      "sources": [
+        "ticket",
+        "customer_service",
+        "wechat_work"
+      ]
+    },
+    "actions": {
+      "setPriority": "urgent",
+      "addTags": [
+        "紧急",
+        "高优先级"
+      ],
+      "notify": true
+    },
+    "enabled": true,
+    "order": 1,
+    "createdAt": "2024-04-01T00:00:00Z",
+    "updatedAt": "2024-04-01T00:00:00Z"
+  },
+  {
+    "id": "rule-002",
+    "name": "客户消息分流",
+    "description": "将来自客户的消息自动标记\"客户\"标签",
+    "conditions": {
+      "sources": [
+        "customer_service",
+        "wechat_work"
+      ],
+      "keywords": [
+        "客户",
+        "咨询",
+        "订单"
+      ]
+    },
+    "actions": {
+      "addTags": [
+        "客户",
+        "待跟进"
+      ],
+      "assignTo": "销售部门"
+    },
+    "enabled": true,
+    "order": 2,
+    "createdAt": "2024-04-01T00:00:00Z",
+    "updatedAt": "2024-04-01T00:00:00Z"
+  },
+  {
+    "id": "rule-003",
+    "name": "工单自动处理",
+    "description": "工单消息自动标记\"技术问题\"标签",
+    "conditions": {
+      "sources": [
+        "ticket"
+      ]
+    },
+    "actions": {
+      "addTags": [
+        "技术问题",
+        "待处理"
+      ],
+      "setPriority": "high"
+    },
+    "enabled": true,
+    "order": 3,
+    "createdAt": "2024-04-01T00:00:00Z",
+    "updatedAt": "2024-04-01T00:00:00Z"
+  }
+]
