@@ -1,0 +1,34 @@
+[
+  {
+    "id": "f02de082-7fd6-40b0-b99e-55bdb51a2f22",
+    "title": "4123",
+    "description": "12412313",
+    "assigneeId": "demo-user-1",
+    "status": "pending",
+    "subtasks": [
+      {
+        "id": "7a25b4ce-dbd5-45e8-a25c-83b77e8f9e62",
+        "title": "任务准备",
+        "status": "pending",
+        "parentTaskId": "f02de082-7fd6-40b0-b99e-55bdb51a2f22",
+        "createdAt": "2026-05-01T01:49:08.545Z"
+      },
+      {
+        "id": "2246fefe-c19a-4c09-ac1b-85922fa00b5e",
+        "title": "任务执行",
+        "status": "pending",
+        "parentTaskId": "f02de082-7fd6-40b0-b99e-55bdb51a2f22",
+        "createdAt": "2026-05-01T01:49:08.545Z"
+      },
+      {
+        "id": "8393761e-0ef9-4a38-a750-bf574c143488",
+        "title": "任务验证",
+        "status": "pending",
+        "parentTaskId": "f02de082-7fd6-40b0-b99e-55bdb51a2f22",
+        "createdAt": "2026-05-01T01:49:08.545Z"
+      }
+    ],
+    "createdAt": "2026-05-01T01:49:08.545Z",
+    "updatedAt": "2026-05-01T01:49:08.545Z"
+  }
+]

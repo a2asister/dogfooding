@@ -1,0 +1,20 @@
+[
+  {
+    "id": "5bb89b0e-533b-4792-bc20-b397293c13af",
+    "title": "123",
+    "description": "124123",
+    "creatorId": "demo-user-1",
+    "status": "open",
+    "discussions": [
+      {
+        "id": "7ba9e946-9f9d-454e-bcc6-ad615b8fd4bc",
+        "userId": "demo-user-1",
+        "content": "e12e123",
+        "createdAt": "2026-05-01T01:49:00.107Z"
+      }
+    ],
+    "resolutions": [],
+    "createdAt": "2026-05-01T01:48:55.135Z",
+    "updatedAt": "2026-05-01T01:49:00.107Z"
+  }
+]

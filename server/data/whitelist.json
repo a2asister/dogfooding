@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1909a833-cfb5-4458-8de3-433e3c8400a5",
+    "organizationId": "demo-org-1",
+    "externalOrgId": "3213",
+    "externalOrgName": "123231",
+    "permissions": [
+      "view_topics",
+      "comment"
+    ],
+    "active": false,
+    "createdAt": "2026-05-01T01:49:26.380Z",
+    "expiresAt": null,
+    "revokedAt": "2026-05-01T01:54:42.440Z"
+  },
+  {
+    "id": "620a1796-4099-4db0-ba2a-9d198e3a7680",
+    "organizationId": "demo-org-1",
+    "externalOrgId": "12312",
+    "externalOrgName": "123",
+    "permissions": [
+      "view_topics",
+      "comment"
+    ],
+    "active": false,
+    "createdAt": "2026-05-01T02:05:56.261Z",
+    "expiresAt": null,
+    "revokedAt": "2026-05-01T02:05:58.953Z"
+  }
+]
