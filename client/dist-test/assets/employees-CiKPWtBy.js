@@ -1,0 +1,1 @@
+import{a as s}from"./axios-kfv_Lrb8.js";const o={getAll:async e=>{const a=e?{storeId:e}:{};return(await s.get("/api/employees",{params:a})).data},create:async e=>(await s.post("/api/employees",e)).data,update:async(e,a)=>(await s.put(`/api/employees/${e}`,a)).data};export{o as e};

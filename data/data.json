@@ -1,0 +1,51 @@
+{
+  "stores": [
+    {
+      "name": "123",
+      "address": "123",
+      "manager": "123",
+      "phone": "12312341234",
+      "status": "active",
+      "id": "1777645664315-2dh6t0w",
+      "createdAt": "2026-05-01T14:27:44.315Z"
+    }
+  ],
+  "customerFlows": [
+    {
+      "storeId": "1777645664315-2dh6t0w",
+      "date": "2026-05-01",
+      "inCount": 11,
+      "outCount": 11,
+      "id": "1777645672931-qmizad0",
+      "timestamp": "2026-05-01T14:27:52.931Z"
+    }
+  ],
+  "inventories": [
+    {
+      "storeId": "1777645664315-2dh6t0w",
+      "productName": "11",
+      "sku": "11",
+      "quantity": 11,
+      "price": 11,
+      "unit": "件",
+      "id": "1777645685373-nrf1sjp",
+      "updatedAt": "2026-05-01T14:28:05.373Z"
+    }
+  ],
+  "members": [
+    {
+      "storeId": "1777645664315-2dh6t0w",
+      "name": "123",
+      "phone": "13412341234",
+      "level": "bronze",
+      "status": "active",
+      "id": "1777645707805-bulat98",
+      "createdAt": "2026-05-01T14:28:27.805Z",
+      "points": 0,
+      "totalSpent": 0
+    }
+  ],
+  "promotions": [],
+  "attendances": [],
+  "employees": []
+}
