@@ -1,0 +1,55 @@
+{
+  "id": "6745d4cb-d777-4769-b826-9446f4b7715b",
+  "title": "Mind Map",
+  "nodes": [
+    {
+      "id": "02e342f9-ced7-4180-8383-a96dc95ba14d",
+      "text": "中心主题",
+      "x": 399,
+      "y": 299,
+      "width": 120,
+      "height": 60,
+      "type": "root"
+    },
+    {
+      "id": "8ecb48b1-75e6-4de2-a2ed-261e20f29a50",
+      "text": "新节点",
+      "x": 569,
+      "y": 300,
+      "width": 100,
+      "height": 50,
+      "type": "child"
+    },
+    {
+      "id": "2daa028b-da8a-4bd5-939e-ef67202b0794",
+      "text": "新节点",
+      "x": 569,
+      "y": 369,
+      "width": 100,
+      "height": 50,
+      "type": "child"
+    }
+  ],
+  "edges": [
+    {
+      "id": "b7cd67a2-304e-4fbd-b37c-67bd2880c394",
+      "from": "02e342f9-ced7-4180-8383-a96dc95ba14d",
+      "to": "8ecb48b1-75e6-4de2-a2ed-261e20f29a50"
+    },
+    {
+      "id": "39fba77e-39e7-4ced-b009-a76e488976f5",
+      "from": "02e342f9-ced7-4180-8383-a96dc95ba14d",
+      "to": "2daa028b-da8a-4bd5-939e-ef67202b0794"
+    }
+  ],
+  "styles": {},
+  "history": [
+    "{\"nodes\":[{\"id\":\"02e342f9-ced7-4180-8383-a96dc95ba14d\",\"text\":\"中心主题\",\"x\":400,\"y\":300,\"width\":120,\"height\":60,\"type\":\"root\"}],\"edges\":[],\"styles\":{}}",
+    "{\"nodes\":[{\"id\":\"02e342f9-ced7-4180-8383-a96dc95ba14d\",\"text\":\"中心主题\",\"x\":399,\"y\":300,\"width\":120,\"height\":60,\"type\":\"root\"}],\"edges\":[],\"styles\":{}}",
+    "{\"nodes\":[{\"id\":\"02e342f9-ced7-4180-8383-a96dc95ba14d\",\"text\":\"中心主题\",\"x\":399,\"y\":299,\"width\":120,\"height\":60,\"type\":\"root\"},{\"id\":\"8ecb48b1-75e6-4de2-a2ed-261e20f29a50\",\"text\":\"新节点\",\"x\":569,\"y\":300,\"width\":100,\"height\":50,\"type\":\"child\"}],\"edges\":[{\"id\":\"b7cd67a2-304e-4fbd-b37c-67bd2880c394\",\"from\":\"02e342f9-ced7-4180-8383-a96dc95ba14d\",\"to\":\"8ecb48b1-75e6-4de2-a2ed-261e20f29a50\"}],\"styles\":{}}"
+  ],
+  "createdAt": "2026-05-01T01:17:53.938Z",
+  "updatedAt": "2026-05-01T01:17:53.938Z",
+  "isPublic": false,
+  "shareToken": null
+}
