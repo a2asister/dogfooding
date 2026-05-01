@@ -1,0 +1,76 @@
+========================================
+    企业知识库语义检索平台
+========================================
+
+【项目结构】
+dogfooding/
+├── backend/                 # 后端服务
+│   ├── src/
+│   │   ├── index.ts        # 入口文件
+│   │   ├── types/          # 类型定义
+│   │   ├── services/       # 业务逻辑
+│   │   ├── routes/         # API 路由
+│   │   ├── middleware/     # 中间件
+│   │   └── utils/          # 工具函数
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── .env
+│
+├── frontend/               # 前端应用
+│   ├── src/
+│   │   ├── main.tsx        # 入口文件
+│   │   ├── App.tsx         # 主组件
+│   │   ├── pages/          # 页面组件
+│   │   ├── components/     # 公共组件
+│   │   ├── contexts/       # React Context
+│   │   ├── services/       # API 服务
+│   │   └── types/          # 类型定义
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── vite.config.ts
+│   └── tailwind.config.js
+│
+├── start.bat               # 一键启动脚本
+├── stop.bat                # 一键停止脚本
+└── 启动说明.txt
+
+【服务端口】
+- 后端服务: http://localhost:38765
+- 前端服务: http://localhost:39876
+
+【启动方式】
+方式一：双击 start.bat 一键启动
+方式二：手动启动
+  1. 后端: cd backend && npm install && npm run dev
+  2. 前端: cd frontend && npm install && npm run dev
+
+【停止方式】
+方式一：双击 stop.bat 一键停止
+方式二：在各终端按 Ctrl+C 停止
+
+【默认账户】
+管理员账户:
+  用户名: admin
+  密码: admin123
+
+【功能特性】
+1. 私有化文档存储 - 本地 JSON 文件存储
+2. AI 向量检索 - 基于余弦相似度的语义搜索
+3. 内容关联推荐 - 自动推荐相关文档
+4. 权限隔离 - 细粒度的读写权限控制
+5. 文档生命周期管理 - 草稿/审核/发布/归档
+6. 多格式解析 - 支持 PDF、Excel、代码文件
+
+【支持的文件格式】
+- PDF: .pdf
+- Excel: .xlsx, .xls, .csv
+- 代码: .js, .ts, .py, .java, .go, .rs, .c, .cpp, .html, .css
+- 文本: .txt
+
+【环境要求】
+- Node.js 18+ (LTS 版本推荐)
+- Windows 操作系统
+
+【第一次启动】
+首次启动会自动安装依赖并创建默认管理员账户。
+请确保网络连接正常以安装 npm 依赖。

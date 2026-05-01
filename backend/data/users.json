@@ -1,0 +1,15 @@
+[
+  {
+    "id": "3c8eac4a-fe82-490b-b12c-8847ed56ea0d",
+    "username": "admin",
+    "password": "$2a$10$meIqvBUoRkVWuvyr4Jjw2uBsKlsFh0zKsKk7pPK5Kew7JtXuVboOK",
+    "role": "admin",
+    "permissions": [
+      "read:all",
+      "write:all",
+      "delete:all",
+      "admin:all"
+    ],
+    "createdAt": "2026-05-01T13:39:07.082Z"
+  }
+]
