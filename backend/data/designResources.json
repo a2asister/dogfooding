@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "name": "RMS系统UI设计稿",
+      "description": "研发资产管理系统完整UI设计规范",
+      "type": "figma",
+      "projectId": "1",
+      "status": "published",
+      "tags": ["ui", "design", "figma"],
+      "url": "https://figma.com/file/abc123/rms-design",
+      "fileUrl": "",
+      "version": "2.3.0",
+      "createdBy": "admin",
+      "createdAt": "2024-01-18T09:00:00.000Z",
+      "updatedAt": "2024-03-15T11:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "用户服务架构图",
+      "description": "用户微服务系统架构设计图",
+      "type": "drawio",
+      "projectId": "3",
+      "status": "draft",
+      "tags": ["architecture", "microservice"],
+      "url": "",
+      "fileUrl": "/files/architecture/user-service.drawio",
+      "version": "1.0.0",
+      "createdBy": "manager",
+      "createdAt": "2024-02-05T10:00:00.000Z",
+      "updatedAt": "2024-02-20T14:15:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "移动端APP设计",
+      "description": "iOS/Android移动端应用UI设计",
+      "type": "sketch",
+      "projectId": "1",
+      "status": "review",
+      "tags": ["mobile", "ios", "android", "ui"],
+      "url": "",
+      "fileUrl": "/files/mobile/app-design.sketch",
+      "version": "0.9.0",
+      "createdBy": "developer",
+      "createdAt": "2024-03-01T08:00:00.000Z",
+      "updatedAt": "2024-03-20T16:00:00.000Z"
+    }
+  ]
+}

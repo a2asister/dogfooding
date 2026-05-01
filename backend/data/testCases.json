@@ -1,0 +1,92 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "title": "用户登录功能测试",
+      "description": "验证用户使用正确的用户名和密码能够成功登录",
+      "module": "用户认证",
+      "priority": "high",
+      "type": "functional",
+      "preconditions": "1. 用户账号已存在\n2. 系统处于正常运行状态",
+      "steps": [
+        { "step": 1, "action": "打开登录页面", "expected": "登录页面正常显示" },
+        { "step": 2, "action": "输入正确的用户名和密码", "expected": "输入框正常接收输入" },
+        { "step": 3, "action": "点击登录按钮", "expected": "系统验证用户身份" },
+        { "step": 4, "action": "检查登录结果", "expected": "成功跳转到首页，显示用户信息" }
+      ],
+      "expectedResult": "用户成功登录系统",
+      "status": "passed",
+      "tags": ["login", "auth", "smoke"],
+      "projectId": "2",
+      "createdBy": "tester",
+      "createdAt": "2024-01-25T09:00:00.000Z",
+      "updatedAt": "2024-03-22T15:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "title": "用户登录-密码错误测试",
+      "description": "验证用户使用错误的密码无法登录",
+      "module": "用户认证",
+      "priority": "high",
+      "type": "negative",
+      "preconditions": "1. 用户账号已存在\n2. 知道正确的用户名",
+      "steps": [
+        { "step": 1, "action": "打开登录页面", "expected": "登录页面正常显示" },
+        { "step": 2, "action": "输入正确的用户名和错误的密码", "expected": "输入框正常接收输入" },
+        { "step": 3, "action": "点击登录按钮", "expected": "系统验证用户身份" },
+        { "step": 4, "action": "检查登录结果", "expected": "显示错误提示：用户名或密码错误" }
+      ],
+      "expectedResult": "登录失败，显示错误提示",
+      "status": "passed",
+      "tags": ["login", "auth", "negative"],
+      "projectId": "2",
+      "createdBy": "tester",
+      "createdAt": "2024-02-01T10:00:00.000Z",
+      "updatedAt": "2024-03-18T11:20:00.000Z"
+    },
+    {
+      "id": "3",
+      "title": "订单创建功能测试",
+      "description": "验证用户能够成功创建订单",
+      "module": "订单管理",
+      "priority": "high",
+      "type": "functional",
+      "preconditions": "1. 用户已登录\n2. 商品库存充足",
+      "steps": [
+        { "step": 1, "action": "浏览商品列表", "expected": "商品列表正常显示" },
+        { "step": 2, "action": "选择商品加入购物车", "expected": "购物车显示已选商品" },
+        { "step": 3, "action": "进入结算页面", "expected": "结算页面正常显示" },
+        { "step": 4, "action": "填写收货地址并提交订单", "expected": "订单创建成功" }
+      ],
+      "expectedResult": "订单创建成功，显示订单号",
+      "status": "failed",
+      "tags": ["order", "ecommerce", "regression"],
+      "projectId": "3",
+      "createdBy": "tester",
+      "createdAt": "2024-02-15T08:00:00.000Z",
+      "updatedAt": "2024-03-10T14:45:00.000Z"
+    },
+    {
+      "id": "4",
+      "title": "支付流程集成测试",
+      "description": "端到端测试完整支付流程",
+      "module": "支付服务",
+      "priority": "critical",
+      "type": "integration",
+      "preconditions": "1. 支付网关配置正常\n2. 测试支付账户可用",
+      "steps": [
+        { "step": 1, "action": "创建测试订单", "expected": "订单创建成功" },
+        { "step": 2, "action": "调用支付接口", "expected": "支付请求发送成功" },
+        { "step": 3, "action": "模拟支付回调", "expected": "回调处理成功" },
+        { "step": 4, "action": "验证订单状态", "expected": "订单状态更新为已支付" }
+      ],
+      "expectedResult": "支付流程完整执行成功",
+      "status": "draft",
+      "tags": ["payment", "integration", "e2e"],
+      "projectId": "4",
+      "createdBy": "tester",
+      "createdAt": "2024-03-05T09:00:00.000Z",
+      "updatedAt": "2024-03-05T09:00:00.000Z"
+    }
+  ]
+}

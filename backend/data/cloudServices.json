@@ -1,0 +1,82 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "name": "AWS-Production-ECS",
+      "provider": "aws",
+      "serviceType": "ecs",
+      "region": "us-east-1",
+      "accessKey": "AKIA_WXYZ",
+      "projectId": "1",
+      "status": "active",
+      "config": {
+        "clusterName": "rms-production-cluster",
+        "services": ["rms-frontend", "rms-backend"],
+        "desiredCount": 3,
+        "launchType": "fargate",
+        "vpcId": "vpc-abc123"
+      },
+      "createdBy": "admin",
+      "createdAt": "2024-01-15T09:00:00.000Z",
+      "updatedAt": "2024-03-20T14:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "AWS-Staging-ECS",
+      "provider": "aws",
+      "serviceType": "ecs",
+      "region": "us-west-2",
+      "accessKey": "AKIA_ABCD",
+      "projectId": "2",
+      "status": "active",
+      "config": {
+        "clusterName": "rms-staging-cluster",
+        "services": ["rms-frontend-staging", "rms-backend-staging"],
+        "desiredCount": 1,
+        "launchType": "fargate",
+        "vpcId": "vpc-def456"
+      },
+      "createdBy": "admin",
+      "createdAt": "2024-01-10T09:00:00.000Z",
+      "updatedAt": "2024-03-18T11:20:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Azure-User-Service",
+      "provider": "azure",
+      "serviceType": "app-service",
+      "region": "eastasia",
+      "accessKey": "AKIA_EFGH",
+      "projectId": "3",
+      "status": "active",
+      "config": {
+        "resourceGroup": "user-service-rg",
+        "appServicePlan": "P1v2",
+        "deploymentSlots": ["staging", "production"],
+        "subscriptionId": "sub-12345678-abc"
+      },
+      "createdBy": "manager",
+      "createdAt": "2024-02-01T10:00:00.000Z",
+      "updatedAt": "2024-03-25T16:45:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "GCP-Payment-Gateway",
+      "provider": "gcp",
+      "serviceType": "gke",
+      "region": "asia-east1",
+      "accessKey": "AKIA_IJKL",
+      "projectId": "4",
+      "status": "inactive",
+      "config": {
+        "projectId": "payment-gateway-prod",
+        "clusterName": "payment-cluster",
+        "nodePools": ["default-pool"],
+        "zone": "asia-east1-a"
+      },
+      "createdBy": "developer",
+      "createdAt": "2023-11-15T08:00:00.000Z",
+      "updatedAt": "2024-01-20T15:00:00.000Z"
+    }
+  ]
+}

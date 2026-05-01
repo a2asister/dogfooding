@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "title": "用户管理API",
+      "description": "用户登录、注册、权限管理等接口",
+      "version": "2.1.0",
+      "type": "openapi",
+      "projectId": "2",
+      "status": "published",
+      "tags": ["user", "auth", "permission"],
+      "content": "openapi: 3.0.0\ninfo:\n  title: 用户管理API\n  version: 2.1.0\npaths:\n  /api/auth/login:\n    post:\n      summary: 用户登录\n  /api/users:\n    get:\n      summary: 获取用户列表",
+      "baseUrl": "http://localhost:3000",
+      "createdBy": "admin",
+      "createdAt": "2024-01-20T09:00:00.000Z",
+      "updatedAt": "2024-03-22T10:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "title": "订单管理API",
+      "description": "订单创建、查询、修改、删除等接口",
+      "version": "1.5.0",
+      "type": "openapi",
+      "projectId": "3",
+      "status": "draft",
+      "tags": ["order", "ecommerce"],
+      "content": "openapi: 3.0.0\ninfo:\n  title: 订单管理API\n  version: 1.5.0\npaths:\n  /api/orders:\n    get:\n      summary: 获取订单列表\n    post:\n      summary: 创建订单",
+      "baseUrl": "http://api.example.com",
+      "createdBy": "manager",
+      "createdAt": "2024-02-15T11:00:00.000Z",
+      "updatedAt": "2024-03-10T14:20:00.000Z"
+    },
+    {
+      "id": "3",
+      "title": "支付服务API",
+      "description": "支付、退款、查询等支付相关接口",
+      "version": "3.0.0",
+      "type": "openapi",
+      "projectId": "4",
+      "status": "published",
+      "tags": ["payment", "stripe", "refund"],
+      "content": "openapi: 3.0.0\ninfo:\n  title: 支付服务API\n  version: 3.0.0\npaths:\n  /api/payments:\n    post:\n      summary: 创建支付\n  /api/payments/{id}:\n    get:\n      summary: 查询支付状态",
+      "baseUrl": "http://payment.example.com",
+      "createdBy": "developer",
+      "createdAt": "2023-12-01T08:00:00.000Z",
+      "updatedAt": "2024-01-15T16:45:00.000Z"
+    }
+  ]
+}

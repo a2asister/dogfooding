@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "name": "GitHub-RMS-Frontend",
+      "provider": "github",
+      "repoUrl": "https://github.com/org/rms-frontend",
+      "branch": "main",
+      "token": "masked_1234",
+      "username": "devops",
+      "projectId": "1",
+      "status": "active",
+      "webhookSecret": "whsec_abc123def456",
+      "createdBy": "admin",
+      "createdAt": "2024-01-15T09:00:00.000Z",
+      "updatedAt": "2024-03-20T14:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "GitHub-RMS-Backend",
+      "provider": "github",
+      "repoUrl": "https://github.com/org/rms-backend",
+      "branch": "main",
+      "token": "masked_5678",
+      "username": "devops",
+      "projectId": "2",
+      "status": "active",
+      "webhookSecret": "whsec_xyz789abc012",
+      "createdBy": "admin",
+      "createdAt": "2024-01-10T09:00:00.000Z",
+      "updatedAt": "2024-03-25T16:45:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "GitLab-User-Service",
+      "provider": "gitlab",
+      "repoUrl": "https://gitlab.com/org/user-service",
+      "branch": "develop",
+      "token": "masked_9012",
+      "username": "gitlab-ci",
+      "projectId": "3",
+      "status": "active",
+      "webhookSecret": "glpat_def456ghi789",
+      "createdBy": "manager",
+      "createdAt": "2024-02-01T10:00:00.000Z",
+      "updatedAt": "2024-03-18T11:20:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "GitHub-Payment-Gateway",
+      "provider": "github",
+      "repoUrl": "https://github.com/org/payment-gateway",
+      "branch": "main",
+      "token": "masked_3456",
+      "username": "finance-dev",
+      "projectId": "4",
+      "status": "inactive",
+      "webhookSecret": "whsec_jkl012mno345",
+      "createdBy": "developer",
+      "createdAt": "2023-11-15T08:00:00.000Z",
+      "updatedAt": "2024-01-20T15:00:00.000Z"
+    }
+  ]
+}

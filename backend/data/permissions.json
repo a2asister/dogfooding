@@ -1,0 +1,424 @@
+{
+  "modules": [
+    {
+      "id": "1",
+      "name": "code_repo",
+      "label": "代码仓库",
+      "icon": "code"
+    },
+    {
+      "id": "2",
+      "name": "api_doc",
+      "label": "API文档",
+      "icon": "document"
+    },
+    {
+      "id": "3",
+      "name": "design",
+      "label": "设计资源",
+      "icon": "palette"
+    },
+    {
+      "id": "4",
+      "name": "test_case",
+      "label": "测试用例",
+      "icon": "check"
+    },
+    {
+      "id": "5",
+      "name": "deployment",
+      "label": "部署记录",
+      "icon": "cloud"
+    },
+    {
+      "id": "6",
+      "name": "user",
+      "label": "用户管理",
+      "icon": "user"
+    },
+    {
+      "id": "7",
+      "name": "permission",
+      "label": "权限管理",
+      "icon": "lock"
+    },
+    {
+      "id": "8",
+      "name": "git_integration",
+      "label": "Git集成",
+      "icon": "git"
+    },
+    {
+      "id": "9",
+      "name": "cicd",
+      "label": "CI/CD",
+      "icon": "refresh"
+    },
+    {
+      "id": "10",
+      "name": "cloud",
+      "label": "云服务",
+      "icon": "server"
+    },
+    {
+      "id": "11",
+      "name": "ledger",
+      "label": "资产台账",
+      "icon": "book"
+    }
+  ],
+  "permissions": [
+    {
+      "id": "1",
+      "name": "code_repo:view",
+      "label": "查看代码仓库",
+      "module": "code_repo"
+    },
+    {
+      "id": "2",
+      "name": "code_repo:create",
+      "label": "创建代码仓库",
+      "module": "code_repo"
+    },
+    {
+      "id": "3",
+      "name": "code_repo:edit",
+      "label": "编辑代码仓库",
+      "module": "code_repo"
+    },
+    {
+      "id": "4",
+      "name": "code_repo:delete",
+      "label": "删除代码仓库",
+      "module": "code_repo"
+    },
+    {
+      "id": "5",
+      "name": "api_doc:view",
+      "label": "查看API文档",
+      "module": "api_doc"
+    },
+    {
+      "id": "6",
+      "name": "api_doc:create",
+      "label": "创建API文档",
+      "module": "api_doc"
+    },
+    {
+      "id": "7",
+      "name": "api_doc:edit",
+      "label": "编辑API文档",
+      "module": "api_doc"
+    },
+    {
+      "id": "8",
+      "name": "api_doc:delete",
+      "label": "删除API文档",
+      "module": "api_doc"
+    },
+    {
+      "id": "9",
+      "name": "design:view",
+      "label": "查看设计资源",
+      "module": "design"
+    },
+    {
+      "id": "10",
+      "name": "design:create",
+      "label": "创建设计资源",
+      "module": "design"
+    },
+    {
+      "id": "11",
+      "name": "design:edit",
+      "label": "编辑设计资源",
+      "module": "design"
+    },
+    {
+      "id": "12",
+      "name": "design:delete",
+      "label": "删除设计资源",
+      "module": "design"
+    },
+    {
+      "id": "13",
+      "name": "test_case:view",
+      "label": "查看测试用例",
+      "module": "test_case"
+    },
+    {
+      "id": "14",
+      "name": "test_case:create",
+      "label": "创建测试用例",
+      "module": "test_case"
+    },
+    {
+      "id": "15",
+      "name": "test_case:edit",
+      "label": "编辑测试用例",
+      "module": "test_case"
+    },
+    {
+      "id": "16",
+      "name": "test_case:delete",
+      "label": "删除测试用例",
+      "module": "test_case"
+    },
+    {
+      "id": "17",
+      "name": "deployment:view",
+      "label": "查看部署记录",
+      "module": "deployment"
+    },
+    {
+      "id": "18",
+      "name": "deployment:create",
+      "label": "创建部署记录",
+      "module": "deployment"
+    },
+    {
+      "id": "19",
+      "name": "deployment:edit",
+      "label": "编辑部署记录",
+      "module": "deployment"
+    },
+    {
+      "id": "20",
+      "name": "deployment:delete",
+      "label": "删除部署记录",
+      "module": "deployment"
+    },
+    {
+      "id": "21",
+      "name": "user:view",
+      "label": "查看用户",
+      "module": "user"
+    },
+    {
+      "id": "22",
+      "name": "user:create",
+      "label": "创建用户",
+      "module": "user"
+    },
+    {
+      "id": "23",
+      "name": "user:edit",
+      "label": "编辑用户",
+      "module": "user"
+    },
+    {
+      "id": "24",
+      "name": "user:delete",
+      "label": "删除用户",
+      "module": "user"
+    },
+    {
+      "id": "25",
+      "name": "permission:view",
+      "label": "查看权限",
+      "module": "permission"
+    },
+    {
+      "id": "26",
+      "name": "permission:create",
+      "label": "创建角色",
+      "module": "permission"
+    },
+    {
+      "id": "27",
+      "name": "permission:edit",
+      "label": "编辑角色",
+      "module": "permission"
+    },
+    {
+      "id": "28",
+      "name": "permission:delete",
+      "label": "删除角色",
+      "module": "permission"
+    },
+    {
+      "id": "29",
+      "name": "git_integration:view",
+      "label": "查看Git集成",
+      "module": "git_integration"
+    },
+    {
+      "id": "30",
+      "name": "git_integration:create",
+      "label": "创建Git集成",
+      "module": "git_integration"
+    },
+    {
+      "id": "31",
+      "name": "git_integration:edit",
+      "label": "编辑Git集成",
+      "module": "git_integration"
+    },
+    {
+      "id": "32",
+      "name": "git_integration:delete",
+      "label": "删除Git集成",
+      "module": "git_integration"
+    },
+    {
+      "id": "33",
+      "name": "cicd:view",
+      "label": "查看CI/CD",
+      "module": "cicd"
+    },
+    {
+      "id": "34",
+      "name": "cicd:create",
+      "label": "创建CI/CD流水线",
+      "module": "cicd"
+    },
+    {
+      "id": "35",
+      "name": "cicd:edit",
+      "label": "编辑CI/CD流水线",
+      "module": "cicd"
+    },
+    {
+      "id": "36",
+      "name": "cicd:delete",
+      "label": "删除CI/CD流水线",
+      "module": "cicd"
+    },
+    {
+      "id": "37",
+      "name": "cicd:execute",
+      "label": "执行CI/CD",
+      "module": "cicd"
+    },
+    {
+      "id": "38",
+      "name": "cloud:view",
+      "label": "查看云服务",
+      "module": "cloud"
+    },
+    {
+      "id": "39",
+      "name": "cloud:create",
+      "label": "创建云服务",
+      "module": "cloud"
+    },
+    {
+      "id": "40",
+      "name": "cloud:edit",
+      "label": "编辑云服务",
+      "module": "cloud"
+    },
+    {
+      "id": "41",
+      "name": "cloud:delete",
+      "label": "删除云服务",
+      "module": "cloud"
+    },
+    {
+      "id": "42",
+      "name": "ledger:view",
+      "label": "查看资产台账",
+      "module": "ledger"
+    },
+    {
+      "id": "43",
+      "name": "ledger:create",
+      "label": "创建资产台账",
+      "module": "ledger"
+    },
+    {
+      "id": "44",
+      "name": "ledger:delete",
+      "label": "删除资产台账",
+      "module": "ledger"
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "name": "admin",
+      "label": "系统管理员",
+      "description": "拥有所有权限",
+      "permissions": [
+        "code_repo:view", "code_repo:create", "code_repo:edit", "code_repo:delete",
+        "api_doc:view", "api_doc:create", "api_doc:edit", "api_doc:delete",
+        "design:view", "design:create", "design:edit", "design:delete",
+        "test_case:view", "test_case:create", "test_case:edit", "test_case:delete",
+        "deployment:view", "deployment:create", "deployment:edit", "deployment:delete",
+        "user:view", "user:create", "user:edit", "user:delete",
+        "permission:view", "permission:create", "permission:edit", "permission:delete",
+        "git_integration:view", "git_integration:create", "git_integration:edit", "git_integration:delete",
+        "cicd:view", "cicd:create", "cicd:edit", "cicd:delete", "cicd:execute",
+        "cloud:view", "cloud:create", "cloud:edit", "cloud:delete",
+        "ledger:view", "ledger:create", "ledger:delete"
+      ],
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "manager",
+      "label": "项目经理",
+      "description": "拥有项目管理权限",
+      "permissions": [
+        "code_repo:view", "code_repo:create", "code_repo:edit",
+        "api_doc:view", "api_doc:create", "api_doc:edit",
+        "design:view", "design:create", "design:edit",
+        "test_case:view", "test_case:create", "test_case:edit",
+        "deployment:view", "deployment:create", "deployment:edit",
+        "user:view",
+        "git_integration:view",
+        "cicd:view", "cicd:execute",
+        "cloud:view",
+        "ledger:view", "ledger:create"
+      ],
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "developer",
+      "label": "开发人员",
+      "description": "拥有开发相关权限",
+      "permissions": [
+        "code_repo:view", "code_repo:create",
+        "api_doc:view", "api_doc:create", "api_doc:edit",
+        "design:view",
+        "test_case:view",
+        "deployment:view",
+        "cicd:view",
+        "cloud:view",
+        "ledger:view"
+      ],
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "tester",
+      "label": "测试人员",
+      "description": "拥有测试相关权限",
+      "permissions": [
+        "code_repo:view",
+        "api_doc:view",
+        "design:view",
+        "test_case:view", "test_case:create", "test_case:edit",
+        "deployment:view",
+        "ledger:view"
+      ],
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "name": "viewer",
+      "label": "只读用户",
+      "description": "只有查看权限",
+      "permissions": [
+        "code_repo:view",
+        "api_doc:view",
+        "design:view",
+        "test_case:view",
+        "deployment:view",
+        "ledger:view"
+      ],
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}

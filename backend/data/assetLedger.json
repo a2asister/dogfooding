@@ -1,0 +1,144 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "assetType": "code_repo",
+      "assetId": "1",
+      "action": "register",
+      "description": "注册代码仓库: rms-frontend",
+      "operator": "admin",
+      "timestamp": "2024-01-15T09:00:00.000Z",
+      "createdAt": "2024-01-15T09:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "assetType": "code_repo",
+      "assetId": "2",
+      "action": "register",
+      "description": "注册代码仓库: rms-backend",
+      "operator": "admin",
+      "timestamp": "2024-01-10T09:00:00.000Z",
+      "createdAt": "2024-01-10T09:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "assetType": "code_repo",
+      "assetId": "3",
+      "action": "register",
+      "description": "注册代码仓库: user-service",
+      "operator": "manager",
+      "timestamp": "2024-02-01T10:00:00.000Z",
+      "createdAt": "2024-02-01T10:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "assetType": "api_doc",
+      "assetId": "1",
+      "action": "register",
+      "description": "注册API文档: 用户管理API",
+      "operator": "admin",
+      "timestamp": "2024-01-20T09:00:00.000Z",
+      "createdAt": "2024-01-20T09:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "assetType": "api_doc",
+      "assetId": "2",
+      "action": "register",
+      "description": "注册API文档: 订单管理API",
+      "operator": "manager",
+      "timestamp": "2024-02-15T11:00:00.000Z",
+      "createdAt": "2024-02-15T11:00:00.000Z"
+    },
+    {
+      "id": "6",
+      "assetType": "design_resource",
+      "assetId": "1",
+      "action": "register",
+      "description": "注册设计资源: RMS系统UI设计稿",
+      "operator": "admin",
+      "timestamp": "2024-01-18T09:00:00.000Z",
+      "createdAt": "2024-01-18T09:00:00.000Z"
+    },
+    {
+      "id": "7",
+      "assetType": "test_case",
+      "assetId": "1",
+      "action": "register",
+      "description": "注册测试用例: 用户登录功能测试",
+      "operator": "tester",
+      "timestamp": "2024-01-25T09:00:00.000Z",
+      "createdAt": "2024-01-25T09:00:00.000Z"
+    },
+    {
+      "id": "8",
+      "assetType": "test_case",
+      "assetId": "2",
+      "action": "register",
+      "description": "注册测试用例: 用户登录-密码错误测试",
+      "operator": "tester",
+      "timestamp": "2024-02-01T10:00:00.000Z",
+      "createdAt": "2024-02-01T10:00:00.000Z"
+    },
+    {
+      "id": "9",
+      "assetType": "deployment",
+      "assetId": "1",
+      "action": "deploy_success",
+      "description": "部署记录: production - 2.1.0",
+      "operator": "admin",
+      "timestamp": "2024-03-20T09:00:00.000Z",
+      "createdAt": "2024-03-20T09:00:00.000Z"
+    },
+    {
+      "id": "10",
+      "assetType": "deployment",
+      "assetId": "2",
+      "action": "deploy_success",
+      "description": "部署记录: staging - 2.2.0-beta",
+      "operator": "developer",
+      "timestamp": "2024-03-18T14:00:00.000Z",
+      "createdAt": "2024-03-18T14:00:00.000Z"
+    },
+    {
+      "id": "11",
+      "assetType": "deployment",
+      "assetId": "3",
+      "action": "deploy_failed",
+      "description": "部署记录: production - 1.2.5",
+      "operator": "manager",
+      "timestamp": "2024-03-25T10:00:00.000Z",
+      "createdAt": "2024-03-25T10:00:00.000Z"
+    },
+    {
+      "id": "12",
+      "assetType": "git_integration",
+      "assetId": "1",
+      "action": "configure",
+      "description": "配置Git集成: GitHub-RMS-Frontend",
+      "operator": "admin",
+      "timestamp": "2024-01-15T09:00:00.000Z",
+      "createdAt": "2024-01-15T09:00:00.000Z"
+    },
+    {
+      "id": "13",
+      "assetType": "cicd_pipeline",
+      "assetId": "1",
+      "action": "create",
+      "description": "创建CI/CD流水线: RMS-Frontend-Pipeline",
+      "operator": "admin",
+      "timestamp": "2024-01-15T09:00:00.000Z",
+      "createdAt": "2024-01-15T09:00:00.000Z"
+    },
+    {
+      "id": "14",
+      "assetType": "cloud_service",
+      "assetId": "1",
+      "action": "configure",
+      "description": "配置云服务: AWS-Production-ECS",
+      "operator": "admin",
+      "timestamp": "2024-01-15T09:00:00.000Z",
+      "createdAt": "2024-01-15T09:00:00.000Z"
+    }
+  ]
+}

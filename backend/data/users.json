@@ -1,0 +1,48 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "$2a$10$mC/zxOjZLm9cter7lg3bm.r4swLwL9/.T6I0L/4mh/yg3tSTjfT9S",
+      "name": "系统管理员",
+      "email": "admin@rms.com",
+      "role": "admin",
+      "permissions": [],
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "username": "manager",
+      "password": "$2a$10$mC/zxOjZLm9cter7lg3bm.r4swLwL9/.T6I0L/4mh/yg3tSTjfT9S",
+      "name": "项目经理",
+      "email": "manager@rms.com",
+      "role": "manager",
+      "permissions": [],
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "username": "developer",
+      "password": "$2a$10$mC/zxOjZLm9cter7lg3bm.r4swLwL9/.T6I0L/4mh/yg3tSTjfT9S",
+      "name": "开发人员",
+      "email": "developer@rms.com",
+      "role": "developer",
+      "permissions": [],
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "username": "tester",
+      "password": "$2a$10$mC/zxOjZLm9cter7lg3bm.r4swLwL9/.T6I0L/4mh/yg3tSTjfT9S",
+      "name": "测试人员",
+      "email": "tester@rms.com",
+      "role": "tester",
+      "permissions": [],
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}

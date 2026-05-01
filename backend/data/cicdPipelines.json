@@ -1,0 +1,72 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "name": "RMS-Frontend-Pipeline",
+      "description": "前端Vue3应用CI/CD流水线",
+      "provider": "github-actions",
+      "projectId": "1",
+      "repoId": "1",
+      "stages": ["lint", "test", "build", "deploy-staging", "deploy-production"],
+      "triggers": ["push", "pull_request", "release"],
+      "status": "active",
+      "environment": "production",
+      "lastRun": "2024-03-20T09:00:00.000Z",
+      "lastStatus": "success",
+      "createdBy": "admin",
+      "createdAt": "2024-01-15T09:00:00.000Z",
+      "updatedAt": "2024-03-20T09:15:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "RMS-Backend-Pipeline",
+      "description": "后端Express应用CI/CD流水线",
+      "provider": "github-actions",
+      "projectId": "2",
+      "repoId": "2",
+      "stages": ["lint", "test", "build", "scan", "deploy-staging", "deploy-production"],
+      "triggers": ["push", "pull_request"],
+      "status": "active",
+      "environment": "production",
+      "lastRun": "2024-03-25T10:00:00.000Z",
+      "lastStatus": "failed",
+      "createdBy": "admin",
+      "createdAt": "2024-01-10T09:00:00.000Z",
+      "updatedAt": "2024-03-25T10:05:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "User-Service-Pipeline",
+      "description": "用户微服务GitLab CI/CD流水线",
+      "provider": "gitlab-ci",
+      "projectId": "3",
+      "repoId": "3",
+      "stages": ["build", "test", "package", "deploy-staging", "deploy-production"],
+      "triggers": ["push", "tag", "schedule"],
+      "status": "active",
+      "environment": "staging",
+      "lastRun": "2024-03-18T14:00:00.000Z",
+      "lastStatus": "success",
+      "createdBy": "manager",
+      "createdAt": "2024-02-01T10:00:00.000Z",
+      "updatedAt": "2024-03-18T14:12:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "Payment-Gateway-Pipeline",
+      "description": "支付网关服务CI/CD流水线",
+      "provider": "jenkins",
+      "projectId": "4",
+      "repoId": "4",
+      "stages": ["checkout", "build", "test", "deploy-staging", "smoke-test", "deploy-production"],
+      "triggers": ["scm", "manual", "upstream"],
+      "status": "paused",
+      "environment": "staging",
+      "lastRun": "2024-01-20T15:00:00.000Z",
+      "lastStatus": "success",
+      "createdBy": "developer",
+      "createdAt": "2023-11-15T08:00:00.000Z",
+      "updatedAt": "2024-01-20T15:00:00.000Z"
+    }
+  ]
+}

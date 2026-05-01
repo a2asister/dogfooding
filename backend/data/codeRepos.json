@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "name": "rms-frontend",
+      "description": "研发资产管理系统前端项目",
+      "url": "https://github.com/org/rms-frontend",
+      "type": "git",
+      "owner": "admin",
+      "status": "active",
+      "tags": ["vue3", "frontend", "typescript"],
+      "gitProvider": "github",
+      "createdBy": "admin",
+      "createdAt": "2024-01-15T09:00:00.000Z",
+      "updatedAt": "2024-03-20T14:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "rms-backend",
+      "description": "研发资产管理系统后端项目",
+      "url": "https://github.com/org/rms-backend",
+      "type": "git",
+      "owner": "admin",
+      "status": "active",
+      "tags": ["nodejs", "express", "api"],
+      "gitProvider": "github",
+      "createdBy": "admin",
+      "createdAt": "2024-01-10T09:00:00.000Z",
+      "updatedAt": "2024-03-25T16:45:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "user-service",
+      "description": "用户管理微服务",
+      "url": "https://gitlab.com/org/user-service",
+      "type": "git",
+      "owner": "manager",
+      "status": "active",
+      "tags": ["microservice", "java", "spring-boot"],
+      "gitProvider": "gitlab",
+      "createdBy": "manager",
+      "createdAt": "2024-02-01T10:00:00.000Z",
+      "updatedAt": "2024-03-18T11:20:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "payment-gateway",
+      "description": "支付网关服务",
+      "url": "https://github.com/org/payment-gateway",
+      "type": "git",
+      "owner": "developer",
+      "status": "archived",
+      "tags": ["payment", "nodejs", "stripe"],
+      "gitProvider": "github",
+      "createdBy": "developer",
+      "createdAt": "2023-11-15T08:00:00.000Z",
+      "updatedAt": "2024-01-20T15:00:00.000Z"
+    }
+  ]
+}
