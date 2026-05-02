@@ -1,0 +1,33 @@
+.tool-bar input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e94560;
+  cursor: pointer;
+}
+
+.tool-bar input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #e94560;
+  cursor: pointer;
+  border: none;
+}
+
+.tool-bar input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  padding: 0;
+}
+
+.tool-bar input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.tool-bar input[type="color"]::-webkit-color-swatch {
+  border: 1px solid #0f3460;
+  border-radius: 4px;
+}

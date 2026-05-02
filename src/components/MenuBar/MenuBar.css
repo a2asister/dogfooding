@@ -1,0 +1,29 @@
+.menu-bar input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  padding: 0;
+}
+
+.menu-bar input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.menu-bar input[type="color"]::-webkit-color-swatch {
+  border: 1px solid #0f3460;
+  border-radius: 4px;
+}
+
+.menu-dropdown {
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
