@@ -1,0 +1,20 @@
+<div class="layout-sidebar">
+  <div class="logo">
+    <span class="logo-icon">🍵</span>
+    <span>私域运营中台</span>
+  </div>
+  <nav class="sidebar-nav">
+    <ul>
+      <li *ngFor="let item of items">
+        <a 
+          [routerLink]="item.routerLink" 
+          routerLinkActive="active"
+          [class.active]="isActive(item.routerLink)"
+        >
+          <i class="{{ item.icon }}"></i>
+          <span class="menu-label">{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

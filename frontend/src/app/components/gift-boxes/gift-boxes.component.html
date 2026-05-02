@@ -1,0 +1,99 @@
+<div class="page-header">
+  <h1 class="page-title">定制礼盒</h1>
+  <p class="page-subtitle">管理积分兑换礼盒，设置积分和价格</p>
+</div>
+
+<div class="card">
+  <div class="action-bar">
+    <div class="search-box">
+      <input 
+        type="text" 
+        pInputText 
+        placeholder="搜索礼盒名称或描述..." 
+        [(ngModel)]="searchText"
+        (input)="search()"
+        style="width: 350px;"
+      >
+    </div>
+    <div>
+      <p-button label="添加礼盒" icon="pi pi-plus" (click)="openAddDialog()"></p-button>
+    </div>
+  </div>
+
+  <div *ngIf="filteredGiftBoxes.length > 0; else emptyBoxes">
+    <div class="grid grid-3">
+      <div *ngFor="let box of filteredGiftBoxes" class="product-card">
+        <div class="product-image">
+          <img *ngIf="box.image" [src]="box.image" alt="{{ box.name }}">
+          <i *ngIf="!box.image" class="pi pi-box" style="font-size: 64px; color: #ccc;"></i>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{ box.name }}</h3>
+          <p class="product-desc">{{ box.description }}</p>
+          <div class="product-price">
+            <span class="price">¥{{ box.price }}</span>
+            <span class="points">{{ box.pointsRequired }}积分</span>
+          </div>
+          <div class="action-buttons" style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #f0f0f0;">
+            <p-button icon="pi pi-pencil" [text]="true" severity="primary" (click)="openEditDialog(box)"></p-button>
+            <p-button icon="pi pi-trash" [text]="true" severity="danger" (click)="deleteGiftBox(box)"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyBoxes>
+    <div class="empty-state">
+      <i class="pi pi-box"></i>
+      <p>暂无礼盒数据</p>
+      <span>点击"添加礼盒"按钮创建第一个礼盒</span>
+    </div>
+  </ng-template>
+</div>
+
+<p-dialog 
+  [header]="isEdit ? '编辑礼盒' : '添加礼盒'" 
+  [(visible)]="dialogVisible" 
+  [modal]="true" 
+  [style]="{width: '600px'}"
+>
+  <form [formGroup]="giftBoxForm">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label class="form-label form-required">礼盒名称</label>
+        <input type="text" pInputText formControlName="name" placeholder="请输入礼盒名称">
+      </div>
+
+      <div class="p-field">
+        <label class="form-label form-required">礼盒描述</label>
+        <textarea 
+          pInputTextarea 
+          formControlName="description" 
+          placeholder="请输入礼盒详细描述"
+          [rows]="3"
+        ></textarea>
+      </div>
+
+      <div class="grid grid-2" style="gap: 20px;">
+        <div class="p-field">
+          <label class="form-label form-required">所需积分</label>
+          <p-inputNumber formControlName="pointsRequired" [min]="0" mode="decimal"></p-inputNumber>
+        </div>
+        <div class="p-field">
+          <label class="form-label form-required">售价(元)</label>
+          <p-inputNumber formControlName="price" [min]="0" mode="decimal" [minFractionDigits]="2"></p-inputNumber>
+        </div>
+      </div>
+
+      <div class="p-field">
+        <label class="form-label">图片URL</label>
+        <input type="text" pInputText formControlName="image" placeholder="请输入图片URL（选填）">
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="取消" icon="pi pi-times" (click)="dialogVisible = false" [text]="true" severity="secondary"></p-button>
+    <p-button label="保存" icon="pi pi-check" (click)="saveGiftBox()"></p-button>
+  </ng-template>
+</p-dialog>

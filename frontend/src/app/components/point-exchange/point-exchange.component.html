@@ -1,0 +1,180 @@
+<div class="page-header">
+  <h1 class="page-title">积分兑换</h1>
+  <p class="page-subtitle">管理会员积分兑换礼盒</p>
+</div>
+
+<p-tabView>
+  <p-tabPanel header="可兑换礼盒">
+    <div class="grid grid-3" *ngIf="giftBoxes.length > 0; else emptyGiftBoxes">
+      <div *ngFor="let box of giftBoxes" class="product-card">
+        <div class="product-image">
+          <img *ngIf="box.image" [src]="box.image" alt="{{ box.name }}">
+          <i *ngIf="!box.image" class="pi pi-gift" style="font-size: 64px; color: #ccc;"></i>
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{ box.name }}</h3>
+          <p class="product-desc">{{ box.description }}</p>
+          <div class="product-price">
+            <span class="price">¥{{ box.price }}</span>
+            <span class="points">{{ box.pointsRequired }}积分</span>
+          </div>
+          <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #f0f0f0;">
+            <p-button 
+              label="立即兑换" 
+              icon="pi pi-exchange" 
+              (click)="openExchangeDialog()" 
+              styleClass="p-button-sm"
+              [style]="{'width': '100%'}"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #emptyGiftBoxes>
+      <div class="empty-state">
+        <i class="pi pi-box"></i>
+        <p>暂无可兑换的礼盒</p>
+        <span>请先在定制礼盒中添加礼盒</span>
+      </div>
+    </ng-template>
+  </p-tabPanel>
+
+  <p-tabPanel header="兑换记录">
+    <div class="card" style="box-shadow: none; padding: 0;">
+      <p-table 
+        [value]="exchanges" 
+        [paginator]="true" 
+        [rows]="10" 
+        [loading]="loading"
+        responsiveLayout="scroll"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>会员</th>
+            <th>兑换礼盒</th>
+            <th>消耗积分</th>
+            <th>兑换时间</th>
+            <th>状态</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-exchange>
+          <tr>
+            <td>{{ getMemberName(exchange.memberId) }}</td>
+            <td>{{ getGiftBoxName(exchange.giftBoxId) }}</td>
+            <td style="font-weight: 600; color: #4a6cf7;">{{ exchange.pointsUsed }}</td>
+            <td>{{ exchange.exchangeDate | date:'yyyy-MM-dd HH:mm' }}</td>
+            <td>
+              <p-tag 
+                [value]="exchange.status || '待处理'" 
+                [severity]="getStatusSeverity(exchange.status || '待处理')"
+              ></p-tag>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="5">
+              <div class="empty-state">
+                <i class="pi pi-history"></i>
+                <p>暂无兑换记录</p>
+                <span>选择礼盒开始兑换</span>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </p-tabPanel>
+</p-tabView>
+
+<p-dialog 
+  header="积分兑换" 
+  [(visible)]="dialogVisible" 
+  [modal]="true" 
+  [style]="{width: '550px'}"
+>
+  <form [formGroup]="exchangeForm">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label class="form-label form-required">选择会员</label>
+        <p-dropdown 
+          formControlName="memberId"
+          [options]="members"
+          optionLabel="name"
+          optionValue="id"
+          placeholder="请选择会员"
+          [filter]="true"
+          (onChange)="onMemberChange($event.value)"
+        >
+          <ng-template let-member pTemplate="selectedItem">
+            <div *ngIf="member">
+              <span style="font-weight: 500;">{{ member.name }}</span>
+              <span style="color: #666; margin-left: 12px;">{{ member.phone }}</span>
+              <span style="color: #4a6cf7; margin-left: 12px;">积分: {{ member.currentPoints }}</span>
+            </div>
+          </ng-template>
+          <ng-template let-member pTemplate="item">
+            <div>
+              <span style="font-weight: 500;">{{ member.name }}</span>
+              <span style="color: #666; margin-left: 12px;">{{ member.phone }}</span>
+              <span style="color: #4a6cf7; margin-left: 12px;">积分: {{ member.currentPoints }}</span>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="p-field">
+        <label class="form-label form-required">选择礼盒</label>
+        <p-dropdown 
+          formControlName="giftBoxId"
+          [options]="giftBoxes"
+          optionLabel="name"
+          optionValue="id"
+          placeholder="请选择礼盒"
+          [filter]="true"
+          (onChange)="onGiftBoxChange($event.value)"
+        >
+          <ng-template let-box pTemplate="item">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span>{{ box.name }}</span>
+              <span style="color: #4a6cf7; font-weight: 500;">{{ box.pointsRequired }}积分</span>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="p-field">
+        <label class="form-label form-required">消耗积分</label>
+        <p-inputNumber formControlName="pointsUsed" [min]="0" mode="decimal"></p-inputNumber>
+        <small *ngIf="selectedMember" style="color: #666;">
+          当前会员积分：<strong style="color: #4a6cf7;">{{ currentMemberPoints }}</strong>
+        </small>
+      </div>
+
+      <div *ngIf="selectedMember && selectedGiftBox" class="exchange-summary">
+        <h4 style="margin-bottom: 12px; color: #333;">兑换确认</h4>
+        <div class="summary-item">
+          <span>会员：</span>
+          <span style="font-weight: 500;">{{ selectedMemberName }}</span>
+        </div>
+        <div class="summary-item">
+          <span>礼盒：</span>
+          <span style="font-weight: 500;">{{ selectedGiftBoxName }}</span>
+        </div>
+        <div class="summary-item highlight">
+          <span>消耗积分：</span>
+          <span style="font-weight: 600; color: #4a6cf7;">{{ exchangeForm.get('pointsUsed')?.value || 0 }} 积分</span>
+        </div>
+        <div class="summary-item">
+          <span>剩余积分：</span>
+          <span style="font-weight: 500;">
+            {{ remainingPoints }} 积分</span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="取消" icon="pi pi-times" (click)="dialogVisible = false" [text]="true" severity="secondary"></p-button>
+    <p-button label="确认兑换" icon="pi pi-check" (click)="createExchange()"></p-button>
+  </ng-template>
+</p-dialog>

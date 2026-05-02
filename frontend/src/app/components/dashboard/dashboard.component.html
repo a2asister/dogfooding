@@ -1,0 +1,166 @@
+<div class="page-header">
+  <h1 class="page-title">工作台</h1>
+  <p class="page-subtitle">酒水/茶饮私域运营中台 - 数据概览</p>
+</div>
+
+<div *ngIf="loading" class="loading-overlay">
+  <div class="loading-spinner"></div>
+</div>
+
+<div *ngIf="!loading">
+  <div class="grid grid-4">
+    <div *ngFor="let stat of stats" class="{{ stat.class }}">
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <i class="pi {{ stat.icon }}" style="font-size: 32px; opacity: 0.9;"></i>
+        <div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-tabView>
+    <p-tabPanel header="快速概览">
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title">
+            <i class="pi pi-users" style="color: #4a6cf7;"></i>
+            最近会员
+          </div>
+          <p-table [value]="members" [paginator]="true" [rows]="5" styleClass="p-datatable-sm">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>姓名</th>
+                <th>电话</th>
+                <th>等级</th>
+                <th>积分</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-member>
+              <tr>
+                <td>{{ member.name }}</td>
+                <td>{{ member.phone }}</td>
+                <td>
+                  <p-tag [value]="member.level" [severity]="getMemberLevelColor(member.level)"></p-tag>
+                </td>
+                <td>{{ member.currentPoints }}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="4" class="empty-state">
+                  <i class="pi pi-inbox"></i>
+                  <p>暂无会员数据</p>
+                  <span>点击会员管理添加新会员</span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <i class="pi pi-box" style="color: #28a745;"></i>
+            热门礼盒
+          </div>
+          <div *ngIf="giftBoxes.length > 0; else emptyBoxes">
+            <div *ngFor="let box of giftBoxes.slice(0, 3)" class="event-card" style="margin-bottom: 16px;">
+              <div class="event-image">
+                <img [src]="box.image" *ngIf="box.image" alt="{{ box.name }}">
+                <i class="pi pi-box" *ngIf="!box.image" style="font-size: 48px; color: #ccc;"></i>
+              </div>
+              <div class="event-content">
+                <div class="event-title">{{ box.name }}</div>
+                <div class="event-desc">{{ box.description }}</div>
+                <div class="product-price">
+                  <span class="price">¥{{ box.price }}</span>
+                  <span class="points">{{ box.pointsRequired }}积分兑换</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ng-template #emptyBoxes>
+            <div class="empty-state">
+              <i class="pi pi-inbox"></i>
+              <p>暂无礼盒数据</p>
+              <span>点击定制礼盒添加新礼盒</span>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </p-tabPanel>
+
+    <p-tabPanel header="品鉴活动">
+      <div class="grid grid-2">
+        <div *ngFor="let event of events" class="card">
+          <div class="card-title">
+            <i class="pi pi-calendar" style="color: #fd7e14;"></i>
+            {{ event.title }}
+          </div>
+          <div class="event-meta">
+            <span><i class="pi pi-clock"></i> {{ event.date | date:'yyyy-MM-dd HH:mm' }}</span>
+            <span><i class="pi pi-map-marker"></i> {{ event.location }}</span>
+          </div>
+          <div class="event-desc">{{ event.description }}</div>
+          <div class="event-footer">
+            <span class="participants">
+              报名人数: {{ event.participants?.length || 0 }} / {{ event.maxParticipants }}
+            </span>
+            <p-tag [value]="event.status" [severity]="getEventStatus(event)"></p-tag>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="events.length === 0" class="card">
+        <div class="empty-state">
+          <i class="pi pi-calendar-times"></i>
+          <p>暂无活动数据</p>
+          <span>点击品鉴活动添加新活动</span>
+        </div>
+      </div>
+    </p-tabPanel>
+
+    <p-tabPanel header="库存预警">
+      <div class="card">
+        <p-table [value]="inventory" [paginator]="true" [rows]="10">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>商品名称</th>
+              <th>SKU</th>
+              <th>分类</th>
+              <th>库存数量</th>
+              <th>安全库存</th>
+              <th>状态</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr [ngClass]="{'stock-low': item.quantity <= item.minStock, 'stock-out': item.quantity === 0}">
+              <td>{{ item.productName }}</td>
+              <td>{{ item.sku }}</td>
+              <td>{{ item.category }}</td>
+              <td>
+                <strong>{{ item.quantity }}</strong> {{ item.unit }}
+              </td>
+              <td>{{ item.minStock }} {{ item.unit }}</td>
+              <td>
+                <p-tag 
+                  [value]="item.quantity === 0 ? '缺货' : (item.quantity <= item.minStock ? '库存低' : '正常')"
+                  [severity]="getStockStatus(item)">
+                </p-tag>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="6" class="empty-state">
+                <i class="pi pi-inbox"></i>
+                <p>暂无库存数据</p>
+                <span>点击库存管控添加新库存</span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </p-tabPanel>
+  </p-tabView>
+</div>

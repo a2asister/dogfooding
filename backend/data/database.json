@@ -1,0 +1,188 @@
+{
+  "members": [
+    {
+      "id": "1",
+      "name": "张三",
+      "phone": "13800138001",
+      "email": "zhangsan@example.com",
+      "totalPoints": 1500,
+      "currentPoints": 1200,
+      "level": "黄金会员",
+      "joinDate": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "李四",
+      "phone": "13800138002",
+      "email": "lisi@example.com",
+      "totalPoints": 500,
+      "currentPoints": 500,
+      "level": "普通会员",
+      "joinDate": "2026-03-20T00:00:00.000Z"
+    },
+    {
+      "id": "41f45566-a6c7-4a55-a7d9-137d2856d287",
+      "name": "测试会员张三",
+      "phone": "13800138001",
+      "email": null,
+      "level": "普通会员",
+      "totalPoints": 0,
+      "currentPoints": 0,
+      "joinDate": "2026-05-02T02:44:10.230Z"
+    },
+    {
+      "id": "8a02995d-f3b9-4b38-9756-b99dbad80826",
+      "name": "111",
+      "phone": "13412341234",
+      "email": null,
+      "level": "普通会员",
+      "totalPoints": 0,
+      "currentPoints": 0,
+      "joinDate": "2026-05-02T02:46:10.954Z"
+    }
+  ],
+  "points": [
+    {
+      "id": "1",
+      "memberId": "1",
+      "type": "earn",
+      "amount": 500,
+      "description": "首次消费奖励",
+      "date": "2026-04-01T00:00:00.000Z"
+    }
+  ],
+  "stores": [
+    {
+      "id": "1",
+      "name": "总店",
+      "address": "北京市朝阳区建国路88号",
+      "phone": "010-12345678",
+      "manager": "王经理",
+      "createDate": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "上海分店",
+      "address": "上海市浦东新区陆家嘴环路168号",
+      "phone": "021-87654321",
+      "manager": "李经理",
+      "createDate": "2026-02-15T00:00:00.000Z"
+    }
+  ],
+  "giftBoxes": [
+    {
+      "id": "1",
+      "name": "精选茶礼礼盒",
+      "description": "包含：西湖龙井+大红袍+铁观音各250g礼盒装",
+      "pointsRequired": 800,
+      "price": 299,
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20tea%20gift%20box%20set%20with%20premium%20packaging%20elegant%20display&image_size=square_hd",
+      "createDate": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "名酒庄礼盒",
+      "description": "精选法国波尔多红酒2支装",
+      "pointsRequired": 1200,
+      "price": 599,
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=premium%20red%20wine%20gift%20box%20with%20two%20bottles%20French%20Bordeaux%20elegant%20packaging&image_size=square_hd",
+      "createDate": "2026-02-01T00:00:00.000Z"
+    },
+    {
+      "id": "8983e8e3-cc81-4bb2-910a-64e6053c9b3d",
+      "name": "3123213",
+      "description": "1321313",
+      "pointsRequired": 3123,
+      "price": 123,
+      "image": "",
+      "createDate": "2026-05-02T02:46:37.579Z"
+    }
+  ],
+  "tastingEvents": [
+    {
+      "id": "1",
+      "title": "春季新茶品鉴会",
+      "description": "品尝2026年春季新茶，专家讲解茶艺表演",
+      "date": "2026-05-15T14:00:00.000Z",
+      "location": "总店",
+      "maxParticipants": 30,
+      "participants": [],
+      "status": "即将开始",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=spring%20tea%20tasting%20event%20elegant%20setting%20tea%20ceremony&image_size=square_hd",
+      "createDate": "2026-04-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "title": "红酒鉴赏沙龙",
+      "description": "学习红酒品鉴知识，体验不同产区红酒",
+      "date": "2026-05-20T19:00:00.000Z",
+      "location": "上海分店",
+      "maxParticipants": 20,
+      "participants": [],
+      "status": "即将开始",
+      "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=wine%20tasting%20salon%20elegant%20atmosphere%20red%20wine%20glasses&image_size=square_hd",
+      "createDate": "2026-04-10T00:00:00.000Z"
+    },
+    {
+      "id": "d9a1824a-e677-4533-8031-fb55ed1555b2",
+      "title": "3213",
+      "description": "12313",
+      "date": "2026-05-08T02:32:58.000Z",
+      "location": "总店",
+      "maxParticipants": 20,
+      "status": "即将开始",
+      "image": null,
+      "participants": [],
+      "createDate": "2026-05-02T02:33:01.677Z"
+    },
+    {
+      "id": "6d1ec610-c80f-4f40-aa95-6a1e3fb2ca09",
+      "title": "3123123",
+      "description": "12313",
+      "date": "2026-05-27T02:46:43.000Z",
+      "location": "上海分店",
+      "maxParticipants": 20,
+      "status": "即将开始",
+      "image": null,
+      "participants": [],
+      "createDate": "2026-05-02T02:46:47.097Z"
+    }
+  ],
+  "inventory": [
+    {
+      "id": "1",
+      "productName": "西湖龙井",
+      "sku": "TEA001",
+      "category": "茶叶",
+      "quantity": 150,
+      "unit": "盒",
+      "price": 199,
+      "minStock": 50,
+      "updateDate": "2026-05-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "productName": "大红袍",
+      "sku": "TEA002",
+      "category": "茶叶",
+      "quantity": 80,
+      "unit": "盒",
+      "price": 258,
+      "minStock": 30,
+      "updateDate": "2026-05-01T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "productName": "法国波尔多红酒",
+      "sku": "WINE001",
+      "category": "酒水",
+      "quantity": 45,
+      "unit": "瓶",
+      "price": 399,
+      "minStock": 20,
+      "updateDate": "2026-05-01T00:00:00.000Z"
+    }
+  ],
+  "pointExchanges": [],
+  "storeActivities": []
+}

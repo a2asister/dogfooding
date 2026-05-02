@@ -1,0 +1,14 @@
+<div class="layout-header">
+  <div class="header-title">
+    {{ currentTime | date:'yyyy年MM月dd日 HH:mm' }}
+  </div>
+  <div class="header-actions">
+    <div class="user-info">
+      <div class="user-avatar">
+        {{ userName.charAt(0) }}
+      </div>
+      <span class="user-name">{{ userName }}</span>
+      <i class="pi pi-angle-down" style="font-size: 12px; color: #999;"></i>
+    </div>
+  </div>
+</div>

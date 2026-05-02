@@ -1,0 +1,151 @@
+<div class="page-header">
+  <h1 class="page-title">库存管控</h1>
+  <p class="page-subtitle">管理商品库存，监控库存预警</p>
+</div>
+
+<div class="card">
+  <div class="action-bar">
+    <div class="search-box">
+      <input 
+        type="text" 
+        pInputText 
+        placeholder="搜索商品名称、SKU或分类..." 
+        [(ngModel)]="searchText"
+        (input)="search()"
+        style="width: 350px;"
+      >
+    </div>
+    <div>
+      <p-button label="添加库存" icon="pi pi-plus" (click)="openAddDialog()"></p-button>
+    </div>
+  </div>
+
+  <p-table 
+    [value]="filteredInventory" 
+    [paginator]="true" 
+    [rows]="10" 
+    [loading]="loading"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>商品名称</th>
+        <th>SKU</th>
+        <th>分类</th>
+        <th>库存数量</th>
+        <th>安全库存</th>
+        <th>单价(元)</th>
+        <th>状态</th>
+        <th style="width: 150px;">操作</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr [ngClass]="getRowClass(item)">
+        <td>
+          <div style="font-weight: 600;">{{ item.productName }}</div>
+        </td>
+        <td>
+          <span style="font-family: monospace; color: #666;">{{ item.sku }}</span>
+        </td>
+        <td>
+          <p-tag [value]="item.category" severity="info"></p-tag>
+        </td>
+        <td>
+          <span [ngStyle]="{'font-weight': item.quantity <= item.minStock ? '700' : '500', 'color': item.quantity <= item.minStock ? '#dc3545' : '#333'}">
+            {{ item.quantity }} {{ item.unit }}
+          </span>
+        </td>
+        <td>{{ item.minStock }} {{ item.unit }}</td>
+        <td>¥{{ item.price }}</td>
+        <td>
+          <p-tag 
+            [value]="getStockStatus(item).label" 
+            [severity]="getStockStatus(item).severity"
+          ></p-tag>
+        </td>
+        <td>
+          <div class="action-buttons">
+            <p-button icon="pi pi-pencil" [text]="true" severity="primary" (click)="openEditDialog(item)"></p-button>
+            <p-button icon="pi pi-trash" [text]="true" severity="danger" (click)="deleteItem(item)"></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8">
+          <div class="empty-state">
+            <i class="pi pi-database"></i>
+            <p>暂无库存数据</p>
+            <span>点击"添加库存"按钮创建第一个库存项</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog 
+  [header]="isEdit ? '编辑库存' : '添加库存'" 
+  [(visible)]="dialogVisible" 
+  [modal]="true" 
+  [style]="{width: '600px'}"
+>
+  <form [formGroup]="inventoryForm">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label class="form-label form-required">商品名称</label>
+        <input type="text" pInputText formControlName="productName" placeholder="请输入商品名称">
+      </div>
+
+      <div class="grid grid-2" style="gap: 20px;">
+        <div class="p-field">
+          <label class="form-label form-required">SKU编码</label>
+          <input type="text" pInputText formControlName="sku" placeholder="如：TEA001">
+        </div>
+        <div class="p-field">
+          <label class="form-label form-required">商品分类</label>
+          <p-dropdown 
+            formControlName="category"
+            [options]="categories"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="选择分类"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="gap: 20px;">
+        <div class="p-field">
+          <label class="form-label form-required">库存数量</label>
+          <p-inputNumber formControlName="quantity" [min]="0" mode="decimal"></p-inputNumber>
+        </div>
+        <div class="p-field">
+          <label class="form-label form-required">单位</label>
+          <p-dropdown 
+            formControlName="unit"
+            [options]="units"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="选择单位"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="gap: 20px;">
+        <div class="p-field">
+          <label class="form-label form-required">单价(元)</label>
+          <p-inputNumber formControlName="price" [min]="0" mode="decimal" [minFractionDigits]="2"></p-inputNumber>
+        </div>
+        <div class="p-field">
+          <label class="form-label form-required">安全库存</label>
+          <p-inputNumber formControlName="minStock" [min]="0" mode="decimal"></p-inputNumber>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="取消" icon="pi pi-times" (click)="dialogVisible = false" [text]="true" severity="secondary"></p-button>
+    <p-button label="保存" icon="pi pi-check" (click)="saveItem()"></p-button>
+  </ng-template>
+</p-dialog>

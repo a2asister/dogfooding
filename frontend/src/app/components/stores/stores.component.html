@@ -1,0 +1,117 @@
+<div class="page-header">
+  <h1 class="page-title">门店管理</h1>
+  <p class="page-subtitle">管理线下门店信息</p>
+</div>
+
+<div class="card">
+  <div class="action-bar">
+    <div class="search-box">
+      <input 
+        type="text" 
+        pInputText 
+        placeholder="搜索门店名称、地址或电话..." 
+        [(ngModel)]="searchText"
+        (input)="search()"
+        style="width: 350px;"
+      >
+    </div>
+    <div>
+      <p-button label="添加门店" icon="pi pi-plus" (click)="openAddDialog()"></p-button>
+    </div>
+  </div>
+
+  <p-table 
+    [value]="filteredStores" 
+    [paginator]="true" 
+    [rows]="10" 
+    [loading]="loading"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>门店名称</th>
+        <th>地址</th>
+        <th>联系电话</th>
+        <th>负责人</th>
+        <th>创建时间</th>
+        <th style="width: 150px;">操作</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-store>
+      <tr>
+        <td>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="store-icon">
+              <i class="pi pi-building"></i>
+            </div>
+            <div>
+              <div style="font-weight: 600;">{{ store.name }}</div>
+            </div>
+          </div>
+        </td>
+        <td>{{ store.address }}</td>
+        <td>{{ store.phone }}</td>
+        <td>{{ store.manager || '-' }}</td>
+        <td>{{ store.createDate | date:'yyyy-MM-dd' }}</td>
+        <td>
+          <div class="action-buttons">
+            <p-button icon="pi pi-pencil" [text]="true" severity="primary" (click)="openEditDialog(store)"></p-button>
+            <p-button icon="pi pi-trash" [text]="true" severity="danger" (click)="deleteStore(store)"></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6">
+          <div class="empty-state">
+            <i class="pi pi-building"></i>
+            <p>暂无门店数据</p>
+            <span>点击"添加门店"按钮创建第一个门店</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog 
+  [header]="isEdit ? '编辑门店' : '添加门店'" 
+  [(visible)]="dialogVisible" 
+  [modal]="true" 
+  [style]="{width: '550px'}"
+>
+  <form [formGroup]="storeForm">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label class="form-label form-required">门店名称</label>
+        <input type="text" pInputText formControlName="name" placeholder="请输入门店名称">
+      </div>
+
+      <div class="p-field">
+        <label class="form-label form-required">门店地址</label>
+        <textarea 
+          pInputTextarea 
+          formControlName="address" 
+          placeholder="请输入详细地址"
+          [rows]="2"
+        ></textarea>
+      </div>
+
+      <div class="grid grid-2" style="gap: 20px;">
+        <div class="p-field">
+          <label class="form-label form-required">联系电话</label>
+          <input type="text" pInputText formControlName="phone" placeholder="如：010-12345678">
+        </div>
+        <div class="p-field">
+          <label class="form-label">负责人</label>
+          <input type="text" pInputText formControlName="manager" placeholder="请输入负责人姓名（选填）">
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="取消" icon="pi pi-times" (click)="dialogVisible = false" [text]="true" severity="secondary"></p-button>
+    <p-button label="保存" icon="pi pi-check" (click)="saveStore()"></p-button>
+  </ng-template>
+</p-dialog>

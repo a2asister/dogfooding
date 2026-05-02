@@ -1,0 +1,165 @@
+<div class="page-header">
+  <h1 class="page-title">会员管理</h1>
+  <p class="page-subtitle">管理会员信息，查看积分和等级</p>
+</div>
+
+<div class="card">
+  <div class="action-bar">
+    <div class="search-box">
+      <input 
+        type="text" 
+        pInputText 
+        placeholder="搜索会员姓名、电话或邮箱..." 
+        [(ngModel)]="searchText"
+        (input)="search()"
+        style="width: 350px;"
+      >
+      <p-button icon="pi pi-search" [text]="true" severity="secondary" (click)="search()"></p-button>
+    </div>
+    <div>
+      <p-button label="添加会员" icon="pi pi-plus" (click)="openAddDialog()"></p-button>
+    </div>
+  </div>
+
+  <p-table 
+    [value]="filteredMembers" 
+    [paginator]="true" 
+    [rows]="10" 
+    [rowsPerPageOptions]="[10, 20, 50]"
+    [loading]="loading"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>姓名</th>
+        <th>电话</th>
+        <th>邮箱</th>
+        <th>会员等级</th>
+        <th>当前积分</th>
+        <th>累计积分</th>
+        <th>加入时间</th>
+        <th style="width: 150px;">操作</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-member>
+      <tr>
+        <td>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="user-avatar" style="width: 36px; height: 36px; font-size: 14px;">
+              {{ member.name.charAt(0) }}
+            </div>
+            <div>
+              <div style="font-weight: 600;">{{ member.name }}</div>
+            </div>
+          </div>
+        </td>
+        <td>{{ member.phone }}</td>
+        <td>{{ member.email || '-' }}</td>
+        <td>
+          <p-tag [value]="member.level" [severity]="getLevelSeverity(member.level)"></p-tag>
+        </td>
+        <td>
+          <span style="font-weight: 600; color: #4a6cf7;">{{ member.currentPoints }}</span>
+        </td>
+        <td>{{ member.totalPoints }}</td>
+        <td>{{ member.joinDate | date:'yyyy-MM-dd' }}</td>
+        <td>
+          <div class="action-buttons">
+            <p-button 
+              icon="pi pi-pencil" 
+              [text]="true" 
+              severity="primary"
+              tooltip="编辑"
+              (click)="openEditDialog(member)"
+            ></p-button>
+            <p-button 
+              icon="pi pi-trash" 
+              [text]="true" 
+              severity="danger"
+              tooltip="删除"
+              (click)="deleteMember(member)"
+            ></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8">
+          <div class="empty-state">
+            <i class="pi pi-users"></i>
+            <p>暂无会员数据</p>
+            <span>点击"添加会员"按钮创建第一个会员</span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog 
+  [header]="isEdit ? '编辑会员' : '添加会员'" 
+  [(visible)]="dialogVisible" 
+  [modal]="true" 
+  [style]="{width: '500px'}"
+  [closable]="true"
+>
+  <form [formGroup]="memberForm">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label class="form-label form-required">姓名</label>
+        <input 
+          type="text" 
+          pInputText 
+          formControlName="name"
+          placeholder="请输入会员姓名"
+        >
+        <small *ngIf="memberForm.get('name')?.invalid && memberForm.get('name')?.touched" class="p-error">
+          请输入姓名
+        </small>
+      </div>
+
+      <div class="p-field">
+        <label class="form-label form-required">手机号</label>
+        <input 
+          type="text" 
+          pInputText 
+          formControlName="phone"
+          placeholder="请输入11位手机号"
+          maxlength="11"
+        >
+        <small *ngIf="memberForm.get('phone')?.invalid && memberForm.get('phone')?.touched" class="p-error">
+          请输入有效的手机号
+        </small>
+      </div>
+
+      <div class="p-field">
+        <label class="form-label">邮箱</label>
+        <input 
+          type="email" 
+          pInputText 
+          formControlName="email"
+          placeholder="请输入邮箱地址（选填）"
+        >
+        <small *ngIf="memberForm.get('email')?.invalid && memberForm.get('email')?.touched" class="p-error">
+          请输入有效的邮箱地址
+        </small>
+      </div>
+
+      <div class="p-field">
+        <label class="form-label">会员等级</label>
+        <p-dropdown 
+          formControlName="level"
+          [options]="levels"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="请选择会员等级"
+        ></p-dropdown>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="取消" icon="pi pi-times" (click)="dialogVisible = false" [text]="true" severity="secondary"></p-button>
+    <p-button label="保存" icon="pi pi-check" (click)="saveMember()"></p-button>
+  </ng-template>
+</p-dialog>

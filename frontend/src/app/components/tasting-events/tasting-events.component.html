@@ -1,0 +1,139 @@
+<div class="page-header">
+  <h1 class="page-title">品鉴活动</h1>
+  <p class="page-subtitle">管理品鉴活动，查看报名情况</p>
+</div>
+
+<div class="card">
+  <div class="action-bar">
+    <div class="search-box">
+      <input 
+        type="text" 
+        pInputText 
+        placeholder="搜索活动名称、描述或地点..." 
+        [(ngModel)]="searchText"
+        (input)="search()"
+        style="width: 350px;"
+      >
+    </div>
+    <div>
+      <p-button label="创建活动" icon="pi pi-plus" (click)="openAddDialog()"></p-button>
+    </div>
+  </div>
+
+  <div *ngIf="filteredEvents.length > 0; else emptyEvents">
+    <div *ngFor="let event of filteredEvents" class="event-card" style="margin-bottom: 20px;">
+      <div class="event-image">
+        <img *ngIf="event.image" [src]="event.image" alt="{{ event.title }}">
+        <i *ngIf="!event.image" class="pi pi-calendar" style="font-size: 48px; color: #ccc;"></i>
+      </div>
+      <div class="event-content">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+          <h3 class="event-title" style="margin: 0;">{{ event.title }}</h3>
+          <p-tag [value]="event.status" [severity]="getEventStatusSeverity(event)"></p-tag>
+        </div>
+        <div class="event-meta">
+          <span><i class="pi pi-clock"></i> {{ event.date | date:'yyyy-MM-dd HH:mm' }}</span>
+          <span><i class="pi pi-map-marker"></i> {{ event.location }}</span>
+          <span><i class="pi pi-users"></i> {{ event.participants?.length || 0 }} / {{ event.maxParticipants }} 人</span>
+        </div>
+        <p class="event-desc">{{ event.description }}</p>
+        <div class="event-footer">
+          <p-progressBar 
+            [value]="(event.participants?.length || 0) / event.maxParticipants * 100" 
+            [showValue]="false"
+            styleClass="event-progress-bar"
+          ></p-progressBar>
+          <div class="action-buttons">
+            <p-button icon="pi pi-pencil" [text]="true" severity="primary" (click)="openEditDialog(event)"></p-button>
+            <p-button icon="pi pi-trash" [text]="true" severity="danger" (click)="deleteEvent(event)"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyEvents>
+    <div class="empty-state">
+      <i class="pi pi-calendar"></i>
+      <p>暂无活动数据</p>
+      <span>点击"创建活动"按钮创建第一个品鉴活动</span>
+    </div>
+  </ng-template>
+</div>
+
+<p-dialog 
+  [header]="isEdit ? '编辑活动' : '创建活动'" 
+  [(visible)]="dialogVisible" 
+  [modal]="true" 
+  [style]="{width: '650px'}"
+>
+  <form [formGroup]="eventForm">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label class="form-label form-required">活动标题</label>
+        <input type="text" pInputText formControlName="title" placeholder="请输入活动标题">
+      </div>
+
+      <div class="p-field">
+        <label class="form-label form-required">活动描述</label>
+        <textarea 
+          pInputTextarea 
+          formControlName="description" 
+          placeholder="请输入活动详细描述"
+          [rows]="3"
+        ></textarea>
+      </div>
+
+      <div class="grid grid-2" style="gap: 20px;">
+        <div class="p-field">
+          <label class="form-label form-required">活动时间</label>
+          <p-calendar 
+            formControlName="date" 
+            [showTime]="true" 
+            hourFormat="24"
+            placeholder="选择日期和时间"
+            [style]="{width: '100%'}"
+          ></p-calendar>
+        </div>
+        <div class="p-field">
+          <label class="form-label form-required">活动地点</label>
+          <p-dropdown 
+            formControlName="location"
+            [options]="stores"
+            optionLabel="name"
+            optionValue="name"
+            placeholder="选择门店"
+            [filter]="true"
+            [showClear]="true"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="gap: 20px;">
+        <div class="p-field">
+          <label class="form-label form-required">最大参与人数</label>
+          <p-inputNumber formControlName="maxParticipants" [min]="1" mode="decimal"></p-inputNumber>
+        </div>
+        <div class="p-field">
+          <label class="form-label">活动状态</label>
+          <p-dropdown 
+            formControlName="status"
+            [options]="statusOptions"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="选择状态"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="p-field">
+        <label class="form-label">活动图片URL</label>
+        <input type="text" pInputText formControlName="image" placeholder="请输入图片URL（选填）">
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button label="取消" icon="pi pi-times" (click)="dialogVisible = false" [text]="true" severity="secondary"></p-button>
+    <p-button label="保存" icon="pi pi-check" (click)="saveEvent()"></p-button>
+  </ng-template>
+</p-dialog>
