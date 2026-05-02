@@ -1,0 +1,73 @@
+[
+  {
+    "id": "c1",
+    "name": "北京科技有限公司",
+    "industry": "信息技术",
+    "size": "大型企业",
+    "contactPerson": "张经理",
+    "contactPhone": "13800138001",
+    "contactEmail": "zhang@bjtech.com",
+    "address": "北京市海淀区中关村大街1号",
+    "level": "A",
+    "status": "活跃",
+    "createdAt": "2024-01-15T09:00:00.000Z",
+    "notes": "主要客户，需要重点跟进",
+    "updatedAt": "2026-05-02T01:03:42.638Z"
+  },
+  {
+    "id": "c2",
+    "name": "上海贸易集团",
+    "industry": "国际贸易",
+    "size": "中型企业",
+    "contactPerson": "李总",
+    "contactPhone": "13800138002",
+    "contactEmail": "li@shanghaitrade.com",
+    "address": "上海市浦东新区陆家嘴金融中心",
+    "level": "B",
+    "status": "活跃",
+    "createdAt": "2024-02-20T10:30:00.000Z",
+    "notes": "有合作意向，需要进一步沟通"
+  },
+  {
+    "id": "c3",
+    "name": "广州制造企业",
+    "industry": "制造业",
+    "size": "大型企业",
+    "contactPerson": "王总监",
+    "contactPhone": "13800138003",
+    "contactEmail": "wang@gzmanufacture.com",
+    "address": "广州市天河区珠江新城",
+    "level": "A",
+    "status": "休眠",
+    "createdAt": "2023-11-10T14:00:00.000Z",
+    "notes": "之前有合作，需要重新激活"
+  },
+  {
+    "id": "fb6a69e4-a156-4851-9cd6-b74bb4733fd5",
+    "name": "客户1",
+    "industry": "信息技术",
+    "size": "大型企业",
+    "contactPerson": "123",
+    "contactPhone": "13412341234",
+    "contactEmail": "123@qq.com",
+    "address": "",
+    "level": "B",
+    "status": "活跃",
+    "notes": "",
+    "createdAt": "2026-05-02T01:10:47.990Z"
+  },
+  {
+    "id": "8bda8f07-4479-4525-a268-58412fb80a62",
+    "name": "终极客户",
+    "industry": "信息技术",
+    "size": "大型企业",
+    "contactPerson": "任我行",
+    "contactPhone": "13412341234",
+    "contactEmail": "11@qq.com",
+    "address": "",
+    "level": "B",
+    "status": "活跃",
+    "notes": "",
+    "createdAt": "2026-05-02T01:13:16.974Z"
+  }
+]

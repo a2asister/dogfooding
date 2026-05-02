@@ -1,0 +1,130 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">续费预警</h2>
+      <p class="text-sm text-gray-500 mt-1">跟踪即将到期的合同和续费跟进</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="card bg-red-50 border-red-200">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-red-600">高优先级</p>
+          <p class="text-2xl font-bold text-red-800">{{ highPriorityCount }}</p>
+        </div>
+        <div class="text-3xl">🚨</div>
+      </div>
+    </div>
+    <div class="card bg-yellow-50 border-yellow-200">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-yellow-600">中优先级</p>
+          <p class="text-2xl font-bold text-yellow-800">{{ mediumPriorityCount }}</p>
+        </div>
+        <div class="text-3xl">⚠️</div>
+      </div>
+    </div>
+    <div class="card bg-blue-50 border-blue-200">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-blue-600">处理中</p>
+          <p class="text-2xl font-bold text-blue-800">{{ inProgressCount }}</p>
+        </div>
+        <div class="text-3xl">🔄</div>
+      </div>
+    </div>
+    <div class="card bg-green-50 border-green-200">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-green-600">已完成</p>
+          <p class="text-2xl font-bold text-green-800">{{ completedCount }}</p>
+        </div>
+        <div class="text-3xl">✅</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="flex items-center space-x-4">
+      <div class="w-48">
+        <label class="label">状态</label>
+        <select [(ngModel)]="filterStatus" class="input-field">
+          <option value="">全部状态</option>
+          <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+        </select>
+      </div>
+      <div class="w-48">
+        <label class="label">优先级</label>
+        <select [(ngModel)]="filterLevel" class="input-field">
+          <option value="">全部优先级</option>
+          <option *ngFor="let l of levelOptions" [value]="l">{{ l }}级</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="flex justify-center items-center py-20">
+    <div class="text-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+      <p class="text-gray-600">加载中...</p>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!loading">
+    <div *ngIf="filteredAlerts.length > 0; else noAlerts" class="space-y-4">
+      <div *ngFor="let alertItem of filteredAlerts" class="card hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <div class="flex items-center space-x-3 mb-2">
+              <h3 class="text-lg font-semibold text-gray-800">{{ alertItem.customerName }}</h3>
+              <span class="badge" [class]="getAlertLevelClass(alertItem.alertLevel)">{{ alertItem.alertLevel }}级</span>
+              <span class="badge" [class]="getStatusBadgeClass(alertItem.status)">{{ alertItem.status }}</span>
+            </div>
+            <p class="text-gray-600 mb-3">{{ alertItem.contractName }}</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+              <div>
+                <p class="text-gray-500">合同编号</p>
+                <p class="text-gray-800">{{ alertItem.contractId }}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">到期日期</p>
+                <p class="text-gray-800">{{ formatDate(alertItem.expiryDate) }}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">剩余天数</p>
+                <p class="text-gray-800" [class.text-red-600]="alertItem.daysUntilExpiry <= 30">
+                  {{ alertItem.daysUntilExpiry > 0 ? alertItem.daysUntilExpiry + '天' : '已过期' }}
+                </p>
+              </div>
+              <div>
+                <p class="text-gray-500">负责人</p>
+                <p class="text-gray-800">{{ alertItem.assignedTo }}</p>
+              </div>
+            </div>
+            <div *ngIf="alertItem.notes" class="mt-3 pt-3 border-t border-gray-100">
+              <p class="text-sm text-gray-600">{{ alertItem.notes }}</p>
+            </div>
+          </div>
+          <div class="ml-6">
+            <select 
+              [value]="alertItem.status" 
+              (change)="updateStatus(alertItem, $any($event.target).value)"
+              class="input-field w-32 text-sm"
+            >
+              <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noAlerts>
+      <div class="card text-center py-12">
+        <div class="text-6xl mb-4">🔔</div>
+        <h3 class="text-lg font-medium text-gray-800 mb-2">暂无续费预警</h3>
+        <p class="text-gray-500">所有客户合同状态正常</p>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

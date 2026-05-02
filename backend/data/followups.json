@@ -1,0 +1,38 @@
+[
+  {
+    "id": "f1",
+    "customerId": "c1",
+    "contactPerson": "张经理",
+    "contactType": "电话",
+    "date": "2024-05-01T10:00:00.000Z",
+    "content": "与张经理沟通了新的合作方案，对方表示感兴趣，需要进一步了解细节",
+    "nextAction": "发送详细方案文档",
+    "nextActionDate": "2024-05-05T00:00:00.000Z",
+    "salesPerson": "小王",
+    "createdAt": "2024-05-01T10:30:00.000Z"
+  },
+  {
+    "id": "f2",
+    "customerId": "c1",
+    "contactPerson": "张经理",
+    "contactType": "邮件",
+    "date": "2024-04-25T14:00:00.000Z",
+    "content": "发送了Q2季度报告，对方回复已收到并查看",
+    "nextAction": "跟进报告反馈",
+    "nextActionDate": "2024-04-30T00:00:00.000Z",
+    "salesPerson": "小王",
+    "createdAt": "2024-04-25T14:15:00.000Z"
+  },
+  {
+    "id": "f3",
+    "customerId": "c2",
+    "contactPerson": "李总",
+    "contactType": "会议",
+    "date": "2024-04-20T15:00:00.000Z",
+    "content": "在上海举行了初次会议，讨论了合作可能性，对方希望了解更多成功案例",
+    "nextAction": "准备成功案例资料",
+    "nextActionDate": "2024-05-08T00:00:00.000Z",
+    "salesPerson": "小李",
+    "createdAt": "2024-04-20T17:00:00.000Z"
+  }
+]

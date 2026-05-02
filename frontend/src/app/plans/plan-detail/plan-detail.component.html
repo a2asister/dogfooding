@@ -1,0 +1,128 @@
+<div class="space-y-6">
+  <div class="flex items-center space-x-4">
+    <button (click)="goBack()" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+      ← 返回
+    </button>
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">方案详情</h2>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="flex justify-center items-center py-20">
+    <div class="text-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+      <p class="text-gray-600">加载中...</p>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!loading && plan">
+    <div class="card">
+      <div class="flex items-start justify-between">
+        <div>
+          <div class="flex items-center space-x-3 mb-2">
+            <h3 class="text-xl font-bold text-gray-800">{{ plan.name }}</h3>
+            <span class="badge" [class]="getStatusBadgeClass(plan.status)">{{ plan.status }}</span>
+            <span class="text-sm text-gray-500">版本 {{ plan.version }}</span>
+          </div>
+          <p class="text-gray-500">
+            客户: {{ customer?.name || '未知客户' }} | 负责人: {{ plan.responsiblePerson }}
+          </p>
+        </div>
+      </div>
+
+      <div *ngIf="plan.description" class="mt-4 pt-4 border-t border-gray-200">
+        <p class="text-sm text-gray-500 mb-1">方案描述</p>
+        <p class="text-gray-800">{{ plan.description }}</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="card">
+        <h4 class="text-lg font-semibold text-gray-800 mb-4">方案范围</h4>
+        <ul class="space-y-2">
+          <li *ngFor="let item of plan.scope" class="flex items-center space-x-2">
+            <span class="w-2 h-2 bg-primary-500 rounded-full"></span>
+            <span class="text-gray-700">{{ item }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4 class="text-lg font-semibold text-gray-800 mb-4">报价信息</h4>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between py-2 border-b border-gray-100">
+            <span class="text-gray-600">一次性费用</span>
+            <span class="font-medium text-gray-800">{{ formatCurrency(plan.pricing.oneTime) }}</span>
+          </div>
+          <div class="flex items-center justify-between py-2 border-b border-gray-100">
+            <span class="text-gray-600">年度费用</span>
+            <span class="font-medium text-gray-800">{{ formatCurrency(plan.pricing.annual) }}</span>
+          </div>
+          <div class="flex items-center justify-between py-2">
+            <span class="text-gray-600 font-medium">总报价</span>
+            <span class="font-bold text-lg text-primary-600">{{ formatCurrency(plan.pricing.total) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4 class="text-lg font-semibold text-gray-800 mb-4">项目时间线</h4>
+      <div class="mb-4">
+        <p class="text-sm text-gray-500">
+          项目周期: {{ formatDate(plan.timeline.startDate) }} 至 {{ formatDate(plan.timeline.endDate) }}
+        </p>
+      </div>
+      <div class="relative">
+        <div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+        <div class="space-y-6">
+          <div *ngFor="let milestone of plan.timeline.milestones; let i = index" class="relative pl-10">
+            <div class="absolute left-2.5 w-4 h-4 rounded-full bg-primary-500 border-4 border-white shadow"></div>
+            <div class="bg-gray-50 rounded-lg p-4">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-gray-800">{{ milestone.name }}</span>
+                <span class="text-sm text-gray-500">{{ formatDate(milestone.date) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="plan.approvedAt" class="card">
+      <h4 class="text-lg font-semibold text-gray-800 mb-4">审批信息</h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <p class="text-sm text-gray-500">审批状态</p>
+          <p class="font-medium text-green-600">已通过</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">审批人</p>
+          <p class="font-medium text-gray-800">{{ plan.approvedBy }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">审批时间</p>
+          <p class="font-medium text-gray-800">{{ formatDate(plan.approvedAt) }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="customer" class="card">
+      <h4 class="text-lg font-semibold text-gray-800 mb-4">关联客户信息</h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <p class="text-sm text-gray-500">客户名称</p>
+          <p class="font-medium text-gray-800">{{ customer.name }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">联系人</p>
+          <p class="font-medium text-gray-800">{{ customer.contactPerson }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500">联系电话</p>
+          <p class="font-medium text-gray-800">{{ customer.contactPhone }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

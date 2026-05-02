@@ -1,0 +1,55 @@
+[
+  {
+    "id": "o1",
+    "customerId": "c1",
+    "name": "年度服务合同续约",
+    "stage": "商务谈判",
+    "amount": 500000,
+    "probability": 80,
+    "expectedCloseDate": "2024-06-30",
+    "source": "老客户推荐",
+    "description": "北京科技有限公司的年度服务合同即将到期，准备续约",
+    "salesPerson": "小王",
+    "createdAt": "2024-04-01T09:00:00.000Z",
+    "updatedAt": "2026-05-02T01:11:53.568Z"
+  },
+  {
+    "id": "o2",
+    "customerId": "c1",
+    "name": "新模块采购",
+    "stage": "需求确认",
+    "amount": 200000,
+    "probability": 40,
+    "expectedCloseDate": "2024-07-15",
+    "source": "客户主动咨询",
+    "description": "客户希望采购新的数据分析模块",
+    "salesPerson": "小王",
+    "createdAt": "2024-04-15T10:30:00.000Z"
+  },
+  {
+    "id": "o3",
+    "customerId": "c2",
+    "name": "首次合作项目",
+    "stage": "初步接触",
+    "amount": 350000,
+    "probability": 20,
+    "expectedCloseDate": "2024-08-01",
+    "source": "展会获取",
+    "description": "在行业展会上认识，对方对我们的产品感兴趣",
+    "salesPerson": "小李",
+    "createdAt": "2024-04-10T14:00:00.000Z"
+  },
+  {
+    "id": "o4",
+    "customerId": "c3",
+    "name": "唤醒合作",
+    "stage": "需求确认",
+    "amount": 400000,
+    "probability": 30,
+    "expectedCloseDate": "2024-07-20",
+    "source": "主动跟进",
+    "description": "之前合作过，现在尝试重新激活",
+    "salesPerson": "小张",
+    "createdAt": "2024-04-20T16:00:00.000Z"
+  }
+]

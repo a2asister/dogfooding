@@ -1,0 +1,168 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">商机漏斗</h2>
+      <p class="text-sm text-gray-500 mt-1">管理销售商机和跟踪销售进度</p>
+    </div>
+    <button (click)="openAddModal()" class="btn-primary flex items-center space-x-2">
+      <span>➕</span>
+      <span>新增商机</span>
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="flex items-center space-x-4">
+      <div class="w-48">
+        <label class="label">销售阶段</label>
+        <select [(ngModel)]="filterStage" (change)="filterStage" class="input-field">
+          <option value="">全部阶段</option>
+          <option *ngFor="let stage of stages" [value]="stage">{{ stage }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="flex justify-center items-center py-20">
+    <div class="text-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+      <p class="text-gray-600">加载中...</p>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!loading">
+    <div *ngIf="filteredOpportunities.length > 0; else noOpportunities" class="grid gap-4">
+      <div *ngFor="let opportunity of filteredOpportunities" class="card hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <div class="flex items-center space-x-3 mb-2">
+              <div class="w-3 h-3 rounded-full" [class]="getStageColor(opportunity.stage)"></div>
+              <h3 class="text-lg font-semibold text-gray-800">{{ opportunity.name }}</h3>
+              <span class="text-sm text-gray-500">|</span>
+              <span class="text-sm text-gray-600">{{ getCustomerName(opportunity.customerId) }}</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-3">
+              <div>
+                <p class="text-gray-500">销售阶段</p>
+                <p class="text-gray-800 font-medium">{{ opportunity.stage }}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">商机金额</p>
+                <p class="text-gray-800 font-medium">{{ formatCurrency(opportunity.amount) }}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">成功概率</p>
+                <p class="text-gray-800 font-medium">{{ opportunity.probability }}%</p>
+              </div>
+              <div>
+                <p class="text-gray-500">预计成交</p>
+                <p class="text-gray-800 font-medium">{{ formatDate(opportunity.expectedCloseDate) }}</p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4 text-sm text-gray-500">
+              <span>📊 来源: {{ opportunity.source }}</span>
+              <span>👤 负责人: {{ opportunity.salesPerson }}</span>
+            </div>
+            <div *ngIf="opportunity.description" class="mt-3 pt-3 border-t border-gray-100">
+              <p class="text-sm text-gray-600">{{ opportunity.description }}</p>
+            </div>
+          </div>
+          <div class="flex flex-col space-y-2 ml-6">
+            <button 
+              [routerLink]="['/opportunities', opportunity.id]"
+              class="px-3 py-1.5 text-sm text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+            >
+              查看详情
+            </button>
+            <button 
+              (click)="openEditModal(opportunity)"
+              class="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+            >
+              编辑
+            </button>
+            <button 
+              (click)="deleteOpportunity(opportunity.id)"
+              class="px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            >
+              删除
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noOpportunities>
+      <div class="card text-center py-12">
+        <div class="text-6xl mb-4">🎯</div>
+        <h3 class="text-lg font-medium text-gray-800 mb-2">暂无商机数据</h3>
+        <p class="text-gray-500 mb-6">点击下方按钮添加第一个商机</p>
+        <button (click)="openAddModal()" class="btn-primary">
+          新增商机
+        </button>
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <div *ngIf="showModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50" (click)="closeModal()">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-auto m-4" (click)="$event.stopPropagation()">
+      <div class="p-6 border-b border-gray-200">
+        <h3 class="text-xl font-semibold text-gray-800">
+          {{ isEditMode ? '编辑商机' : '新增商机' }}
+        </h3>
+      </div>
+      <form [formGroup]="opportunityForm" (ngSubmit)="onSubmit()" class="p-6 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="label">关联客户 <span class="text-red-500">*</span></label>
+            <select formControlName="customerId" class="input-field">
+              <option value="">请选择客户</option>
+              <option *ngFor="let customer of customers" [value]="customer.id">{{ customer.name }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">商机名称 <span class="text-red-500">*</span></label>
+            <input type="text" formControlName="name" class="input-field" placeholder="请输入商机名称">
+          </div>
+          <div>
+            <label class="label">销售阶段 <span class="text-red-500">*</span></label>
+            <select formControlName="stage" class="input-field">
+              <option *ngFor="let stage of stages" [value]="stage">{{ stage }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">商机来源 <span class="text-red-500">*</span></label>
+            <select formControlName="source" class="input-field">
+              <option value="">请选择来源</option>
+              <option *ngFor="let source of sources" [value]="source">{{ source }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">商机金额 <span class="text-red-500">*</span></label>
+            <input type="number" formControlName="amount" class="input-field" placeholder="请输入金额">
+          </div>
+          <div>
+            <label class="label">成功概率 (%) <span class="text-red-500">*</span></label>
+            <input type="number" formControlName="probability" min="0" max="100" class="input-field" placeholder="请输入概率">
+          </div>
+          <div>
+            <label class="label">预计成交日期 <span class="text-red-500">*</span></label>
+            <input type="date" formControlName="expectedCloseDate" class="input-field">
+          </div>
+          <div>
+            <label class="label">负责人 <span class="text-red-500">*</span></label>
+            <input type="text" formControlName="salesPerson" class="input-field" placeholder="请输入负责人">
+          </div>
+        </div>
+        <div>
+          <label class="label">商机描述</label>
+          <textarea formControlName="description" class="input-field h-24" placeholder="请输入商机描述"></textarea>
+        </div>
+      </form>
+      <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+        <button (click)="closeModal()" class="btn-secondary">取消</button>
+        <button (click)="onSubmit()" [disabled]="opportunityForm.invalid" class="btn-primary">
+          {{ isEditMode ? '保存修改' : '创建商机' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

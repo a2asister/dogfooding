@@ -1,0 +1,68 @@
+[
+  {
+    "id": "p1",
+    "customerId": "c1",
+    "name": "2024年度升级方案",
+    "version": "v2.0",
+    "status": "已通过",
+    "description": "针对北京科技有限公司的年度升级方案，包括新增数据分析模块和系统性能优化",
+    "scope": [
+      "数据分析模块开发",
+      "系统性能优化",
+      "安全加固",
+      "移动端适配"
+    ],
+    "pricing": {
+      "oneTime": 200000,
+      "annual": 300000,
+      "total": 500000
+    },
+    "timeline": {
+      "startDate": "2024-07-01",
+      "endDate": "2024-12-31",
+      "milestones": [
+        { "name": "需求确认", "date": "2024-07-15" },
+        { "name": "开发完成", "date": "2024-10-31" },
+        { "name": "测试验收", "date": "2024-11-30" },
+        { "name": "上线部署", "date": "2024-12-31" }
+      ]
+    },
+    "responsiblePerson": "小王",
+    "createdAt": "2024-04-10T09:00:00.000Z",
+    "approvedAt": "2024-04-20T14:00:00.000Z",
+    "approvedBy": "销售总监"
+  },
+  {
+    "id": "p2",
+    "customerId": "c2",
+    "name": "首次合作解决方案",
+    "version": "v1.0",
+    "status": "待审核",
+    "description": "为上海贸易集团定制的首次合作方案，包含基础功能模块和培训服务",
+    "scope": [
+      "基础CRM模块",
+      "数据导入服务",
+      "员工培训",
+      "3个月技术支持"
+    ],
+    "pricing": {
+      "oneTime": 100000,
+      "annual": 250000,
+      "total": 350000
+    },
+    "timeline": {
+      "startDate": "2024-09-01",
+      "endDate": "2024-11-30",
+      "milestones": [
+        { "name": "合同签署", "date": "2024-08-15" },
+        { "name": "系统部署", "date": "2024-09-15" },
+        { "name": "培训完成", "date": "2024-10-15" },
+        { "name": "验收通过", "date": "2024-11-30" }
+      ]
+    },
+    "responsiblePerson": "小李",
+    "createdAt": "2024-04-25T10:00:00.000Z",
+    "approvedAt": null,
+    "approvedBy": null
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "a1",
+    "customerId": "c1",
+    "customerName": "北京科技有限公司",
+    "contractId": "CT2024001",
+    "contractName": "2024年度服务合同",
+    "expiryDate": "2024-06-30",
+    "alertType": "即将到期",
+    "alertLevel": "高",
+    "daysUntilExpiry": 59,
+    "status": "处理中",
+    "assignedTo": "小王",
+    "lastContactDate": "2024-05-01",
+    "notes": "已联系客户，对方表示有续约意向，正在准备新合同",
+    "createdAt": "2024-04-01T09:00:00.000Z"
+  },
+  {
+    "id": "a2",
+    "customerId": "c2",
+    "customerName": "上海贸易集团",
+    "contractId": "CT2024002",
+    "contractName": "基础服务合同",
+    "expiryDate": "2024-09-15",
+    "alertType": "中期提醒",
+    "alertLevel": "中",
+    "daysUntilExpiry": 135,
+    "status": "待处理",
+    "assignedTo": "小李",
+    "lastContactDate": null,
+    "notes": "需要开始跟进续约事宜",
+    "createdAt": "2024-04-10T10:00:00.000Z"
+  },
+  {
+    "id": "a3",
+    "customerId": "c3",
+    "customerName": "广州制造企业",
+    "contractId": "CT2023005",
+    "contractName": "旧系统维护合同",
+    "expiryDate": "2024-03-31",
+    "alertType": "已过期",
+    "alertLevel": "高",
+    "daysUntilExpiry": -32,
+    "status": "已流失",
+    "assignedTo": "小张",
+    "lastContactDate": "2024-03-20",
+    "notes": "客户选择了其他供应商，暂时没有合作可能",
+    "createdAt": "2024-01-01T09:00:00.000Z"
+  }
+]

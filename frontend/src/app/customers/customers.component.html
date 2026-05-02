@@ -1,0 +1,194 @@
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-800">客户档案</h2>
+      <p class="text-sm text-gray-500 mt-1">管理所有客户信息和联系方式</p>
+    </div>
+    <button (click)="openAddModal()" class="btn-primary flex items-center space-x-2">
+      <span>➕</span>
+      <span>新增客户</span>
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="flex flex-wrap gap-4">
+      <div class="flex-1 min-w-64">
+        <label class="label">搜索</label>
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          (input)="filterCustomers()"
+          class="input-field"
+          placeholder="搜索客户名称、联系人、行业..."
+        >
+      </div>
+      <div class="w-48">
+        <label class="label">客户等级</label>
+        <select 
+          [(ngModel)]="filterLevel" 
+          (change)="filterCustomers()"
+          class="input-field"
+        >
+          <option value="">全部等级</option>
+          <option *ngFor="let level of levels" [value]="level">{{ level }}级</option>
+        </select>
+      </div>
+      <div class="w-48">
+        <label class="label">客户状态</label>
+        <select 
+          [(ngModel)]="filterStatus" 
+          (change)="filterCustomers()"
+          class="input-field"
+        >
+          <option value="">全部状态</option>
+          <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="flex justify-center items-center py-20">
+    <div class="text-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+      <p class="text-gray-600">加载中...</p>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!loading">
+    <div *ngIf="filteredCustomers.length > 0; else noCustomers" class="grid gap-4">
+      <div *ngFor="let customer of filteredCustomers" class="card hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <div class="flex items-center space-x-3 mb-2">
+              <h3 class="text-lg font-semibold text-gray-800">{{ customer.name }}</h3>
+              <span class="badge" [class]="getLevelBadgeClass(customer.level)">{{ customer.level }}级</span>
+              <span class="badge" [class]="getStatusBadgeClass(customer.status)">{{ customer.status }}</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+              <div>
+                <p class="text-gray-500">行业</p>
+                <p class="text-gray-800">{{ customer.industry }}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">企业规模</p>
+                <p class="text-gray-800">{{ customer.size }}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">联系人</p>
+                <p class="text-gray-800">{{ customer.contactPerson }}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">联系方式</p>
+                <p class="text-gray-800">{{ customer.contactPhone }}</p>
+              </div>
+            </div>
+            <div class="mt-3 pt-3 border-t border-gray-100">
+              <p class="text-sm text-gray-500">{{ customer.contactEmail }} | {{ customer.address }}</p>
+            </div>
+          </div>
+          <div class="flex flex-col space-y-2 ml-6">
+            <button 
+              [routerLink]="['/customers', customer.id]"
+              class="px-3 py-1.5 text-sm text-primary-600 hover:bg-primary-50 rounded-lg transition-colors"
+            >
+              查看详情
+            </button>
+            <button 
+              (click)="openEditModal(customer)"
+              class="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+            >
+              编辑
+            </button>
+            <button 
+              (click)="deleteCustomer(customer.id)"
+              class="px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            >
+              删除
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noCustomers>
+      <div class="card text-center py-12">
+        <div class="text-6xl mb-4">👥</div>
+        <h3 class="text-lg font-medium text-gray-800 mb-2">暂无客户数据</h3>
+        <p class="text-gray-500 mb-6">点击下方按钮添加第一个客户</p>
+        <button (click)="openAddModal()" class="btn-primary">
+          新增客户
+        </button>
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <div *ngIf="showModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50" (click)="closeModal()">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-auto m-4" (click)="$event.stopPropagation()">
+      <div class="p-6 border-b border-gray-200">
+        <h3 class="text-xl font-semibold text-gray-800">
+          {{ isEditMode ? '编辑客户' : '新增客户' }}
+        </h3>
+      </div>
+      <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="p-6 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="label">客户名称 <span class="text-red-500">*</span></label>
+            <input type="text" formControlName="name" class="input-field" placeholder="请输入客户名称">
+          </div>
+          <div>
+            <label class="label">行业 <span class="text-red-500">*</span></label>
+            <select formControlName="industry" class="input-field">
+              <option value="">请选择行业</option>
+              <option *ngFor="let industry of industries" [value]="industry">{{ industry }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">企业规模 <span class="text-red-500">*</span></label>
+            <select formControlName="size" class="input-field">
+              <option value="">请选择规模</option>
+              <option *ngFor="let size of sizes" [value]="size">{{ size }}</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">客户等级 <span class="text-red-500">*</span></label>
+            <select formControlName="level" class="input-field">
+              <option *ngFor="let level of levels" [value]="level">{{ level }}级</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">联系人 <span class="text-red-500">*</span></label>
+            <input type="text" formControlName="contactPerson" class="input-field" placeholder="请输入联系人姓名">
+          </div>
+          <div>
+            <label class="label">联系电话 <span class="text-red-500">*</span></label>
+            <input type="tel" formControlName="contactPhone" class="input-field" placeholder="请输入联系电话">
+          </div>
+          <div>
+            <label class="label">联系邮箱 <span class="text-red-500">*</span></label>
+            <input type="email" formControlName="contactEmail" class="input-field" placeholder="请输入联系邮箱">
+          </div>
+          <div>
+            <label class="label">客户状态 <span class="text-red-500">*</span></label>
+            <select formControlName="status" class="input-field">
+              <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="label">公司地址</label>
+          <input type="text" formControlName="address" class="input-field" placeholder="请输入公司地址">
+        </div>
+        <div>
+          <label class="label">备注</label>
+          <textarea formControlName="notes" class="input-field h-24" placeholder="请输入备注信息"></textarea>
+        </div>
+      </form>
+      <div class="p-6 border-t border-gray-200 flex justify-end space-x-3">
+        <button (click)="closeModal()" class="btn-secondary">取消</button>
+        <button (click)="onSubmit()" [disabled]="customerForm.invalid" class="btn-primary">
+          {{ isEditMode ? '保存修改' : '创建客户' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
