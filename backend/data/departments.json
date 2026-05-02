@@ -1,0 +1,26 @@
+[
+  {
+    "id": "dept-1",
+    "name": "技术研发部",
+    "manager": "张经理",
+    "employeeCount": 8
+  },
+  {
+    "id": "dept-2",
+    "name": "产品设计部",
+    "manager": "李经理",
+    "employeeCount": 5
+  },
+  {
+    "id": "dept-3",
+    "name": "市场营销部",
+    "manager": "王经理",
+    "employeeCount": 4
+  },
+  {
+    "id": "dept-4",
+    "name": "人力资源部",
+    "manager": "赵经理",
+    "employeeCount": 3
+  }
+]

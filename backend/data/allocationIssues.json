@@ -1,0 +1,26 @@
+[
+  {
+    "id": "momzjt1pzmbsdssmms",
+    "employeeId": "emp-1",
+    "projectId": "proj-1",
+    "issueType": "over-allocated",
+    "hours": 55,
+    "period": "2026-04"
+  },
+  {
+    "id": "momzjt1p049jot1rhwuo",
+    "employeeId": "emp-3",
+    "projectId": "proj-2",
+    "issueType": "under-allocated",
+    "hours": 20,
+    "period": "2026-04"
+  },
+  {
+    "id": "momzjt1pca5rnggokio",
+    "employeeId": "emp-8",
+    "projectId": "",
+    "issueType": "idle",
+    "hours": 0,
+    "period": "2026-04"
+  }
+]

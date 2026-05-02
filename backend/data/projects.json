@@ -1,0 +1,29 @@
+[
+  {
+    "id": "proj-1",
+    "name": "智能办公系统",
+    "description": "企业级智能办公平台",
+    "startDate": "2026-01-01",
+    "endDate": "2026-06-30",
+    "status": "active",
+    "budget": 500000
+  },
+  {
+    "id": "proj-2",
+    "name": "数据分析平台",
+    "description": "大数据分析与可视化平台",
+    "startDate": "2026-02-15",
+    "endDate": "2026-08-15",
+    "status": "active",
+    "budget": 350000
+  },
+  {
+    "id": "proj-3",
+    "name": "用户管理系统",
+    "description": "统一用户身份认证系统",
+    "startDate": "2026-03-01",
+    "endDate": "2026-05-30",
+    "status": "active",
+    "budget": 200000
+  }
+]

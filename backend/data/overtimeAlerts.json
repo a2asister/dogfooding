@@ -1,0 +1,122 @@
+[
+  {
+    "id": "momzjt1phexa562xi8g",
+    "employeeId": "emp-6",
+    "date": "2026-04-10",
+    "hours": 2,
+    "reason": "项目赶工",
+    "severity": "low"
+  },
+  {
+    "id": "momzjt1pf23vpamg4o7",
+    "employeeId": "emp-5",
+    "date": "2026-04-06",
+    "hours": 4,
+    "reason": "项目赶工",
+    "severity": "high"
+  },
+  {
+    "id": "momzjt1pdw6uz81550l",
+    "employeeId": "emp-4",
+    "date": "2026-04-11",
+    "hours": 2,
+    "reason": "项目赶工",
+    "severity": "low"
+  },
+  {
+    "id": "momzjt1pf31bchoy7i",
+    "employeeId": "emp-2",
+    "date": "2026-04-14",
+    "hours": 4,
+    "reason": "项目赶工",
+    "severity": "high"
+  },
+  {
+    "id": "momzjt1ppmmzkc3rmlr",
+    "employeeId": "emp-7",
+    "date": "2026-04-02",
+    "hours": 2,
+    "reason": "项目赶工",
+    "severity": "low"
+  },
+  {
+    "id": "momzjt1pnwsjparzr6d",
+    "employeeId": "emp-5",
+    "date": "2026-04-16",
+    "hours": 3,
+    "reason": "项目赶工",
+    "severity": "medium"
+  },
+  {
+    "id": "momzjt1pdvo652wn8w",
+    "employeeId": "emp-8",
+    "date": "2026-04-23",
+    "hours": 3,
+    "reason": "项目赶工",
+    "severity": "medium"
+  },
+  {
+    "id": "momzjt1p2f376y4hyhb",
+    "employeeId": "emp-6",
+    "date": "2026-04-15",
+    "hours": 5,
+    "reason": "项目赶工",
+    "severity": "high"
+  },
+  {
+    "id": "momzjt1podc1i2lwtlc",
+    "employeeId": "emp-7",
+    "date": "2026-04-02",
+    "hours": 2,
+    "reason": "项目赶工",
+    "severity": "low"
+  },
+  {
+    "id": "momzjt1pg5jfe2qv4aj",
+    "employeeId": "emp-6",
+    "date": "2026-04-12",
+    "hours": 3,
+    "reason": "项目赶工",
+    "severity": "medium"
+  },
+  {
+    "id": "momzjt1pwfry1oscj9",
+    "employeeId": "emp-7",
+    "date": "2026-04-15",
+    "hours": 3,
+    "reason": "项目赶工",
+    "severity": "medium"
+  },
+  {
+    "id": "momzjt1p8h130ryfhim",
+    "employeeId": "emp-3",
+    "date": "2026-04-28",
+    "hours": 4,
+    "reason": "项目赶工",
+    "severity": "high"
+  },
+  {
+    "id": "momzjt1p0m2vadzhbs3c",
+    "employeeId": "emp-1",
+    "date": "2026-04-09",
+    "hours": 2,
+    "reason": "项目赶工",
+    "severity": "low"
+  },
+  {
+    "id": "momzjt1pp208y9z1ig",
+    "employeeId": "emp-3",
+    "date": "2026-04-12",
+    "hours": 4,
+    "reason": "项目赶工",
+    "severity": "high"
+  },
+  {
+    "id": "momzjt1pm3umjk7coc",
+    "employeeId": "emp-3",
+    "date": "2026-04-10",
+    "hours": 5,
+    "reason": "项目赶工",
+    "severity": "high"
+  }
+]

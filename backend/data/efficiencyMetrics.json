@@ -1,0 +1,74 @@
+[
+  {
+    "employeeId": "emp-1",
+    "workEfficiency": 0.91,
+    "overtimeRate": 0.31,
+    "taskCompletionRate": 0.78,
+    "collaborationScore": 0.54,
+    "overallScore": 0.87,
+    "period": "2026-04"
+  },
+  {
+    "employeeId": "emp-2",
+    "workEfficiency": 0.7,
+    "overtimeRate": 0.16,
+    "taskCompletionRate": 0.77,
+    "collaborationScore": 0.97,
+    "overallScore": 0.78,
+    "period": "2026-04"
+  },
+  {
+    "employeeId": "emp-3",
+    "workEfficiency": 0.66,
+    "overtimeRate": 0.29,
+    "taskCompletionRate": 0.91,
+    "collaborationScore": 0.52,
+    "overallScore": 0.66,
+    "period": "2026-04"
+  },
+  {
+    "employeeId": "emp-4",
+    "workEfficiency": 0.84,
+    "overtimeRate": 0,
+    "taskCompletionRate": 0.76,
+    "collaborationScore": 0.98,
+    "overallScore": 0.62,
+    "period": "2026-04"
+  },
+  {
+    "employeeId": "emp-5",
+    "workEfficiency": 0.97,
+    "overtimeRate": 0.33,
+    "taskCompletionRate": 0.75,
+    "collaborationScore": 0.97,
+    "overallScore": 0.76,
+    "period": "2026-04"
+  },
+  {
+    "employeeId": "emp-6",
+    "workEfficiency": 0.92,
+    "overtimeRate": 0.35,
+    "taskCompletionRate": 0.9,
+    "collaborationScore": 0.88,
+    "overallScore": 0.72,
+    "period": "2026-04"
+  },
+  {
+    "employeeId": "emp-7",
+    "workEfficiency": 0.75,
+    "overtimeRate": 0.31,
+    "taskCompletionRate": 0.83,
+    "collaborationScore": 0.79,
+    "overallScore": 0.76,
+    "period": "2026-04"
+  },
+  {
+    "employeeId": "emp-8",
+    "workEfficiency": 0.87,
+    "overtimeRate": 0.34,
+    "taskCompletionRate": 0.88,
+    "collaborationScore": 0.91,
+    "overallScore": 0.69,
+    "period": "2026-04"
+  }
+]

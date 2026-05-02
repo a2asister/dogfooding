@@ -1,0 +1,58 @@
+[
+  {
+    "id": "emp-1",
+    "name": "张三",
+    "department": "技术研发部",
+    "position": "高级工程师",
+    "avatar": ""
+  },
+  {
+    "id": "emp-2",
+    "name": "李四",
+    "department": "技术研发部",
+    "position": "中级工程师",
+    "avatar": ""
+  },
+  {
+    "id": "emp-3",
+    "name": "王五",
+    "department": "技术研发部",
+    "position": "初级工程师",
+    "avatar": ""
+  },
+  {
+    "id": "emp-4",
+    "name": "赵六",
+    "department": "技术研发部",
+    "position": "架构师",
+    "avatar": ""
+  },
+  {
+    "id": "emp-5",
+    "name": "钱七",
+    "department": "产品设计部",
+    "position": "产品经理",
+    "avatar": ""
+  },
+  {
+    "id": "emp-6",
+    "name": "孙八",
+    "department": "产品设计部",
+    "position": "UI设计师",
+    "avatar": ""
+  },
+  {
+    "id": "emp-7",
+    "name": "周九",
+    "department": "市场营销部",
+    "position": "市场总监",
+    "avatar": ""
+  },
+  {
+    "id": "emp-8",
+    "name": "吴十",
+    "department": "人力资源部",
+    "position": "HR专员",
+    "avatar": ""
+  }
+]
