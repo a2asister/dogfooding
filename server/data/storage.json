@@ -1,0 +1,56 @@
+{
+  "uploadedImages": [
+    {
+      "id": "315c40ee-d623-410f-9cda-54ea783e763a",
+      "originalName": "20260313-140205.jpg",
+      "filename": "518e6307-1743-48f3-a7e7-db9a6ef9032a.jpg",
+      "size": 44831,
+      "mimetype": "image/jpeg",
+      "uploadTime": "2026-05-02T14:15:24.220Z",
+      "url": "http://localhost:3001/uploads/518e6307-1743-48f3-a7e7-db9a6ef9032a.jpg"
+    }
+  ],
+  "processedImages": [
+    {
+      "id": "7a123df0-1376-460d-8bff-692c16403220",
+      "originalId": "315c40ee-d623-410f-9cda-54ea783e763a",
+      "originalName": "20260313-140205.jpg",
+      "processedName": "0d412e0c-88a3-44ef-ac16-8dd49d8274aa.jpg",
+      "size": 119649,
+      "dimensions": {
+        "width": 797,
+        "height": 600
+      },
+      "url": "http://localhost:3001/processed/0d412e0c-88a3-44ef-ac16-8dd49d8274aa.jpg",
+      "processType": "crop",
+      "processTime": "2026-05-02T14:16:17.279Z"
+    },
+    {
+      "id": "cfb828b4-ca25-4e7e-9ea9-c5fdf46b29c5",
+      "originalId": "315c40ee-d623-410f-9cda-54ea783e763a",
+      "originalName": "20260313-140205.jpg",
+      "processedName": "c9fa8d74-2b90-4c45-b29c-8b7bc2112a1d.webp",
+      "size": 237139,
+      "format": "webp",
+      "url": "http://localhost:3001/processed/c9fa8d74-2b90-4c45-b29c-8b7bc2112a1d.webp",
+      "processType": "convert",
+      "processTime": "2026-05-02T14:16:07.989Z"
+    },
+    {
+      "id": "bf87ca0d-e8bd-4de9-bd2f-ee0a2cb89cba",
+      "originalId": "315c40ee-d623-410f-9cda-54ea783e763a",
+      "originalName": "20260313-140205.jpg",
+      "processedName": "50d2bc57-e7e6-4166-aff2-4268b8343b45.webp",
+      "size": 237139,
+      "originalSize": 44831,
+      "compressionRate": "-428.96%",
+      "url": "http://localhost:3001/processed/50d2bc57-e7e6-4166-aff2-4268b8343b45.webp",
+      "processType": "compress",
+      "processTime": "2026-05-02T14:15:36.225Z"
+    }
+  ],
+  "settings": {
+    "defaultQuality": 80,
+    "maxFileSize": 52428800
+  }
+}
