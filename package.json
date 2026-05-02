@@ -1,0 +1,17 @@
+{
+  "name": "content-audit-platform",
+  "version": "1.0.0",
+  "description": "合规内容审核中台",
+  "scripts": {
+    "start:server": "cd server && npm start",
+    "start:client": "cd client && npm start",
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "dev": "concurrently \"npm run start:server\" \"npm run start:client\""
+  },
+  "keywords": ["audit", "compliance", "content-moderation"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
