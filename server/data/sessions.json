@@ -1,0 +1,207 @@
+[
+  {
+    "id": "session-001",
+    "eventId": "event-001",
+    "title": "2024跨年音乐会 - 第一场",
+    "date": "2024-12-31",
+    "time": "19:30",
+    "venue": "国家大剧院",
+    "totalSeats": 180,
+    "soldSeats": 0,
+    "lockedSeats": 0,
+    "availableSeats": 180,
+    "status": "active",
+    "sections": [
+      {
+        "id": "A",
+        "name": "VIP区",
+        "rows": 5,
+        "seatsPerRow": 8,
+        "price": 1280,
+        "forbidden": false
+      },
+      {
+        "id": "B",
+        "name": "A区",
+        "rows": 10,
+        "seatsPerRow": 10,
+        "price": 680,
+        "forbidden": false
+      },
+      {
+        "id": "C",
+        "name": "B区",
+        "rows": 5,
+        "seatsPerRow": 10,
+        "price": 380,
+        "forbidden": false
+      }
+    ],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "id": "session-002",
+    "eventId": "event-001",
+    "title": "2024跨年音乐会 - 第二场",
+    "date": "2024-12-31",
+    "time": "22:00",
+    "venue": "国家大剧院",
+    "totalSeats": 180,
+    "soldSeats": 0,
+    "lockedSeats": 0,
+    "availableSeats": 180,
+    "status": "active",
+    "sections": [
+      {
+        "id": "A",
+        "name": "VIP区",
+        "rows": 5,
+        "seatsPerRow": 8,
+        "price": 1280,
+        "forbidden": false
+      },
+      {
+        "id": "B",
+        "name": "A区",
+        "rows": 10,
+        "seatsPerRow": 10,
+        "price": 680,
+        "forbidden": false
+      },
+      {
+        "id": "C",
+        "name": "B区",
+        "rows": 5,
+        "seatsPerRow": 10,
+        "price": 380,
+        "forbidden": false
+      }
+    ],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "id": "session-003",
+    "eventId": "event-002",
+    "title": "经典话剧《茶馆》 - 下午场",
+    "date": "2024-11-15",
+    "time": "14:00",
+    "venue": "北京人民艺术剧院",
+    "totalSeats": 120,
+    "soldSeats": 0,
+    "lockedSeats": 0,
+    "availableSeats": 120,
+    "status": "active",
+    "sections": [
+      {
+        "id": "A",
+        "name": "前排区",
+        "rows": 6,
+        "seatsPerRow": 8,
+        "price": 480,
+        "forbidden": false
+      },
+      {
+        "id": "B",
+        "name": "中排区",
+        "rows": 6,
+        "seatsPerRow": 8,
+        "price": 280,
+        "forbidden": false
+      },
+      {
+        "id": "C",
+        "name": "后排区",
+        "rows": 3,
+        "seatsPerRow": 8,
+        "price": 180,
+        "forbidden": true
+      }
+    ],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "id": "session-004",
+    "eventId": "event-002",
+    "title": "经典话剧《茶馆》 - 晚场",
+    "date": "2024-11-15",
+    "time": "19:30",
+    "venue": "北京人民艺术剧院",
+    "totalSeats": 120,
+    "soldSeats": 0,
+    "lockedSeats": 0,
+    "availableSeats": 120,
+    "status": "active",
+    "sections": [
+      {
+        "id": "A",
+        "name": "前排区",
+        "rows": 6,
+        "seatsPerRow": 8,
+        "price": 480,
+        "forbidden": false
+      },
+      {
+        "id": "B",
+        "name": "中排区",
+        "rows": 6,
+        "seatsPerRow": 8,
+        "price": 280,
+        "forbidden": false
+      },
+      {
+        "id": "C",
+        "name": "后排区",
+        "rows": 3,
+        "seatsPerRow": 8,
+        "price": 180,
+        "forbidden": false
+      }
+    ],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "id": "session-005",
+    "eventId": "event-003",
+    "title": "芭蕾舞剧《天鹅湖》 - 第一场",
+    "date": "2024-12-20",
+    "time": "19:00",
+    "venue": "上海大剧院",
+    "totalSeats": 200,
+    "soldSeats": 0,
+    "lockedSeats": 0,
+    "availableSeats": 200,
+    "status": "active",
+    "sections": [
+      {
+        "id": "A",
+        "name": "豪华包厢",
+        "rows": 4,
+        "seatsPerRow": 5,
+        "price": 1680,
+        "forbidden": false
+      },
+      {
+        "id": "B",
+        "name": "VIP区",
+        "rows": 8,
+        "seatsPerRow": 10,
+        "price": 880,
+        "forbidden": false
+      },
+      {
+        "id": "C",
+        "name": "A区",
+        "rows": 8,
+        "seatsPerRow": 10,
+        "price": 580,
+        "forbidden": false
+      }
+    ],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]

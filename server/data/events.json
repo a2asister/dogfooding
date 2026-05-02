@@ -1,0 +1,44 @@
+[
+  {
+    "id": "event-001",
+    "title": "2024跨年音乐会",
+    "description": "一场盛大的跨年音乐盛宴，汇聚国内外知名音乐人，为您带来难忘的视听体验。",
+    "venue": "国家大剧院",
+    "address": "北京市西城区西长安街2号",
+    "startDate": "2024-12-31T19:30:00.000Z",
+    "endDate": "2024-12-31T23:59:00.000Z",
+    "organizer": "北京文化艺术中心",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Concert%20hall%20stage%20with%20orchestra%20and%20colorful%20lights%20professional%20photography&image_size=landscape_16_9",
+    "status": "active",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "id": "event-002",
+    "title": "经典话剧《茶馆》",
+    "description": "老舍先生的经典作品，展现老北京的风土人情和时代变迁。",
+    "venue": "北京人民艺术剧院",
+    "address": "北京市东城区王府井大街22号",
+    "startDate": "2024-11-15T14:00:00.000Z",
+    "endDate": "2024-11-15T17:00:00.000Z",
+    "organizer": "北京人民艺术剧院",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Classic%20Chinese%20theater%20stage%20with%20traditional%20teahouse%20set%20professional%20photography&image_size=landscape_16_9",
+    "status": "active",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "id": "event-003",
+    "title": "芭蕾舞剧《天鹅湖》",
+    "description": "俄罗斯国家芭蕾舞团倾情演绎，经典音乐与优美舞姿的完美结合。",
+    "venue": "上海大剧院",
+    "address": "上海市黄浦区人民大道300号",
+    "startDate": "2024-12-20T19:00:00.000Z",
+    "endDate": "2024-12-20T22:00:00.000Z",
+    "organizer": "上海大剧院",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Elegant%20ballet%20performance%20of%20Swan%20Lake%20with%20dancers%20in%20white%20costumes%20professional%20photography&image_size=landscape_16_9",
+    "status": "active",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
