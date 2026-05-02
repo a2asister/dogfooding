@@ -1,0 +1,54 @@
+[
+  {
+    "id": "supplier-1",
+    "name": "北京科技有限公司",
+    "contactPerson": "张三",
+    "phone": "13800138001",
+    "email": "zhangsan@bjtech.com",
+    "address": "北京市朝阳区科技园区",
+    "businessLicense": "91110000MA001ABC12",
+    "serviceType": "软件开发",
+    "description": "专注于企业级软件开发和系统集成服务",
+    "createdAt": "2024-01-15T10:30:00Z",
+    "status": "approved"
+  },
+  {
+    "id": "supplier-2",
+    "name": "上海物流服务公司",
+    "contactPerson": "李四",
+    "phone": "13900139002",
+    "email": "lisi@shlogistics.com",
+    "address": "上海市浦东新区物流中心",
+    "businessLicense": "91310000MA002DEF34",
+    "serviceType": "物流运输",
+    "description": "提供全国范围内的物流配送和仓储服务",
+    "createdAt": "2024-02-20T14:15:00Z",
+    "status": "pending"
+  },
+  {
+    "id": "supplier-3",
+    "name": "广州咨询服务有限公司",
+    "contactPerson": "王五",
+    "phone": "13700137003",
+    "email": "wangwu@gzconsult.com",
+    "address": "广州市天河区商务中心",
+    "businessLicense": "91440000MA003GHI56",
+    "serviceType": "管理咨询",
+    "description": "提供企业战略咨询和运营管理服务",
+    "createdAt": "2024-03-10T09:45:00Z",
+    "status": "approved"
+  },
+  {
+    "id": "ac4af299-6c3e-4644-90fa-08422a268abc",
+    "name": "123",
+    "contactPerson": "123",
+    "phone": "123",
+    "email": "123",
+    "address": "",
+    "businessLicense": "3333",
+    "serviceType": "软件开发",
+    "description": "",
+    "status": "pending",
+    "createdAt": "2026-05-02T01:46:44.886Z"
+  }
+]

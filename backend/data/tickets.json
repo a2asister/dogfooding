@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ticket-1",
+    "supplierId": "supplier-1",
+    "supplierName": "北京科技有限公司",
+    "ticketNumber": "GD2024001",
+    "title": "ERP系统登录问题",
+    "description": "部分用户无法登录ERP系统，提示用户名或密码错误",
+    "priority": "high",
+    "category": "技术支持",
+    "status": "open",
+    "assignee": "技术支持小王",
+    "createdBy": "用户李工",
+    "responseDeadline": "2024-05-03",
+    "resolution": "正在排查数据库连接问题",
+    "createdAt": "2024-05-02T09:00:00Z",
+    "updatedAt": "2026-05-02T01:48:27.195Z"
+  },
+  {
+    "id": "ticket-2",
+    "supplierId": "supplier-2",
+    "supplierName": "上海物流服务公司",
+    "ticketNumber": "GD2024002",
+    "title": "物流信息更新延迟",
+    "description": "货物跟踪信息更新不及时，影响客户体验",
+    "priority": "medium",
+    "category": "服务投诉",
+    "status": "open",
+    "createdBy": "客户张女士",
+    "responseDeadline": "2024-05-05",
+    "createdAt": "2024-05-02T14:15:00Z"
+  },
+  {
+    "id": "fb6bac29-345c-4339-86ff-793a299b1305",
+    "supplierId": "supplier-1",
+    "supplierName": "北京科技有限公司",
+    "ticketNumber": "GD2026468",
+    "title": "124123",
+    "description": "123",
+    "priority": "medium",
+    "category": "技术支持",
+    "createdBy": "123",
+    "responseDeadline": "",
+    "createdAt": "2026-05-02T01:48:19.727Z",
+    "status": "open"
+  }
+]

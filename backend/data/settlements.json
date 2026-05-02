@@ -1,0 +1,33 @@
+[
+  {
+    "id": "settlement-1",
+    "supplierId": "supplier-1",
+    "supplierName": "北京科技有限公司",
+    "contractId": "contract-1",
+    "contractName": "ERP系统开发服务合同",
+    "settlementNumber": "JS2024001",
+    "settlementPeriod": "2024年2月",
+    "amount": 150000,
+    "description": "合同首付款30%",
+    "status": "approved",
+    "approvedBy": "财务张经理",
+    "approvalDate": "2024-02-10T14:00:00Z",
+    "createdAt": "2024-02-05T10:00:00Z"
+  },
+  {
+    "id": "settlement-2",
+    "supplierId": "supplier-3",
+    "supplierName": "广州咨询服务有限公司",
+    "contractId": "contract-2",
+    "contractName": "战略咨询服务合同",
+    "settlementNumber": "JS2024002",
+    "settlementPeriod": "2024年3月",
+    "amount": 200000,
+    "description": "咨询服务费",
+    "status": "approved",
+    "createdAt": "2024-03-15T11:30:00Z",
+    "approvedBy": "财务审批员",
+    "approvalDate": "2026-05-02T01:48:05.808Z",
+    "updatedAt": "2026-05-02T01:48:05.818Z"
+  }
+]

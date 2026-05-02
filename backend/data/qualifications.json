@@ -1,0 +1,49 @@
+[
+  {
+    "id": "qual-1",
+    "supplierId": "supplier-1",
+    "supplierName": "北京科技有限公司",
+    "qualificationType": "软件企业认定",
+    "certificateNumber": "RJ202300123",
+    "issueDate": "2023-06-15",
+    "expiryDate": "2026-06-14",
+    "issuingAuthority": "北京市软件行业协会",
+    "status": "approved",
+    "reviewer": "审核员A",
+    "reviewDate": "2024-01-20T11:00:00Z",
+    "comments": "资质材料齐全，符合要求",
+    "createdAt": "2024-01-15T10:30:00Z"
+  },
+  {
+    "id": "qual-2",
+    "supplierId": "supplier-2",
+    "supplierName": "上海物流服务公司",
+    "qualificationType": "道路运输经营许可证",
+    "certificateNumber": "DL202300456",
+    "issueDate": "2023-08-20",
+    "expiryDate": "2027-08-19",
+    "issuingAuthority": "上海市交通委员会",
+    "status": "approved",
+    "createdAt": "2024-02-20T14:15:00Z",
+    "reviewer": "当前审核员",
+    "reviewDate": "2026-05-02T01:46:50.596Z",
+    "comments": "资质审核通过",
+    "updatedAt": "2026-05-02T01:46:50.606Z"
+  },
+  {
+    "id": "6848f1cf-2074-4b20-92b2-cbef2b993cf1",
+    "supplierId": "supplier-1",
+    "supplierName": "北京科技有限公司",
+    "qualificationType": "333",
+    "certificateNumber": "33",
+    "issueDate": "2026-05-02",
+    "expiryDate": "2026-05-31",
+    "issuingAuthority": "33",
+    "createdAt": "2026-05-02T01:46:59.979Z",
+    "status": "rejected",
+    "reviewer": "当前审核员",
+    "reviewDate": "2026-05-02T01:47:05.296Z",
+    "comments": "123",
+    "updatedAt": "2026-05-02T01:47:05.317Z"
+  }
+]

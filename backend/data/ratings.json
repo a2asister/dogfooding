@@ -1,0 +1,44 @@
+[
+  {
+    "id": "rating-1",
+    "supplierId": "supplier-1",
+    "supplierName": "北京科技有限公司",
+    "ratingPeriod": "2024-Q1",
+    "serviceQuality": 5,
+    "timeliness": 4,
+    "communication": 5,
+    "costEffectiveness": 4,
+    "overallRating": 4.5,
+    "comments": "服务质量优秀，响应及时，技术实力强",
+    "rater": "张经理",
+    "createdAt": "2024-04-05T15:30:00Z"
+  },
+  {
+    "id": "rating-2",
+    "supplierId": "supplier-3",
+    "supplierName": "广州咨询服务有限公司",
+    "ratingPeriod": "2024-Q1",
+    "serviceQuality": 4,
+    "timeliness": 5,
+    "communication": 4,
+    "costEffectiveness": 3,
+    "overallRating": 4,
+    "comments": "咨询服务专业，但价格偏高",
+    "rater": "李经理",
+    "createdAt": "2024-04-10T10:15:00Z"
+  },
+  {
+    "id": "5a9efd1c-eba6-484e-8b31-02819c40fb36",
+    "supplierId": "supplier-1",
+    "supplierName": "北京科技有限公司",
+    "ratingPeriod": "2024-Q1",
+    "serviceQuality": 3,
+    "timeliness": 1,
+    "communication": 4,
+    "costEffectiveness": 1,
+    "overallRating": 2.25,
+    "comments": "",
+    "rater": "3123123",
+    "createdAt": "2026-05-02T01:47:24.498Z"
+  }
+]

@@ -1,0 +1,51 @@
+[
+  {
+    "id": "contract-1",
+    "supplierId": "supplier-1",
+    "supplierName": "北京科技有限公司",
+    "contractNumber": "HT2024001",
+    "contractName": "ERP系统开发服务合同",
+    "contractType": "服务合同",
+    "startDate": "2024-02-01",
+    "endDate": "2024-12-31",
+    "totalAmount": 500000,
+    "paymentTerms": "分期付款：签订合同付30%，中期验收付40%，终验付30%",
+    "status": "active",
+    "signedBy": "王总",
+    "signDate": "2024-01-25",
+    "createdAt": "2024-01-25T16:00:00Z"
+  },
+  {
+    "id": "contract-2",
+    "supplierId": "supplier-3",
+    "supplierName": "广州咨询服务有限公司",
+    "contractNumber": "HT2024002",
+    "contractName": "战略咨询服务合同",
+    "contractType": "咨询合同",
+    "startDate": "2024-03-01",
+    "endDate": "2024-08-31",
+    "totalAmount": 200000,
+    "paymentTerms": "一次性付款：服务完成后支付",
+    "status": "active",
+    "signedBy": "李总",
+    "signDate": "2024-02-28",
+    "createdAt": "2024-02-28T09:30:00Z"
+  },
+  {
+    "id": "9e18a4c7-c481-4d1d-aac9-fc0b8a6f9239",
+    "contractNumber": "HT2026766",
+    "supplierId": "supplier-2",
+    "supplierName": "上海物流服务公司",
+    "contractName": "3333",
+    "contractType": "服务合同",
+    "startDate": "2026-05-02",
+    "endDate": "2026-05-03",
+    "totalAmount": 1111,
+    "paymentTerms": "",
+    "signedBy": "任我行",
+    "signDate": "2026-05-10",
+    "createdAt": "2026-05-02T01:47:57.728Z",
+    "status": "active",
+    "updatedAt": "2026-05-02T01:48:00.757Z"
+  }
+]
