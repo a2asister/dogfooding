@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* 代码编辑器背景色 */
+.code-editor {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  tab-size: 2;
+}
+
+/* 行号样式 */
+.line-number {
+  color: #64748b;
+  user-select: none;
+  text-align: right;
+  padding-right: 12px;
+  min-width: 50px;
+  border-right: 1px solid #334155;
+}
+
+/* 差异行样式 */
+.diff-line-added {
+  background-color: rgba(16, 185, 129, 0.2);
+  border-left: 3px solid #10b981;
+}
+
+.diff-line-removed {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-left: 3px solid #ef4444;
+}
+
+.diff-line-modified {
+  background-color: rgba(251, 191, 36, 0.2);
+  border-left: 3px solid #fbbf24;
+}
+
+.diff-line-unchanged {
+  background-color: transparent;
+}
+
+/* 合并按钮样式 */
+.merge-btn {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.diff-line:hover .merge-btn {
+  opacity: 1;
+}
