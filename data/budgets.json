@@ -1,0 +1,63 @@
+[
+  {
+    "id": "budget-001",
+    "departmentId": "dept-001",
+    "departmentName": "技术部",
+    "year": 2026,
+    "month": 5,
+    "totalAmount": 50000,
+    "usedAmount": 15000,
+    "locked": false,
+    "createdAt": "2026-05-02T01:35:21.758Z",
+    "updatedAt": "2026-05-02T01:35:21.758Z"
+  },
+  {
+    "id": "budget-002",
+    "departmentId": "dept-002",
+    "departmentName": "市场部",
+    "year": 2026,
+    "month": 5,
+    "totalAmount": 80000,
+    "usedAmount": 37000,
+    "locked": false,
+    "createdAt": "2026-05-02T01:35:21.758Z",
+    "updatedAt": "2026-05-02T01:36:33.589Z"
+  },
+  {
+    "id": "budget-003",
+    "departmentId": "dept-003",
+    "departmentName": "财务部",
+    "year": 2026,
+    "month": 5,
+    "totalAmount": 30000,
+    "usedAmount": 5000,
+    "locked": false,
+    "createdAt": "2026-05-02T01:35:21.758Z",
+    "updatedAt": "2026-05-02T01:35:21.758Z"
+  },
+  {
+    "id": "budget-004",
+    "departmentId": "dept-004",
+    "departmentName": "人力资源部",
+    "year": 2026,
+    "month": 5,
+    "totalAmount": 40000,
+    "usedAmount": 10000,
+    "locked": false,
+    "createdAt": "2026-05-02T01:35:21.758Z",
+    "updatedAt": "2026-05-02T01:35:21.758Z"
+  },
+  {
+    "id": "budget-005",
+    "departmentId": "dept-005",
+    "departmentName": "产品部",
+    "year": 2026,
+    "month": 5,
+    "totalAmount": 60000,
+    "usedAmount": 20000,
+    "locked": true,
+    "lockedAt": "2026-05-02T01:35:21.758Z",
+    "createdAt": "2026-05-02T01:35:21.758Z",
+    "updatedAt": "2026-05-02T01:35:21.758Z"
+  }
+]

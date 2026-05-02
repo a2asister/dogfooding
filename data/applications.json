@@ -1,0 +1,93 @@
+[
+  {
+    "id": "app-003",
+    "title": "员工培训费用",
+    "applicantId": "user-005",
+    "applicantName": "钱七",
+    "departmentId": "dept-005",
+    "departmentName": "产品部",
+    "status": "draft",
+    "totalAmount": 5000,
+    "description": "产品经理进阶培训课程费用",
+    "items": [
+      {
+        "id": "item-006",
+        "category": "培训费",
+        "description": "产品经理进阶培训课程",
+        "amount": 5000
+      }
+    ],
+    "createdAt": "2026-05-02T01:35:21.758Z",
+    "updatedAt": "2026-05-02T01:35:21.758Z"
+  },
+  {
+    "id": "app-002",
+    "title": "市场推广差旅费",
+    "applicantId": "user-003",
+    "applicantName": "王五",
+    "departmentId": "dept-002",
+    "departmentName": "市场部",
+    "status": "approved",
+    "totalAmount": 12000,
+    "description": "前往上海参加行业展会的差旅费用",
+    "items": [
+      {
+        "id": "item-003",
+        "category": "差旅费",
+        "description": "往返机票",
+        "amount": 4000
+      },
+      {
+        "id": "item-004",
+        "category": "差旅费",
+        "description": "酒店住宿 3 天",
+        "amount": 3600
+      },
+      {
+        "id": "item-005",
+        "category": "业务招待费",
+        "description": "客户招待晚餐",
+        "amount": 4400
+      }
+    ],
+    "createdAt": "2026-05-01T01:35:21.758Z",
+    "updatedAt": "2026-05-02T01:36:33.590Z",
+    "submittedAt": "2026-05-01T01:35:21.758Z",
+    "approverId": "default-approver",
+    "approverName": "系统审批",
+    "approvalComment": "同意",
+    "approvedAt": "2026-05-02T01:36:33.589Z"
+  },
+  {
+    "id": "app-001",
+    "title": "技术部办公设备采购",
+    "applicantId": "user-002",
+    "applicantName": "李四",
+    "departmentId": "dept-001",
+    "departmentName": "技术部",
+    "status": "approved",
+    "totalAmount": 8500,
+    "description": "采购鼠标、键盘、显示器等办公设备",
+    "items": [
+      {
+        "id": "item-001",
+        "category": "办公费",
+        "description": "机械键盘 x 5",
+        "amount": 2500
+      },
+      {
+        "id": "item-002",
+        "category": "办公费",
+        "description": "27寸显示器 x 2",
+        "amount": 6000
+      }
+    ],
+    "approverId": "user-001",
+    "approverName": "张三",
+    "approvalComment": "设备采购合理，批准通过",
+    "createdAt": "2026-04-29T01:35:21.758Z",
+    "updatedAt": "2026-04-30T01:35:21.758Z",
+    "submittedAt": "2026-04-29T01:35:21.758Z",
+    "approvedAt": "2026-04-30T01:35:21.758Z"
+  }
+]
