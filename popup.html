@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance Analyzer</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="lib/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="title">Performance Analyzer</h1>
+      <div class="controls">
+        <button id="refreshBtn" class="btn btn-primary">刷新数据</button>
+        <button id="clearBtn" class="btn btn-secondary">清除数据</button>
+      </div>
+    </header>
+    
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="overview">概览</button>
+      <button class="tab-btn" data-tab="longtasks">长任务</button>
+      <button class="tab-btn" data-tab="rendering">渲染耗时</button>
+      <button class="tab-btn" data-tab="memory">内存分析</button>
+    </div>
+    
+    <div class="tab-content">
+      <div id="overview" class="tab-pane active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon fps-icon">⚡</div>
+            <div class="stat-info">
+              <div class="stat-value" id="currentFps">--</div>
+              <div class="stat-label">当前FPS</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon task-icon">⚠️</div>
+            <div class="stat-info">
+              <div class="stat-value" id="longTaskCount">0</div>
+              <div class="stat-label">长任务数</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon memory-icon">💾</div>
+            <div class="stat-info">
+              <div class="stat-value" id="memoryUsage">--</div>
+              <div class="stat-label">内存使用</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon render-icon">🎨</div>
+            <div class="stat-info">
+              <div class="stat-value" id="paintCount">0</div>
+              <div class="stat-label">绘制次数</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <canvas id="fpsChart"></canvas>
+        </div>
+      </div>
+      
+      <div id="longtasks" class="tab-pane">
+        <div class="chart-container">
+          <canvas id="longTasksChart"></canvas>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>开始时间</th>
+                <th>耗时 (ms)</th>
+                <th>类型</th>
+              </tr>
+            </thead>
+            <tbody id="longTasksTable">
+              <tr>
+                <td colspan="3" class="empty-state">暂无长任务数据</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div id="rendering" class="tab-pane">
+        <div class="chart-container">
+          <canvas id="renderingChart"></canvas>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>类型</th>
+                <th>开始时间</th>
+                <th>耗时 (ms)</th>
+              </tr>
+            </thead>
+            <tbody id="renderingTable">
+              <tr>
+                <td colspan="3" class="empty-state">暂无渲染数据</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div id="memory" class="tab-pane">
+        <div class="chart-container">
+          <canvas id="memoryChart"></canvas>
+        </div>
+        <div class="memory-info">
+          <div class="memory-item">
+            <span class="memory-label">已用JS堆内存:</span>
+            <span id="usedMemory" class="memory-value">--</span>
+          </div>
+          <div class="memory-item">
+            <span class="memory-label">总JS堆内存:</span>
+            <span id="totalMemory" class="memory-value">--</span>
+          </div>
+          <div class="memory-item">
+            <span class="memory-label">JS堆内存限制:</span>
+            <span id="limitMemory" class="memory-value">--</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <p>Performance Analyzer v1.0.0</p>
+    </footer>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
