@@ -1,0 +1,224 @@
+[
+  {
+    "id": "sku-001",
+    "productId": "prod-001",
+    "specs": [
+      {
+        "name": "颜色",
+        "value": "钛金属黑"
+      },
+      {
+        "name": "内存",
+        "value": "8GB"
+      },
+      {
+        "name": "存储",
+        "value": "256GB"
+      },
+      {
+        "name": "存储",
+        "value": "512GB"
+      },
+      {
+        "name": "存储",
+        "value": "1TB"
+      }
+    ],
+    "price": 9999,
+    "stock": 50,
+    "image": "",
+    "createdAt": "2024-05-01T10:00:00.000Z",
+    "updatedAt": "2026-05-03T01:11:05.452Z"
+  },
+  {
+    "id": "sku-002",
+    "productId": "prod-001",
+    "specs": [
+      {
+        "name": "颜色",
+        "value": "钛金属黑"
+      },
+      {
+        "name": "内存",
+        "value": "8GB"
+      },
+      {
+        "name": "存储",
+        "value": "512GB"
+      }
+    ],
+    "price": 10999,
+    "stock": 50,
+    "image": "",
+    "createdAt": "2024-05-01T10:05:00.000Z",
+    "updatedAt": "2024-05-01T10:05:00.000Z"
+  },
+  {
+    "id": "sku-003",
+    "productId": "prod-001",
+    "specs": [
+      {
+        "name": "颜色",
+        "value": "钛金属蓝"
+      },
+      {
+        "name": "内存",
+        "value": "8GB"
+      },
+      {
+        "name": "存储",
+        "value": "256GB"
+      }
+    ],
+    "price": 9999,
+    "stock": 25,
+    "image": "",
+    "createdAt": "2024-05-01T10:10:00.000Z",
+    "updatedAt": "2024-05-01T10:10:00.000Z"
+  },
+  {
+    "id": "sku-004",
+    "productId": "prod-001",
+    "specs": [
+      {
+        "name": "颜色",
+        "value": "钛金属蓝"
+      },
+      {
+        "name": "内存",
+        "value": "8GB"
+      },
+      {
+        "name": "存储",
+        "value": "512GB"
+      }
+    ],
+    "price": 10999,
+    "stock": 20,
+    "image": "",
+    "createdAt": "2024-05-01T10:15:00.000Z",
+    "updatedAt": "2024-05-01T10:15:00.000Z"
+  },
+  {
+    "id": "sku-005",
+    "productId": "prod-002",
+    "specs": [
+      {
+        "name": "颜色",
+        "value": "深空灰"
+      },
+      {
+        "name": "芯片",
+        "value": "M3 Pro"
+      },
+      {
+        "name": "存储",
+        "value": "512GB"
+      }
+    ],
+    "price": 14999,
+    "stock": 15,
+    "image": "",
+    "createdAt": "2024-05-02T14:30:00.000Z",
+    "updatedAt": "2024-05-02T14:30:00.000Z"
+  },
+  {
+    "id": "sku-006",
+    "productId": "prod-002",
+    "specs": [
+      {
+        "name": "颜色",
+        "value": "银色"
+      },
+      {
+        "name": "芯片",
+        "value": "M3 Pro"
+      },
+      {
+        "name": "存储",
+        "value": "1TB"
+      }
+    ],
+    "price": 17999,
+    "stock": 8,
+    "image": "",
+    "createdAt": "2024-05-02T14:35:00.000Z",
+    "updatedAt": "2024-05-02T14:35:00.000Z"
+  },
+  {
+    "id": "sku-007",
+    "productId": "prod-003",
+    "specs": [
+      {
+        "name": "颜色",
+        "value": "白色"
+      },
+      {
+        "name": "尺码",
+        "value": "S"
+      }
+    ],
+    "price": 99,
+    "stock": 100,
+    "image": "",
+    "createdAt": "2024-05-03T09:15:00.000Z",
+    "updatedAt": "2024-05-03T09:15:00.000Z"
+  },
+  {
+    "id": "sku-008",
+    "productId": "prod-003",
+    "specs": [
+      {
+        "name": "颜色",
+        "value": "白色"
+      },
+      {
+        "name": "尺码",
+        "value": "M"
+      }
+    ],
+    "price": 99,
+    "stock": 120,
+    "image": "",
+    "createdAt": "2024-05-03T09:20:00.000Z",
+    "updatedAt": "2024-05-03T09:20:00.000Z"
+  },
+  {
+    "id": "sku-009",
+    "productId": "prod-003",
+    "specs": [
+      {
+        "name": "颜色",
+        "value": "白色"
+      },
+      {
+        "name": "尺码",
+        "value": "L"
+      }
+    ],
+    "price": 99,
+    "stock": 80,
+    "image": "",
+    "createdAt": "2024-05-03T09:25:00.000Z",
+    "updatedAt": "2024-05-03T09:25:00.000Z"
+  },
+  {
+    "id": "sku-010",
+    "productId": "prod-003",
+    "specs": [
+      {
+        "name": "颜色",
+        "value": "黑色"
+      },
+      {
+        "name": "尺码",
+        "value": "M"
+      }
+    ],
+    "price": 99,
+    "stock": 95,
+    "image": "",
+    "createdAt": "2024-05-03T09:30:00.000Z",
+    "updatedAt": "2024-05-03T09:30:00.000Z"
+  }
+]

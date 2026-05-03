@@ -1,0 +1,35 @@
+[
+  {
+    "id": "prod-001",
+    "name": "iPhone 15 Pro Max",
+    "description": "苹果最新旗舰手机，钛金属边框，A17 Pro芯片",
+    "price": 9999,
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=iPhone%2015%20Pro%20Max%20智能手机%20科技感%20蓝色&image_size=square",
+    "category": "手机",
+    "specs": ["颜色", "内存", "存储"],
+    "createdAt": "2024-05-01T10:00:00.000Z",
+    "updatedAt": "2024-05-01T10:00:00.000Z"
+  },
+  {
+    "id": "prod-002",
+    "name": "MacBook Pro 14寸",
+    "description": "M3 Pro芯片，专业级性能，超长续航",
+    "price": 14999,
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=MacBook%20Pro%2014寸%20笔记本电脑%20深空灰%20办公&image_size=square",
+    "category": "笔记本",
+    "specs": ["颜色", "芯片", "存储"],
+    "createdAt": "2024-05-02T14:30:00.000Z",
+    "updatedAt": "2024-05-02T14:30:00.000Z"
+  },
+  {
+    "id": "prod-003",
+    "name": "时尚休闲T恤",
+    "description": "100%纯棉面料，舒适透气，多色可选",
+    "price": 99,
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=白色%20休闲T恤%20男装%20简约%20时尚&image_size=square",
+    "category": "服装",
+    "specs": ["颜色", "尺码"],
+    "createdAt": "2024-05-03T09:15:00.000Z",
+    "updatedAt": "2024-05-03T09:15:00.000Z"
+  }
+]
