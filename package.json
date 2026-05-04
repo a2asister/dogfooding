@@ -1,0 +1,29 @@
+{
+  "name": "ecommerce-merchant-backend",
+  "version": "1.0.0",
+  "description": "电商商家后台系统 - 微前端+微服务架构",
+  "scripts": {
+    "start": "concurrently \"npm run start:container\" \"npm run start:products\" \"npm run start:orders\" \"npm run start:api-gateway\" \"npm run start:product-service\" \"npm run start:order-service\"",
+    "start:container": "cd frontend/container && npm run dev",
+    "start:products": "cd frontend/micro-apps/products && npm run dev",
+    "start:orders": "cd frontend/micro-apps/orders && npm run dev",
+    "start:api-gateway": "cd backend/api-gateway && npm run dev",
+    "start:product-service": "cd backend/services/product-service && npm run dev",
+    "start:order-service": "cd backend/services/order-service && npm run dev",
+    "install:all": "npm install && cd frontend/container && npm install && cd ../micro-apps/products && npm install && cd ../orders && npm install && cd ../../../backend/api-gateway && npm install && cd ../services/product-service && npm install && cd ../order-service && npm install"
+  },
+  "keywords": [
+    "ecommerce",
+    "merchant",
+    "backend",
+    "micro-frontend",
+    "microservice",
+    "vue",
+    "express"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

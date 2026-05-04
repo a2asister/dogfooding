@@ -1,0 +1,213 @@
+[
+  {
+    "id": 1,
+    "name": "iPhone 15 Pro Max 256GB 黑色钛金属",
+    "category": "digital",
+    "price": 9999,
+    "originalPrice": 10999,
+    "stock": 100,
+    "sales": 256,
+    "status": "active",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=iPhone%2015%20Pro%20Max%20smartphone%20product%20photo%20on%20white%20background&image_size=square",
+    "images": [],
+    "description": "这是一款高端智能手机，采用最新的A17 Pro芯片，钛金属边框设计，支持USB-C接口，配备4800万像素主摄，支持ProRes视频录制。",
+    "specs": {
+      "brand": "Apple",
+      "color": "黑色钛金属",
+      "storage": "256GB",
+      "cpu": "A17 Pro"
+    },
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-04T08:30:00Z"
+  },
+  {
+    "id": 2,
+    "name": "MacBook Pro 14英寸 M3 Pro 芯片",
+    "category": "digital",
+    "price": 14999,
+    "originalPrice": 15999,
+    "stock": 50,
+    "sales": 128,
+    "status": "active",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=MacBook%20Pro%20laptop%20product%20photo%20on%20white%20background&image_size=square",
+    "images": [],
+    "description": "MacBook Pro采用M3 Pro芯片，性能强劲，续航持久，配备Liquid Retina XDR显示屏，支持ProMotion自适应刷新率技术。",
+    "specs": {
+      "brand": "Apple",
+      "screen": "14英寸",
+      "cpu": "M3 Pro",
+      "ram": "18GB",
+      "storage": "512GB SSD"
+    },
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-04T08:30:00Z"
+  },
+  {
+    "id": 3,
+    "name": "夏季新款男士休闲T恤纯棉圆领",
+    "category": "clothing",
+    "price": 99,
+    "originalPrice": 199,
+    "stock": 500,
+    "sales": 1024,
+    "status": "active",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=men%20casual%20t-shirt%20product%20photo%20on%20white%20background&image_size=square",
+    "images": [],
+    "description": "100%纯棉面料，舒适透气，简约百搭，多色可选。",
+    "specs": {
+      "material": "100%纯棉",
+      "sleeve": "短袖",
+      "neckline": "圆领",
+      "fit": "常规版型"
+    },
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-04T08:30:00Z"
+  },
+  {
+    "id": 4,
+    "name": "进口有机坚果礼盒装 混合坚果",
+    "category": "food",
+    "price": 168,
+    "originalPrice": 238,
+    "stock": 200,
+    "sales": 356,
+    "status": "active",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=premium%20nuts%20gift%20box%20product%20photo%20on%20white%20background&image_size=square",
+    "images": [],
+    "description": "精选进口有机坚果，包含夏威夷果、碧根果、腰果、杏仁等，营养丰富，送礼佳品。",
+    "specs": {
+      "weight": "1000g",
+      "origin": "进口",
+      "shelfLife": "12个月",
+      "storage": "阴凉干燥处保存"
+    },
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-04T08:30:00Z"
+  },
+  {
+    "id": 5,
+    "name": "北欧风格简约实木餐桌 长方形",
+    "category": "home",
+    "price": 2999,
+    "originalPrice": 3999,
+    "stock": 30,
+    "sales": 45,
+    "status": "inactive",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Nordic%20style%20solid%20wood%20dining%20table%20product%20photo%20on%20white%20background&image_size=square",
+    "images": [],
+    "description": "北欧简约风格，进口橡木制作，环保水性漆，健康安全。",
+    "specs": {
+      "material": "橡木",
+      "size": "160*80*75cm",
+      "style": "北欧简约",
+      "color": "原木色"
+    },
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-04T08:30:00Z"
+  },
+  {
+    "id": 6,
+    "name": "大牌同款保湿精华液 补水抗皱",
+    "category": "beauty",
+    "price": 299,
+    "originalPrice": 599,
+    "stock": 0,
+    "sales": 892,
+    "status": "soldout",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20skincare%20serum%20bottle%20product%20photo%20on%20white%20background&image_size=square",
+    "images": [],
+    "description": "玻尿酸精华，深层补水，改善肌肤干燥，淡化细纹，焕发年轻光彩。",
+    "specs": {
+      "volume": "30ml",
+      "suitableSkin": "所有肤质",
+      "effects": "补水保湿、抗皱紧致",
+      "expiry": "3年"
+    },
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-04T08:30:00Z"
+  },
+  {
+    "id": 7,
+    "name": "AirPods Pro 2 主动降噪耳机",
+    "category": "digital",
+    "price": 1899,
+    "originalPrice": 1999,
+    "stock": 80,
+    "sales": 512,
+    "status": "active",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=wireless%20earbuds%20product%20photo%20on%20white%20background&image_size=square",
+    "images": [],
+    "description": "全新H2芯片，主动降噪，自适应通透模式，个性化空间音频，续航长达30小时。",
+    "specs": {
+      "brand": "Apple",
+      "chip": "H2",
+      "battery": "30小时",
+      "features": "主动降噪、空间音频"
+    },
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-04T08:30:00Z"
+  },
+  {
+    "id": 8,
+    "name": "女士夏季连衣裙 雪纺碎花中长款",
+    "category": "clothing",
+    "price": 259,
+    "originalPrice": 399,
+    "stock": 150,
+    "sales": 678,
+    "status": "active",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=women%20summer%20floral%20dress%20product%20photo%20on%20white%20background&image_size=square",
+    "images": [],
+    "description": "优雅雪纺面料，碎花设计，中长款版型，显瘦遮肉，适合夏季穿着。",
+    "specs": {
+      "material": "雪纺",
+      "length": "中长款",
+      "style": "碎花",
+      "sleeve": "短袖"
+    },
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-04T08:30:00Z"
+  },
+  {
+    "id": 9,
+    "name": "进口牛排套餐 原切菲力西冷",
+    "category": "food",
+    "price": 399,
+    "originalPrice": 599,
+    "stock": 100,
+    "sales": 234,
+    "status": "active",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=premium%20steak%20package%20product%20photo%20on%20white%20background&image_size=square",
+    "images": [],
+    "description": "精选澳洲进口牛肉，原切菲力和西冷，肉质鲜嫩多汁，口感极佳。",
+    "specs": {
+      "origin": "澳洲",
+      "cuts": "菲力、西冷",
+      "weight": "1000g",
+      "storage": "-18℃冷冻保存"
+    },
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-04T08:30:00Z"
+  },
+  {
+    "id": 10,
+    "name": "智能落地台灯 护眼阅读灯",
+    "category": "home",
+    "price": 199,
+    "originalPrice": 299,
+    "stock": 200,
+    "sales": 456,
+    "status": "active",
+    "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=smart%20desk%20lamp%20product%20photo%20on%20white%20background&image_size=square",
+    "images": [],
+    "description": "LED护眼灯，无频闪，多档位亮度调节，触控开关，USB充电接口。",
+    "specs": {
+      "lightSource": "LED",
+      "brightness": "多档位调节",
+      "power": "USB供电",
+      "colorTemp": "3000K-6000K"
+    },
+    "createdAt": "2024-05-01T10:00:00Z",
+    "updatedAt": "2024-05-04T08:30:00Z"
+  }
+]

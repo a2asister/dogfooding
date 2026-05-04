@@ -1,0 +1,178 @@
+[
+  {
+    "id": 1,
+    "orderNo": "ORD202405040001",
+    "customerId": 1001,
+    "customerName": "张三",
+    "customerPhone": "13800138001",
+    "shippingAddress": "北京市朝阳区XX街道XX小区XX号楼XX单元XX室",
+    "products": [
+      {
+        "productId": 1,
+        "name": "iPhone 15 Pro Max 256GB 黑色钛金属",
+        "price": 9999,
+        "quantity": 1,
+        "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=iPhone%2015%20Pro%20Max%20smartphone%20product%20photo%20on%20white%20background&image_size=square"
+      },
+      {
+        "productId": 7,
+        "name": "AirPods Pro 2 主动降噪耳机",
+        "price": 1899,
+        "quantity": 1,
+        "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=wireless%20earbuds%20product%20photo%20on%20white%20background&image_size=square"
+      }
+    ],
+    "totalAmount": 11898,
+    "shippingFee": 0,
+    "couponDiscount": 100,
+    "payAmount": 11798,
+    "payMethod": "alipay",
+    "payTime": "2024-05-04T10:35:00Z",
+    "status": "pending_shipment",
+    "logisticsCompany": "",
+    "logisticsNo": "",
+    "shipTime": null,
+    "deliveryTime": null,
+    "completeTime": null,
+    "cancelTime": null,
+    "cancelReason": null,
+    "remark": "请尽快发货",
+    "createdAt": "2024-05-04T10:30:00Z",
+    "updatedAt": "2024-05-04T10:35:00Z"
+  },
+  {
+    "id": 2,
+    "orderNo": "ORD202405040002",
+    "customerId": 1002,
+    "customerName": "李四",
+    "customerPhone": "13800138002",
+    "shippingAddress": "上海市浦东新区XX路XX号XX大厦XX室",
+    "products": [
+      {
+        "productId": 3,
+        "name": "夏季新款男士休闲T恤纯棉圆领",
+        "price": 99,
+        "quantity": 2,
+        "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=men%20casual%20t-shirt%20product%20photo%20on%20white%20background&image_size=square"
+      }
+    ],
+    "totalAmount": 198,
+    "shippingFee": 10,
+    "couponDiscount": 0,
+    "payAmount": 208,
+    "payMethod": "wechat",
+    "payTime": null,
+    "status": "pending_payment",
+    "logisticsCompany": "",
+    "logisticsNo": "",
+    "shipTime": null,
+    "deliveryTime": null,
+    "completeTime": null,
+    "cancelTime": null,
+    "cancelReason": null,
+    "remark": "",
+    "createdAt": "2024-05-04T11:20:00Z",
+    "updatedAt": "2024-05-04T11:20:00Z"
+  },
+  {
+    "id": 3,
+    "orderNo": "ORD202405040003",
+    "customerId": 1003,
+    "customerName": "王五",
+    "customerPhone": "13800138003",
+    "shippingAddress": "广州市天河区XX街道XX小区XX栋XX房",
+    "products": [
+      {
+        "productId": 2,
+        "name": "MacBook Pro 14英寸 M3 Pro 芯片",
+        "price": 14999,
+        "quantity": 1,
+        "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=MacBook%20Pro%20laptop%20product%20photo%20on%20white%20background&image_size=square"
+      }
+    ],
+    "totalAmount": 14999,
+    "shippingFee": 0,
+    "couponDiscount": 500,
+    "payAmount": 14499,
+    "payMethod": "alipay",
+    "payTime": "2024-05-03T14:20:00Z",
+    "status": "shipped",
+    "logisticsCompany": "顺丰速运",
+    "logisticsNo": "SF1234567890123",
+    "shipTime": "2024-05-03T16:00:00Z",
+    "deliveryTime": null,
+    "completeTime": null,
+    "cancelTime": null,
+    "cancelReason": null,
+    "remark": "需要发票",
+    "createdAt": "2024-05-03T14:15:00Z",
+    "updatedAt": "2024-05-03T16:00:00Z"
+  },
+  {
+    "id": 4,
+    "orderNo": "ORD202405040004",
+    "customerId": 1004,
+    "customerName": "赵六",
+    "customerPhone": "13800138004",
+    "shippingAddress": "深圳市南山区XX科技园XX栋XX层",
+    "products": [
+      {
+        "productId": 4,
+        "name": "进口有机坚果礼盒装 混合坚果",
+        "price": 168,
+        "quantity": 3,
+        "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=premium%20nuts%20gift%20box%20product%20photo%20on%20white%20background&image_size=square"
+      }
+    ],
+    "totalAmount": 504,
+    "shippingFee": 0,
+    "couponDiscount": 50,
+    "payAmount": 454,
+    "payMethod": "wechat",
+    "payTime": "2024-05-02T10:00:00Z",
+    "status": "completed",
+    "logisticsCompany": "圆通速递",
+    "logisticsNo": "YT9876543210987",
+    "shipTime": "2024-05-02T14:30:00Z",
+    "deliveryTime": "2024-05-03T09:00:00Z",
+    "completeTime": "2024-05-03T18:00:00Z",
+    "cancelTime": null,
+    "cancelReason": null,
+    "remark": "",
+    "createdAt": "2024-05-02T09:45:00Z",
+    "updatedAt": "2024-05-03T18:00:00Z"
+  },
+  {
+    "id": 5,
+    "orderNo": "ORD202405040005",
+    "customerId": 1005,
+    "customerName": "孙七",
+    "customerPhone": "13800138005",
+    "shippingAddress": "杭州市西湖区XX路XX号XX小区XX单元",
+    "products": [
+      {
+        "productId": 8,
+        "name": "女士夏季连衣裙 雪纺碎花中长款",
+        "price": 259,
+        "quantity": 1,
+        "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=women%20summer%20floral%20dress%20product%20photo%20on%20white%20background&image_size=square"
+      }
+    ],
+    "totalAmount": 259,
+    "shippingFee": 8,
+    "couponDiscount": 0,
+    "payAmount": 267,
+    "payMethod": null,
+    "status": "cancelled",
+    "logisticsCompany": "",
+    "logisticsNo": "",
+    "shipTime": null,
+    "deliveryTime": null,
+    "completeTime": null,
+    "cancelTime": "2024-05-01T17:00:00Z",
+    "cancelReason": "用户主动取消订单",
+    "remark": "",
+    "createdAt": "2024-05-01T16:30:00Z",
+    "updatedAt": "2024-05-01T17:00:00Z"
+  }
+]
