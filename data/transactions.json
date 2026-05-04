@@ -1,0 +1,68 @@
+{
+  "transactions": [
+    {
+      "id": "TXN001",
+      "transactionType": "transfer",
+      "transactionTypeName": "转账",
+      "fromAccountId": "ACC001",
+      "fromAccountNumber": "6222021234567890123",
+      "toAccountId": "ACC003",
+      "toAccountNumber": "6222021234567890789",
+      "amount": 10000.00,
+      "currency": "CNY",
+      "status": "success",
+      "createTime": "2024-05-01T10:30:00Z",
+      "completeTime": "2024-05-01T10:30:05Z",
+      "description": "日常转账",
+      "channel": "mobile",
+      "fee": 0.00
+    },
+    {
+      "id": "TXN002",
+      "transactionType": "deposit",
+      "transactionTypeName": "存款",
+      "toAccountId": "ACC002",
+      "toAccountNumber": "6222021234567890456",
+      "amount": 5000.00,
+      "currency": "CNY",
+      "status": "success",
+      "createTime": "2024-05-02T09:15:00Z",
+      "completeTime": "2024-05-02T09:15:00Z",
+      "description": "现金存款",
+      "channel": "counter",
+      "fee": 0.00
+    },
+    {
+      "id": "TXN003",
+      "transactionType": "withdraw",
+      "transactionTypeName": "取款",
+      "fromAccountId": "ACC004",
+      "fromAccountNumber": "6222021234567890321",
+      "amount": 20000.00,
+      "currency": "CNY",
+      "status": "success",
+      "createTime": "2024-05-03T14:45:00Z",
+      "completeTime": "2024-05-03T14:45:00Z",
+      "description": "ATM取款",
+      "channel": "atm",
+      "fee": 0.00
+    },
+    {
+      "id": "TXN004",
+      "transactionType": "transfer",
+      "transactionTypeName": "转账",
+      "fromAccountId": "ACC001",
+      "fromAccountNumber": "6222021234567890123",
+      "toAccountId": "ACC002",
+      "toAccountNumber": "6222021234567890456",
+      "amount": 3000.00,
+      "currency": "CNY",
+      "status": "pending",
+      "createTime": "2024-05-04T08:00:00Z",
+      "completeTime": null,
+      "description": "定期转账",
+      "channel": "web",
+      "fee": 0.00
+    }
+  ]
+}

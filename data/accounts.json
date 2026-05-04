@@ -1,0 +1,64 @@
+{
+  "accounts": [
+    {
+      "id": "ACC001",
+      "customerId": "CUST001",
+      "accountNumber": "6222021234567890123",
+      "accountType": "savings",
+      "accountTypeName": "储蓄账户",
+      "currency": "CNY",
+      "balance": 150000.00,
+      "availableBalance": 148000.00,
+      "frozenAmount": 2000.00,
+      "status": "active",
+      "openDate": "2023-01-15T10:00:00Z",
+      "branch": "北京总行营业部",
+      "interestRate": 0.025
+    },
+    {
+      "id": "ACC002",
+      "customerId": "CUST001",
+      "accountNumber": "6222021234567890456",
+      "accountType": "current",
+      "accountTypeName": "活期账户",
+      "currency": "CNY",
+      "balance": 50000.00,
+      "availableBalance": 50000.00,
+      "frozenAmount": 0.00,
+      "status": "active",
+      "openDate": "2023-03-20T14:00:00Z",
+      "branch": "北京朝阳支行",
+      "interestRate": 0.003
+    },
+    {
+      "id": "ACC003",
+      "customerId": "CUST002",
+      "accountNumber": "6222021234567890789",
+      "accountType": "savings",
+      "accountTypeName": "储蓄账户",
+      "currency": "CNY",
+      "balance": 350000.00,
+      "availableBalance": 350000.00,
+      "frozenAmount": 0.00,
+      "status": "active",
+      "openDate": "2023-02-20T14:30:00Z",
+      "branch": "上海浦东分行",
+      "interestRate": 0.025
+    },
+    {
+      "id": "ACC004",
+      "customerId": "CUST003",
+      "accountNumber": "6222021234567890321",
+      "accountType": "current",
+      "accountTypeName": "活期账户",
+      "currency": "CNY",
+      "balance": 1250000.00,
+      "availableBalance": 1250000.00,
+      "frozenAmount": 0.00,
+      "status": "active",
+      "openDate": "2022-11-10T09:15:00Z",
+      "branch": "广州天河支行",
+      "interestRate": 0.003
+    }
+  ]
+}

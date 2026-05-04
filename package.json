@@ -1,0 +1,33 @@
+{
+  "name": "bank-core-system",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "services/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "concurrently \"npm:start:*\"",
+    "start:main": "cd packages/main-app && npm run dev",
+    "start:account-app": "cd packages/account-app && npm run dev",
+    "start:transaction-app": "cd packages/transaction-app && npm run dev",
+    "start:wealth-app": "cd packages/wealth-app && npm run dev",
+    "start:loan-app": "cd packages/loan-app && npm run dev",
+    "start:credit-card-app": "cd packages/credit-card-app && npm run dev",
+    "start:risk-app": "cd packages/risk-app && npm run dev",
+    "start:report-app": "cd packages/report-app && npm run dev",
+    "start:customer-app": "cd packages/customer-app && npm run dev",
+    "start:logger": "cd services/logger-service && npm run dev",
+    "start:account": "cd services/account-service && npm run dev",
+    "start:transaction": "cd services/transaction-service && npm run dev",
+    "start:wealth": "cd services/wealth-service && npm run dev",
+    "start:loan": "cd services/loan-service && npm run dev",
+    "start:credit-card": "cd services/credit-card-service && npm run dev",
+    "start:risk": "cd services/risk-service && npm run dev",
+    "start:report": "cd services/report-service && npm run dev",
+    "start:customer": "cd services/customer-service && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

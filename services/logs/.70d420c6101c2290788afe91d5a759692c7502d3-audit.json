@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/services/logs/.70d420c6101c2290788afe91d5a759692c7502d3-audit.json",
+    "files": [
+        {
+            "date": 1777897284750,
+            "name": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/services/logs/2026-05-04.log",
+            "hash": "973b573a5934269bb83d8723ca9769e0b75c30e9b75d7618359432d5d7e80de2"
+        }
+    ],
+    "hashType": "sha256"
+}

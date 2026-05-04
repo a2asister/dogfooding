@@ -1,0 +1,93 @@
+{
+  "dailyReports": [
+    {
+      "id": "DR20240501",
+      "reportDate": "2024-05-01",
+      "summary": {
+        "totalTransactions": 1250,
+        "totalTransactionAmount": 5250000.00,
+        "newCustomers": 25,
+        "newAccounts": 32,
+        "totalLoans": 3,
+        "totalLoanAmount": 6600000.00
+      },
+      "transactionBreakdown": {
+        "transfer": { "count": 450, "amount": 3500000.00 },
+        "deposit": { "count": 300, "amount": 800000.00 },
+        "withdraw": { "count": 250, "amount": 450000.00 },
+        "payment": { "count": 250, "amount": 500000.00 }
+      },
+      "riskMetrics": {
+        "riskAlerts": 3,
+        "fraudAttempts": 1,
+        "transactionDeclines": 15
+      },
+      "generateTime": "2024-05-02T00:05:00Z"
+    },
+    {
+      "id": "DR20240502",
+      "reportDate": "2024-05-02",
+      "summary": {
+        "totalTransactions": 1180,
+        "totalTransactionAmount": 4800000.00,
+        "newCustomers": 22,
+        "newAccounts": 28,
+        "totalLoans": 1,
+        "totalLoanAmount": 500000.00
+      },
+      "transactionBreakdown": {
+        "transfer": { "count": 420, "amount": 3200000.00 },
+        "deposit": { "count": 280, "amount": 750000.00 },
+        "withdraw": { "count": 230, "amount": 400000.00 },
+        "payment": { "count": 250, "amount": 450000.00 }
+      },
+      "riskMetrics": {
+        "riskAlerts": 2,
+        "fraudAttempts": 0,
+        "transactionDeclines": 12
+      },
+      "generateTime": "2024-05-03T00:05:00Z"
+    }
+  ],
+  "monthlyReports": [
+    {
+      "id": "MR202404",
+      "reportMonth": "2024-04",
+      "summary": {
+        "totalTransactions": 35000,
+        "totalTransactionAmount": 145000000.00,
+        "newCustomers": 850,
+        "newAccounts": 1050,
+        "totalLoans": 45,
+        "totalLoanAmount": 95000000.00
+      },
+      "financialMetrics": {
+        "totalAssets": 5200000000.00,
+        "totalDeposits": 4500000000.00,
+        "totalLoansOutstanding": 2800000000.00,
+        "netInterestIncome": 85000000.00,
+        "nonInterestIncome": 12000000.00
+      },
+      "customerSegmentation": {
+        "retail": { "count": 750, "percentage": 88.2 },
+        "business": { "count": 100, "percentage": 11.8 }
+      },
+      "generateTime": "2024-05-01T02:00:00Z"
+    }
+  ],
+  "customReports": [
+    {
+      "id": "CR001",
+      "name": "高净值客户分析报告",
+      "type": "customer_analysis",
+      "description": "分析资产超过100万的客户",
+      "filters": {
+        "assetMin": 1000000.00,
+        "riskLevel": "A"
+      },
+      "createTime": "2024-04-20T10:00:00Z",
+      "lastRunTime": "2024-05-01T08:00:00Z",
+      "status": "ready"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "wealthProducts": [
+    {
+      "id": "WP001",
+      "name": "稳健理财A",
+      "code": "WPA2024",
+      "type": "fixed",
+      "typeName": "固定收益",
+      "riskLevel": "R1",
+      "riskLevelName": "低风险",
+      "minimumInvestment": 10000.00,
+      "expectedReturn": 0.035,
+      "term": 90,
+      "termUnit": "day",
+      "status": "active",
+      "totalAmount": 50000000.00,
+      "soldAmount": 35000000.00,
+      "startDate": "2024-04-01T00:00:00Z",
+      "endDate": "2024-06-30T23:59:59Z",
+      "description": "稳健型理财产品，适合风险厌恶型投资者"
+    },
+    {
+      "id": "WP002",
+      "name": "平衡增长B",
+      "code": "WPB2024",
+      "type": "mixed",
+      "typeName": "混合收益",
+      "riskLevel": "R2",
+      "riskLevelName": "中低风险",
+      "minimumInvestment": 50000.00,
+      "expectedReturn": 0.055,
+      "term": 180,
+      "termUnit": "day",
+      "status": "active",
+      "totalAmount": 100000000.00,
+      "soldAmount": 60000000.00,
+      "startDate": "2024-03-15T00:00:00Z",
+      "endDate": "2024-09-11T23:59:59Z",
+      "description": "平衡型理财产品，兼顾收益与风险"
+    },
+    {
+      "id": "WP003",
+      "name": "进取增长C",
+      "code": "WPC2024",
+      "type": "equity",
+      "typeName": "权益类",
+      "riskLevel": "R3",
+      "riskLevelName": "中风险",
+      "minimumInvestment": 100000.00,
+      "expectedReturn": 0.085,
+      "term": 365,
+      "termUnit": "day",
+      "status": "active",
+      "totalAmount": 80000000.00,
+      "soldAmount": 40000000.00,
+      "startDate": "2024-01-01T00:00:00Z",
+      "endDate": "2024-12-31T23:59:59Z",
+      "description": "进取型理财产品，追求较高收益"
+    }
+  ],
+  "wealthInvestments": [
+    {
+      "id": "INV001",
+      "customerId": "CUST001",
+      "productId": "WP001",
+      "productName": "稳健理财A",
+      "investAmount": 20000.00,
+      "currentValue": 20120.00,
+      "expectedReturn": 0.035,
+      "investDate": "2024-04-15T10:00:00Z",
+      "maturityDate": "2024-07-14T23:59:59Z",
+      "status": "active"
+    },
+    {
+      "id": "INV002",
+      "customerId": "CUST002",
+      "productId": "WP002",
+      "productName": "平衡增长B",
+      "investAmount": 100000.00,
+      "currentValue": 102500.00,
+      "expectedReturn": 0.055,
+      "investDate": "2024-03-20T14:00:00Z",
+      "maturityDate": "2024-09-16T23:59:59Z",
+      "status": "active"
+    }
+  ]
+}

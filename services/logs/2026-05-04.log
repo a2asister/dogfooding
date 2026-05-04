@@ -1,0 +1,128 @@
+{"level":"info","message":"Logger service running on port 4000","service":"logger-service","timestamp":"2026-05-04 20:21:24"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:21:24"}
+{"data":{},"level":"info","message":"Transaction service started on port 4002","service":"logger-service","timestamp":"2026-05-04 20:21:24"}
+{"level":"info","message":"Logger service running on port 4000","service":"logger-service","timestamp":"2026-05-04 20:24:15"}
+{"data":{},"level":"info","message":"Wealth service started on port 4003","service":"logger-service","timestamp":"2026-05-04 20:24:15"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:24:15"}
+{"level":"info","message":"Logger service running on port 4000","service":"logger-service","timestamp":"2026-05-04 20:26:25"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:26:25"}
+{"data":{},"level":"info","message":"Account service started on port 4001","service":"logger-service","timestamp":"2026-05-04 20:26:25"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:26:25"}
+{"data":{},"level":"info","message":"Wealth service started on port 4003","service":"logger-service","timestamp":"2026-05-04 20:26:25"}
+{"data":{},"level":"info","message":"Transaction service started on port 4002","service":"logger-service","timestamp":"2026-05-04 20:26:25"}
+{"data":{},"level":"info","message":"Credit card service started on port 4005","service":"logger-service","timestamp":"2026-05-04 20:26:25"}
+{"data":{},"level":"info","message":"Risk service started on port 4006","service":"logger-service","timestamp":"2026-05-04 20:26:25"}
+{"level":"info","message":"Logger service running on port 4000","service":"logger-service","timestamp":"2026-05-04 20:30:39"}
+{"data":{},"level":"info","message":"Credit card service started on port 4005","service":"logger-service","timestamp":"2026-05-04 20:30:39"}
+{"data":{},"level":"info","message":"Transaction service started on port 4002","service":"logger-service","timestamp":"2026-05-04 20:30:39"}
+{"data":{},"level":"info","message":"Loan service started on port 4004","service":"logger-service","timestamp":"2026-05-04 20:30:39"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:30:39"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:30:39"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:33:29"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:34:23"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:34:38"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:34:43"}
+{"data":{"count":3,"total":3},"level":"info","message":"Credit cards query completed","service":"logger-service","timestamp":"2026-05-04 20:34:47"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk assessments query completed","service":"logger-service","timestamp":"2026-05-04 20:34:52"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk alerts query completed","service":"logger-service","timestamp":"2026-05-04 20:34:52"}
+{"data":{"count":1},"level":"info","message":"Blacklist query completed","service":"logger-service","timestamp":"2026-05-04 20:34:52"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:35:07"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:35:11"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk assessments query completed","service":"logger-service","timestamp":"2026-05-04 20:35:14"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk alerts query completed","service":"logger-service","timestamp":"2026-05-04 20:35:14"}
+{"data":{"count":1},"level":"info","message":"Blacklist query completed","service":"logger-service","timestamp":"2026-05-04 20:35:14"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:35:59"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:37:13"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:37:43"}
+{"data":{"count":3,"total":3},"level":"info","message":"Credit cards query completed","service":"logger-service","timestamp":"2026-05-04 20:37:52"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk assessments query completed","service":"logger-service","timestamp":"2026-05-04 20:37:55"}
+{"data":{"count":1},"level":"info","message":"Blacklist query completed","service":"logger-service","timestamp":"2026-05-04 20:37:55"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk alerts query completed","service":"logger-service","timestamp":"2026-05-04 20:37:55"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk assessments query completed","service":"logger-service","timestamp":"2026-05-04 20:38:35"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk alerts query completed","service":"logger-service","timestamp":"2026-05-04 20:38:35"}
+{"data":{"count":1},"level":"info","message":"Blacklist query completed","service":"logger-service","timestamp":"2026-05-04 20:38:35"}
+{"data":{"count":3,"total":3},"level":"info","message":"Credit cards query completed","service":"logger-service","timestamp":"2026-05-04 20:38:36"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:39:11"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:41:14"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:41:15"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:41:16"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:41:34"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:41:35"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:41:36"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:42:00"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:42:18"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:42:19"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:42:20"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:42:31"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:42:33"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:42:33"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:43:04"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:43:52"}
+{"level":"info","message":"Logger service running on port 4000","service":"logger-service","timestamp":"2026-05-04 20:48:23"}
+{"data":{},"level":"info","message":"Account service started on port 4001","service":"logger-service","timestamp":"2026-05-04 20:48:23"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:48:23"}
+{"data":{},"level":"info","message":"Credit card service started on port 4005","service":"logger-service","timestamp":"2026-05-04 20:48:23"}
+{"data":{},"level":"info","message":"Risk service started on port 4006","service":"logger-service","timestamp":"2026-05-04 20:48:23"}
+{"data":{},"level":"info","message":"Wealth service started on port 4003","service":"logger-service","timestamp":"2026-05-04 20:48:23"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:48:23"}
+{"data":{},"level":"info","message":"Loan service started on port 4004","service":"logger-service","timestamp":"2026-05-04 20:48:23"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:49:32"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:49:42"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:49:47"}
+{"data":{"count":3,"total":3},"level":"info","message":"Credit cards query completed","service":"logger-service","timestamp":"2026-05-04 20:49:48"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk assessments query completed","service":"logger-service","timestamp":"2026-05-04 20:49:50"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk alerts query completed","service":"logger-service","timestamp":"2026-05-04 20:49:50"}
+{"data":{"count":1},"level":"info","message":"Blacklist query completed","service":"logger-service","timestamp":"2026-05-04 20:49:50"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:49:54"}
+{"data":{"count":3,"total":3},"level":"info","message":"Credit cards query completed","service":"logger-service","timestamp":"2026-05-04 20:50:00"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:50:00"}
+{"data":{"count":3,"total":3},"level":"info","message":"Credit cards query completed","service":"logger-service","timestamp":"2026-05-04 20:50:02"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk assessments query completed","service":"logger-service","timestamp":"2026-05-04 20:50:02"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk alerts query completed","service":"logger-service","timestamp":"2026-05-04 20:50:02"}
+{"data":{"count":1},"level":"info","message":"Blacklist query completed","service":"logger-service","timestamp":"2026-05-04 20:50:02"}
+{"data":{},"level":"info","message":"Report dashboard retrieved","service":"logger-service","timestamp":"2026-05-04 20:50:03"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk assessments query completed","service":"logger-service","timestamp":"2026-05-04 20:50:06"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk alerts query completed","service":"logger-service","timestamp":"2026-05-04 20:50:06"}
+{"data":{"count":1},"level":"info","message":"Blacklist query completed","service":"logger-service","timestamp":"2026-05-04 20:50:06"}
+{"data":{"count":3,"total":3},"level":"info","message":"Credit cards query completed","service":"logger-service","timestamp":"2026-05-04 20:50:07"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:50:08"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:53:31"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk assessments query completed","service":"logger-service","timestamp":"2026-05-04 20:53:39"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk alerts query completed","service":"logger-service","timestamp":"2026-05-04 20:53:39"}
+{"data":{"count":1},"level":"info","message":"Blacklist query completed","service":"logger-service","timestamp":"2026-05-04 20:53:39"}
+{"data":{},"level":"info","message":"Report dashboard retrieved","service":"logger-service","timestamp":"2026-05-04 20:53:40"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk assessments query completed","service":"logger-service","timestamp":"2026-05-04 20:53:42"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk alerts query completed","service":"logger-service","timestamp":"2026-05-04 20:53:42"}
+{"data":{"count":1},"level":"info","message":"Blacklist query completed","service":"logger-service","timestamp":"2026-05-04 20:53:42"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:53:43"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:53:43"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:53:46"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:53:47"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:54:30"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:54:31"}
+{"data":{"count":3,"total":3},"level":"info","message":"Credit cards query completed","service":"logger-service","timestamp":"2026-05-04 20:54:32"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk assessments query completed","service":"logger-service","timestamp":"2026-05-04 20:54:32"}
+{"data":{"count":3,"total":3},"level":"info","message":"Risk alerts query completed","service":"logger-service","timestamp":"2026-05-04 20:54:32"}
+{"data":{"count":1},"level":"info","message":"Blacklist query completed","service":"logger-service","timestamp":"2026-05-04 20:54:32"}
+{"data":{},"level":"info","message":"Report dashboard retrieved","service":"logger-service","timestamp":"2026-05-04 20:54:33"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 20:55:56"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:55:57"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 20:55:59"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 20:56:05"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:56:05"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:58:53"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 20:59:24"}
+{"data":{},"level":"info","message":"Customer service started on port 4008","service":"logger-service","timestamp":"2026-05-04 21:00:15"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 21:06:48"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 21:27:23"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 21:27:24"}
+{"data":{},"level":"info","message":"Customer stats retrieved","service":"logger-service","timestamp":"2026-05-04 21:27:53"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 21:27:55"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 21:28:02"}
+{"level":"info","message":"Logger service running on port 4000","service":"logger-service","timestamp":"2026-05-04 21:30:21"}
+{"data":{},"level":"info","message":"Wealth service started on port 4003","service":"logger-service","timestamp":"2026-05-04 21:30:22"}
+{"data":{},"level":"info","message":"Report service started on port 4007","service":"logger-service","timestamp":"2026-05-04 21:30:22"}
+{"data":{},"level":"info","message":"Loan service started on port 4004","service":"logger-service","timestamp":"2026-05-04 21:30:22"}
+{"data":{},"level":"info","message":"Credit card service started on port 4005","service":"logger-service","timestamp":"2026-05-04 21:30:22"}
+{"data":{"count":3,"total":3},"level":"info","message":"Products query completed","service":"logger-service","timestamp":"2026-05-04 21:31:05"}
+{"data":{"count":3,"total":3},"level":"info","message":"Loans query completed","service":"logger-service","timestamp":"2026-05-04 21:31:07"}

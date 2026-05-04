@@ -1,0 +1,107 @@
+{
+  "loans": [
+    {
+      "id": "LOAN001",
+      "customerId": "CUST001",
+      "loanType": "personal",
+      "loanTypeName": "个人消费贷",
+      "loanAmount": 100000.00,
+      "approvedAmount": 100000.00,
+      "disbursedAmount": 100000.00,
+      "outstandingBalance": 85000.00,
+      "interestRate": 0.065,
+      "term": 24,
+      "termUnit": "month",
+      "monthlyPayment": 4461.41,
+      "status": "active",
+      "approvalStatus": "approved",
+      "applyDate": "2023-06-15T10:00:00Z",
+      "approvalDate": "2023-06-20T14:00:00Z",
+      "disbursementDate": "2023-06-21T10:00:00Z",
+      "maturityDate": "2025-06-20T23:59:59Z",
+      "purpose": "家庭装修",
+      "collateral": null
+    },
+    {
+      "id": "LOAN002",
+      "customerId": "CUST002",
+      "loanType": "mortgage",
+      "loanTypeName": "房屋抵押贷款",
+      "loanAmount": 2000000.00,
+      "approvedAmount": 2000000.00,
+      "disbursedAmount": 2000000.00,
+      "outstandingBalance": 1850000.00,
+      "interestRate": 0.042,
+      "term": 240,
+      "termUnit": "month",
+      "monthlyPayment": 12331.44,
+      "status": "active",
+      "approvalStatus": "approved",
+      "applyDate": "2022-12-01T10:00:00Z",
+      "approvalDate": "2022-12-15T14:00:00Z",
+      "disbursementDate": "2022-12-20T10:00:00Z",
+      "maturityDate": "2042-12-19T23:59:59Z",
+      "purpose": "购买房产",
+      "collateral": {
+        "type": "real_estate",
+        "address": "上海市浦东新区XX路XX号XX小区XX栋XX室",
+        "value": 3500000.00
+      }
+    },
+    {
+      "id": "LOAN003",
+      "customerId": "CUST003",
+      "loanType": "business",
+      "loanTypeName": "企业经营贷",
+      "loanAmount": 5000000.00,
+      "approvedAmount": 4500000.00,
+      "disbursedAmount": 4500000.00,
+      "outstandingBalance": 4500000.00,
+      "interestRate": 0.058,
+      "term": 36,
+      "termUnit": "month",
+      "monthlyPayment": 136800.00,
+      "status": "active",
+      "approvalStatus": "approved",
+      "applyDate": "2024-01-10T10:00:00Z",
+      "approvalDate": "2024-01-25T14:00:00Z",
+      "disbursementDate": "2024-02-01T10:00:00Z",
+      "maturityDate": "2027-01-31T23:59:59Z",
+      "purpose": "企业流动资金",
+      "collateral": {
+        "type": "equipment",
+        "description": "生产设备",
+        "value": 6000000.00
+      }
+    }
+  ],
+  "loanPayments": [
+    {
+      "id": "PMT001",
+      "loanId": "LOAN001",
+      "paymentAmount": 4461.41,
+      "principal": 3894.74,
+      "interest": 566.67,
+      "paymentDate": "2023-07-21T10:00:00Z",
+      "status": "paid"
+    },
+    {
+      "id": "PMT002",
+      "loanId": "LOAN001",
+      "paymentAmount": 4461.41,
+      "principal": 3916.53,
+      "interest": 544.88,
+      "paymentDate": "2023-08-21T10:00:00Z",
+      "status": "paid"
+    },
+    {
+      "id": "PMT003",
+      "loanId": "LOAN001",
+      "paymentAmount": 4461.41,
+      "principal": 3938.45,
+      "interest": 522.96,
+      "paymentDate": "2023-09-21T10:00:00Z",
+      "status": "paid"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "creditCards": [
+    {
+      "id": "CC001",
+      "customerId": "CUST001",
+      "cardNumber": "411111******1234",
+      "cardType": "gold",
+      "cardTypeName": "金卡",
+      "brand": "VISA",
+      "creditLimit": 50000.00,
+      "availableCredit": 35000.00,
+      "currentBalance": 15000.00,
+      "minPayment": 1500.00,
+      "statementBalance": 15000.00,
+      "status": "active",
+      "issueDate": "2022-05-01T00:00:00Z",
+      "expiryDate": "2027-04-30T23:59:59Z",
+      "interestRate": 0.18,
+      "billingCycle": {
+        "cycleDay": 10,
+        "dueDay": 30
+      }
+    },
+    {
+      "id": "CC002",
+      "customerId": "CUST002",
+      "cardNumber": "550000******5678",
+      "cardType": "platinum",
+      "cardTypeName": "白金卡",
+      "brand": "MasterCard",
+      "creditLimit": 150000.00,
+      "availableCredit": 120000.00,
+      "currentBalance": 30000.00,
+      "minPayment": 3000.00,
+      "statementBalance": 30000.00,
+      "status": "active",
+      "issueDate": "2021-11-15T00:00:00Z",
+      "expiryDate": "2026-10-31T23:59:59Z",
+      "interestRate": 0.15,
+      "billingCycle": {
+        "cycleDay": 15,
+        "dueDay": 5
+      }
+    },
+    {
+      "id": "CC003",
+      "customerId": "CUST003",
+      "cardNumber": "370000******9012",
+      "cardType": "black",
+      "cardTypeName": "黑卡",
+      "brand": "AmericanExpress",
+      "creditLimit": 500000.00,
+      "availableCredit": 450000.00,
+      "currentBalance": 50000.00,
+      "minPayment": 5000.00,
+      "statementBalance": 50000.00,
+      "status": "active",
+      "issueDate": "2020-08-20T00:00:00Z",
+      "expiryDate": "2025-07-31T23:59:59Z",
+      "interestRate": 0.12,
+      "billingCycle": {
+        "cycleDay": 20,
+        "dueDay": 10
+      }
+    }
+  ],
+  "creditCardTransactions": [
+    {
+      "id": "CCTX001",
+      "cardId": "CC001",
+      "transactionType": "purchase",
+      "merchant": "星巴克咖啡",
+      "amount": 58.00,
+      "currency": "CNY",
+      "transactionDate": "2024-05-01T09:30:00Z",
+      "status": "completed"
+    },
+    {
+      "id": "CCTX002",
+      "cardId": "CC001",
+      "transactionType": "purchase",
+      "merchant": "京东商城",
+      "amount": 2599.00,
+      "currency": "CNY",
+      "transactionDate": "2024-05-02T14:20:00Z",
+      "status": "completed"
+    },
+    {
+      "id": "CCTX003",
+      "cardId": "CC002",
+      "transactionType": "purchase",
+      "merchant": "苹果专卖店",
+      "amount": 8999.00,
+      "currency": "CNY",
+      "transactionDate": "2024-04-28T16:45:00Z",
+      "status": "completed"
+    }
+  ]
+}
