@@ -1,0 +1,32 @@
+{
+  "name": "saas-admin-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "大型 SaaS 管理后台 - 微前端 + 微服务架构",
+  "scripts": {
+    "dev": "concurrently \"pnpm dev:main\" \"pnpm dev:frontend\" \"pnpm dev:services\"",
+    "dev:main": "pnpm --filter main-app dev",
+    "dev:frontend": "node scripts/start-frontend-apps.js",
+    "dev:services": "node scripts/start-services.js",
+    "dev:user": "pnpm --filter user-app dev",
+    "dev:permission": "pnpm --filter permission-app dev",
+    "dev:role": "pnpm --filter role-app dev",
+    "dev:department": "pnpm --filter department-app dev",
+    "dev:log": "pnpm --filter log-app dev",
+    "dev:audit": "pnpm --filter audit-app dev",
+    "dev:ticket": "pnpm --filter ticket-app dev",
+    "dev:approval": "pnpm --filter approval-app dev",
+    "dev:message": "pnpm --filter message-app dev",
+    "dev:setting": "pnpm --filter setting-app dev",
+    "build": "pnpm -r build",
+    "build:main": "pnpm --filter main-app build",
+    "clean": "rm -rf node_modules && pnpm -r exec rm -rf node_modules dist build"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3"
+  }
+}

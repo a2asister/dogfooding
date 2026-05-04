@@ -1,0 +1,167 @@
+{
+  "settings": [
+    {
+      "id": "s001",
+      "category": "system",
+      "key": "site.name",
+      "value": "SaaS 管理后台",
+      "description": "网站名称",
+      "type": "string",
+      "isPublic": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s002",
+      "category": "system",
+      "key": "site.logo",
+      "value": "https://api.dicebear.com/7.x/avataaars/svg?seed=logo",
+      "description": "网站 Logo",
+      "type": "string",
+      "isPublic": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s003",
+      "category": "system",
+      "key": "site.description",
+      "value": "大型 SaaS 管理后台系统 - 微前端 + 微服务架构",
+      "description": "网站描述",
+      "type": "string",
+      "isPublic": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s004",
+      "category": "security",
+      "key": "login.maxAttempts",
+      "value": "5",
+      "description": "最大登录失败次数",
+      "type": "number",
+      "isPublic": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s005",
+      "category": "security",
+      "key": "login.lockDuration",
+      "value": "30",
+      "description": "账户锁定时长（分钟）",
+      "type": "number",
+      "isPublic": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s006",
+      "category": "security",
+      "key": "session.timeout",
+      "value": "60",
+      "description": "会话超时时间（分钟）",
+      "type": "number",
+      "isPublic": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s007",
+      "category": "security",
+      "key": "password.expireDays",
+      "value": "90",
+      "description": "密码过期天数",
+      "type": "number",
+      "isPublic": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s008",
+      "category": "notification",
+      "key": "email.smtp.host",
+      "value": "smtp.example.com",
+      "description": "邮件 SMTP 服务器地址",
+      "type": "string",
+      "isPublic": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s009",
+      "category": "notification",
+      "key": "email.smtp.port",
+      "value": "465",
+      "description": "邮件 SMTP 端口",
+      "type": "number",
+      "isPublic": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s010",
+      "category": "notification",
+      "key": "sms.provider",
+      "value": "aliyun",
+      "description": "短信服务提供商",
+      "type": "string",
+      "isPublic": false,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s011",
+      "category": "upload",
+      "key": "file.maxSize",
+      "value": "10",
+      "description": "最大文件上传大小（MB）",
+      "type": "number",
+      "isPublic": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "s012",
+      "category": "upload",
+      "key": "file.allowedTypes",
+      "value": "jpg,png,gif,pdf,doc,docx,xls,xlsx",
+      "description": "允许的文件类型",
+      "type": "string",
+      "isPublic": true,
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "categories": [
+    {
+      "code": "system",
+      "name": "系统设置",
+      "description": "网站基本信息配置",
+      "icon": "SettingOutlined",
+      "sort": 1
+    },
+    {
+      "code": "security",
+      "name": "安全设置",
+      "description": "登录安全、会话管理等",
+      "icon": "SafetyOutlined",
+      "sort": 2
+    },
+    {
+      "code": "notification",
+      "name": "通知设置",
+      "description": "邮件、短信等通知配置",
+      "icon": "BellOutlined",
+      "sort": 3
+    },
+    {
+      "code": "upload",
+      "name": "上传设置",
+      "description": "文件上传相关配置",
+      "icon": "UploadOutlined",
+      "sort": 4
+    }
+  ],
+  "total": 12
+}

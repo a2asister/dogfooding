@@ -1,0 +1,65 @@
+{
+  "logs": [
+    {
+      "id": "l001",
+      "userId": "u001",
+      "username": "admin",
+      "action": "login",
+      "module": "system",
+      "description": "用户登录系统",
+      "ip": "192.168.1.100",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+      "requestData": null,
+      "responseData": null,
+      "status": "success",
+      "duration": 120,
+      "createdAt": "2024-01-05T09:00:00Z"
+    },
+    {
+      "id": "l002",
+      "userId": "u001",
+      "username": "admin",
+      "action": "create_user",
+      "module": "user",
+      "description": "创建新用户: zhangsan",
+      "ip": "192.168.1.100",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+      "requestData": "{\"username\":\"zhangsan\",\"realName\":\"张三\"}",
+      "responseData": "{\"success\":true}",
+      "status": "success",
+      "duration": 250,
+      "createdAt": "2024-01-05T09:30:00Z"
+    },
+    {
+      "id": "l003",
+      "userId": "u002",
+      "username": "zhangsan",
+      "action": "update_profile",
+      "module": "user",
+      "description": "更新个人资料",
+      "ip": "192.168.1.101",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+      "requestData": "{\"phone\":\"13800138002\"}",
+      "responseData": "{\"success\":true}",
+      "status": "success",
+      "duration": 180,
+      "createdAt": "2024-01-05T10:00:00Z"
+    },
+    {
+      "id": "l004",
+      "userId": "u001",
+      "username": "admin",
+      "action": "delete_user",
+      "module": "user",
+      "description": "删除用户: test_user",
+      "ip": "192.168.1.100",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+      "requestData": "{\"id\":\"u005\"}",
+      "responseData": null,
+      "status": "failed",
+      "duration": 80,
+      "createdAt": "2024-01-05T11:00:00Z"
+    }
+  ],
+  "total": 4
+}

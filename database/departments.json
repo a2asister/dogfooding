@@ -1,0 +1,65 @@
+{
+  "departments": [
+    {
+      "id": "d001",
+      "name": "总公司",
+      "code": "HQ",
+      "parentId": null,
+      "managerId": "u001",
+      "description": "公司总部",
+      "sort": 1,
+      "status": "active",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "d002",
+      "name": "技术部",
+      "code": "TECH",
+      "parentId": "d001",
+      "managerId": "u002",
+      "description": "技术研发部门",
+      "sort": 2,
+      "status": "active",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "d003",
+      "name": "市场部",
+      "code": "MARKET",
+      "parentId": "d001",
+      "managerId": "u003",
+      "description": "市场营销部门",
+      "sort": 3,
+      "status": "active",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "d004",
+      "name": "前端组",
+      "code": "FE",
+      "parentId": "d002",
+      "managerId": null,
+      "description": "前端开发小组",
+      "sort": 1,
+      "status": "active",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "d005",
+      "name": "后端组",
+      "code": "BE",
+      "parentId": "d002",
+      "managerId": null,
+      "description": "后端开发小组",
+      "sort": 2,
+      "status": "active",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "total": 5
+}

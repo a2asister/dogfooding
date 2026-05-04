@@ -1,0 +1,35 @@
+{
+  "roles": [
+    {
+      "id": "r001",
+      "name": "超级管理员",
+      "code": "super_admin",
+      "description": "拥有系统所有权限",
+      "permissionIds": ["p001", "p002", "p003", "p004", "p005", "p006", "p007", "p008", "p009", "p010"],
+      "status": "active",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "r002",
+      "name": "部门管理员",
+      "code": "dept_admin",
+      "description": "管理本部门用户和基础权限",
+      "permissionIds": ["p001", "p002", "p003"],
+      "status": "active",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": "r003",
+      "name": "普通员工",
+      "code": "employee",
+      "description": "基础查看权限",
+      "permissionIds": ["p001"],
+      "status": "active",
+      "createdAt": "2024-01-01T00:00:00Z",
+      "updatedAt": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "total": 3
+}

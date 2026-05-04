@@ -1,0 +1,186 @@
+{
+  "approvals": [
+    {
+      "id": "ap001",
+      "title": "请假申请",
+      "type": "leave",
+      "description": "因个人原因申请请假3天",
+      "creatorId": "u002",
+      "creatorName": "张三",
+      "departmentId": "d002",
+      "currentStep": 2,
+      "totalSteps": 2,
+      "status": "pending",
+      "formData": {
+        "leaveType": "personal",
+        "startDate": "2024-01-08",
+        "endDate": "2024-01-10",
+        "days": 3,
+        "reason": "个人事务处理"
+      },
+      "workflow": [
+        {
+          "step": 1,
+          "name": "部门经理审批",
+          "approverId": "u001",
+          "approverName": "超级管理员",
+          "status": "approved",
+          "comment": "同意",
+          "approvedAt": "2024-01-05T10:00:00Z"
+        },
+        {
+          "step": 2,
+          "name": "HR 审批",
+          "approverId": null,
+          "approverName": "待审批",
+          "status": "pending",
+          "comment": null,
+          "approvedAt": null
+        }
+      ],
+      "createdAt": "2024-01-05T09:00:00Z",
+      "updatedAt": "2024-01-05T10:00:00Z",
+      "completedAt": null
+    },
+    {
+      "id": "ap002",
+      "title": "报销申请",
+      "type": "reimbursement",
+      "description": "差旅费报销申请",
+      "creatorId": "u003",
+      "creatorName": "李四",
+      "departmentId": "d003",
+      "currentStep": 1,
+      "totalSteps": 3,
+      "status": "pending",
+      "formData": {
+        "amount": 5000,
+        "currency": "CNY",
+        "items": [
+          { "type": "flight", "amount": 2000, "description": "北京-上海往返机票" },
+          { "type": "hotel", "amount": 2000, "description": "酒店住宿3晚" },
+          { "type": "meal", "amount": 1000, "description": "餐饮费用" }
+        ],
+        "invoiceNumbers": ["INV2024001", "INV2024002"]
+      },
+      "workflow": [
+        {
+          "step": 1,
+          "name": "部门经理审批",
+          "approverId": "u001",
+          "approverName": "超级管理员",
+          "status": "pending",
+          "comment": null,
+          "approvedAt": null
+        },
+        {
+          "step": 2,
+          "name": "财务审批",
+          "approverId": null,
+          "approverName": "待分配",
+          "status": "pending",
+          "comment": null,
+          "approvedAt": null
+        },
+        {
+          "step": 3,
+          "name": "总经理审批",
+          "approverId": null,
+          "approverName": "待分配",
+          "status": "pending",
+          "comment": null,
+          "approvedAt": null
+        }
+      ],
+      "createdAt": "2024-01-05T14:00:00Z",
+      "updatedAt": "2024-01-05T14:00:00Z",
+      "completedAt": null
+    },
+    {
+      "id": "ap003",
+      "title": "采购申请",
+      "type": "purchase",
+      "description": "采购办公电脑设备",
+      "creatorId": "u002",
+      "creatorName": "张三",
+      "departmentId": "d002",
+      "currentStep": 2,
+      "totalSteps": 2,
+      "status": "approved",
+      "formData": {
+        "amount": 30000,
+        "items": [
+          { "name": "MacBook Pro", "quantity": 2, "price": 12000 },
+          { "name": "显示器", "quantity": 2, "price": 3000 }
+        ],
+        "supplier": "某科技公司"
+      },
+      "workflow": [
+        {
+          "step": 1,
+          "name": "部门经理审批",
+          "approverId": "u001",
+          "approverName": "超级管理员",
+          "status": "approved",
+          "comment": "设备更新需求合理",
+          "approvedAt": "2024-01-03T10:00:00Z"
+        },
+        {
+          "step": 2,
+          "name": "总经理审批",
+          "approverId": "u001",
+          "approverName": "超级管理员",
+          "status": "approved",
+          "comment": "同意采购",
+          "approvedAt": "2024-01-04T10:00:00Z"
+        }
+      ],
+      "createdAt": "2024-01-03T09:00:00Z",
+      "updatedAt": "2024-01-04T10:00:00Z",
+      "completedAt": "2024-01-04T10:00:00Z"
+    },
+    {
+      "id": "ap004",
+      "title": "加班申请",
+      "type": "overtime",
+      "description": "项目紧急，需要周末加班",
+      "creatorId": "u004",
+      "creatorName": "王五",
+      "departmentId": "d002",
+      "currentStep": 1,
+      "totalSteps": 2,
+      "status": "rejected",
+      "formData": {
+        "date": "2024-01-06",
+        "startTime": "09:00",
+        "endTime": "18:00",
+        "hours": 8,
+        "reason": "项目上线前准备工作"
+      },
+      "workflow": [
+        {
+          "step": 1,
+          "name": "部门经理审批",
+          "approverId": "u002",
+          "approverName": "张三",
+          "status": "rejected",
+          "comment": "本周项目已延期，建议先完成手头工作，加班另行安排",
+          "approvedAt": "2024-01-05T11:00:00Z"
+        },
+        {
+          "step": 2,
+          "name": "HR 确认",
+          "approverId": null,
+          "approverName": null,
+          "status": "cancelled",
+          "comment": null,
+          "approvedAt": null
+        }
+      ],
+      "createdAt": "2024-01-05T10:00:00Z",
+      "updatedAt": "2024-01-05T11:00:00Z",
+      "completedAt": "2024-01-05T11:00:00Z"
+    }
+  ],
+  "total": 4
+}
