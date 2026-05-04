@@ -1,0 +1,9 @@
+{
+  "name": "@oa/data-store",
+  "version": "1.0.0",
+  "description": "OA系统数据存储模块",
+  "main": "src/index.js",
+  "dependencies": {
+    "uuid": "^9.0.0"
+  }
+}

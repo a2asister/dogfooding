@@ -1,0 +1,7 @@
+{
+  "name": "@oa/common",
+  "version": "1.0.0",
+  "description": "OA系统公共模块",
+  "main": "src/index.js",
+  "dependencies": {}
+}

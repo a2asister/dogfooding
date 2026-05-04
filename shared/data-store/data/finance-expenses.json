@@ -1,0 +1,32 @@
+[
+  {
+    "id": "expense-001",
+    "date": "2024-01-15",
+    "category": "办公用品",
+    "description": "打印纸、墨盒等",
+    "amount": 1200,
+    "status": "approved",
+    "createdAt": "2024-01-15T00:00:00.000Z",
+    "updatedAt": "2024-01-15T00:00:00.000Z"
+  },
+  {
+    "id": "expense-002",
+    "date": "2024-01-12",
+    "category": "差旅费",
+    "description": "北京出差",
+    "amount": 3500,
+    "status": "approved",
+    "createdAt": "2024-01-12T00:00:00.000Z",
+    "updatedAt": "2024-01-12T00:00:00.000Z"
+  },
+  {
+    "id": "expense-003",
+    "date": "2024-01-10",
+    "category": "招待费",
+    "description": "客户招待",
+    "amount": 2800,
+    "status": "pending",
+    "createdAt": "2024-01-10T00:00:00.000Z",
+    "updatedAt": "2024-01-10T00:00:00.000Z"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "name": "group-oa-system",
+  "version": "1.0.0",
+  "description": "集团OA系统微服务架构",
+  "private": true,
+  "workspaces": [
+    "backend/*",
+    "frontend/*",
+    "shared/*"
+  ],
+  "scripts": {
+    "start:all": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "concurrently \"cd backend/hr-service && npm start\" \"cd backend/finance-service && npm start\" \"cd backend/admin-service && npm start\" \"cd backend/asset-service && npm start\" \"cd backend/project-service && npm start\" \"cd backend/contract-service && npm start\" \"cd backend/vehicle-service && npm start\" \"cd backend/meeting-service && npm start\" \"cd backend/purchase-service && npm start\" \"cd backend/reimbursement-service && npm start\"",
+    "start:frontend": "cd frontend/portal && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

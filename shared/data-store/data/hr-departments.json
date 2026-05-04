@@ -1,0 +1,56 @@
+[
+  {
+    "id": "dept-001",
+    "name": "技术部",
+    "manager": "张三",
+    "employeeCount": 25,
+    "status": "active",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "dept-002",
+    "name": "市场部",
+    "manager": "李四",
+    "employeeCount": 15,
+    "status": "active",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "dept-003",
+    "name": "人事部",
+    "manager": "王五",
+    "employeeCount": 8,
+    "status": "active",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "dept-004",
+    "name": "财务部",
+    "manager": "赵六",
+    "employeeCount": 6,
+    "status": "active",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "dept-005",
+    "name": "行政部",
+    "manager": "钱七",
+    "employeeCount": 10,
+    "status": "active",
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "c50d37af-82e4-49e1-8cd4-c8731b308565",
+    "name": "规划部",
+    "manager": "李东",
+    "employeeCount": 0,
+    "status": "active",
+    "createdAt": "2026-05-04T04:50:46.944Z",
+    "updatedAt": "2026-05-04T04:50:46.944Z"
+  }
+]
