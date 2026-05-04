@@ -1,0 +1,51 @@
+[
+  {
+    "id": "1",
+    "username": "admin",
+    "password": "$2a$10$4qjyllnru8pd3Gz7Jv4oZeR/tPxygh89J/qXlEerfn.mx4T4vgmdi",
+    "name": "系统管理员",
+    "roles": [
+      "admin"
+    ],
+    "permissions": [
+      "system:*",
+      "data:*",
+      "content:*"
+    ],
+    "subsystems": [
+      "system-admin",
+      "data-analytics",
+      "content-management"
+    ]
+  },
+  {
+    "id": "2",
+    "username": "data-analyst",
+    "password": "$2a$10$4qjyllnru8pd3Gz7Jv4oZeR/tPxygh89J/qXlEerfn.mx4T4vgmdi",
+    "name": "数据分析师",
+    "roles": [
+      "data-analyst"
+    ],
+    "permissions": [
+      "data:*"
+    ],
+    "subsystems": [
+      "data-analytics"
+    ]
+  },
+  {
+    "id": "3",
+    "username": "content-editor",
+    "password": "$2a$10$4qjyllnru8pd3Gz7Jv4oZeR/tPxygh89J/qXlEerfn.mx4T4vgmdi",
+    "name": "内容编辑",
+    "roles": [
+      "content-editor"
+    ],
+    "permissions": [
+      "content:*"
+    ],
+    "subsystems": [
+      "content-management"
+    ]
+  }
+]

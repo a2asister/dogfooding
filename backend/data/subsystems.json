@@ -1,0 +1,26 @@
+[
+  {
+    "id": "system-admin",
+    "name": "系统管理",
+    "description": "用户管理、角色管理、权限配置",
+    "icon": "Settings",
+    "url": "//localhost:7101",
+    "activeRule": "/system-admin"
+  },
+  {
+    "id": "data-analytics",
+    "name": "数据分析",
+    "description": "数据报表、可视化分析",
+    "icon": "BarChart",
+    "url": "//localhost:7102",
+    "activeRule": "/data-analytics"
+  },
+  {
+    "id": "content-management",
+    "name": "内容管理",
+    "description": "文章发布、内容审核",
+    "icon": "Document",
+    "url": "//localhost:7103",
+    "activeRule": "/content-management"
+  }
+]
