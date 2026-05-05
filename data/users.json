@@ -1,0 +1,11 @@
+[
+  {
+    "id": "0c8b46a7-d523-4ad1-afb6-078059b439de",
+    "username": "admin",
+    "email": "admin@cms.local",
+    "password": "$2a$10$Y2Ol6mJc3g85h1TQowuP1et2DHLjPk9VAEJKe.mWuzQlqWEcfpHSG",
+    "role": "super_admin",
+    "createdAt": "2026-05-05T11:20:00.308Z",
+    "updatedAt": "2026-05-05T11:20:00.308Z"
+  }
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "id": "7cac8e17-1320-44e1-89d7-b9dd8b015c83",
+    "name": "super_admin",
+    "displayName": "超级管理员",
+    "permissions": [
+      "*"
+    ],
+    "createdAt": "2026-05-05T11:20:00.309Z",
+    "updatedAt": "2026-05-05T11:20:00.309Z"
+  },
+  {
+    "id": "8d940ab8-f7fd-4f87-b119-e11b4ba67123",
+    "name": "site_admin",
+    "displayName": "站点管理员",
+    "permissions": [
+      "site:read",
+      "site:update",
+      "model:read",
+      "model:create",
+      "model:update",
+      "model:delete",
+      "content:read",
+      "content:create",
+      "content:update",
+      "content:delete",
+      "content:publish",
+      "route:read",
+      "route:create",
+      "route:update",
+      "route:delete"
+    ],
+    "createdAt": "2026-05-05T11:20:00.309Z",
+    "updatedAt": "2026-05-05T11:20:00.309Z"
+  },
+  {
+    "id": "6a895cab-ca8b-4787-a0c9-c6eafddddd7f",
+    "name": "editor",
+    "displayName": "编辑",
+    "permissions": [
+      "content:read",
+      "content:create",
+      "content:update"
+    ],
+    "createdAt": "2026-05-05T11:20:00.310Z",
+    "updatedAt": "2026-05-05T11:20:00.310Z"
+  }
+]
