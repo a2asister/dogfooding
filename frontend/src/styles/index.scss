@@ -1,0 +1,342 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  font-size: 14px;
+  color: #303133;
+  background-color: #f0f2f5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.el-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+  
+  &:hover {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+.el-table {
+  .el-table__header-wrapper {
+    th {
+      background-color: #f5f7fa !important;
+      font-weight: 600;
+    }
+  }
+}
+
+.el-button {
+  border-radius: 4px;
+  
+  &--primary {
+    background: linear-gradient(135deg, #409EFF 0%, #66b1ff 100%);
+    border: none;
+    
+    &:hover {
+      background: linear-gradient(135deg, #66b1ff 0%, #409EFF 100%);
+    }
+  }
+  
+  &--success {
+    background: linear-gradient(135deg, #67C23A 0%, #85ce61 100%);
+    border: none;
+    
+    &:hover {
+      background: linear-gradient(135deg, #85ce61 0%, #67C23A 100%);
+    }
+  }
+  
+  &--danger {
+    background: linear-gradient(135deg, #F56C6C 0%, #f78989 100%);
+    border: none;
+    
+    &:hover {
+      background: linear-gradient(135deg, #f78989 0%, #F56C6C 100%);
+    }
+  }
+  
+  &--warning {
+    background: linear-gradient(135deg, #E6A23C 0%, #ebb563 100%);
+    border: none;
+    
+    &:hover {
+      background: linear-gradient(135deg, #ebb563 0%, #E6A23C 100%);
+    }
+  }
+}
+
+.el-dialog {
+  border-radius: 8px;
+  overflow: hidden;
+  
+  .el-dialog__header {
+    background: linear-gradient(135deg, #409EFF 0%, #66b1ff 100%);
+    padding: 16px 20px;
+    
+    .el-dialog__title {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    .el-dialog__headerbtn {
+      .el-dialog__close {
+        color: #fff;
+        font-size: 20px;
+        
+        &:hover {
+          color: #f0f0f0;
+        }
+      }
+    }
+  }
+  
+  .el-dialog__body {
+    padding: 20px;
+  }
+  
+  .el-dialog__footer {
+    padding: 10px 20px 20px;
+    text-align: right;
+  }
+}
+
+.el-tag {
+  border-radius: 4px;
+  
+  &--success {
+    background-color: #f0f9eb;
+    border-color: #e1f3d8;
+    color: #67c23a;
+  }
+  
+  &--danger {
+    background-color: #fef0f0;
+    border-color: #fde2e2;
+    color: #f56c6c;
+  }
+  
+  &--warning {
+    background-color: #fdf6ec;
+    border-color: #faecd8;
+    color: #e6a23c;
+  }
+  
+  &--primary {
+    background-color: #ecf5ff;
+    border-color: #d9ecff;
+    color: #409eff;
+  }
+}
+
+.el-form-item__label {
+  font-weight: 500;
+  color: #606266;
+}
+
+.el-input__wrapper,
+.el-select__wrapper,
+.el-date-editor .el-input__wrapper {
+  border-radius: 4px;
+  
+  &:hover {
+    box-shadow: 0 0 0 1px #c0c4cc inset;
+  }
+  
+  &.is-focus {
+    box-shadow: 0 0 0 1px #409EFF inset;
+  }
+}
+
+.coupon-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  color: #fff;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -50px;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: 10px;
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+  }
+}
+
+.coupon-type-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  
+  &.fixed-amount {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+  
+  &.percentage {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+  
+  &.free-shipping {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+}
+
+.price-display {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  
+  .original-price {
+    font-size: 14px;
+    color: #909399;
+    text-decoration: line-through;
+  }
+  
+  .final-price {
+    font-size: 24px;
+    font-weight: 600;
+    color: #f56c6c;
+  }
+  
+  .discount-tag {
+    background: linear-gradient(135deg, #f56c6c 0%, #f78989 100%);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  
+  .stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    
+    &.primary {
+      background: linear-gradient(135deg, #409EFF 0%, #66b1ff 100%);
+      color: #fff;
+    }
+    
+    &.success {
+      background: linear-gradient(135deg, #67C23A 0%, #85ce61 100%);
+      color: #fff;
+    }
+    
+    &.warning {
+      background: linear-gradient(135deg, #E6A23C 0%, #ebb563 100%);
+      color: #fff;
+    }
+    
+    &.danger {
+      background: linear-gradient(135deg, #F56C6C 0%, #f78989 100%);
+      color: #fff;
+    }
+  }
+  
+  .stat-content {
+    .stat-title {
+      font-size: 14px;
+      color: #909399;
+      margin-bottom: 4px;
+    }
+    
+    .stat-value {
+      font-size: 24px;
+      font-weight: 600;
+      color: #303133;
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.empty-container {
+  text-align: center;
+  padding: 60px 20px;
+  color: #909399;
+  
+  .el-icon {
+    font-size: 60px;
+    margin-bottom: 16px;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}

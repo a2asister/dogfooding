@@ -1,0 +1,25 @@
+[
+  {
+    "id": "",
+    "name": "优惠券 1",
+    "type": "fixed_amount",
+    "amount": 5,
+    "minAmount": 100,
+    "percentage": 0,
+    "maxDiscountAmount": null,
+    "buyQuantity": 1,
+    "getQuantity": 1,
+    "startDate": "2026-05-04 00:00:00",
+    "expiryDate": "2026-05-09 00:00:00",
+    "maxUses": 1,
+    "usedCount": 0,
+    "status": "active",
+    "categoryRestrictions": [],
+    "mutexGroup": "",
+    "maxStackCount": null,
+    "mutexCoupons": [],
+    "description": "",
+    "createdAt": "2026-05-05T05:24:29.901Z",
+    "updatedAt": "2026-05-05T05:24:29.901Z"
+  }
+]
