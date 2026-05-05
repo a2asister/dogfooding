@@ -1,0 +1,22 @@
+[
+  {
+    "id": "script-001",
+    "name": "数据格式化脚本",
+    "description": "将原始数据格式化为标准 JSON 格式",
+    "language": "javascript",
+    "code": "function formatData(rawData) {\n  if (!rawData || !Array.isArray(rawData)) {\n    return { success: false, message: '无效的数据格式' };\n  }\n  \n  const formattedData = rawData.map((item, index) => ({\n    id: index + 1,\n    ...item,\n    processedAt: new Date().toISOString()\n  }));\n  \n  return {\n    success: true,\n    data: formattedData,\n    count: formattedData.length\n  };\n}\n\n// 导出函数\nmodule.exports = { formatData };",
+    "createdAt": "2026-05-01T10:00:00Z",
+    "updatedAt": "2026-05-03T14:30:00Z",
+    "usedBy": ["wf-001"]
+  },
+  {
+    "id": "script-002",
+    "name": "Excel 数据解析",
+    "description": "解析 Excel 文件并提取指定列",
+    "language": "python",
+    "code": "import pandas as pd\nimport json\n\ndef parse_excel(file_path, columns=None):\n    try:\n        df = pd.read_excel(file_path)\n        \n        if columns:\n            df = df[columns]\n        \n        result = {\n            'success': True,\n            'data': df.to_dict('records'),\n            'row_count': len(df),\n            'column_count': len(df.columns)\n        }\n        \n        return json.dumps(result, ensure_ascii=False, default=str)\n    except Exception as e:\n        return json.dumps({\n            'success': False,\n            'message': str(e)\n        })\n\nif __name__ == '__main__':\n    import sys\n    if len(sys.argv) >= 2:\n        file_path = sys.argv[1]\n        columns = sys.argv[2].split(',') if len(sys.argv) >= 3 else None\n        print(parse_excel(file_path, columns))",
+    "createdAt": "2026-05-02T09:00:00Z",
+    "updatedAt": "2026-05-02T11:00:00Z",
+    "usedBy": ["wf-002"]
+  }
+]

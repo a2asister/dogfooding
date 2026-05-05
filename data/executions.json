@@ -1,0 +1,266 @@
+[
+  {
+    "id": "exec-d151e1a1",
+    "workflowId": "wf-8d34c7d2",
+    "robotId": "robot-001",
+    "name": "自动化测试流",
+    "status": "running",
+    "type": "manual",
+    "startTime": "2026-05-05T06:30:47.377Z",
+    "endTime": null,
+    "duration": null,
+    "logs": [
+      {
+        "timestamp": "2026-05-05T06:30:47.377Z",
+        "level": "info",
+        "message": "流程执行开始"
+      }
+    ],
+    "steps": [],
+    "createdAt": "2026-05-05T06:30:47.377Z"
+  },
+  {
+    "id": "exec-536d678a",
+    "workflowId": "wf-001",
+    "robotId": "robot-001",
+    "name": "每日数据导出",
+    "status": "running",
+    "type": "scheduled",
+    "scheduleId": "schedule-001",
+    "startTime": "2026-05-05T06:07:22.952Z",
+    "endTime": null,
+    "duration": null,
+    "logs": [
+      {
+        "timestamp": "2026-05-05T06:07:22.952Z",
+        "level": "info",
+        "message": "流程执行开始（定时任务触发）"
+      }
+    ],
+    "steps": [],
+    "createdAt": "2026-05-05T06:07:22.952Z"
+  },
+  {
+    "id": "exec-470a4015",
+    "workflowId": "wf-8d34c7d2",
+    "robotId": "robot-001",
+    "name": "自动化测试流",
+    "status": "running",
+    "type": "manual",
+    "startTime": "2026-05-05T06:05:29.638Z",
+    "endTime": null,
+    "duration": null,
+    "logs": [
+      {
+        "timestamp": "2026-05-05T06:05:29.638Z",
+        "level": "info",
+        "message": "流程执行开始"
+      }
+    ],
+    "steps": [],
+    "createdAt": "2026-05-05T06:05:29.638Z"
+  },
+  {
+    "id": "exec-ef989b51",
+    "workflowId": "wf-8d34c7d2",
+    "robotId": "robot-001",
+    "name": "自动化测试流",
+    "status": "running",
+    "type": "manual",
+    "startTime": "2026-05-05T06:00:30.032Z",
+    "endTime": null,
+    "duration": null,
+    "logs": [
+      {
+        "timestamp": "2026-05-05T06:00:30.032Z",
+        "level": "info",
+        "message": "流程执行开始"
+      }
+    ],
+    "steps": [],
+    "createdAt": "2026-05-05T06:00:30.032Z"
+  },
+  {
+    "id": "exec-001",
+    "workflowId": "wf-001",
+    "robotId": "robot-001",
+    "name": "登录并获取数据",
+    "status": "success",
+    "type": "manual",
+    "startTime": "2026-05-04T10:00:00Z",
+    "endTime": "2026-05-04T10:02:30Z",
+    "duration": 150000,
+    "logs": [
+      {
+        "timestamp": "2026-05-04T10:00:00Z",
+        "level": "info",
+        "message": "流程执行开始"
+      },
+      {
+        "timestamp": "2026-05-04T10:00:05Z",
+        "level": "info",
+        "message": "打开 Chrome 浏览器"
+      },
+      {
+        "timestamp": "2026-05-04T10:00:10Z",
+        "level": "info",
+        "message": "导航到 https://example.com/login"
+      },
+      {
+        "timestamp": "2026-05-04T10:00:15Z",
+        "level": "info",
+        "message": "输入用户名到 #username"
+      },
+      {
+        "timestamp": "2026-05-04T10:00:20Z",
+        "level": "info",
+        "message": "输入密码到 #password"
+      },
+      {
+        "timestamp": "2026-05-04T10:00:25Z",
+        "level": "info",
+        "message": "点击 #login-btn"
+      },
+      {
+        "timestamp": "2026-05-04T10:02:25Z",
+        "level": "info",
+        "message": "等待 #dashboard 加载完成"
+      },
+      {
+        "timestamp": "2026-05-04T10:02:30Z",
+        "level": "info",
+        "message": "流程执行成功完成"
+      }
+    ],
+    "steps": [
+      {
+        "nodeId": "node-2",
+        "name": "打开浏览器",
+        "status": "success",
+        "startTime": "2026-05-04T10:00:05Z",
+        "endTime": "2026-05-04T10:00:08Z"
+      },
+      {
+        "nodeId": "node-3",
+        "name": "导航到登录页",
+        "status": "success",
+        "startTime": "2026-05-04T10:00:10Z",
+        "endTime": "2026-05-04T10:00:12Z"
+      },
+      {
+        "nodeId": "node-4",
+        "name": "输入用户名",
+        "status": "success",
+        "startTime": "2026-05-04T10:00:15Z",
+        "endTime": "2026-05-04T10:00:16Z"
+      },
+      {
+        "nodeId": "node-5",
+        "name": "输入密码",
+        "status": "success",
+        "startTime": "2026-05-04T10:00:20Z",
+        "endTime": "2026-05-04T10:00:21Z"
+      },
+      {
+        "nodeId": "node-6",
+        "name": "点击登录",
+        "status": "success",
+        "startTime": "2026-05-04T10:00:25Z",
+        "endTime": "2026-05-04T10:00:26Z"
+      },
+      {
+        "nodeId": "node-7",
+        "name": "等待页面加载",
+        "status": "success",
+        "startTime": "2026-05-04T10:00:30Z",
+        "endTime": "2026-05-04T10:02:25Z"
+      }
+    ],
+    "createdAt": "2026-05-04T10:00:00Z"
+  },
+  {
+    "id": "exec-002",
+    "workflowId": "wf-002",
+    "robotId": "robot-002",
+    "name": "数据导入处理",
+    "status": "failed",
+    "type": "scheduled",
+    "scheduleId": "schedule-002",
+    "startTime": "2026-05-03T09:00:00Z",
+    "endTime": "2026-05-03T09:05:00Z",
+    "duration": 300000,
+    "error": "找不到指定的 Excel 文件路径",
+    "retryAttempts": 2,
+    "logs": [
+      {
+        "timestamp": "2026-05-03T09:00:00Z",
+        "level": "info",
+        "message": "流程执行开始（定时任务触发）"
+      },
+      {
+        "timestamp": "2026-05-03T09:00:05Z",
+        "level": "info",
+        "message": "尝试打开 Excel 应用程序"
+      },
+      {
+        "timestamp": "2026-05-03T09:00:15Z",
+        "level": "error",
+        "message": "找不到指定的 Excel 文件路径: C:\\data\\import.xlsx"
+      },
+      {
+        "timestamp": "2026-05-03T09:00:20Z",
+        "level": "info",
+        "message": "第 1 次重试开始"
+      },
+      {
+        "timestamp": "2026-05-03T09:05:00Z",
+        "level": "error",
+        "message": "所有重试都失败了"
+      }
+    ],
+    "steps": [
+      {
+        "nodeId": "node-2",
+        "name": "打开 Excel",
+        "status": "failed",
+        "startTime": "2026-05-03T09:00:05Z",
+        "endTime": "2026-05-03T09:05:00Z",
+        "error": "找不到指定的 Excel 文件路径"
+      }
+    ],
+    "createdAt": "2026-05-03T09:00:00Z"
+  },
+  {
+    "id": "exec-003",
+    "workflowId": "wf-001",
+    "robotId": "robot-001",
+    "name": "登录并获取数据",
+    "status": "running",
+    "type": "manual",
+    "startTime": "2026-05-05T08:00:00Z",
+    "endTime": null,
+    "duration": null,
+    "logs": [
+      {
+        "timestamp": "2026-05-05T08:00:00Z",
+        "level": "info",
+        "message": "流程执行开始"
+      },
+      {
+        "timestamp": "2026-05-05T08:00:05Z",
+        "level": "info",
+        "message": "打开 Chrome 浏览器"
+      }
+    ],
+    "steps": [
+      {
+        "nodeId": "node-2",
+        "name": "打开浏览器",
+        "status": "running",
+        "startTime": "2026-05-05T08:00:05Z",
+        "endTime": null
+      }
+    ],
+    "createdAt": "2026-05-05T08:00:00Z"
+  }
+]

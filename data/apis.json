@@ -1,0 +1,91 @@
+[
+  {
+    "id": "api-001",
+    "name": "用户登录接口",
+    "description": "测试用户登录 API",
+    "method": "POST",
+    "url": "https://api.example.com/auth/login",
+    "headers": {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    "body": {
+      "username": "${username}",
+      "password": "${password}"
+    },
+    "variables": {
+      "username": "testuser",
+      "password": "testpass123"
+    },
+    "assertions": [
+      {
+        "type": "status",
+        "value": 200,
+        "description": "响应状态码应为 200"
+      },
+      {
+        "type": "json_path",
+        "path": "$.success",
+        "value": true,
+        "description": "返回 success 字段应为 true"
+      },
+      {
+        "type": "json_path",
+        "path": "$.token",
+        "value": "",
+        "operator": "not_empty",
+        "description": "返回 token 字段不应为空"
+      }
+    ],
+    "retryConfig": {
+      "enabled": true,
+      "maxRetries": 3,
+      "retryDelay": 1000
+    },
+    "createdAt": "2026-05-01T10:00:00Z",
+    "updatedAt": "2026-05-03T14:30:00Z",
+    "lastTested": "2026-05-04T10:00:00Z",
+    "lastStatus": "success"
+  },
+  {
+    "id": "api-002",
+    "name": "获取用户列表",
+    "description": "测试获取用户列表 API",
+    "method": "GET",
+    "url": "https://api.example.com/users",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer ${token}"
+    },
+    "queryParams": {
+      "page": 1,
+      "limit": 10
+    },
+    "variables": {
+      "token": ""
+    },
+    "assertions": [
+      {
+        "type": "status",
+        "value": 200,
+        "description": "响应状态码应为 200"
+      },
+      {
+        "type": "json_path",
+        "path": "$.data",
+        "value": "",
+        "operator": "is_array",
+        "description": "data 字段应为数组"
+      }
+    ],
+    "retryConfig": {
+      "enabled": true,
+      "maxRetries": 2,
+      "retryDelay": 2000
+    },
+    "createdAt": "2026-05-02T09:00:00Z",
+    "updatedAt": "2026-05-02T11:00:00Z",
+    "lastTested": null,
+    "lastStatus": null
+  }
+]

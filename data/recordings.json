@@ -1,0 +1,18 @@
+[
+  {
+    "id": "rec-94ce3fad",
+    "name": "录制_20260505_140651",
+    "description": "",
+    "type": "web",
+    "status": "recording",
+    "steps": [
+      {
+        "type": "screenshot",
+        "timestamp": 1777961195833
+      }
+    ],
+    "createdAt": "2026-05-05T06:06:51.015Z",
+    "updatedAt": "2026-05-05T06:06:51.015Z",
+    "completedAt": null
+  }
+]

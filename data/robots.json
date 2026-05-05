@@ -1,0 +1,47 @@
+[
+  {
+    "id": "robot-001",
+    "name": "生产环境机器人 A",
+    "description": "主要处理网页自动化任务",
+    "status": "online",
+    "type": "web",
+    "host": "192.168.1.101",
+    "port": 9222,
+    "lastHeartbeat": "2026-05-05T08:30:00Z",
+    "cpuUsage": 25,
+    "memoryUsage": 45,
+    "assignedWorkflows": ["wf-001"],
+    "createdAt": "2026-05-01T10:00:00Z",
+    "updatedAt": "2026-05-05T08:30:00Z"
+  },
+  {
+    "id": "robot-002",
+    "name": "生产环境机器人 B",
+    "description": "处理桌面应用自动化任务",
+    "status": "online",
+    "type": "desktop",
+    "host": "192.168.1.102",
+    "port": 9223,
+    "lastHeartbeat": "2026-05-05T08:28:00Z",
+    "cpuUsage": 15,
+    "memoryUsage": 30,
+    "assignedWorkflows": ["wf-002"],
+    "createdAt": "2026-05-02T09:00:00Z",
+    "updatedAt": "2026-05-05T08:28:00Z"
+  },
+  {
+    "id": "robot-003",
+    "name": "测试环境机器人",
+    "description": "用于流程测试",
+    "status": "offline",
+    "type": "hybrid",
+    "host": "192.168.1.103",
+    "port": 9224,
+    "lastHeartbeat": "2026-05-03T16:00:00Z",
+    "cpuUsage": 0,
+    "memoryUsage": 0,
+    "assignedWorkflows": [],
+    "createdAt": "2026-05-03T10:00:00Z",
+    "updatedAt": "2026-05-03T16:00:00Z"
+  }
+]

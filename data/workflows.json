@@ -1,0 +1,230 @@
+[
+  {
+    "id": "wf-8d34c7d2",
+    "name": "自动化测试流",
+    "description": "",
+    "status": "active",
+    "type": "web",
+    "createdAt": "2026-05-05T06:00:07.620Z",
+    "updatedAt": "2026-05-05T06:27:33.778Z",
+    "nodes": [
+      {
+        "id": "node-1",
+        "type": "start",
+        "x": 100,
+        "y": 200,
+        "label": "开始",
+        "config": {}
+      },
+      {
+        "id": "node-2",
+        "type": "end",
+        "x": 300,
+        "y": 200,
+        "label": "结束",
+        "config": {}
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1-2",
+        "source": "node-1",
+        "target": "node-2"
+      }
+    ],
+    "variables": {},
+    "retryConfig": {
+      "enabled": true,
+      "maxRetries": 3,
+      "retryDelay": 2000
+    }
+  },
+  {
+    "id": "wf-001",
+    "name": "登录并获取数据",
+    "description": "自动登录系统并导出数据报表",
+    "status": "active",
+    "type": "web",
+    "createdAt": "2026-05-01T10:00:00Z",
+    "updatedAt": "2026-05-03T14:30:00Z",
+    "nodes": [
+      {
+        "id": "node-1",
+        "type": "start",
+        "x": 100,
+        "y": 200,
+        "label": "开始"
+      },
+      {
+        "id": "node-2",
+        "type": "openBrowser",
+        "x": 300,
+        "y": 200,
+        "label": "打开浏览器",
+        "config": {
+          "browser": "chrome",
+          "headless": false
+        }
+      },
+      {
+        "id": "node-3",
+        "type": "navigate",
+        "x": 500,
+        "y": 200,
+        "label": "导航到登录页",
+        "config": {
+          "url": "https://example.com/login"
+        }
+      },
+      {
+        "id": "node-4",
+        "type": "type",
+        "x": 700,
+        "y": 200,
+        "label": "输入用户名",
+        "config": {
+          "selector": "#username",
+          "value": "${username}"
+        }
+      },
+      {
+        "id": "node-5",
+        "type": "type",
+        "x": 900,
+        "y": 200,
+        "label": "输入密码",
+        "config": {
+          "selector": "#password",
+          "value": "${password}"
+        }
+      },
+      {
+        "id": "node-6",
+        "type": "click",
+        "x": 1100,
+        "y": 200,
+        "label": "点击登录",
+        "config": {
+          "selector": "#login-btn"
+        }
+      },
+      {
+        "id": "node-7",
+        "type": "wait",
+        "x": 1300,
+        "y": 200,
+        "label": "等待页面加载",
+        "config": {
+          "selector": "#dashboard",
+          "timeout": 10000
+        }
+      },
+      {
+        "id": "node-8",
+        "type": "end",
+        "x": 1500,
+        "y": 200,
+        "label": "结束"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1-2",
+        "source": "node-1",
+        "target": "node-2"
+      },
+      {
+        "id": "e2-3",
+        "source": "node-2",
+        "target": "node-3"
+      },
+      {
+        "id": "e3-4",
+        "source": "node-3",
+        "target": "node-4"
+      },
+      {
+        "id": "e4-5",
+        "source": "node-4",
+        "target": "node-5"
+      },
+      {
+        "id": "e5-6",
+        "source": "node-5",
+        "target": "node-6"
+      },
+      {
+        "id": "e6-7",
+        "source": "node-6",
+        "target": "node-7"
+      },
+      {
+        "id": "e7-8",
+        "source": "node-7",
+        "target": "node-8"
+      }
+    ],
+    "variables": {
+      "username": "admin@example.com",
+      "password": "********"
+    },
+    "retryConfig": {
+      "enabled": true,
+      "maxRetries": 3,
+      "retryDelay": 2000
+    }
+  },
+  {
+    "id": "wf-002",
+    "name": "数据导入处理",
+    "description": "从 Excel 导入数据并处理",
+    "status": "draft",
+    "type": "desktop",
+    "createdAt": "2026-05-02T09:00:00Z",
+    "updatedAt": "2026-05-02T11:00:00Z",
+    "nodes": [
+      {
+        "id": "node-1",
+        "type": "start",
+        "x": 100,
+        "y": 200,
+        "label": "开始"
+      },
+      {
+        "id": "node-2",
+        "type": "openApplication",
+        "x": 300,
+        "y": 200,
+        "label": "打开 Excel",
+        "config": {
+          "appPath": "C:\\Program Files\\Microsoft Office\\Office16\\EXCEL.EXE"
+        }
+      },
+      {
+        "id": "node-3",
+        "type": "end",
+        "x": 500,
+        "y": 200,
+        "label": "结束"
+      }
+    ],
+    "edges": [
+      {
+        "id": "e1-2",
+        "source": "node-1",
+        "target": "node-2"
+      },
+      {
+        "id": "e2-3",
+        "source": "node-2",
+        "target": "node-3"
+      }
+    ],
+    "variables": {},
+    "retryConfig": {
+      "enabled": true,
+      "maxRetries": 2,
+      "retryDelay": 5000
+    }
+  }
+]
