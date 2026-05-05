@@ -1,0 +1,37 @@
+{
+  "users": [
+    {
+      "id": "77350265-d643-4191-a6a3-1db7ba4f763c",
+      "username": "admin",
+      "password": "0616a223cfcb1251:7d15a0ded9100ae9fafbb6eed6d18826e7b6f1b10bb65401cac07e86711476e0",
+      "email": "admin@cloudsync.com",
+      "createdAt": "2026-05-05T09:21:14.797Z",
+      "privateKey": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDc4UpXwGSLX2zN\naBQ5djEFJ0n9x2x0ppseSTC+HYhQbsiqIQ+RFMwLA1axir/KFz4gtxa6gQbshNyG\nBqpuK2v87LbkpQPtth8ivG4l9gai2HF3p6hEo4KzzVT2NIai98Dho+rBNlARgnnk\nsp3Npiqw/ZBRl+GNdLIeoth8TjyJ8pmHHu0f5YsDaUJfYafE9sStZ+NwpHINxaqz\nfi8dA6HfXnykRVwRenLoNLDVTCagjELuXdUJKaVUzGjshBKhGbNQxKc2g7Ldq8Cm\npTGc33mUaw+pdG19++R7qlB4b0KdEIbLf0OQYPENtlh+IewQOIsDXEXttVrjwAA8\nrOUWiX/FAgMBAAECggEAadTEUyFKy4CwWAbbUeDwgeCeUitAKvA8+Jjm8uChlLBQ\nEzv+Amyti0VRP4YUeNcEHJa9HCWAVMkgBFOjS2AgwLIGu6zZIgeWCYWxXRzxdwsv\n6r35INIbaN0kLUdjjygYUcTBUUwdtxYGI271rzhD0kPb50xXdPiJ86XhBkZSOWGQ\nhnJNB1eK3sKzuzBp/D9GuC6Yr+WZLGfja0XS7bmZwrkVARUoeTIGk0N9KZvP5OKS\n3kRWcSGTGhEFaTQu+JpP8jATpHBtKUIWFxP239+keOGXaefEaOaZEE1wQPsl5K2E\nH2wVQmd9XHP8hK+sE1uyoGa0joAcW4JKRkZsbl5TDQKBgQD+vwWJw7AeK8PY8TH9\nEye+1xr1OGyhjEUkhQQ3dIa5cL2y1wgzNPvH5fQ/DSevl6arA+0CKKC/JZ+Uc+Cu\nYtDH+xL2P5i6k2JFhrU62dTSNaMyr39Qd0dQSoO16KbfXmeplWmlab6sutbcGmCK\nhqp7dN9imVcmcMIjWaJYdYtp1wKBgQDd95kBUeIBhvJs7cPhNrwb6R9PQ6MzNZ35\nCL6DTLfGIakdREpDtHg2h7ewbPbB4uTL5eoSWXZVciGoMU5mM6CH5scX3uQ9NOzZ\nI6eNh4Plg2bWLE52oESP9iu1/eN61Oio7dnFp4t/omgwZMwgygDM+TPn/b240382\nv5qyrcUHwwKBgQDkQ35O544UOtsOtXE5d8SReGWrfZe5WdtK0fXpSvy9hYw1iADN\nAZjqkd698Key64xoiOgCmy0OmkPX3c1h9SFnUE65YFsWM6JG8mHKDg5pHa7SZ/cI\nvxijlWFXytRcKldw2XUExzAXzoNgTjJbbjes0BiqXQR+aWNMEbEq2ojFmQKBgFf7\nQWmVhEjorYThxceqQ2uovuFTRQgSU5iXj7RJn3poczkHjYxCp3et2fCTcEev4NK1\nQk+dqFr8Dz00tgeqpRHZNsdOcReVt9/l0w81TOGXcRapnzxEEIkjoXXUuetBIyt6\ng9xlqdSgkj3EZmkEyMZ2bM2i9SWip4US84WpfTSzAoGAC+YsWYLyp4uGBy9ziRfn\nGFm69pN1MUho0uspM8fWVM9b+C6RbxU45O7eKOgZOEi863pC4uS9I4XODhi7Jz6b\npfcgeAB9XYvXMcywMVBvmHY9OdMJCaFjOB6Xs+OwwmdoR6xx1eHUykfv84x0znKu\ns3X6AzBj+9sN0pWEkYFyBA0=\n-----END PRIVATE KEY-----\n",
+      "publicKey": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3OFKV8Bki19szWgUOXYx\nBSdJ/cdsdKabHkkwvh2IUG7IqiEPkRTMCwNWsYq/yhc+ILcWuoEG7ITchgaqbitr\n/Oy25KUD7bYfIrxuJfYGothxd6eoRKOCs81U9jSGovfA4aPqwTZQEYJ55LKdzaYq\nsP2QUZfhjXSyHqLYfE48ifKZhx7tH+WLA2lCX2GnxPbErWfjcKRyDcWqs34vHQOh\n3158pEVcEXpy6DSw1UwmoIxC7l3VCSmlVMxo7IQSoRmzUMSnNoOy3avApqUxnN95\nlGsPqXRtffvke6pQeG9CnRCGy39DkGDxDbZYfiHsEDiLA1xF7bVa48AAPKzlFol/\nxQIDAQAB\n-----END PUBLIC KEY-----\n",
+      "syncDirectory": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding2/backend/data/sync/admin"
+    }
+  ],
+  "files": [
+    {
+      "id": "216bcf8d-eda1-41f6-ac22-a9fdc3b2fc67",
+      "name": "screenshot-20260505-172352.png",
+      "path": "/",
+      "size": 145417,
+      "hash": "400036a5a716c59afc152ecc52fe829f6f49a5c9514f45fe94eb0f856b97de0b",
+      "mimeType": "image/png",
+      "ownerId": "77350265-d643-4191-a6a3-1db7ba4f763c",
+      "createdAt": "2026-05-05T09:24:00.977Z",
+      "updatedAt": "2026-05-05T09:24:00.977Z",
+      "isEncrypted": true,
+      "isSensitive": false,
+      "isCached": false,
+      "localPath": "",
+      "lastSyncAt": "2026-05-05T09:24:00.977Z",
+      "deleted": false,
+      "encryptionKey": "9b9dbe65843d799c29ad0eea6582b40ce575da852d56bb71ea90e5d8779e932f",
+      "encryptionIv": "aa3b3850fcac0e9489ea434d88c8c87d"
+    }
+  ],
+  "shares": [],
+  "syncSessions": []
+}
