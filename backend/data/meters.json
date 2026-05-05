@@ -1,0 +1,39 @@
+[
+  {
+    "id": "m1",
+    "name": "主楼总电表",
+    "type": "electric",
+    "location": "主楼1层",
+    "status": "online",
+    "currentReading": 152411.07950048998,
+    "lastUpdate": "2026-05-05T08:10:35.556Z",
+    "voltage": 220.39516681247787,
+    "current": 26.27367629532163,
+    "power": 5790.591269884456,
+    "powerFactor": 0.9143294463774401
+  },
+  {
+    "id": "m2",
+    "name": "主楼总水表",
+    "type": "water",
+    "location": "主楼1层",
+    "status": "online",
+    "currentReading": 89773.47635883522,
+    "lastUpdate": "2026-05-05T08:10:35.556Z",
+    "flowRate": 0.7588623717801835,
+    "pressure": 0.3236829766629968
+  },
+  {
+    "id": "m3",
+    "name": "副楼电表",
+    "type": "electric",
+    "location": "副楼2层",
+    "status": "online",
+    "currentReading": 67958.91895439039,
+    "lastUpdate": "2026-05-05T08:10:35.556Z",
+    "voltage": 218.38942244147424,
+    "current": 15.097071332897416,
+    "power": 3297.040688949204,
+    "powerFactor": 0.8517577981802043
+  }
+]

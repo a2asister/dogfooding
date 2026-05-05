@@ -1,0 +1,32 @@
+[
+  {
+    "id": "d1",
+    "name": "中央空调1号",
+    "type": "aircondition",
+    "location": "主楼3层",
+    "status": "stopped",
+    "power": 2500,
+    "lastUpdate": "2026-05-05T08:10:35.556Z",
+    "currentPower": 0
+  },
+  {
+    "id": "d2",
+    "name": "照明系统1区",
+    "type": "lighting",
+    "location": "主楼2层",
+    "status": "stopped",
+    "power": 800,
+    "lastUpdate": "2026-05-05T08:10:35.556Z",
+    "currentPower": 0
+  },
+  {
+    "id": "d3",
+    "name": "电梯1号",
+    "type": "elevator",
+    "location": "主楼1层",
+    "status": "stopped",
+    "power": 1500,
+    "lastUpdate": "2026-05-05T08:10:35.556Z",
+    "currentPower": 0
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "a1",
+    "type": "warning",
+    "title": "能耗异常警告",
+    "message": "主楼3层能耗超出预期值20%",
+    "timestamp": "2026-05-05T05:18:46.718Z",
+    "resolved": false
+  },
+  {
+    "id": "a2",
+    "type": "info",
+    "title": "设备运行提示",
+    "message": "中央空调已自动开启节能模式",
+    "timestamp": "2026-05-05T03:18:46.718Z",
+    "resolved": true
+  }
+]
