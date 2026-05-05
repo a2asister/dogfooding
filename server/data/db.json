@@ -1,0 +1,166 @@
+{
+  "circuitConfigs": [
+    {
+      "name": "荣队长",
+      "failureThreshold": 50,
+      "slowCallThreshold": 50,
+      "slowCallDurationThreshold": 1000,
+      "waitDurationInOpenState": 30000,
+      "permittedNumberOfCallsInHalfOpenState": 3,
+      "slidingWindowType": "count_based",
+      "slidingWindowSize": 10,
+      "minimumNumberOfCalls": 5,
+      "enabled": true,
+      "isolationLevel": "semaphore",
+      "maxConcurrentCalls": 10,
+      "id": "1ce5b3bd-732e-4e4a-8b19-429c3e0f5d05"
+    },
+    {
+      "name": "熔断器 ID",
+      "failureThreshold": 50,
+      "slowCallThreshold": 50,
+      "slowCallDurationThreshold": 1000,
+      "waitDurationInOpenState": 30000,
+      "permittedNumberOfCallsInHalfOpenState": 3,
+      "slidingWindowType": "count_based",
+      "slidingWindowSize": 10,
+      "minimumNumberOfCalls": 5,
+      "enabled": true,
+      "isolationLevel": "semaphore",
+      "maxConcurrentCalls": 10,
+      "id": "5c6bb5fc-6392-4f98-baa5-ef32d7540e90"
+    }
+  ],
+  "circuitStates": [
+    {
+      "circuitId": "1ce5b3bd-732e-4e4a-8b19-429c3e0f5d05",
+      "state": "open",
+      "failureRate": 0,
+      "slowCallRate": 0,
+      "numberOfSuccessfulCalls": 0,
+      "numberOfFailedCalls": 0,
+      "numberOfSlowCalls": 0,
+      "numberOfNotPermittedCalls": 0,
+      "lastFailureTime": 0,
+      "lastStateTransitionTime": 1777969839014,
+      "metrics": {
+        "totalCalls": 0,
+        "successCount": 0,
+        "failureCount": 0,
+        "slowCallCount": 0,
+        "timeoutCount": 0,
+        "averageResponseTime": 0,
+        "p95ResponseTime": 0,
+        "p99ResponseTime": 0,
+        "timestamp": 1777968845349
+      }
+    },
+    {
+      "circuitId": "5c6bb5fc-6392-4f98-baa5-ef32d7540e90",
+      "state": "closed",
+      "failureRate": 0,
+      "slowCallRate": 0,
+      "numberOfSuccessfulCalls": 0,
+      "numberOfFailedCalls": 0,
+      "numberOfSlowCalls": 0,
+      "numberOfNotPermittedCalls": 0,
+      "lastFailureTime": 0,
+      "lastStateTransitionTime": 1777969017824,
+      "metrics": {
+        "totalCalls": 0,
+        "successCount": 0,
+        "failureCount": 0,
+        "slowCallCount": 0,
+        "timeoutCount": 0,
+        "averageResponseTime": 0,
+        "p95ResponseTime": 0,
+        "p99ResponseTime": 0,
+        "timestamp": 1777969017824
+      }
+    }
+  ],
+  "rateLimitRules": [
+    {
+      "id": "ce0314e8-26e7-42e7-bd32-2031990681fb",
+      "name": "API 全局限流",
+      "endpoint": "/api/*",
+      "method": "*",
+      "limitType": "token_bucket",
+      "limit": 100,
+      "windowSize": 60000,
+      "burstLimit": 50,
+      "adaptive": true,
+      "minLimit": 20,
+      "maxLimit": 200,
+      "targetLatency": 200,
+      "enabled": true
+    }
+  ],
+  "rateLimitStates": [
+    {
+      "ruleId": "ce0314e8-26e7-42e7-bd32-2031990681fb",
+      "currentLimit": 73,
+      "currentWindow": 0,
+      "tokens": 104.19963333333332,
+      "requestsInWindow": 0,
+      "lastRefillTime": 1777969072343,
+      "adaptiveAdjustments": 5
+    }
+  ],
+  "chaosExperiments": [
+    {
+      "id": "6a16266e-17d7-4f3f-ade6-7dd1d97e33ac",
+      "name": "延迟注入演练",
+      "description": "为用户服务接口注入随机延迟",
+      "type": "latency",
+      "targetEndpoint": "/api/users/*",
+      "targetMethod": "GET",
+      "intensity": 50,
+      "duration": 60000,
+      "probability": 0.3,
+      "startTime": 1777969275169,
+      "status": "completed"
+    }
+  ],
+  "isolationConfigs": [
+    {
+      "id": "f089317f-c440-4df4-8fd4-ee7b33e4461b",
+      "name": "订单服务隔离",
+      "serviceName": "order-service",
+      "level": "bulkhead",
+      "maxConcurrent": 20,
+      "queueSize": 100,
+      "timeout": 5000,
+      "enabled": true
+    },
+    {
+      "name": "order",
+      "serviceName": "order-service",
+      "level": "bulkhead",
+      "maxConcurrent": 20,
+      "queueSize": 100,
+      "timeout": 5000,
+      "enabled": true,
+      "id": "3de568b8-4ce4-4f78-8142-081c51d8ac7f"
+    }
+  ],
+  "isolationStates": [
+    {
+      "configId": "f089317f-c440-4df4-8fd4-ee7b33e4461b",
+      "activeRequests": 0,
+      "queuedRequests": 0,
+      "rejectedRequests": 0,
+      "timeouts": 0,
+      "lastActiveTime": 1777968569721
+    },
+    {
+      "configId": "3de568b8-4ce4-4f78-8142-081c51d8ac7f",
+      "activeRequests": 0,
+      "queuedRequests": 0,
+      "rejectedRequests": 0,
+      "timeouts": 0,
+      "lastActiveTime": 1777968934208
+    }
+  ],
+  "metricsHistory": []
+}
