@@ -1,0 +1,29 @@
+[
+  {
+    "id": "8fa0ed5f-e850-4f81-9d70-c130bdd1ccc3",
+    "couponId": "bee9b1eb-80bc-481c-8bb3-15f9231ced44",
+    "userId": "user_001",
+    "status": "unused",
+    "receivedAt": "2026-05-05T00:18:42.615Z",
+    "validUntil": "2026-06-04T00:18:42.615Z",
+    "usedAt": null
+  },
+  {
+    "id": "aacc494d-6bf6-4082-8e8d-cc6c6da957da",
+    "couponId": "6cc3ad19-7783-47f0-b887-1bdeb774df2a",
+    "userId": "user_001",
+    "status": "unused",
+    "receivedAt": "2026-05-05T00:18:42.616Z",
+    "validUntil": "2026-05-20T00:18:42.616Z",
+    "usedAt": null
+  },
+  {
+    "id": "ba8b03ef-247a-497c-9c6c-dbc103d74def",
+    "couponId": "92adfb2d-d34c-4b16-a44e-8ced4f920b03",
+    "userId": "user_001",
+    "status": "used",
+    "receivedAt": "2026-04-30T00:18:42.616Z",
+    "validUntil": "2026-05-20T00:18:42.616Z",
+    "usedAt": "2026-05-05T00:18:42.616Z"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "ec869165-5a98-4bf7-b071-b5a6649f68cc",
+    "name": "618年中大促",
+    "type": "promotion",
+    "description": "全场商品低至5折起，限时抢购",
+    "status": "active",
+    "startTime": "2026-04-28T00:18:42.583Z",
+    "endTime": "2026-06-04T00:18:42.584Z",
+    "banner": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=618%20shopping%20festival%20banner%20with%20discounts%20and%20fireworks&image_size=landscape_16_9",
+    "rules": {
+      "minOrderAmount": 100,
+      "maxDiscount": 500,
+      "applicableCategories": [
+        "all"
+      ]
+    },
+    "priority": 1,
+    "createdAt": "2026-05-05T00:18:42.584Z",
+    "updatedAt": "2026-05-05T00:18:42.584Z"
+  },
+  {
+    "id": "3d0d0586-2bfc-460a-a93f-468cb540a6cb",
+    "name": "新用户专享",
+    "type": "new_user",
+    "description": "新用户注册即送100元优惠券大礼包",
+    "status": "active",
+    "startTime": "2026-04-05T00:18:42.584Z",
+    "endTime": "2026-08-03T00:18:42.584Z",
+    "banner": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=welcome%20new%20user%20gift%20box%20promotion%20banner&image_size=landscape_16_9",
+    "rules": {
+      "newUserOnly": true,
+      "couponValue": 100,
+      "validDays": 30
+    },
+    "priority": 2,
+    "createdAt": "2026-05-05T00:18:42.584Z",
+    "updatedAt": "2026-05-05T00:18:42.584Z"
+  },
+  {
+    "id": "0ce6d18e-2ccf-40a7-89a6-2e7b32c17e24",
+    "name": "会员日特惠",
+    "type": "member",
+    "description": "每月18号会员专享85折优惠",
+    "status": "scheduled",
+    "startTime": "2026-05-19T00:18:42.584Z",
+    "endTime": "2026-05-20T00:18:42.584Z",
+    "banner": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=vip%20member%20exclusive%20sale%20golden%20badge%20banner&image_size=landscape_16_9",
+    "rules": {
+      "memberOnly": true,
+      "discount": 0.15,
+      "maxDiscount": 200
+    },
+    "priority": 3,
+    "createdAt": "2026-05-05T00:18:42.584Z",
+    "updatedAt": "2026-05-05T00:18:42.584Z"
+  }
+]

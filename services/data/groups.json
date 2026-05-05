@@ -1,0 +1,66 @@
+[
+  {
+    "id": "85882329-302f-4692-b2c5-c2e9e5d3ad15",
+    "groupBuyId": "56760811-3d01-4448-8aaa-f14fe676cbcb",
+    "leaderId": "user_001",
+    "leaderName": "张三",
+    "members": [
+      {
+        "userId": "user_001",
+        "name": "张三",
+        "joinedAt": "2026-05-05T00:18:42.565Z"
+      }
+    ],
+    "currentSize": 1,
+    "targetSize": 3,
+    "status": "pending",
+    "expireAt": "2026-05-06T00:18:42.565Z",
+    "createdAt": "2026-05-05T00:18:42.565Z"
+  },
+  {
+    "id": "bf3b87c6-36f8-41b0-a662-c406f077ba20",
+    "groupBuyId": "56760811-3d01-4448-8aaa-f14fe676cbcb",
+    "leaderId": "user_002",
+    "leaderName": "李四",
+    "members": [
+      {
+        "userId": "user_002",
+        "name": "李四",
+        "joinedAt": "2026-05-05T00:18:42.565Z"
+      },
+      {
+        "userId": "user_003",
+        "name": "王五",
+        "joinedAt": "2026-05-05T00:18:42.565Z"
+      }
+    ],
+    "currentSize": 2,
+    "targetSize": 3,
+    "status": "pending",
+    "expireAt": "2026-05-05T12:18:42.565Z",
+    "createdAt": "2026-05-04T12:18:42.565Z"
+  },
+  {
+    "id": "a7a01575-f778-41ff-aeea-b9b9677135b5",
+    "groupBuyId": "122e8d6c-baea-4588-bf76-f1295b7891ea",
+    "leaderId": "user_004",
+    "leaderName": "赵六",
+    "members": [
+      {
+        "userId": "user_004",
+        "name": "赵六",
+        "joinedAt": "2026-05-05T00:18:42.565Z"
+      },
+      {
+        "userId": "user_005",
+        "name": "钱七",
+        "joinedAt": "2026-05-05T00:18:42.565Z"
+      }
+    ],
+    "currentSize": 2,
+    "targetSize": 2,
+    "status": "success",
+    "expireAt": "2026-05-05T06:18:42.565Z",
+    "createdAt": "2026-05-04T18:18:42.565Z"
+  }
+]

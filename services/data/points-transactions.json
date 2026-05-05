@@ -1,0 +1,40 @@
+[
+  {
+    "id": "b7112fb6-f9cd-41b5-b5b1-e31aa512afbe",
+    "userId": "user_001",
+    "type": "earn",
+    "subtype": "consumption",
+    "points": 100,
+    "beforeBalance": 5580,
+    "afterBalance": 5680,
+    "description": "消费获取积分",
+    "relatedOrderId": "order_001",
+    "source": "order-service",
+    "createdAt": "2026-05-03T00:18:42.673Z"
+  },
+  {
+    "id": "e6db82ac-6026-41c1-b841-724d9f475279",
+    "userId": "user_001",
+    "type": "earn",
+    "subtype": "sign_in",
+    "points": 10,
+    "beforeBalance": 5570,
+    "afterBalance": 5580,
+    "description": "每日签到",
+    "source": "points-service",
+    "createdAt": "2026-05-02T00:18:42.673Z"
+  },
+  {
+    "id": "09429cba-5875-4b7c-9ee0-a5d7b67cacf2",
+    "userId": "user_001",
+    "type": "spend",
+    "subtype": "exchange",
+    "points": -500,
+    "beforeBalance": 6070,
+    "afterBalance": 5570,
+    "description": "积分兑换优惠券",
+    "relatedOrderId": "points_order_001",
+    "source": "points-service",
+    "createdAt": "2026-04-30T00:18:42.673Z"
+  }
+]

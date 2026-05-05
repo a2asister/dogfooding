@@ -1,0 +1,478 @@
+[
+  {
+    "id": "5cfe4bfe-93eb-4aef-87c5-99244d18b1c2",
+    "service": "coupon-service",
+    "level": "info",
+    "message": "获取用户优惠券列表",
+    "metadata": {
+      "userId": "user_001",
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:31:38.297Z",
+    "date": "2026-05-05 10:31:38"
+  },
+  {
+    "id": "ed2ba77f-791c-4232-a216-c154c72b52ca",
+    "service": "coupon-service",
+    "level": "info",
+    "message": "获取可用优惠券",
+    "metadata": {
+      "newUser": 1,
+      "common": 2
+    },
+    "timestamp": "2026-05-05T02:31:30.013Z",
+    "date": "2026-05-05 10:31:30"
+  },
+  {
+    "id": "c16427c9-563e-4ac4-9340-40056019e2ca",
+    "service": "coupon-service",
+    "level": "info",
+    "message": "获取可用优惠券",
+    "metadata": {
+      "newUser": 1,
+      "common": 2
+    },
+    "timestamp": "2026-05-05T02:31:19.148Z",
+    "date": "2026-05-05 10:31:19"
+  },
+  {
+    "id": "0c08c08f-c9d6-4482-93cb-021e32cda0cb",
+    "service": "distribution-service",
+    "level": "info",
+    "message": "获取佣金明细",
+    "metadata": {
+      "distributorId": "ef2a08e1-ee92-4486-a63a-3d02784248e0",
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:31:17.486Z",
+    "date": "2026-05-05 10:31:17"
+  },
+  {
+    "id": "c63ea51f-2f1b-4574-93b9-68697b07e221",
+    "service": "distribution-service",
+    "level": "info",
+    "message": "获取分销商信息",
+    "metadata": {
+      "userId": "user_001",
+      "level": 1
+    },
+    "timestamp": "2026-05-05T02:31:17.484Z",
+    "date": "2026-05-05 10:31:17"
+  },
+  {
+    "id": "d25076e9-ca48-4743-9e96-0f90edf1c22e",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取积分商品列表",
+    "metadata": {
+      "count": 4
+    },
+    "timestamp": "2026-05-05T02:31:13.081Z",
+    "date": "2026-05-05 10:31:13"
+  },
+  {
+    "id": "a605ec76-3259-4d2b-91ba-93a25579eeea",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取积分明细",
+    "metadata": {
+      "userId": "user_001",
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:31:13.078Z",
+    "date": "2026-05-05 10:31:13"
+  },
+  {
+    "id": "5d4f59f7-fe3c-4f45-9842-5be0b10bdc77",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取用户积分余额",
+    "metadata": {
+      "userId": "user_001",
+      "points": 5680
+    },
+    "timestamp": "2026-05-05T02:31:13.075Z",
+    "date": "2026-05-05 10:31:13"
+  },
+  {
+    "id": "b26683c3-40dc-423d-a056-6c1186322b8c",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取积分商品列表",
+    "metadata": {
+      "count": 4
+    },
+    "timestamp": "2026-05-05T02:31:12.032Z",
+    "date": "2026-05-05 10:31:12"
+  },
+  {
+    "id": "4fcac706-48fb-45b1-9553-0343b6286d45",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取积分明细",
+    "metadata": {
+      "userId": "user_001",
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:31:12.030Z",
+    "date": "2026-05-05 10:31:12"
+  },
+  {
+    "id": "41f8aca6-3aea-4b62-8bdc-77937c9cc7c3",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取用户积分余额",
+    "metadata": {
+      "userId": "user_001",
+      "points": 5680
+    },
+    "timestamp": "2026-05-05T02:31:12.027Z",
+    "date": "2026-05-05 10:31:12"
+  },
+  {
+    "id": "bdd48062-c476-4bc7-9f88-fa14275bbae8",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取积分商品列表",
+    "metadata": {
+      "count": 4
+    },
+    "timestamp": "2026-05-05T02:31:03.474Z",
+    "date": "2026-05-05 10:31:03"
+  },
+  {
+    "id": "6eec6ffe-7e44-4c1b-8ed9-7c908d791713",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取积分明细",
+    "metadata": {
+      "userId": "user_001",
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:31:03.472Z",
+    "date": "2026-05-05 10:31:03"
+  },
+  {
+    "id": "06948dd4-1465-4c2c-adc8-ffcf4b743dfc",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取用户积分余额",
+    "metadata": {
+      "userId": "user_001",
+      "points": 5680
+    },
+    "timestamp": "2026-05-05T02:31:03.469Z",
+    "date": "2026-05-05 10:31:03"
+  },
+  {
+    "id": "a80f2904-0b58-40cb-8e41-99212c297c15",
+    "service": "flash-sale-service",
+    "level": "info",
+    "message": "获取当前活跃秒杀",
+    "metadata": {
+      "hot": 3,
+      "normal": 1
+    },
+    "timestamp": "2026-05-05T02:30:55.572Z",
+    "date": "2026-05-05 10:30:55"
+  },
+  {
+    "id": "4250d207-a2ff-4e5b-af94-ca5b0758bf97",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:30:54.620Z",
+    "date": "2026-05-05 10:30:54"
+  },
+  {
+    "id": "a48a8bcf-bab4-4963-8df5-27219f428e21",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取积分商品列表",
+    "metadata": {
+      "count": 4
+    },
+    "timestamp": "2026-05-05T02:29:46.121Z",
+    "date": "2026-05-05 10:29:46"
+  },
+  {
+    "id": "59f54994-0805-4b9f-abe7-f63fe919cb5a",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取积分明细",
+    "metadata": {
+      "userId": "user_001",
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:29:46.116Z",
+    "date": "2026-05-05 10:29:46"
+  },
+  {
+    "id": "ff853579-e455-4185-abce-18497217b8bf",
+    "service": "points-service",
+    "level": "info",
+    "message": "获取用户积分余额",
+    "metadata": {
+      "userId": "user_001",
+      "points": 5680
+    },
+    "timestamp": "2026-05-05T02:29:46.113Z",
+    "date": "2026-05-05 10:29:46"
+  },
+  {
+    "id": "ebb9abdd-1c7b-4c7a-824a-acc272b02a2b",
+    "service": "coupon-service",
+    "level": "info",
+    "message": "获取可用优惠券",
+    "metadata": {
+      "newUser": 1,
+      "common": 2
+    },
+    "timestamp": "2026-05-05T02:29:21.340Z",
+    "date": "2026-05-05 10:29:21"
+  },
+  {
+    "id": "9b1b1271-6839-4dd4-98d0-14c6c14e372e",
+    "service": "flash-sale-service",
+    "level": "info",
+    "message": "获取当前活跃秒杀",
+    "metadata": {
+      "hot": 3,
+      "normal": 1
+    },
+    "timestamp": "2026-05-05T02:28:41.336Z",
+    "date": "2026-05-05 10:28:41"
+  },
+  {
+    "id": "d944f5e2-5f9b-4633-b8e2-7672700bb68a",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:28:38.973Z",
+    "date": "2026-05-05 10:28:38"
+  },
+  {
+    "id": "a47c5f66-4c28-477e-be85-009076cf0976",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:25:05.303Z",
+    "date": "2026-05-05 10:25:05"
+  },
+  {
+    "id": "7c767bcc-ef1d-4a1c-8dcc-a816481a940c",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:04:42.836Z",
+    "date": "2026-05-05 10:04:42"
+  },
+  {
+    "id": "fc552514-16f0-4793-87e3-4fbfcac93769",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:02:56.991Z",
+    "date": "2026-05-05 10:02:56"
+  },
+  {
+    "id": "576b4e2f-c7cf-45bb-abd4-80911cb675a2",
+    "service": "flash-sale-service",
+    "level": "info",
+    "message": "获取当前活跃秒杀",
+    "metadata": {
+      "hot": 3,
+      "normal": 1
+    },
+    "timestamp": "2026-05-05T02:02:29.195Z",
+    "date": "2026-05-05 10:02:29"
+  },
+  {
+    "id": "c0afd707-071c-4230-a451-6142c1818678",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:01:10.401Z",
+    "date": "2026-05-05 10:01:10"
+  },
+  {
+    "id": "144f0db2-fb2c-48b9-b224-a829f1d9cd1b",
+    "service": "flash-sale-service",
+    "level": "info",
+    "message": "获取当前活跃秒杀",
+    "metadata": {
+      "hot": 3,
+      "normal": 1
+    },
+    "timestamp": "2026-05-05T02:00:47.927Z",
+    "date": "2026-05-05 10:00:47"
+  },
+  {
+    "id": "aee5cadf-e38a-4877-9a6d-0f6834e68d52",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T02:00:46.953Z",
+    "date": "2026-05-05 10:00:46"
+  },
+  {
+    "id": "c160bd69-57b5-4b4d-a23d-831bf9f591dd",
+    "service": "flash-sale-service",
+    "level": "info",
+    "message": "获取当前活跃秒杀",
+    "metadata": {
+      "hot": 3,
+      "normal": 1
+    },
+    "timestamp": "2026-05-05T01:59:53.145Z",
+    "date": "2026-05-05 09:59:53"
+  },
+  {
+    "id": "a7f5e404-fd17-40ca-937f-258b29086f20",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T01:59:39.727Z",
+    "date": "2026-05-05 09:59:39"
+  },
+  {
+    "id": "b83453c3-b9c7-47d5-82df-31f949fcf673",
+    "service": "flash-sale-service",
+    "level": "info",
+    "message": "获取当前活跃秒杀",
+    "metadata": {
+      "hot": 3,
+      "normal": 1
+    },
+    "timestamp": "2026-05-05T01:57:30.892Z",
+    "date": "2026-05-05 09:57:30"
+  },
+  {
+    "id": "7b0ce846-0724-4a4a-9463-9c23e10e55da",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T01:57:29.157Z",
+    "date": "2026-05-05 09:57:29"
+  },
+  {
+    "id": "936c9bbf-cdaf-4dda-91d5-345a37406f7f",
+    "service": "flash-sale-service",
+    "level": "info",
+    "message": "获取当前活跃秒杀",
+    "metadata": {
+      "hot": 3,
+      "normal": 1
+    },
+    "timestamp": "2026-05-05T01:56:07.273Z",
+    "date": "2026-05-05 09:56:07"
+  },
+  {
+    "id": "a541d88d-ef29-48ac-b0f7-e2f32271e867",
+    "service": "flash-sale-service",
+    "level": "info",
+    "message": "获取当前活跃秒杀",
+    "metadata": {
+      "hot": 3,
+      "normal": 1
+    },
+    "timestamp": "2026-05-05T01:56:02.752Z",
+    "date": "2026-05-05 09:56:02"
+  },
+  {
+    "id": "95bc6501-9803-4321-80a8-af4c9c204ab1",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T01:55:57.312Z",
+    "date": "2026-05-05 09:55:57"
+  },
+  {
+    "id": "1f18c084-da5d-437a-9544-33fe8875d99f",
+    "service": "flash-sale-service",
+    "level": "info",
+    "message": "获取当前活跃秒杀",
+    "metadata": {
+      "hot": 3,
+      "normal": 1
+    },
+    "timestamp": "2026-05-05T01:48:40.083Z",
+    "date": "2026-05-05 09:48:40"
+  },
+  {
+    "id": "0c9dc5ee-c4ca-47cb-84f4-ca6cc4519903",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T01:48:38.073Z",
+    "date": "2026-05-05 09:48:38"
+  },
+  {
+    "id": "e9b2a167-3900-481e-97c9-cdf9c1b8d0a7",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T01:11:12.640Z",
+    "date": "2026-05-05 09:11:12"
+  },
+  {
+    "id": "a0a3b476-da06-4a68-8df5-8d63b0df50bf",
+    "service": "activity-service",
+    "level": "info",
+    "message": "获取活动列表成功",
+    "metadata": {
+      "filters": {},
+      "count": 3
+    },
+    "timestamp": "2026-05-05T01:10:25.037Z",
+    "date": "2026-05-05 09:10:25"
+  }
+]

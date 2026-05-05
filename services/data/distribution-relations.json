@@ -1,0 +1,26 @@
+[
+  {
+    "id": "a57f7b43-767e-436a-8c1d-421b8aebe02c",
+    "distributorId": "ef2a08e1-ee92-4486-a63a-3d02784248e0",
+    "userId": "user_002",
+    "level": 1,
+    "parentDistributorId": null,
+    "status": "active",
+    "bindTime": "2026-03-06T00:18:42.583Z",
+    "totalOrders": 12,
+    "totalAmount": 3560,
+    "createdAt": "2026-05-05T00:18:42.583Z"
+  },
+  {
+    "id": "8374f6db-802c-45ba-a926-175b054204b0",
+    "distributorId": "ef2a08e1-ee92-4486-a63a-3d02784248e0",
+    "userId": "user_003",
+    "level": 1,
+    "parentDistributorId": null,
+    "status": "active",
+    "bindTime": "2026-03-21T00:18:42.583Z",
+    "totalOrders": 8,
+    "totalAmount": 2100,
+    "createdAt": "2026-05-05T00:18:42.583Z"
+  }
+]

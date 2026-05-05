@@ -1,0 +1,22 @@
+[
+  {
+    "id": "ef2a08e1-ee92-4486-a63a-3d02784248e0",
+    "userId": "user_001",
+    "level": 1,
+    "levelName": "初级分销商",
+    "status": "active",
+    "joinTime": "2026-02-04T00:18:42.581Z",
+    "totalSales": 15680,
+    "totalCommission": 1568,
+    "withdrawableCommission": 1200,
+    "withdrawnCommission": 368,
+    "teamCount": 8,
+    "firstLevelCount": 5,
+    "secondLevelCount": 3,
+    "referralCode": "REF123456",
+    "qrCodeUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=QR%20code%20with%20gradient%20border%20premium%20design&image_size=square",
+    "shareUrl": "https://example.com/ref/REF123456",
+    "createdAt": "2026-05-05T00:18:42.583Z",
+    "updatedAt": "2026-05-05T00:18:42.583Z"
+  }
+]

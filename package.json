@@ -1,0 +1,38 @@
+{
+  "name": "flash-sale-system",
+  "version": "1.0.0",
+  "description": "秒杀/促销系统 - 微前端+微服务架构",
+  "private": true,
+  "workspaces": [
+    "services/*",
+    "micro-frontends/*",
+    "gateway"
+  ],
+  "scripts": {
+    "start": "concurrently \"npm run start:all-services\" \"npm run start:all-mfe\" \"npm run start:gateway\"",
+    "start:all-services": "concurrently \"npm run start:log\" \"npm run start:activity\" \"npm run start:flash-sale\" \"npm run start:group-buy\" \"npm run start:coupon\" \"npm run start:points\" \"npm run start:distribution\"",
+    "start:all-mfe": "concurrently \"npm run start:mfe-activity\" \"npm run start:mfe-flash-sale\" \"npm run start:mfe-group-buy\" \"npm run start:mfe-coupon\" \"npm run start:mfe-lottery\" \"npm run start:mfe-points\" \"npm run start:mfe-distribution\"",
+    "start:log": "npm --prefix services/log-service start",
+    "start:activity": "npm --prefix services/activity-service start",
+    "start:flash-sale": "npm --prefix services/flash-sale-service start",
+    "start:group-buy": "npm --prefix services/group-buy-service start",
+    "start:coupon": "npm --prefix services/coupon-service start",
+    "start:points": "npm --prefix services/points-service start",
+    "start:distribution": "npm --prefix services/distribution-service start",
+    "start:mfe-activity": "npm --prefix micro-frontends/activity-mfe run dev",
+    "start:mfe-flash-sale": "npm --prefix micro-frontends/flash-sale-mfe run dev",
+    "start:mfe-group-buy": "npm --prefix micro-frontends/group-buy-mfe run dev",
+    "start:mfe-coupon": "npm --prefix micro-frontends/coupon-mfe run dev",
+    "start:mfe-lottery": "npm --prefix micro-frontends/lottery-mfe run dev",
+    "start:mfe-points": "npm --prefix micro-frontends/points-mfe run dev",
+    "start:mfe-distribution": "npm --prefix micro-frontends/distribution-mfe run dev",
+    "start:gateway": "npm --prefix gateway run dev",
+    "install:all": "npm install && npm run install:services && npm run install:mfe && npm run install:gateway",
+    "install:services": "for dir in services/*/; do (cd \"$dir\" && npm install); done",
+    "install:mfe": "for dir in micro-frontends/*/; do (cd \"$dir\" && npm install); done",
+    "install:gateway": "cd gateway && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

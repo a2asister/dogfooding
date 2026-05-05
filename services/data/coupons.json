@@ -1,0 +1,91 @@
+[
+  {
+    "id": "bee9b1eb-80bc-481c-8bb3-15f9231ced44",
+    "name": "新人专享优惠券",
+    "type": "new_user",
+    "discountType": "fixed",
+    "discountValue": 100,
+    "minOrderAmount": 200,
+    "maxDiscount": 100,
+    "totalQuantity": 1000,
+    "usedQuantity": 156,
+    "status": "active",
+    "startTime": "2026-04-05T00:18:42.614Z",
+    "endTime": "2026-08-03T00:18:42.615Z",
+    "description": "新用户专属，满200减100",
+    "applicableCategories": [
+      "all"
+    ],
+    "isNewUserOnly": true,
+    "limitPerUser": 1,
+    "createdAt": "2026-05-05T00:18:42.615Z",
+    "updatedAt": "2026-05-05T00:18:42.615Z"
+  },
+  {
+    "id": "6cc3ad19-7783-47f0-b887-1bdeb774df2a",
+    "name": "满500减50",
+    "type": "common",
+    "discountType": "fixed",
+    "discountValue": 50,
+    "minOrderAmount": 500,
+    "maxDiscount": 50,
+    "totalQuantity": 5000,
+    "usedQuantity": 2345,
+    "status": "active",
+    "startTime": "2026-04-28T00:18:42.615Z",
+    "endTime": "2026-06-04T00:18:42.615Z",
+    "description": "全场通用，满500减50",
+    "applicableCategories": [
+      "all"
+    ],
+    "isNewUserOnly": false,
+    "limitPerUser": 3,
+    "createdAt": "2026-05-05T00:18:42.615Z",
+    "updatedAt": "2026-05-05T00:18:42.615Z"
+  },
+  {
+    "id": "92adfb2d-d34c-4b16-a44e-8ced4f920b03",
+    "name": "9折优惠券",
+    "type": "common",
+    "discountType": "percent",
+    "discountValue": 0.1,
+    "minOrderAmount": 100,
+    "maxDiscount": 200,
+    "totalQuantity": 3000,
+    "usedQuantity": 876,
+    "status": "active",
+    "startTime": "2026-04-30T00:18:42.615Z",
+    "endTime": "2026-05-25T00:18:42.615Z",
+    "description": "全场9折，最高减200",
+    "applicableCategories": [
+      "all"
+    ],
+    "isNewUserOnly": false,
+    "limitPerUser": 5,
+    "createdAt": "2026-05-05T00:18:42.615Z",
+    "updatedAt": "2026-05-05T00:18:42.615Z"
+  },
+  {
+    "id": "9a4f79f0-c696-4c65-b08d-bf954c45df37",
+    "name": "数码品类券",
+    "type": "category",
+    "discountType": "fixed",
+    "discountValue": 200,
+    "minOrderAmount": 1000,
+    "maxDiscount": 200,
+    "totalQuantity": 1000,
+    "usedQuantity": 0,
+    "status": "scheduled",
+    "startTime": "2026-05-07T00:18:42.615Z",
+    "endTime": "2026-05-20T00:18:42.615Z",
+    "description": "数码品类满1000减200",
+    "applicableCategories": [
+      "手机数码",
+      "电脑办公"
+    ],
+    "isNewUserOnly": false,
+    "limitPerUser": 2,
+    "createdAt": "2026-05-05T00:18:42.615Z",
+    "updatedAt": "2026-05-05T00:18:42.615Z"
+  }
+]
