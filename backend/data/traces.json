@@ -1,0 +1,72 @@
+[
+  {
+    "traceId": "bf571230-ee4c-4ed5-9582-1767631dcc56",
+    "rootSpanId": "5a5c4732-6f16-46",
+    "service": "api-gateway",
+    "operation": "POST /api/orders",
+    "startTime": 1777963496319,
+    "status": "ok",
+    "spans": [
+      {
+        "spanId": "5a5c4732-6f16-46",
+        "parentSpanId": null,
+        "service": "api-gateway",
+        "operation": "POST /api/orders",
+        "startTime": 1777963496319,
+        "status": "ok",
+        "tags": {
+          "statusCode": 200
+        },
+        "endTime": 1777963496811,
+        "duration": 492
+      },
+      {
+        "spanId": "5af411db-9497-44",
+        "parentSpanId": "5a5c4732-6f16-46",
+        "service": "user-service",
+        "operation": "validateUser",
+        "startTime": 1777963496429,
+        "status": "ok",
+        "tags": {
+          "userId": "123",
+          "role": "admin"
+        },
+        "endTime": 1777963496486,
+        "duration": 57
+      },
+      {
+        "spanId": "8dbb6c00-70bc-4a",
+        "parentSpanId": "5a5c4732-6f16-46",
+        "service": "order-service",
+        "operation": "createOrder",
+        "startTime": 1777963496514,
+        "status": "ok",
+        "tags": {
+          "orderId": "ORD-1777963496801"
+        },
+        "endTime": 1777963496805,
+        "duration": 291
+      },
+      {
+        "spanId": "578dbe2b-f2a6-44",
+        "parentSpanId": "8dbb6c00-70bc-4a",
+        "service": "payment-service",
+        "operation": "processPayment",
+        "startTime": 1777963496624,
+        "status": "ok",
+        "tags": {
+          "amount": 99.99,
+          "currency": "CNY"
+        },
+        "endTime": 1777963496781,
+        "duration": 157
+      }
+    ],
+    "metadata": {
+      "requestId": "req-1777963496299",
+      "userId": "user-26"
+    },
+    "endTime": 1777963496811,
+    "duration": 492
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "3ef6cf0f-1d62-46a5-a292-3f1dd8b5c7d7",
+    "ruleId": "10b3a8ee-c99c-4823-b301-9f5f99db2f22",
+    "ruleName": "High Error Rate",
+    "severity": "HIGH",
+    "status": "OPEN",
+    "message": "Rule \"High Error Rate\" triggered: 14.507772020725387",
+    "currentValue": 14.507772020725387,
+    "threshold": 10,
+    "affectedLogs": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "createdAt": 1777963529889,
+    "updatedAt": 1777963529889,
+    "acknowledgedBy": null,
+    "resolvedAt": null
+  }
+]

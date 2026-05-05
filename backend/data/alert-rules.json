@@ -1,0 +1,19 @@
+[
+  {
+    "id": "af5f2ef3-3dc7-4b9a-93fb-5732d89a56d0",
+    "name": "规则 1",
+    "description": "",
+    "condition": "count_gt",
+    "level": null,
+    "service": null,
+    "keyword": null,
+    "threshold": 10,
+    "timeWindow": 60000,
+    "severity": "MEDIUM",
+    "enabled": true,
+    "lastEvaluated": null,
+    "lastTriggered": null,
+    "createdAt": 1777963551826,
+    "updatedAt": 1777963551826
+  }
+]
