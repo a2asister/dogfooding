@@ -1,0 +1,30 @@
+import { OnModuleInit } from '@nestjs/common';
+import { Robot } from '../robots/interfaces/robot.interface';
+import { Task } from '../tasks/interfaces/task.interface';
+import { MapGrid } from '../path-planning/interfaces/path-planning.interface';
+import { Obstacle } from '../obstacle-avoidance/interfaces/obstacle.interface';
+export declare class DataStorageService implements OnModuleInit {
+    private dataStore;
+    constructor();
+    onModuleInit(): void;
+    private ensureDataDirectoryExists;
+    private loadData;
+    private saveData;
+    private getDefaultData;
+    private initializeDefaultData;
+    getRobots(): Robot[];
+    getRobotById(id: string): Robot | undefined;
+    createRobot(robot: Omit<Robot, 'id' | 'lastUpdate'>): Robot;
+    updateRobot(id: string, updates: Partial<Robot>): Robot | undefined;
+    deleteRobot(id: string): boolean;
+    getTasks(): Task[];
+    getTaskById(id: string): Task | undefined;
+    createTask(task: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>): Task;
+    updateTask(id: string, updates: Partial<Task>): Task | undefined;
+    deleteTask(id: string): boolean;
+    getMapGrid(): MapGrid;
+    updateMapGrid(grid: MapGrid): MapGrid;
+    getObstacles(): Obstacle[];
+    addObstacle(obstacle: Omit<Obstacle, 'id'>): Obstacle;
+    removeObstacle(id: string): boolean;
+}
