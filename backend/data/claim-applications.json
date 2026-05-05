@@ -1,0 +1,39 @@
+[
+  {
+    "id": "CL001",
+    "policyId": "POL001",
+    "policyNumber": "202306200001",
+    "insuredPersonId": "IPER002",
+    "claimDate": "2024-03-15T00:00:00Z",
+    "claimType": "serious_illness",
+    "description": "被保险人于2024年3月10日确诊为急性心肌梗死，符合重大疾病保险责任范围",
+    "claimAmount": 300000,
+    "supportingDocuments": [
+      {
+        "id": "DOC001",
+        "name": "医院诊断证明.pdf",
+        "type": "diagnosis",
+        "uploadDate": "2024-03-15T00:00:00Z"
+      },
+      {
+        "id": "DOC002",
+        "name": "住院病历.pdf",
+        "type": "medical_record",
+        "uploadDate": "2024-03-15T00:00:00Z"
+      },
+      {
+        "id": "DOC003",
+        "name": "检查报告.pdf",
+        "type": "lab_report",
+        "uploadDate": "2024-03-15T00:00:00Z"
+      }
+    ],
+    "status": "reviewing",
+    "investigationStatus": "pending",
+    "approvedAmount": null,
+    "rejectionReason": null,
+    "notes": "理赔申请已提交，正在审核中",
+    "createdAt": "2024-03-15T00:00:00Z",
+    "updatedAt": "2024-03-16T00:00:00Z"
+  }
+]

@@ -1,0 +1,163 @@
+[
+  {
+    "id": "AD001",
+    "productId": "IP001",
+    "productName": "个人意外伤害保险",
+    "analysisPeriod": {
+      "startDate": "2023-01-01T00:00:00Z",
+      "endDate": "2023-12-31T00:00:00Z"
+    },
+    "premiumStatistics": {
+      "totalPremium": 1250000,
+      "averagePremium": 450,
+      "premiumByAgeGroup": [
+        {
+          "ageGroup": "18-25",
+          "totalPremium": 300000,
+          "count": 800
+        },
+        {
+          "ageGroup": "26-35",
+          "totalPremium": 450000,
+          "count": 1000
+        },
+        {
+          "ageGroup": "36-45",
+          "totalPremium": 300000,
+          "count": 750
+        },
+        {
+          "ageGroup": "46-65",
+          "totalPremium": 200000,
+          "count": 450
+        }
+      ]
+    },
+    "claimStatistics": {
+      "totalClaims": 45,
+      "totalClaimAmount": 850000,
+      "averageClaimAmount": 18888.89,
+      "claimRate": 0.015,
+      "claimsByType": [
+        {
+          "type": "accident_death",
+          "count": 12,
+          "totalAmount": 600000
+        },
+        {
+          "type": "accident_disability",
+          "count": 20,
+          "totalAmount": 200000
+        },
+        {
+          "type": "medical_expense",
+          "count": 13,
+          "totalAmount": 50000
+        }
+      ]
+    },
+    "lossRatio": 0.68,
+    "profitability": {
+      "grossProfit": 400000,
+      "netProfit": 250000,
+      "profitMargin": 0.2
+    },
+    "riskAssessment": {
+      "overallRiskLevel": "low",
+      "keyRiskFactors": [
+        "18-25岁年龄段索赔率略高，主要为意外伤残",
+        "46-65岁年龄段索赔金额较高，主要为意外身故",
+        "医疗费用索赔呈上升趋势"
+      ]
+    },
+    "recommendations": [
+      "考虑对18-25岁年龄段适当提高保费或调整保障范围",
+      "加强对高年龄段投保人的健康状况评估",
+      "优化医疗费用索赔审核流程，控制医疗费用上涨"
+    ],
+    "createdAt": "2024-01-15T00:00:00Z",
+    "updatedAt": "2024-01-15T00:00:00Z"
+  },
+  {
+    "id": "AD002",
+    "productId": "IP002",
+    "productName": "重大疾病保险",
+    "analysisPeriod": {
+      "startDate": "2023-01-01T00:00:00Z",
+      "endDate": "2023-12-31T00:00:00Z"
+    },
+    "premiumStatistics": {
+      "totalPremium": 3500000,
+      "averagePremium": 2500,
+      "premiumByAgeGroup": [
+        {
+          "ageGroup": "0-17",
+          "totalPremium": 500000,
+          "count": 400
+        },
+        {
+          "ageGroup": "18-35",
+          "totalPremium": 1200000,
+          "count": 600
+        },
+        {
+          "ageGroup": "36-50",
+          "totalPremium": 1300000,
+          "count": 500
+        },
+        {
+          "ageGroup": "51-60",
+          "totalPremium": 500000,
+          "count": 200
+        }
+      ]
+    },
+    "claimStatistics": {
+      "totalClaims": 28,
+      "totalClaimAmount": 7200000,
+      "averageClaimAmount": 257142.86,
+      "claimRate": 0.012,
+      "claimsByType": [
+        {
+          "type": "cancer",
+          "count": 15,
+          "totalAmount": 4500000
+        },
+        {
+          "type": "cardiovascular",
+          "count": 8,
+          "totalAmount": 2000000
+        },
+        {
+          "type": "other_serious_illness",
+          "count": 5,
+          "totalAmount": 700000
+        }
+      ]
+    },
+    "lossRatio": 2.06,
+    "profitability": {
+      "grossProfit": -3700000,
+      "netProfit": -4200000,
+      "profitMargin": -1.2
+    },
+    "riskAssessment": {
+      "overallRiskLevel": "high",
+      "keyRiskFactors": [
+        "重大疾病保险赔付率过高，达到206%",
+        "癌症索赔占比最高，且赔付金额大",
+        "51-60岁年龄段索赔率显著高于其他年龄段",
+        "等待期内索赔案例有所增加"
+      ]
+    },
+    "recommendations": [
+      "立即审查重大疾病保险产品定价，考虑调整保费或保障范围",
+      "加强核保环节，特别是对51-60岁年龄段的投保人",
+      "优化等待期设计，减少逆选择风险",
+      "考虑引入更严格的健康告知和体检要求",
+      "与再保险公司协商，分散高风险"
+    ],
+    "createdAt": "2024-01-15T00:00:00Z",
+    "updatedAt": "2024-01-15T00:00:00Z"
+  }
+]

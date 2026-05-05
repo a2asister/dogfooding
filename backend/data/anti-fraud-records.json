@@ -1,0 +1,34 @@
+[
+  {
+    "id": "AFR001",
+    "relatedId": "CL001",
+    "relatedType": "claim",
+    "detectionDate": "2024-03-16T00:00:00Z",
+    "fraudRiskScore": 15,
+    "riskLevel": "low",
+    "riskFactors": [
+      {
+        "name": "投保时间与理赔时间间隔",
+        "score": 5,
+        "description": "投保后9个月申请理赔，在合理范围内"
+      },
+      {
+        "name": "医疗记录完整性",
+        "score": 5,
+        "description": "提交的医疗记录完整，包含诊断证明、住院病历和检查报告"
+      },
+      {
+        "name": "医院资质",
+        "score": 5,
+        "description": "就诊医院为三甲医院，资质可靠"
+      }
+    ],
+    "investigationStatus": "completed",
+    "investigationResult": "no_fraud",
+    "investigatorId": "INV001",
+    "investigatorName": "调查员甲",
+    "investigationNotes": "经核实，被保险人的医疗记录真实有效，就诊医院为正规医疗机构，理赔申请符合保险合同条款。未发现欺诈迹象。",
+    "createdAt": "2024-03-16T00:00:00Z",
+    "updatedAt": "2024-03-18T00:00:00Z"
+  }
+]

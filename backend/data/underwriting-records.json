@@ -1,0 +1,78 @@
+[
+  {
+    "id": "UR001",
+    "applicationId": "IA001",
+    "underwriterId": "U001",
+    "underwriterName": "核保员甲",
+    "underwritingDate": "2023-05-02T00:00:00Z",
+    "riskAssessment": {
+      "riskLevel": "low",
+      "score": 85,
+      "factors": [
+        {
+          "name": "年龄",
+          "score": 25,
+          "weight": 0.3
+        },
+        {
+          "name": "健康状况",
+          "score": 30,
+          "weight": 0.4
+        },
+        {
+          "name": "职业风险",
+          "score": 20,
+          "weight": 0.2
+        },
+        {
+          "name": "投保金额",
+          "score": 10,
+          "weight": 0.1
+        }
+      ]
+    },
+    "status": "pending",
+    "recommendation": "需要进一步核实职业风险信息",
+    "notes": "投保人职业为企业职员，需要确认具体工作内容是否涉及高风险活动",
+    "createdAt": "2023-05-02T00:00:00Z",
+    "updatedAt": "2023-05-02T00:00:00Z"
+  },
+  {
+    "id": "UR002",
+    "applicationId": "IA002",
+    "underwriterId": "U002",
+    "underwriterName": "核保员乙",
+    "underwritingDate": "2023-06-20T00:00:00Z",
+    "riskAssessment": {
+      "riskLevel": "low",
+      "score": 92,
+      "factors": [
+        {
+          "name": "年龄",
+          "score": 22,
+          "weight": 0.3
+        },
+        {
+          "name": "健康状况",
+          "score": 30,
+          "weight": 0.4
+        },
+        {
+          "name": "职业风险",
+          "score": 20,
+          "weight": 0.2
+        },
+        {
+          "name": "投保金额",
+          "score": 20,
+          "weight": 0.1
+        }
+      ]
+    },
+    "status": "approved",
+    "recommendation": "同意承保",
+    "notes": "投保人健康状况良好，职业风险低，投保金额合理",
+    "createdAt": "2023-06-20T00:00:00Z",
+    "updatedAt": "2023-06-20T00:00:00Z"
+  }
+]

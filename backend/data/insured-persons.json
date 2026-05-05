@@ -1,0 +1,17 @@
+[
+  {
+    "id": "IPER002",
+    "name": "李四",
+    "idNumber": "110101198505155678",
+    "gender": "female",
+    "birthDate": "1985-05-15",
+    "age": 41,
+    "phone": "13900139002",
+    "email": "lisi@example.com",
+    "address": "上海市浦东新区某某路456号",
+    "occupation": "教师",
+    "healthStatus": "healthy",
+    "createdAt": "2023-06-15T00:00:00Z",
+    "updatedAt": "2023-06-15T00:00:00Z"
+  }
+]

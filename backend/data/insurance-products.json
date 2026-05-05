@@ -1,0 +1,72 @@
+[
+  {
+    "id": "IP001",
+    "name": "个人意外伤害保险",
+    "type": "accident",
+    "description": "提供因意外导致的身故、伤残及医疗费用保障",
+    "minAge": 18,
+    "maxAge": 65,
+    "minPremium": 100,
+    "maxCoverage": 1000000,
+    "coveragePeriod": "1年",
+    "status": "active",
+    "createdAt": "2023-01-01T00:00:00Z",
+    "updatedAt": "2023-01-01T00:00:00Z"
+  },
+  {
+    "id": "IP002",
+    "name": "重大疾病保险",
+    "type": "health",
+    "description": "提供重大疾病确诊后的一次性给付保障",
+    "minAge": 0,
+    "maxAge": 60,
+    "minPremium": 500,
+    "maxCoverage": 500000,
+    "coveragePeriod": "20年/至70岁",
+    "status": "active",
+    "createdAt": "2023-01-01T00:00:00Z",
+    "updatedAt": "2023-01-01T00:00:00Z"
+  },
+  {
+    "id": "IP003",
+    "name": "人寿保险",
+    "type": "life",
+    "description": "提供身故保障，包括意外身故和疾病身故",
+    "minAge": 18,
+    "maxAge": 55,
+    "minPremium": 1000,
+    "maxCoverage": 2000000,
+    "coveragePeriod": "30年/终身",
+    "status": "active",
+    "createdAt": "2023-01-01T00:00:00Z",
+    "updatedAt": "2023-01-01T00:00:00Z"
+  },
+  {
+    "id": "IP004",
+    "name": "医疗保险",
+    "type": "health",
+    "description": "提供医疗费用报销保障，包括住院和门诊",
+    "minAge": 0,
+    "maxAge": 70,
+    "minPremium": 300,
+    "maxCoverage": 500000,
+    "coveragePeriod": "1年",
+    "status": "active",
+    "createdAt": "2023-01-01T00:00:00Z",
+    "updatedAt": "2023-01-01T00:00:00Z"
+  },
+  {
+    "name": "ACC",
+    "type": "life",
+    "description": "ACC",
+    "minAge": 0,
+    "maxAge": 100,
+    "minPremium": 0,
+    "maxCoverage": 0,
+    "coveragePeriod": "36",
+    "status": "active",
+    "id": "IP005",
+    "createdAt": "2026-05-05T14:00:04.222Z",
+    "updatedAt": "2026-05-05T14:00:04.222Z"
+  }
+]

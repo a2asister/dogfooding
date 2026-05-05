@@ -1,0 +1,42 @@
+[
+  {
+    "id": "IA001",
+    "insuredPersonId": "IPER001",
+    "productId": "IP001",
+    "applicationDate": "2023-05-01T00:00:00Z",
+    "coverageAmount": 500000,
+    "premiumAmount": 500,
+    "paymentMethod": "annual",
+    "healthDeclaration": {
+      "hasSeriousIllness": false,
+      "hasSurgeryInLastYear": false,
+      "isSmoker": false,
+      "isDrinker": false,
+      "familyHistory": "none"
+    },
+    "status": "underwriting",
+    "notes": "首次投保，健康状况良好",
+    "createdAt": "2023-05-01T00:00:00Z",
+    "updatedAt": "2023-05-02T00:00:00Z"
+  },
+  {
+    "id": "IA002",
+    "insuredPersonId": "IPER002",
+    "productId": "IP002",
+    "applicationDate": "2023-06-15T00:00:00Z",
+    "coverageAmount": 300000,
+    "premiumAmount": 1200,
+    "paymentMethod": "annual",
+    "healthDeclaration": {
+      "hasSeriousIllness": false,
+      "hasSurgeryInLastYear": false,
+      "isSmoker": false,
+      "isDrinker": false,
+      "familyHistory": "none"
+    },
+    "status": "approved",
+    "notes": "投保申请已通过核保",
+    "createdAt": "2023-06-15T00:00:00Z",
+    "updatedAt": "2023-06-20T00:00:00Z"
+  }
+]
