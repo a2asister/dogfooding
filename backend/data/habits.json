@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "name": "早睡",
+    "icon": "🌙",
+    "color": "#6B5B95",
+    "reminder": "22:30",
+    "active": true
+  },
+  {
+    "id": "2",
+    "name": "运动",
+    "icon": "🏃",
+    "color": "#88B04B",
+    "reminder": "18:00",
+    "active": true
+  },
+  {
+    "id": "3",
+    "name": "学习",
+    "icon": "📚",
+    "color": "#92A8D1",
+    "reminder": "20:00",
+    "active": true
+  },
+  {
+    "id": "4",
+    "name": "喝水",
+    "icon": "💧",
+    "color": "#87CEEB",
+    "reminder": "",
+    "active": true
+  },
+  {
+    "id": "1778311709915",
+    "name": "测试打卡项",
+    "icon": "📚",
+    "color": "#92A8D1",
+    "reminder": "",
+    "active": true
+  },
+  {
+    "id": "1778311900536",
+    "name": "阅读",
+    "icon": "📚",
+    "color": "#955251",
+    "reminder": "15:32",
+    "active": true
+  }
+]

@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #f5f0e6 0%, #ebe3d5 100%);
+  min-height: 100vh;
+  color: #4a4a4a;
+}
+
+#app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 32px;
+  padding: 28px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+  animation: slideUp 0.5s ease-out;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #88B04B 0%, #6B8E23 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: #f0e6d3;
+  color: #4a4a4a;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f0e6;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4c9b5;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c4b8a5;
+}
