@@ -1,0 +1,56 @@
+[
+  {
+    "id": "597fe00c-6ea8-4cf3-9b3f-dab6a7208979",
+    "name": "绿萝",
+    "species": "",
+    "note": "",
+    "avatarUrl": "",
+    "careSchedule": {
+      "watering": {
+        "days": 3,
+        "enabled": true
+      },
+      "fertilizing": {
+        "days": 14,
+        "enabled": false
+      },
+      "pruning": {
+        "days": 30,
+        "enabled": false
+      }
+    },
+    "createdAt": "2026-05-09T08:45:59.972Z",
+    "updatedAt": "2026-05-09T09:09:01.024Z",
+    "latestCareTime": {
+      "watering": "2026-05-09T09:09:01.020Z"
+    }
+  },
+  {
+    "id": "c813e0e8-a93a-4bec-8fc3-d85d196a1ee8",
+    "name": "多肉",
+    "species": "",
+    "note": "",
+    "avatarUrl": "",
+    "careSchedule": {
+      "watering": {
+        "days": 1,
+        "enabled": true
+      },
+      "fertilizing": {
+        "days": 13,
+        "enabled": true
+      },
+      "pruning": {
+        "days": 30,
+        "enabled": true
+      }
+    },
+    "createdAt": "2026-05-09T09:11:02.423Z",
+    "updatedAt": "2026-05-09T09:14:29.024Z",
+    "latestCareTime": {
+      "fertilizing": "2026-05-09T09:13:56.139Z",
+      "watering": "2026-05-09T09:14:26.538Z",
+      "pruning": "2026-05-09T09:14:29.022Z"
+    }
+  }
+]
