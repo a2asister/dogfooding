@@ -1,0 +1,115 @@
+{
+  "folders": [
+    {
+      "id": "folder-1",
+      "name": "工作",
+      "color": "#667eea",
+      "createdAt": "2026-05-09T00:13:58.286Z"
+    },
+    {
+      "id": "folder-2",
+      "name": "学习",
+      "color": "#764ba2",
+      "createdAt": "2026-05-09T00:13:58.286Z"
+    },
+    {
+      "id": "folder-3",
+      "name": "生活",
+      "color": "#f093fb",
+      "createdAt": "2026-05-09T00:13:58.286Z"
+    }
+  ],
+  "lists": [
+    {
+      "id": "list-1",
+      "folderId": "folder-1",
+      "name": "项目开发",
+      "createdAt": "2026-05-09T00:13:58.286Z"
+    },
+    {
+      "id": "list-2",
+      "folderId": "folder-1",
+      "name": "会议安排",
+      "createdAt": "2026-05-09T00:13:58.286Z"
+    },
+    {
+      "id": "list-3",
+      "folderId": "folder-2",
+      "name": "课程学习",
+      "createdAt": "2026-05-09T00:13:58.287Z"
+    },
+    {
+      "id": "list-4",
+      "folderId": "folder-3",
+      "name": "日常事务",
+      "createdAt": "2026-05-09T00:13:58.287Z"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-2",
+      "listId": "list-1",
+      "title": "代码审查",
+      "description": "审查团队成员的提交代码",
+      "priority": "important",
+      "dueDate": "2026-05-11T00:13:58.287Z",
+      "isCompleted": false,
+      "isRepeating": true,
+      "repeatPattern": "daily",
+      "createdAt": "2026-05-09T00:13:58.287Z",
+      "completedAt": "2026-05-09T05:03:08.941Z"
+    },
+    {
+      "id": "task-3",
+      "listId": "list-2",
+      "title": "周例会准备",
+      "description": "准备周例会的演示材料",
+      "priority": "normal",
+      "dueDate": null,
+      "isCompleted": true,
+      "isRepeating": false,
+      "repeatPattern": null,
+      "createdAt": "2026-05-09T00:13:58.287Z",
+      "completedAt": "2026-05-09T05:12:37.609Z"
+    },
+    {
+      "id": "task-4",
+      "listId": "list-3",
+      "title": "学习 Vue 3 组合式 API",
+      "description": "完成 Vue 3 官方教程",
+      "priority": "important",
+      "dueDate": "2026-05-12T00:13:58.287Z",
+      "isCompleted": true,
+      "isRepeating": false,
+      "repeatPattern": null,
+      "createdAt": "2026-05-09T00:13:58.287Z",
+      "completedAt": "2026-05-09T05:03:19.700Z"
+    },
+    {
+      "id": "task-5",
+      "listId": "list-4",
+      "title": "健身",
+      "description": "每周三次健身计划",
+      "priority": "normal",
+      "dueDate": null,
+      "isCompleted": true,
+      "isRepeating": true,
+      "repeatPattern": "weekly",
+      "createdAt": "2026-05-09T00:13:58.287Z",
+      "completedAt": "2026-05-09T05:12:39.143Z"
+    },
+    {
+      "id": "task-1778302926824-ww1c9hc2x",
+      "listId": "list-1",
+      "title": "ABC",
+      "description": "唱歌 ABCDEFG",
+      "priority": "normal",
+      "dueDate": "2026-05-09T00:00:00.000Z",
+      "isCompleted": true,
+      "isRepeating": true,
+      "repeatPattern": "daily",
+      "createdAt": "2026-05-09T05:02:06.825Z",
+      "completedAt": "2026-05-09T05:12:36.337Z"
+    }
+  ]
+}
