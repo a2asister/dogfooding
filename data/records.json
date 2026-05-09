@@ -1,0 +1,101 @@
+[
+  {
+    "timestamp": "2026-05-09T00:08:05.736Z",
+    "type": "compress",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 38106,
+    "quality": "85",
+    "format": "webp"
+  },
+  {
+    "timestamp": "2026-05-09T00:09:29.688Z",
+    "type": "convert",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 44831,
+    "targetFormat": "webp"
+  },
+  {
+    "timestamp": "2026-05-09T00:10:51.708Z",
+    "type": "compress",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 35865,
+    "quality": 80,
+    "format": "webp"
+  },
+  {
+    "timestamp": "2026-05-09T00:11:03.526Z",
+    "type": "convert",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 44831,
+    "targetFormat": "avif"
+  },
+  {
+    "timestamp": "2026-05-09T00:11:28.941Z",
+    "type": "crop",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 44831,
+    "width": "100",
+    "height": "100"
+  },
+  {
+    "timestamp": "2026-05-09T00:22:42.938Z",
+    "type": "compressed",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 585188,
+    "format": "png"
+  },
+  {
+    "timestamp": "2026-05-09T00:24:07.080Z",
+    "type": "converted",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 585188,
+    "format": "avif"
+  },
+  {
+    "timestamp": "2026-05-09T00:39:17.578Z",
+    "type": "compressed",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 20522,
+    "format": "webp"
+  },
+  {
+    "timestamp": "2026-05-09T00:40:07.319Z",
+    "type": "compressed",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 55664,
+    "format": "png"
+  },
+  {
+    "timestamp": "2026-05-09T00:41:00.919Z",
+    "type": "cropped",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 4760,
+    "format": "jpeg"
+  },
+  {
+    "timestamp": "2026-05-09T00:41:38.172Z",
+    "type": "compressed",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 55664,
+    "format": "png"
+  },
+  {
+    "timestamp": "2026-05-09T05:39:25.477Z",
+    "type": "compressed",
+    "originalName": "20260313-140205.jpg",
+    "originalSize": 44831,
+    "newSize": 18176,
+    "format": "png"
+  }
+]

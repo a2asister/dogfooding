@@ -1,0 +1,24 @@
+{
+  "name": "image-compressor",
+  "version": "1.0.0",
+  "description": "轻量图片压缩工具",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/index.js",
+    "client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^2.0.1",
+    "cors": "^2.8.5",
+    "archiver": "^6.0.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1"
+  }
+}
