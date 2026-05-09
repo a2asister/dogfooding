@@ -1,0 +1,18 @@
+{
+  "name": "inspiration-memo",
+  "version": "1.0.0",
+  "description": "文艺极简短句灵感备忘录",
+  "private": true,
+  "scripts": {
+    "dev:server": "node backend/server.js",
+    "dev:client": "vite frontend",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\""
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
