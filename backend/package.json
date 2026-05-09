@@ -1,0 +1,19 @@
+{
+  "name": "file-organizer-backend",
+  "version": "1.0.0",
+  "description": "文件极简整理助手 - 后端服务",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "koa": "^2.14.2",
+    "koa-router": "^12.0.0",
+    "koa-bodyparser": "^4.4.1",
+    "@koa/cors": "^4.0.0",
+    "fs-extra": "^11.1.1",
+    "path": "^0.12.7"
+  }
+}

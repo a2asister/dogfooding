@@ -1,0 +1,169 @@
+{
+  "files": [
+    {
+      "id": "1",
+      "name": "项目报告2024.pdf",
+      "type": "document",
+      "extension": "pdf",
+      "size": 2456789,
+      "path": "/backup",
+      "createdAt": "2024-10-15T10:30:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "报告",
+        "项目",
+        "2024"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "产品设计规范.docx",
+      "type": "document",
+      "extension": "docx",
+      "size": 1234567,
+      "path": "/backup",
+      "createdAt": "2024-09-20T09:15:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "设计",
+        "规范",
+        "产品"
+      ]
+    },
+    {
+      "id": "4",
+      "name": "风景照片1.jpg",
+      "type": "image",
+      "extension": "jpg",
+      "size": 3456789,
+      "path": "/backup",
+      "createdAt": "2024-08-10T14:20:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "风景",
+        "照片",
+        "自然"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "产品演示图.png",
+      "type": "image",
+      "extension": "png",
+      "size": 2123456,
+      "path": "/backup",
+      "createdAt": "2024-09-05T11:30:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "产品",
+        "演示",
+        "设计"
+      ]
+    },
+    {
+      "id": "6",
+      "name": "团队合影.jpg",
+      "type": "image",
+      "extension": "jpg",
+      "size": 4567890,
+      "path": "/backup",
+      "createdAt": "2024-07-20T10:00:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "团队",
+        "合影",
+        "照片"
+      ]
+    },
+    {
+      "id": "7",
+      "name": "产品介绍视频.mp4",
+      "type": "video",
+      "extension": "mp4",
+      "size": 12567890,
+      "path": "/backup",
+      "createdAt": "2024-09-15T13:45:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "视频",
+        "产品",
+        "介绍"
+      ]
+    },
+    {
+      "id": "8",
+      "name": "培训课程.mp4",
+      "type": "video",
+      "extension": "mp4",
+      "size": 23456789,
+      "path": "/backup",
+      "createdAt": "2024-10-01T09:00:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "培训",
+        "课程",
+        "视频"
+      ]
+    },
+    {
+      "id": "9",
+      "name": "项目备份.zip",
+      "type": "archive",
+      "extension": "zip",
+      "size": 8765432,
+      "path": "/backup",
+      "createdAt": "2024-10-25T17:00:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "备份",
+        "项目",
+        "压缩"
+      ]
+    },
+    {
+      "id": "10",
+      "name": "资料包.rar",
+      "type": "archive",
+      "extension": "rar",
+      "size": 5432198,
+      "path": "/backup",
+      "createdAt": "2024-09-30T12:30:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "资料",
+        "压缩",
+        "包"
+      ]
+    },
+    {
+      "id": "11",
+      "name": "技术文档.txt",
+      "type": "document",
+      "extension": "txt",
+      "size": 123456,
+      "path": "/backup",
+      "createdAt": "2024-11-04T08:30:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "技术",
+        "文档",
+        "txt"
+      ]
+    },
+    {
+      "id": "12",
+      "name": "设计稿.png",
+      "type": "image",
+      "extension": "png",
+      "size": 1876543,
+      "path": "/backup",
+      "createdAt": "2024-08-25T15:10:00.000Z",
+      "modifiedAt": "2026-05-09T08:01:17.107Z",
+      "tags": [
+        "设计",
+        "稿",
+        "png"
+      ]
+    }
+  ]
+}
