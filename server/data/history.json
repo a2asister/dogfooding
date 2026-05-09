@@ -1,0 +1,227 @@
+[
+  {
+    "id": 1778309022897,
+    "category": "length",
+    "fromUnit": "m",
+    "toUnit": "km",
+    "fromValue": "1",
+    "toValue": "0.001",
+    "createdAt": 1778309022897
+  },
+  {
+    "id": 1778308671569,
+    "category": "speed",
+    "fromUnit": "mps",
+    "toUnit": "kmph",
+    "fromValue": "1",
+    "toValue": "3.59999712",
+    "createdAt": 1778308671569
+  },
+  {
+    "id": 1778308669652,
+    "category": "energy",
+    "fromUnit": "j",
+    "toUnit": "kj",
+    "fromValue": "1",
+    "toValue": "0.001",
+    "createdAt": 1778308669652
+  },
+  {
+    "id": 1778308666847,
+    "category": "angle",
+    "fromUnit": "deg",
+    "toUnit": "rad",
+    "fromValue": "1",
+    "toValue": "0.0174532862793",
+    "createdAt": 1778308666847
+  },
+  {
+    "id": 1778308661517,
+    "category": "currency",
+    "fromUnit": "USD",
+    "toUnit": "CNY",
+    "fromValue": "1",
+    "toValue": "7.31408273439",
+    "createdAt": 1778308661517
+  },
+  {
+    "id": 1778308643413,
+    "category": "temperature",
+    "fromUnit": "c",
+    "toUnit": "f",
+    "fromValue": "1",
+    "toValue": "33.8",
+    "createdAt": 1778308643413
+  },
+  {
+    "id": 1778308522969,
+    "category": "currency",
+    "fromUnit": "USD",
+    "toUnit": "CNY",
+    "fromValue": "1",
+    "toValue": "7.31408273439",
+    "createdAt": 1778308522969
+  },
+  {
+    "id": 1778308522413,
+    "category": "currency",
+    "fromUnit": "CNY",
+    "toUnit": "USD",
+    "fromValue": "1",
+    "toValue": "0.136722544209",
+    "createdAt": 1778308522413
+  },
+  {
+    "id": 1778308521176,
+    "category": "currency",
+    "fromUnit": "USD",
+    "toUnit": "CNY",
+    "fromValue": "1",
+    "toValue": "7.31408273439",
+    "createdAt": 1778308521176
+  },
+  {
+    "id": 1778308519980,
+    "category": "length",
+    "fromUnit": "m",
+    "toUnit": "km",
+    "fromValue": "1",
+    "toValue": "0.001",
+    "createdAt": 1778308519980
+  },
+  {
+    "id": 1778308518600,
+    "category": "length",
+    "fromUnit": "m",
+    "toUnit": "km",
+    "fromValue": "1",
+    "toValue": "0.001",
+    "createdAt": 1778308518600
+  },
+  {
+    "id": 1778308517803,
+    "category": "length",
+    "fromUnit": "m",
+    "toUnit": "km",
+    "fromValue": "1",
+    "toValue": "0.001",
+    "createdAt": 1778308517803
+  },
+  {
+    "id": 1778308517178,
+    "category": "length",
+    "fromUnit": "m",
+    "toUnit": "km",
+    "fromValue": "1",
+    "toValue": "0.001",
+    "createdAt": 1778308517178
+  },
+  {
+    "id": 1778308211483,
+    "category": "length",
+    "fromUnit": "m",
+    "toUnit": "km",
+    "fromValue": "1",
+    "toValue": "0.001",
+    "createdAt": 1778308211483
+  },
+  {
+    "id": 1778308080685,
+    "category": "length",
+    "fromUnit": "m",
+    "toUnit": "km",
+    "fromValue": "1",
+    "toValue": "0.001",
+    "createdAt": 1778308080685
+  },
+  {
+    "id": 1778308005108,
+    "category": "length",
+    "fromUnit": "m",
+    "toUnit": "km",
+    "fromValue": "1",
+    "toValue": "0.001",
+    "createdAt": 1778308005108
+  },
+  {
+    "id": 1778307846449,
+    "category": "currency",
+    "fromUnit": "USD",
+    "toUnit": "CNY",
+    "fromValue": "1",
+    "toValue": "7.31408273439",
+    "createdAt": 1778307846449
+  },
+  {
+    "id": 1778307845078,
+    "category": "length",
+    "fromUnit": "km",
+    "toUnit": "m",
+    "fromValue": "1",
+    "toValue": "1000",
+    "createdAt": 1778307845079
+  },
+  {
+    "id": 1778307843306,
+    "category": "currency",
+    "fromUnit": "USD",
+    "toUnit": "CNY",
+    "fromValue": "1",
+    "toValue": "7.31408273439",
+    "createdAt": 1778307843306
+  },
+  {
+    "id": 1778307841742,
+    "category": "length",
+    "fromUnit": "km",
+    "toUnit": "m",
+    "fromValue": "1",
+    "toValue": "1000",
+    "createdAt": 1778307841742
+  },
+  {
+    "id": 1778307840474,
+    "category": "temperature",
+    "fromUnit": "c",
+    "toUnit": "f",
+    "fromValue": "1",
+    "toValue": "33.8",
+    "createdAt": 1778307840474
+  },
+  {
+    "id": 1778307808038,
+    "category": "time",
+    "fromUnit": "ms",
+    "toUnit": "y",
+    "fromValue": "1",
+    "toValue": "3.170979e-11",
+    "createdAt": 1778307808038
+  },
+  {
+    "id": 1778307798438,
+    "category": "time",
+    "fromUnit": "y",
+    "toUnit": "ms",
+    "fromValue": "1",
+    "toValue": "3.153600e+10",
+    "createdAt": 1778307798438
+  },
+  {
+    "id": 1778307791445,
+    "category": "time",
+    "fromUnit": "y",
+    "toUnit": "w",
+    "fromValue": "1",
+    "toValue": "52.1428571429",
+    "createdAt": 1778307791445
+  },
+  {
+    "id": 1778307784673,
+    "category": "time",
+    "fromUnit": "y",
+    "toUnit": "mo",
+    "fromValue": "1",
+    "toValue": "12.1666666667",
+    "createdAt": 1778307784673
+  }
+]
