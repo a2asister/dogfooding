@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-pink: #ff9a9e;
+  --primary-purple: #fad0c4;
+  --primary-blue: #a18cd1;
+  --primary-light-blue: #fbc2eb;
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --text-primary: #4a4a6a;
+  --text-secondary: #6b6b8a;
+  --glow-color: rgba(161, 140, 209, 0.6);
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  background: linear-gradient(135deg, #ffd1dc 0%, #e0bbff 25%, #c5d8ff 50%, #fbc2eb 75%, #ffd1dc 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "moments",
+    "name": "朋友圈",
+    "icon": "📱"
+  },
+  {
+    "id": "xiaohongshu",
+    "name": "小红书",
+    "icon": "📕"
+  },
+  {
+    "id": "video",
+    "name": "短视频",
+    "icon": "🎬"
+  },
+  {
+    "id": "poster",
+    "name": "海报",
+    "icon": "🎨"
+  },
+  {
+    "id": "essay",
+    "name": "随笔",
+    "icon": "✍️"
+  },
+  {
+    "id": "birthday",
+    "name": "生日祝福",
+    "icon": "🎂"
+  },
+  {
+    "id": "travel",
+    "name": "旅行",
+    "icon": "✈️"
+  },
+  {
+    "id": "food",
+    "name": "美食",
+    "icon": "🍜"
+  },
+  {
+    "id": "workout",
+    "name": "健身",
+    "icon": "💪"
+  },
+  {
+    "id": "study",
+    "name": "学习",
+    "icon": "📚"
+  }
+]
