@@ -1,0 +1,94 @@
+{
+  "foods": [
+    {
+      "id": "3",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=法式草莓千层蛋糕多层奶油草莓新鲜摆盘精美&image_size=portrait_16_9",
+      "shopName": "Sweet Dreams 甜品",
+      "visitDate": "2026-05-08",
+      "category": "甜品",
+      "rating": 5,
+      "notes": "草莓新鲜，奶油不甜腻，千层皮层次分明，搭配拿铁是完美的下午茶组合。123214213"
+    },
+    {
+      "id": "4",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=手工拉花拿铁咖啡心形奶泡陶瓷杯木质桌面&image_size=square",
+      "shopName": "时光咖啡",
+      "visitDate": "2026-05-10",
+      "category": "饮品",
+      "rating": 4,
+      "notes": "意式浓缩豆子香气四溢，拉花手艺精湛，适合安静办公的好去处。"
+    },
+    {
+      "id": "5",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=成都火锅麻辣红油锅底涮牛肉毛肚摆盘丰富&image_size=landscape_16_9",
+      "shopName": "川味火锅城",
+      "visitDate": "2026-05-12",
+      "category": "中餐",
+      "rating": 5,
+      "notes": "正宗成都味道，牛油锅底越煮越香，毛肚七上八下脆嫩爽口，强烈推荐。"
+    },
+    {
+      "id": "6",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=意大利经典番茄罗勒意面摆盘精致薄荷叶装饰&image_size=portrait_4_3",
+      "shopName": "意居小镇",
+      "visitDate": "2026-05-15",
+      "category": "西餐",
+      "rating": 4,
+      "notes": "番茄酱汁新鲜熬制，罗勒香气浓郁，意面al dente恰到好处。"
+    },
+    {
+      "id": "7",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=日式抹茶千层蛋糕京都风格摆盘精致抹茶粉撒面&image_size=square_hd",
+      "shopName": "抹茶之森",
+      "visitDate": "2026-05-18",
+      "category": "甜品",
+      "rating": 5,
+      "notes": "宇治抹茶，苦甜平衡，千层层层分明，搭配玄米茶是绝配。"
+    },
+    {
+      "id": "8",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=新鲜手工水果茶满杯草莓蓝莓柠檬气泡水透明玻璃杯&image_size=square",
+      "shopName": "果茶时光",
+      "visitDate": "2026-05-20",
+      "category": "饮品",
+      "rating": 4,
+      "notes": "水果新鲜看得见，低糖配方清爽不腻，夏日解暑首选。"
+    },
+    {
+      "id": "9",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=粤式早茶虾饺皇烧卖肠粉蒸笼摆盘精致茶点&image_size=landscape_4_3",
+      "shopName": "粤品轩",
+      "visitDate": "2026-05-22",
+      "category": "中餐",
+      "rating": 5,
+      "notes": "虾饺皮透明Q弹，内馅鲜美多汁，凤爪软糯脱骨，早茶必打卡。"
+    },
+    {
+      "id": "10",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=美式经典汉堡多汁牛肉饼芝士生菜番茄薯条&image_size=portrait_4_3",
+      "shopName": "Burger Lab",
+      "visitDate": "2026-05-25",
+      "category": "西餐",
+      "rating": 4,
+      "notes": "手工牛肉饼，现点现做，芝士拉丝诱人，粗薯外脆内软。"
+    },
+    {
+      "id": "11",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=港式双皮奶嫩滑红豆配杏仁片摆盘精致&image_size=square_hd",
+      "shopName": "港记糖水铺",
+      "visitDate": "2026-04-28",
+      "category": "甜品",
+      "rating": 5,
+      "notes": "正宗顺德风味，双皮奶嫩滑细腻，奶香浓郁，加红豆更添风味。"
+    },
+    {
+      "id": "12",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=日式鲜榨芒果汁冰沙透明玻璃杯芒果装饰&image_size=square",
+      "shopName": "鲜榨果汁屋",
+      "visitDate": "2026-04-30",
+      "category": "饮品",
+      "rating": 4,
+      "notes": "现场榨汁，不加糖不加水，芒果香甜浓郁，天然健康。"
+    }
+  ]
+}

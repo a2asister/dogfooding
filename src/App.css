@@ -1,0 +1,49 @@
+.app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  min-height: 100vh;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 48px;
+  animation: slideUp 0.6s ease-out;
+}
+
+.app-title {
+  font-size: 32px;
+  font-weight: 300;
+  color: #2d2d2d;
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+.app-subtitle {
+  font-size: 13px;
+  color: #999;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.loading {
+  text-align: center;
+  padding: 80px;
+  color: #999;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 24px 16px 60px;
+  }
+
+  .app-title {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+
+  .app-subtitle {
+    font-size: 12px;
+  }
+}
