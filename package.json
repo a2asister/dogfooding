@@ -1,0 +1,21 @@
+{
+  "name": "focus-timer",
+  "version": "1.0.0",
+  "description": "Immersive focus timer with multiple scenarios",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "cd client && npm start"
+  },
+  "dependencies": {
+    "fastify": "^4.26.0",
+    "@fastify/cors": "^8.5.0",
+    "@fastify/static": "^6.12.0",
+    "fs-extra": "^11.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
