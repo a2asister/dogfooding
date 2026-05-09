@@ -1,0 +1,103 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #f1f3f5;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-tertiary: #adb5bd;
+  --border-color: #e9ecef;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+  --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  --equals-bg: linear-gradient(135deg, #74c0fc 0%, #4dabf7 100%);
+  --equals-hover: linear-gradient(135deg, #5bc0de 0%, #339af0 100%);
+  --op-bg: linear-gradient(135deg, #f1f3f5 0%, #e9ecef 100%);
+  --func-bg: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%);
+  --num-bg: #ffffff;
+  --accent-blue: #4dabf7;
+  --accent-red: #ff6b6b;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --modal-bg: rgba(255, 255, 255, 0.98);
+  --modal-border: rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+  --bg-primary: #0d0d0d;
+  --bg-secondary: #151515;
+  --bg-tertiary: #1f1f1f;
+  --text-primary: #f8f9fa;
+  --text-secondary: #adb5bd;
+  --text-tertiary: #6c757d;
+  --border-color: #2d2d2d;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.7);
+  --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  --equals-bg: linear-gradient(135deg, #4dabf7 0%, #228be6 100%);
+  --equals-hover: linear-gradient(135deg, #5bc0de 0%, #339af0 100%);
+  --op-bg: linear-gradient(135deg, #2d2d2d 0%, #252525 100%);
+  --func-bg: linear-gradient(135deg, #252525 0%, #1f1f1f 100%);
+  --num-bg: #151515;
+  --accent-blue: #4dabf7;
+  --accent-red: #ff6b6b;
+  --modal-bg: rgba(20, 20, 20, 0.98);
+  --modal-border: rgba(255, 255, 255, 0.1);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  transition: background var(--transition-normal), color var(--transition-normal);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ced4da;
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #495057;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #adb5bd;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6c757d;
+}
+
+input,
+button {
+  font-family: inherit;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
