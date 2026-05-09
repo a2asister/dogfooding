@@ -1,0 +1,906 @@
+{
+  "cities": [
+    {
+      "id": 1,
+      "name": "北京",
+      "country": "中国",
+      "isDefault": true
+    },
+    {
+      "id": 2,
+      "name": "上海",
+      "country": "中国",
+      "isDefault": false
+    },
+    {
+      "id": 3,
+      "name": "广州",
+      "country": "中国",
+      "isDefault": false
+    },
+    {
+      "id": 1778316463097,
+      "name": "杭州",
+      "country": "中国",
+      "isDefault": false
+    }
+  ],
+  "weatherData": [
+    {
+      "cityId": 1,
+      "current": {
+        "temperature": 22,
+        "feelsLike": 21,
+        "weather": "晴",
+        "weatherType": "sunny",
+        "description": "阳光明媚",
+        "humidity": 45,
+        "windSpeed": 12,
+        "windDirection": "西北风",
+        "uvIndex": 7,
+        "visibility": 10,
+        "pressure": 1013,
+        "date": "2026-05-09",
+        "time": "14:30"
+      },
+      "hourly": [
+        {
+          "time": "00:00",
+          "temperature": 14,
+          "weather": "晴"
+        },
+        {
+          "time": "01:00",
+          "temperature": 13,
+          "weather": "晴"
+        },
+        {
+          "time": "02:00",
+          "temperature": 12,
+          "weather": "晴"
+        },
+        {
+          "time": "03:00",
+          "temperature": 11,
+          "weather": "晴"
+        },
+        {
+          "time": "04:00",
+          "temperature": 11,
+          "weather": "多云"
+        },
+        {
+          "time": "05:00",
+          "temperature": 12,
+          "weather": "多云"
+        },
+        {
+          "time": "06:00",
+          "temperature": 14,
+          "weather": "多云转晴"
+        },
+        {
+          "time": "07:00",
+          "temperature": 16,
+          "weather": "晴"
+        },
+        {
+          "time": "08:00",
+          "temperature": 18,
+          "weather": "晴"
+        },
+        {
+          "time": "09:00",
+          "temperature": 20,
+          "weather": "晴"
+        },
+        {
+          "time": "10:00",
+          "temperature": 22,
+          "weather": "晴"
+        },
+        {
+          "time": "11:00",
+          "temperature": 24,
+          "weather": "晴"
+        },
+        {
+          "time": "12:00",
+          "temperature": 25,
+          "weather": "晴"
+        },
+        {
+          "time": "13:00",
+          "temperature": 26,
+          "weather": "晴"
+        },
+        {
+          "time": "14:00",
+          "temperature": 27,
+          "weather": "晴"
+        },
+        {
+          "time": "15:00",
+          "temperature": 26,
+          "weather": "晴"
+        },
+        {
+          "time": "16:00",
+          "temperature": 25,
+          "weather": "晴"
+        },
+        {
+          "time": "17:00",
+          "temperature": 23,
+          "weather": "晴"
+        },
+        {
+          "time": "18:00",
+          "temperature": 21,
+          "weather": "晴"
+        },
+        {
+          "time": "19:00",
+          "temperature": 19,
+          "weather": "晴"
+        },
+        {
+          "time": "20:00",
+          "temperature": 17,
+          "weather": "晴"
+        },
+        {
+          "time": "21:00",
+          "temperature": 16,
+          "weather": "晴"
+        },
+        {
+          "time": "22:00",
+          "temperature": 15,
+          "weather": "晴"
+        },
+        {
+          "time": "23:00",
+          "temperature": 14,
+          "weather": "晴"
+        }
+      ],
+      "daily": [
+        {
+          "day": "今天",
+          "high": 27,
+          "low": 11,
+          "weather": "晴",
+          "weatherType": "sunny"
+        },
+        {
+          "day": "周日",
+          "high": 28,
+          "low": 13,
+          "weather": "晴",
+          "weatherType": "sunny"
+        },
+        {
+          "day": "周一",
+          "high": 26,
+          "low": 12,
+          "weather": "多云",
+          "weatherType": "cloudy"
+        },
+        {
+          "day": "周二",
+          "high": 24,
+          "low": 14,
+          "weather": "阴",
+          "weatherType": "overcast"
+        },
+        {
+          "day": "周三",
+          "high": 20,
+          "low": 13,
+          "weather": "小雨",
+          "weatherType": "rainy"
+        },
+        {
+          "day": "周四",
+          "high": 22,
+          "low": 12,
+          "weather": "多云",
+          "weatherType": "cloudy"
+        },
+        {
+          "day": "周五",
+          "high": 25,
+          "low": 11,
+          "weather": "晴",
+          "weatherType": "sunny"
+        }
+      ],
+      "indices": {
+        "dressing": {
+          "level": "舒适",
+          "suggestion": "建议穿薄外套或牛仔裤等服装"
+        },
+        "uv": {
+          "level": "高",
+          "suggestion": "涂擦SPF15以上防晒护肤品"
+        },
+        "travel": {
+          "level": "适宜",
+          "suggestion": "天气较好，适宜旅游"
+        },
+        "sport": {
+          "level": "适宜",
+          "suggestion": "天气较好，户外运动请注意防晒"
+        },
+        "cold": {
+          "level": "低",
+          "suggestion": "感冒几率低，适当增减衣服"
+        }
+      },
+      "alerts": []
+    },
+    {
+      "cityId": 2,
+      "current": {
+        "temperature": 26,
+        "feelsLike": 28,
+        "weather": "阴",
+        "weatherType": "overcast",
+        "description": "阴天有小雨",
+        "humidity": 75,
+        "windSpeed": 8,
+        "windDirection": "东南风",
+        "uvIndex": 3,
+        "visibility": 8,
+        "pressure": 1010,
+        "date": "2026-05-09",
+        "time": "14:30"
+      },
+      "hourly": [
+        {
+          "time": "00:00",
+          "temperature": 20,
+          "weather": "阴"
+        },
+        {
+          "time": "01:00",
+          "temperature": 19,
+          "weather": "阴"
+        },
+        {
+          "time": "02:00",
+          "temperature": 19,
+          "weather": "阴"
+        },
+        {
+          "time": "03:00",
+          "temperature": 18,
+          "weather": "阴"
+        },
+        {
+          "time": "04:00",
+          "temperature": 18,
+          "weather": "阴"
+        },
+        {
+          "time": "05:00",
+          "temperature": 19,
+          "weather": "阴"
+        },
+        {
+          "time": "06:00",
+          "temperature": 20,
+          "weather": "阴"
+        },
+        {
+          "time": "07:00",
+          "temperature": 21,
+          "weather": "阴"
+        },
+        {
+          "time": "08:00",
+          "temperature": 23,
+          "weather": "阴"
+        },
+        {
+          "time": "09:00",
+          "temperature": 24,
+          "weather": "阴"
+        },
+        {
+          "time": "10:00",
+          "temperature": 25,
+          "weather": "阴"
+        },
+        {
+          "time": "11:00",
+          "temperature": 26,
+          "weather": "阴"
+        },
+        {
+          "time": "12:00",
+          "temperature": 27,
+          "weather": "阴"
+        },
+        {
+          "time": "13:00",
+          "temperature": 27,
+          "weather": "阴"
+        },
+        {
+          "time": "14:00",
+          "temperature": 26,
+          "weather": "阴"
+        },
+        {
+          "time": "15:00",
+          "temperature": 25,
+          "weather": "小雨"
+        },
+        {
+          "time": "16:00",
+          "temperature": 24,
+          "weather": "小雨"
+        },
+        {
+          "time": "17:00",
+          "temperature": 23,
+          "weather": "小雨"
+        },
+        {
+          "time": "18:00",
+          "temperature": 22,
+          "weather": "小雨"
+        },
+        {
+          "time": "19:00",
+          "temperature": 21,
+          "weather": "阴"
+        },
+        {
+          "time": "20:00",
+          "temperature": 20,
+          "weather": "阴"
+        },
+        {
+          "time": "21:00",
+          "temperature": 20,
+          "weather": "阴"
+        },
+        {
+          "time": "22:00",
+          "temperature": 19,
+          "weather": "阴"
+        },
+        {
+          "time": "23:00",
+          "temperature": 19,
+          "weather": "阴"
+        }
+      ],
+      "daily": [
+        {
+          "day": "今天",
+          "high": 27,
+          "low": 18,
+          "weather": "阴",
+          "weatherType": "overcast"
+        },
+        {
+          "day": "周日",
+          "high": 25,
+          "low": 17,
+          "weather": "小雨",
+          "weatherType": "rainy"
+        },
+        {
+          "day": "周一",
+          "high": 24,
+          "low": 16,
+          "weather": "中雨",
+          "weatherType": "rainy"
+        },
+        {
+          "day": "周二",
+          "high": 22,
+          "low": 15,
+          "weather": "小雨",
+          "weatherType": "rainy"
+        },
+        {
+          "day": "周三",
+          "high": 24,
+          "low": 16,
+          "weather": "多云",
+          "weatherType": "cloudy"
+        },
+        {
+          "day": "周四",
+          "high": 26,
+          "low": 18,
+          "weather": "晴",
+          "weatherType": "sunny"
+        },
+        {
+          "day": "周五",
+          "high": 28,
+          "low": 20,
+          "weather": "晴",
+          "weatherType": "sunny"
+        }
+      ],
+      "indices": {
+        "dressing": {
+          "level": "闷热",
+          "suggestion": "建议穿短袖、短裙等清凉透气的服装"
+        },
+        "uv": {
+          "level": "中",
+          "suggestion": "涂擦SPF15以上防晒护肤品"
+        },
+        "travel": {
+          "level": "不适宜",
+          "suggestion": "有降雨，建议推迟出行"
+        },
+        "sport": {
+          "level": "较不宜",
+          "suggestion": "天气闷热，建议室内运动"
+        },
+        "cold": {
+          "level": "较低",
+          "suggestion": "天气闷热，注意通风透气"
+        }
+      },
+      "alerts": [
+        {
+          "type": "暴雨蓝色预警",
+          "level": "blue",
+          "description": "预计未来24小时有暴雨，请做好防范准备",
+          "time": "12:00 发布"
+        }
+      ]
+    },
+    {
+      "cityId": 3,
+      "current": {
+        "temperature": 32,
+        "feelsLike": 35,
+        "weather": "晴",
+        "weatherType": "sunny",
+        "description": "炎热晴朗",
+        "humidity": 60,
+        "windSpeed": 5,
+        "windDirection": "南风",
+        "uvIndex": 9,
+        "visibility": 12,
+        "pressure": 1008,
+        "date": "2026-05-09",
+        "time": "14:30"
+      },
+      "hourly": [
+        {
+          "time": "00:00",
+          "temperature": 26,
+          "weather": "晴"
+        },
+        {
+          "time": "01:00",
+          "temperature": 25,
+          "weather": "晴"
+        },
+        {
+          "time": "02:00",
+          "temperature": 25,
+          "weather": "晴"
+        },
+        {
+          "time": "03:00",
+          "temperature": 24,
+          "weather": "晴"
+        },
+        {
+          "time": "04:00",
+          "temperature": 24,
+          "weather": "晴"
+        },
+        {
+          "time": "05:00",
+          "temperature": 25,
+          "weather": "晴"
+        },
+        {
+          "time": "06:00",
+          "temperature": 26,
+          "weather": "晴"
+        },
+        {
+          "time": "07:00",
+          "temperature": 28,
+          "weather": "晴"
+        },
+        {
+          "time": "08:00",
+          "temperature": 30,
+          "weather": "晴"
+        },
+        {
+          "time": "09:00",
+          "temperature": 31,
+          "weather": "晴"
+        },
+        {
+          "time": "10:00",
+          "temperature": 33,
+          "weather": "晴"
+        },
+        {
+          "time": "11:00",
+          "temperature": 34,
+          "weather": "晴"
+        },
+        {
+          "time": "12:00",
+          "temperature": 35,
+          "weather": "晴"
+        },
+        {
+          "time": "13:00",
+          "temperature": 35,
+          "weather": "晴"
+        },
+        {
+          "time": "14:00",
+          "temperature": 32,
+          "weather": "晴"
+        },
+        {
+          "time": "15:00",
+          "temperature": 34,
+          "weather": "晴"
+        },
+        {
+          "time": "16:00",
+          "temperature": 33,
+          "weather": "晴"
+        },
+        {
+          "time": "17:00",
+          "temperature": 31,
+          "weather": "晴"
+        },
+        {
+          "time": "18:00",
+          "temperature": 30,
+          "weather": "晴"
+        },
+        {
+          "time": "19:00",
+          "temperature": 29,
+          "weather": "晴"
+        },
+        {
+          "time": "20:00",
+          "temperature": 28,
+          "weather": "晴"
+        },
+        {
+          "time": "21:00",
+          "temperature": 27,
+          "weather": "晴"
+        },
+        {
+          "time": "22:00",
+          "temperature": 27,
+          "weather": "晴"
+        },
+        {
+          "time": "23:00",
+          "temperature": 26,
+          "weather": "晴"
+        }
+      ],
+      "daily": [
+        {
+          "day": "今天",
+          "high": 35,
+          "low": 24,
+          "weather": "晴",
+          "weatherType": "sunny"
+        },
+        {
+          "day": "周日",
+          "high": 36,
+          "low": 25,
+          "weather": "晴",
+          "weatherType": "sunny"
+        },
+        {
+          "day": "周一",
+          "high": 37,
+          "low": 26,
+          "weather": "晴",
+          "weatherType": "sunny"
+        },
+        {
+          "day": "周二",
+          "high": 35,
+          "low": 26,
+          "weather": "晴",
+          "weatherType": "sunny"
+        },
+        {
+          "day": "周三",
+          "high": 33,
+          "low": 25,
+          "weather": "多云",
+          "weatherType": "cloudy"
+        },
+        {
+          "day": "周四",
+          "high": 31,
+          "low": 24,
+          "weather": "雷阵雨",
+          "weatherType": "rainy"
+        },
+        {
+          "day": "周五",
+          "high": 30,
+          "low": 23,
+          "weather": "多云",
+          "weatherType": "cloudy"
+        }
+      ],
+      "indices": {
+        "dressing": {
+          "level": "炎热",
+          "suggestion": "建议穿短袖、短裤等清凉透气的服装"
+        },
+        "uv": {
+          "level": "极高",
+          "suggestion": "涂擦SPF30以上防晒护肤品，避免暴晒"
+        },
+        "travel": {
+          "level": "较适宜",
+          "suggestion": "天气炎热，注意防暑降温"
+        },
+        "sport": {
+          "level": "不宜",
+          "suggestion": "天气炎热，建议早晚运动"
+        },
+        "cold": {
+          "level": "低",
+          "suggestion": "天气炎热，注意补水防暑"
+        }
+      },
+      "alerts": [
+        {
+          "type": "高温红色预警",
+          "level": "red",
+          "description": "预计未来48小时最高气温将达到37℃以上，请做好防暑降温准备",
+          "time": "10:00 发布"
+        },
+        {
+          "type": "紫外线强预警",
+          "level": "orange",
+          "description": "未来24小时紫外线强度极高，请做好防晒措施",
+          "time": "08:00 发布"
+        }
+      ]
+    },
+    {
+      "cityId": 1778316463097,
+      "current": {
+        "temperature": 22,
+        "feelsLike": 19,
+        "weather": "多云",
+        "weatherType": "cloudy",
+        "description": "天气良好",
+        "humidity": 67,
+        "windSpeed": 9,
+        "windDirection": "西风",
+        "uvIndex": 1,
+        "visibility": 11,
+        "pressure": 1014,
+        "date": "2026-05-09",
+        "time": "16:47"
+      },
+      "hourly": [
+        {
+          "time": "00:00",
+          "temperature": 21,
+          "weather": "阴"
+        },
+        {
+          "time": "01:00",
+          "temperature": 22,
+          "weather": "多云"
+        },
+        {
+          "time": "02:00",
+          "temperature": 29,
+          "weather": "多云"
+        },
+        {
+          "time": "03:00",
+          "temperature": 28,
+          "weather": "多云"
+        },
+        {
+          "time": "04:00",
+          "temperature": 25,
+          "weather": "多云"
+        },
+        {
+          "time": "05:00",
+          "temperature": 24,
+          "weather": "晴"
+        },
+        {
+          "time": "06:00",
+          "temperature": 22,
+          "weather": "阴"
+        },
+        {
+          "time": "07:00",
+          "temperature": 22,
+          "weather": "晴"
+        },
+        {
+          "time": "08:00",
+          "temperature": 23,
+          "weather": "晴"
+        },
+        {
+          "time": "09:00",
+          "temperature": 26,
+          "weather": "晴"
+        },
+        {
+          "time": "10:00",
+          "temperature": 23,
+          "weather": "阴"
+        },
+        {
+          "time": "11:00",
+          "temperature": 29,
+          "weather": "晴"
+        },
+        {
+          "time": "12:00",
+          "temperature": 28,
+          "weather": "阴"
+        },
+        {
+          "time": "13:00",
+          "temperature": 27,
+          "weather": "阴"
+        },
+        {
+          "time": "14:00",
+          "temperature": 18,
+          "weather": "多云"
+        },
+        {
+          "time": "15:00",
+          "temperature": 20,
+          "weather": "阴"
+        },
+        {
+          "time": "16:00",
+          "temperature": 29,
+          "weather": "阴"
+        },
+        {
+          "time": "17:00",
+          "temperature": 20,
+          "weather": "阴"
+        },
+        {
+          "time": "18:00",
+          "temperature": 24,
+          "weather": "晴"
+        },
+        {
+          "time": "19:00",
+          "temperature": 20,
+          "weather": "晴"
+        },
+        {
+          "time": "20:00",
+          "temperature": 17,
+          "weather": "晴"
+        },
+        {
+          "time": "21:00",
+          "temperature": 18,
+          "weather": "晴"
+        },
+        {
+          "time": "22:00",
+          "temperature": 29,
+          "weather": "阴"
+        },
+        {
+          "time": "23:00",
+          "temperature": 18,
+          "weather": "多云"
+        }
+      ],
+      "daily": [
+        {
+          "day": "今天",
+          "high": 23,
+          "low": 19,
+          "weather": "小雨",
+          "weatherType": "cloudy"
+        },
+        {
+          "day": "明天",
+          "high": 24,
+          "low": 15,
+          "weather": "晴",
+          "weatherType": "rainy"
+        },
+        {
+          "day": "后天",
+          "high": 27,
+          "low": 20,
+          "weather": "多云",
+          "weatherType": "cloudy"
+        },
+        {
+          "day": "周四",
+          "high": 23,
+          "low": 18,
+          "weather": "阴",
+          "weatherType": "rainy"
+        },
+        {
+          "day": "周五",
+          "high": 31,
+          "low": 15,
+          "weather": "晴",
+          "weatherType": "cloudy"
+        },
+        {
+          "day": "周六",
+          "high": 30,
+          "low": 14,
+          "weather": "小雨",
+          "weatherType": "rainy"
+        },
+        {
+          "day": "周日",
+          "high": 29,
+          "low": 12,
+          "weather": "阴",
+          "weatherType": "cloudy"
+        }
+      ],
+      "indices": {
+        "dressing": {
+          "level": "舒适",
+          "suggestion": "建议穿薄外套或牛仔裤等服装"
+        },
+        "uv": {
+          "level": "中",
+          "suggestion": "涂擦SPF15以上防晒护肤品"
+        },
+        "travel": {
+          "level": "适宜",
+          "suggestion": "天气较好，适宜旅游"
+        },
+        "sport": {
+          "level": "适宜",
+          "suggestion": "天气较好，适合户外运动"
+        },
+        "cold": {
+          "level": "低",
+          "suggestion": "感冒几率低，适当增减衣服"
+        }
+      },
+      "alerts": []
+    }
+  ]
+}
