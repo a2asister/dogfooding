@@ -1,0 +1,18 @@
+{
+  "name": "content-ecosystem-server",
+  "version": "1.0.0",
+  "description": "内容生态流量流转系统后端",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "koa": "^2.15.3",
+    "koa-router": "^12.0.1",
+    "koa-bodyparser": "^4.4.1",
+    "koa-cors": "0.0.16",
+    "uuid": "^9.0.1"
+  }
+}
