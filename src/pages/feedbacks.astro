@@ -1,0 +1,239 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-chat-dots me-2"></i>用户反馈</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFeedbackModal">
+      <i class="bi bi-plus-circle me-1"></i>新增反馈
+    </button>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card card-custom p-4">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h6 class="text-muted">待处理</h6>
+            <h3 id="pending-count">0</h3>
+          </div>
+          <i class="bi bi-clock display-4 text-warning"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-custom p-4">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h6 class="text-muted">处理中</h6>
+            <h3 id="processing-count">0</h3>
+          </div>
+          <i class="bi bi-hourglass-split display-4 text-info"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-custom p-4">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h6 class="text-muted">已实现</h6>
+            <h3 id="implemented-count">0</h3>
+          </div>
+          <i class="bi bi-check-circle display-4 text-success"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-custom p-4">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h6 class="text-muted">已拒绝</h6>
+            <h3 id="rejected-count">0</h3>
+          </div>
+          <i class="bi bi-x-circle display-4 text-danger"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-custom">
+    <div class="card-body">
+      <h5 class="card-title">反馈列表</h5>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>用户</th>
+              <th>反馈内容</th>
+              <th>分类</th>
+              <th>关联需求</th>
+              <th>状态</th>
+              <th>时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="feedbacks-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addFeedbackModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新增用户反馈</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addFeedbackForm">
+            <div class="mb-3">
+              <label class="form-label">用户名称</label>
+              <input type="text" class="form-control" id="feedback-user">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">反馈内容 *</label>
+              <textarea class="form-control" id="feedback-content" rows="4" required></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">分类</label>
+                <select class="form-select" id="feedback-category">
+                  <option value="feature">功能建议</option>
+                  <option value="bug">问题反馈</option>
+                  <option value="experience">体验优化</option>
+                  <option value="other">其他</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">关联需求</label>
+                <select class="form-select" id="feedback-requirement"></select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" onclick="addFeedback()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let feedbacks = [];
+    let requirements = [];
+
+    async function loadFeedbacks() {
+      try {
+        const [fbs, reqs] = await Promise.all([
+          fetch('/api/feedbacks').then(r => r.json()),
+          fetch('/api/requirements').then(r => r.json())
+        ]);
+        feedbacks = fbs;
+        requirements = reqs;
+        
+        const reqSelect = document.getElementById('feedback-requirement');
+        reqSelect.innerHTML = `<option value="">未关联</option>${reqs.map(r => `<option value="${r.id}">${r.title}</option>`).join('')}`;
+        
+        renderFeedbacksTable();
+        updateStats();
+      } catch (error) {
+        console.error('加载反馈失败:', error);
+      }
+    }
+
+    function renderFeedbacksTable() {
+      const tableBody = document.getElementById('feedbacks-table');
+      tableBody.innerHTML = feedbacks.map(fb => {
+        const req = requirements.find(r => r.id === fb.related_requirement_id);
+        return `
+          <tr>
+            <td>${fb.user_name || '匿名用户'}</td>
+            <td class="text-truncate" style="max-width: 300px;">${fb.content}</td>
+            <td><span class="badge ${getCategoryBadge(fb.category)}">${getCategoryText(fb.category)}</span></td>
+            <td>${req ? `<span class="badge bg-info">${req.title}</span>` : '-'}</td>
+            <td><span class="status-badge" style="background: ${getStatusColor(fb.status)}; color: white;">${getStatusText(fb.status)}</span></td>
+            <td>${fb.created_at}</td>
+            <td>
+              <select class="form-select form-select-sm" style="width: 120px;" onchange="updateFeedbackStatus('${fb.id}', this.value)">
+                <option value="pending" ${fb.status === 'pending' ? 'selected' : ''}>待处理</option>
+                <option value="processing" ${fb.status === 'processing' ? 'selected' : ''}>处理中</option>
+                <option value="implemented" ${fb.status === 'implemented' ? 'selected' : ''}>已实现</option>
+                <option value="rejected" ${fb.status === 'rejected' ? 'selected' : ''}>已拒绝</option>
+              </select>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function updateStats() {
+      document.getElementById('pending-count').textContent = feedbacks.filter(f => f.status === 'pending').length;
+      document.getElementById('processing-count').textContent = feedbacks.filter(f => f.status === 'processing').length;
+      document.getElementById('implemented-count').textContent = feedbacks.filter(f => f.status === 'implemented').length;
+      document.getElementById('rejected-count').textContent = feedbacks.filter(f => f.status === 'rejected').length;
+    }
+
+    async function addFeedback() {
+      const data = {
+        user_name: document.getElementById('feedback-user').value || '匿名用户',
+        content: document.getElementById('feedback-content').value,
+        category: document.getElementById('feedback-category').value,
+        related_requirement_id: document.getElementById('feedback-requirement').value || null,
+        status: 'pending'
+      };
+
+      await fetch('/api/feedbacks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      bootstrap.Modal.getInstance(document.getElementById('addFeedbackModal')).hide();
+      loadFeedbacks();
+    }
+
+    async function updateFeedbackStatus(id, status) {
+      await fetch(`/api/feedbacks/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
+      });
+      loadFeedbacks();
+    }
+
+    function getCategoryBadge(category) {
+      const badges = { feature: 'bg-primary', bug: 'bg-danger', experience: 'bg-warning', other: 'bg-secondary' };
+      return badges[category] || 'bg-secondary';
+    }
+
+    function getCategoryText(category) {
+      const texts = { feature: '功能建议', bug: '问题反馈', experience: '体验优化', other: '其他' };
+      return texts[category] || category;
+    }
+
+    function getStatusColor(status) {
+      const colors = {
+        pending: '#6c757d',
+        processing: '#17a2b8',
+        implemented: '#28a745',
+        rejected: '#dc3545'
+      };
+      return colors[status] || '#6c757d';
+    }
+
+    function getStatusText(status) {
+      const texts = {
+        pending: '待处理',
+        processing: '处理中',
+        implemented: '已实现',
+        rejected: '已拒绝'
+      };
+      return texts[status] || status;
+    }
+
+    loadFeedbacks();
+  </script>
+</Layout>

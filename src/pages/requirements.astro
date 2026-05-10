@@ -1,0 +1,370 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-list-check me-2"></i>需求管理</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addReqModal">
+      <i class="bi bi-plus-circle me-1"></i>新增需求
+    </button>
+  </div>
+
+  <div class="card card-custom mb-4">
+    <div class="card-body">
+      <div class="d-flex justify-content-between mb-3">
+        <h5 class="card-title">需求列表</h5>
+        <select class="form-select" id="filter-status" style="width: 150px;">
+          <option value="all">全部状态</option>
+          <option value="research">调研中</option>
+          <option value="review">评审中</option>
+          <option value="planning">排期中</option>
+          <option value="development">开发中</option>
+          <option value="testing">测试中</option>
+          <option value="completed">已完成</option>
+        </select>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>需求标题</th>
+              <th>优先级</th>
+              <th>状态</th>
+              <th>负责人</th>
+              <th>关联迭代</th>
+              <th>变更次数</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="requirements-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div id="requirement-detail" class="card card-custom" style="display: none;">
+    <div class="card-body">
+      <h5 class="card-title">需求详情</h5>
+      <div id="detail-content"></div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addReqModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新增需求</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addReqForm">
+            <div class="mb-3">
+              <label class="form-label">需求标题 *</label>
+              <input type="text" class="form-control" id="req-title" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">需求描述</label>
+              <textarea class="form-control" id="req-description" rows="3"></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">优先级</label>
+                <select class="form-select" id="req-priority">
+                  <option value="low">低</option>
+                  <option value="medium" selected>中</option>
+                  <option value="high">高</option>
+                  <option value="critical">紧急</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">负责人</label>
+                <input type="text" class="form-control" id="req-assignee">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">预估工时（小时）</label>
+                <input type="number" class="form-control" id="req-hours" value="8">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">关联迭代</label>
+                <select class="form-select" id="req-iteration"></select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" onclick="addRequirement()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editReqModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">编辑需求</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editReqForm">
+            <input type="hidden" id="edit-req-id">
+            <div class="mb-3">
+              <label class="form-label">需求标题 *</label>
+              <input type="text" class="form-control" id="edit-req-title" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">需求描述</label>
+              <textarea class="form-control" id="edit-req-description" rows="3"></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">优先级</label>
+                <select class="form-select" id="edit-req-priority">
+                  <option value="low">低</option>
+                  <option value="medium">中</option>
+                  <option value="high">高</option>
+                  <option value="critical">紧急</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">状态</label>
+                <select class="form-select" id="edit-req-status">
+                  <option value="research">调研中</option>
+                  <option value="review">评审中</option>
+                  <option value="planning">排期中</option>
+                  <option value="development">开发中</option>
+                  <option value="testing">测试中</option>
+                  <option value="completed">已完成</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">负责人</label>
+                <input type="text" class="form-control" id="edit-req-assignee">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">关联迭代</label>
+                <select class="form-select" id="edit-req-iteration"></select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">预估工时</label>
+                <input type="number" class="form-control" id="edit-req-estimated">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">实际工时</label>
+                <input type="number" class="form-control" id="edit-req-actual">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" onclick="updateRequirement()">保存变更</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    let requirements = [];
+    let iterations = [];
+
+    async function loadRequirements() {
+      try {
+        const [reqs, iters] = await Promise.all([
+          fetch('/api/requirements').then(r => r.json()),
+          fetch('/api/iterations').then(r => r.json())
+        ]);
+        requirements = reqs;
+        iterations = iters;
+        
+        const iterationSelect = document.getElementById('req-iteration');
+        const editIterationSelect = document.getElementById('edit-req-iteration');
+        
+        const options = iters.map(i => `<option value="${i.id}">${i.name}</option>`).join('');
+        iterationSelect.innerHTML = `<option value="">未分配</option>${options}`;
+        editIterationSelect.innerHTML = `<option value="">未分配</option>${options}`;
+        
+        renderRequirements();
+      } catch (error) {
+        console.error('加载需求失败:', error);
+      }
+    }
+
+    function renderRequirements() {
+      const filter = document.getElementById('filter-status').value;
+      const filtered = filter === 'all' ? requirements : requirements.filter(r => r.status === filter);
+      
+      const tableBody = document.getElementById('requirements-table');
+      tableBody.innerHTML = filtered.map(req => {
+        const iteration = iterations.find(i => i.id === req.iteration_id);
+        return `
+          <tr class="${req.updated_at > req.created_at ? 'change-highlight' : ''}">
+            <td>${req.title}</td>
+            <td><span class="badge" style="background: ${getPriorityColor(req.priority)};">${getPriorityText(req.priority)}</span></td>
+            <td><span class="status-badge" style="background: ${getStatusColor(req.status)}; color: white;">${getStatusText(req.status)}</span></td>
+            <td>${req.assignee || '-'}</td>
+            <td>${iteration ? iteration.name : '-'}</td>
+            <td><span class="badge bg-warning text-dark">${req.updated_at > req.created_at ? '已变更' : '无'}</span></td>
+            <td class="table-actions">
+              <button class="btn btn-sm btn-info" onclick="showDetail('${req.id}')"><i class="bi bi-eye"></i></button>
+              <button class="btn btn-sm btn-warning" onclick="editRequirement('${req.id}')"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-sm btn-danger" onclick="deleteRequirement('${req.id}')"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function addRequirement() {
+      const data = {
+        title: document.getElementById('req-title').value,
+        description: document.getElementById('req-description').value,
+        priority: document.getElementById('req-priority').value,
+        iteration_id: document.getElementById('req-iteration').value || null,
+        assignee: document.getElementById('req-assignee').value,
+        estimated_hours: parseInt(document.getElementById('req-hours').value)
+      };
+
+      await fetch('/api/requirements', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      bootstrap.Modal.getInstance(document.getElementById('addReqModal')).hide();
+      loadRequirements();
+    }
+
+    async function editRequirement(id) {
+      const req = requirements.find(r => r.id === id);
+      if (!req) return;
+
+      document.getElementById('edit-req-id').value = req.id;
+      document.getElementById('edit-req-title').value = req.title;
+      document.getElementById('edit-req-description').value = req.description || '';
+      document.getElementById('edit-req-priority').value = req.priority;
+      document.getElementById('edit-req-status').value = req.status;
+      document.getElementById('edit-req-assignee').value = req.assignee || '';
+      document.getElementById('edit-req-estimated').value = req.estimated_hours;
+      document.getElementById('edit-req-actual').value = req.actual_hours;
+      document.getElementById('edit-req-iteration').value = req.iteration_id || '';
+
+      new bootstrap.Modal(document.getElementById('editReqModal')).show();
+    }
+
+    async function updateRequirement() {
+      const id = document.getElementById('edit-req-id').value;
+      const data = {
+        title: document.getElementById('edit-req-title').value,
+        description: document.getElementById('edit-req-description').value,
+        priority: document.getElementById('edit-req-priority').value,
+        status: document.getElementById('edit-req-status').value,
+        iteration_id: document.getElementById('edit-req-iteration').value || null,
+        assignee: document.getElementById('edit-req-assignee').value,
+        estimated_hours: parseInt(document.getElementById('edit-req-estimated').value),
+        actual_hours: parseInt(document.getElementById('edit-req-actual').value)
+      };
+
+      await fetch(`/api/requirements/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      bootstrap.Modal.getInstance(document.getElementById('editReqModal')).hide();
+      loadRequirements();
+    }
+
+    async function deleteRequirement(id) {
+      if (confirm('确定要删除这个需求吗？')) {
+        await fetch(`/api/requirements/${id}`, { method: 'DELETE' });
+        loadRequirements();
+      }
+    }
+
+    async function showDetail(id) {
+      const req = requirements.find(r => r.id === id);
+      const changes = await fetch(`/api/requirements/${id}/changes`).then(r => r.json());
+      const iteration = iterations.find(i => i.id === req.iteration_id);
+
+      const detailDiv = document.getElementById('requirement-detail');
+      detailDiv.style.display = 'block';
+      document.getElementById('detail-content').innerHTML = `
+        <h6>基本信息</h6>
+        <p><strong>标题:</strong> ${req.title}</p>
+        <p><strong>描述:</strong> ${req.description || '无'}</p>
+        <p><strong>状态:</strong> <span class="status-badge" style="background: ${getStatusColor(req.status)}; color: white;">${getStatusText(req.status)}</span></p>
+        <p><strong>优先级:</strong> ${getPriorityText(req.priority)}</p>
+        <p><strong>负责人:</strong> ${req.assignee || '未分配'}</p>
+        <p><strong>关联迭代:</strong> ${iteration ? iteration.name : '未分配'}</p>
+        <p><strong>预估工时:</strong> ${req.estimated_hours} 小时 | <strong>实际工时:</strong> ${req.actual_hours} 小时</p>
+        
+        ${changes.length > 0 ? `
+          <hr>
+          <h6>变更历史 <span class="badge bg-warning text-dark">${changes.length} 次变更</span></h6>
+          <div class="timeline">
+            ${changes.map(change => `
+              <div class="timeline-item">
+                <div class="d-flex justify-content-between">
+                  <strong>${change.change_type}</strong>
+                  <span class="text-muted small">${change.created_at}</span>
+                </div>
+                <p class="mb-1"><small>变更原因: ${change.reason || '未记录'}</small></p>
+                <p class="mb-1"><small>影响范围: ${change.impact_scope || '待评估'}</small></p>
+                <small class="text-muted">
+                  原值: ${JSON.parse(change.old_value) || '空'} → 
+                  新值: ${JSON.parse(change.new_value) || '空'}
+                </small>
+              </div>
+            `).join('')}
+          </div>
+        ` : '<p class="text-muted">暂无变更记录</p>'}
+      `;
+    }
+
+    function getStatusColor(status) {
+      const colors = {
+        research: '#6c757d',
+        review: '#ffc107',
+        planning: '#17a2b8',
+        development: '#007bff',
+        testing: '#ff6b6b',
+        completed: '#28a745'
+      };
+      return colors[status] || '#6c757d';
+    }
+
+    function getStatusText(status) {
+      const texts = {
+        research: '调研中',
+        review: '评审中',
+        planning: '排期中',
+        development: '开发中',
+        testing: '测试中',
+        completed: '已完成'
+      };
+      return texts[status] || status;
+    }
+
+    function getPriorityColor(priority) {
+      const colors = { low: '#28a745', medium: '#ffc107', high: '#fd7e14', critical: '#dc3545' };
+      return colors[priority] || '#6c757d';
+    }
+
+    function getPriorityText(priority) {
+      const texts = { low: '低', medium: '中', high: '高', critical: '紧急' };
+      return texts[priority] || priority;
+    }
+
+    document.getElementById('filter-status').addEventListener('change', renderRequirements);
+    loadRequirements();
+  </script>
+</Layout>

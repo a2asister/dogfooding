@@ -1,0 +1,357 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-bug me-2"></i>缺陷管理</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBugModal">
+      <i class="bi bi-plus-circle me-1"></i>新建Bug
+    </button>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card card-custom p-3">
+        <div class="d-flex align-items-center">
+          <div class="me-3">
+            <i class="bi bi-exclamation-circle display-4 text-danger"></i>
+          </div>
+          <div>
+            <h6 class="text-muted">严重</h6>
+            <h3 id="critical-count">0</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-custom p-3">
+        <div class="d-flex align-items-center">
+          <div class="me-3">
+            <i class="bi bi-exclamation-triangle display-4 text-warning"></i>
+          </div>
+          <div>
+            <h6 class="text-muted">待修复</h6>
+            <h3 id="open-count">0</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-custom p-3">
+        <div class="d-flex align-items-center">
+          <div class="me-3">
+            <i class="bi bi-hourglass-split display-4 text-info"></i>
+          </div>
+          <div>
+            <h6 class="text-muted">修复中</h6>
+            <h3 id="fixing-count">0</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-custom p-3">
+        <div class="d-flex align-items-center">
+          <div class="me-3">
+            <i class="bi bi-check-circle display-4 text-success"></i>
+          </div>
+          <div>
+            <h6 class="text-muted">已关闭</h6>
+            <h3 id="closed-count">0</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-custom">
+    <div class="card-body">
+      <h5 class="card-title">Bug 列表</h5>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Bug标题</th>
+              <th>严重程度</th>
+              <th>状态</th>
+              <th>负责人</th>
+              <th>关联需求</th>
+              <th>创建时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="bugs-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addBugModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新建Bug</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addBugForm">
+            <div class="mb-3">
+              <label class="form-label">Bug标题 *</label>
+              <input type="text" class="form-control" id="bug-title" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Bug描述</label>
+              <textarea class="form-control" id="bug-description" rows="3"></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">严重程度</label>
+                <select class="form-select" id="bug-severity">
+                  <option value="low">低</option>
+                  <option value="medium" selected>中</option>
+                  <option value="high">高</option>
+                  <option value="critical">严重</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">负责人</label>
+                <input type="text" class="form-control" id="bug-assignee">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">关联需求</label>
+                <select class="form-select" id="bug-requirement"></select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">关联迭代</label>
+                <select class="form-select" id="bug-iteration"></select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" onclick="addBug()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editBugModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">编辑Bug</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editBugForm">
+            <input type="hidden" id="edit-bug-id">
+            <div class="mb-3">
+              <label class="form-label">Bug标题 *</label>
+              <input type="text" class="form-control" id="edit-bug-title" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Bug描述</label>
+              <textarea class="form-control" id="edit-bug-description" rows="3"></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">严重程度</label>
+                <select class="form-select" id="edit-bug-severity">
+                  <option value="low">低</option>
+                  <option value="medium">中</option>
+                  <option value="high">高</option>
+                  <option value="critical">严重</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">状态</label>
+                <select class="form-select" id="edit-bug-status">
+                  <option value="open">待处理</option>
+                  <option value="fixing">修复中</option>
+                  <option value="testing">测试中</option>
+                  <option value="closed">已关闭</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">负责人</label>
+                <input type="text" class="form-control" id="edit-bug-assignee">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">关联需求</label>
+                <select class="form-select" id="edit-bug-requirement"></select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">关联迭代</label>
+                <select class="form-select" id="edit-bug-iteration"></select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" onclick="updateBug()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let bugs = [];
+    let requirements = [];
+    let iterations = [];
+
+    async function loadBugs() {
+      try {
+        const [bugList, reqList, iterList] = await Promise.all([
+          fetch('/api/bugs').then(r => r.json()),
+          fetch('/api/requirements').then(r => r.json()),
+          fetch('/api/iterations').then(r => r.json())
+        ]);
+        bugs = bugList;
+        requirements = reqList;
+        iterations = iterList;
+        
+        updateStats();
+        populateSelects();
+        renderBugsTable();
+      } catch (error) {
+        console.error('加载Bug失败:', error);
+      }
+    }
+
+    function updateStats() {
+      document.getElementById('critical-count').textContent = bugs.filter(b => b.severity === 'critical').length;
+      document.getElementById('open-count').textContent = bugs.filter(b => b.status === 'open').length;
+      document.getElementById('fixing-count').textContent = bugs.filter(b => ['fixing', 'testing'].includes(b.status)).length;
+      document.getElementById('closed-count').textContent = bugs.filter(b => b.status === 'closed').length;
+    }
+
+    function populateSelects() {
+      const reqOptions = requirements.map(r => `<option value="${r.id}">${r.title}</option>`).join('');
+      const iterOptions = iterations.map(i => `<option value="${i.id}">${i.name}</option>`).join('');
+      
+      document.getElementById('bug-requirement').innerHTML = `<option value="">未关联</option>${reqOptions}`;
+      document.getElementById('bug-iteration').innerHTML = `<option value="">未关联</option>${iterOptions}`;
+      document.getElementById('edit-bug-requirement').innerHTML = `<option value="">未关联</option>${reqOptions}`;
+      document.getElementById('edit-bug-iteration').innerHTML = `<option value="">未关联</option>${iterOptions}`;
+    }
+
+    function renderBugsTable() {
+      const tableBody = document.getElementById('bugs-table');
+      tableBody.innerHTML = bugs.map(bug => {
+        const req = requirements.find(r => r.id === bug.requirement_id);
+        const iter = iterations.find(i => i.id === bug.iteration_id);
+        return `
+          <tr>
+            <td>${bug.title}</td>
+            <td><span class="badge" style="background: ${getSeverityColor(bug.severity)};">${getSeverityText(bug.severity)}</span></td>
+            <td><span class="status-badge" style="background: ${getStatusColor(bug.status)}; color: white;">${getStatusText(bug.status)}</span></td>
+            <td>${bug.assignee || '-'}</td>
+            <td>${req ? `<span class="badge bg-info">${req.title}</span>` : '-'}</td>
+            <td>${bug.created_at}</td>
+            <td class="table-actions">
+              <button class="btn btn-sm btn-warning" onclick="editBug('${bug.id}')"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-sm btn-danger" onclick="deleteBug('${bug.id}')"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function addBug() {
+      const data = {
+        title: document.getElementById('bug-title').value,
+        description: document.getElementById('bug-description').value,
+        severity: document.getElementById('bug-severity').value,
+        status: 'open',
+        assignee: document.getElementById('bug-assignee').value,
+        requirement_id: document.getElementById('bug-requirement').value || null,
+        iteration_id: document.getElementById('bug-iteration').value || null
+      };
+
+      await fetch('/api/bugs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      bootstrap.Modal.getInstance(document.getElementById('addBugModal')).hide();
+      loadBugs();
+    }
+
+    async function editBug(id) {
+      const bug = bugs.find(b => b.id === id);
+      if (!bug) return;
+
+      document.getElementById('edit-bug-id').value = bug.id;
+      document.getElementById('edit-bug-title').value = bug.title;
+      document.getElementById('edit-bug-description').value = bug.description || '';
+      document.getElementById('edit-bug-severity').value = bug.severity;
+      document.getElementById('edit-bug-status').value = bug.status;
+      document.getElementById('edit-bug-assignee').value = bug.assignee || '';
+      document.getElementById('edit-bug-requirement').value = bug.requirement_id || '';
+      document.getElementById('edit-bug-iteration').value = bug.iteration_id || '';
+
+      new bootstrap.Modal(document.getElementById('editBugModal')).show();
+    }
+
+    async function updateBug() {
+      const id = document.getElementById('edit-bug-id').value;
+      const data = {
+        title: document.getElementById('edit-bug-title').value,
+        description: document.getElementById('edit-bug-description').value,
+        severity: document.getElementById('edit-bug-severity').value,
+        status: document.getElementById('edit-bug-status').value,
+        assignee: document.getElementById('edit-bug-assignee').value,
+        requirement_id: document.getElementById('edit-bug-requirement').value || null,
+        iteration_id: document.getElementById('edit-bug-iteration').value || null
+      };
+
+      await fetch(`/api/bugs/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      bootstrap.Modal.getInstance(document.getElementById('editBugModal')).hide();
+      loadBugs();
+    }
+
+    async function deleteBug(id) {
+      if (confirm('确定要删除这个Bug吗？')) {
+        await fetch(`/api/bugs/${id}`, { method: 'DELETE' });
+        loadBugs();
+      }
+    }
+
+    function getSeverityColor(severity) {
+      const colors = { low: '#28a745', medium: '#ffc107', high: '#fd7e14', critical: '#dc3545' };
+      return colors[severity] || '#6c757d';
+    }
+
+    function getSeverityText(severity) {
+      const texts = { low: '低', medium: '中', high: '高', critical: '严重' };
+      return texts[severity] || severity;
+    }
+
+    function getStatusColor(status) {
+      const colors = { open: '#dc3545', fixing: '#ffc107', testing: '#17a2b8', closed: '#28a745' };
+      return colors[status] || '#6c757d';
+    }
+
+    function getStatusText(status) {
+      const texts = { open: '待处理', fixing: '修复中', testing: '测试中', closed: '已关闭' };
+      return texts[status] || status;
+    }
+
+    loadBugs();
+  </script>
+</Layout>

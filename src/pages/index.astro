@@ -1,0 +1,276 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-speedometer2 me-2"></i>项目仪表盘</h2>
+    <button class="btn btn-primary" onclick="refreshData()"><i class="bi bi-arrow-clockwise"></i> 刷新数据</button>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card card-custom p-4">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h6 class="text-muted">当前迭代</h6>
+            <h3 id="current-iteration">--</h3>
+            <p class="small text-muted" id="iteration-status">--</p>
+          </div>
+          <i class="bi bi-calendar-check display-4 text-primary"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-custom p-4">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h6 class="text-muted">待处理需求</h6>
+            <h3 id="pending-requirements">0</h3>
+            <p class="small text-muted">等待评审/排期</p>
+          </div>
+          <i class="bi bi-list-check display-4 text-warning"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-custom p-4">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h6 class="text-muted">待修复Bug</h6>
+            <h3 id="pending-bugs">0</h3>
+            <p class="small text-muted">严重程度统计</p>
+          </div>
+          <i class="bi bi-bug display-4 text-danger"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card card-custom p-4">
+        <div class="d-flex justify-content-between">
+          <div>
+            <h6 class="text-muted">灰度发布中</h6>
+            <h3 id="grayscale-percent">0%</h3>
+            <p class="small text-muted" id="grayscale-env">--</p>
+          </div>
+          <i class="bi bi-rocket-takeoff display-4 text-success"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <div class="card card-custom p-4">
+        <h5 class="mb-3"><i class="bi bi-bar-chart me-2"></i>迭代进度甘特图</h5>
+        <div id="gantt-chart" style="height: 300px;">
+          <canvas id="ganttCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card card-custom p-4">
+        <h5 class="mb-3"><i class="bi bi-graph-up me-2"></i>需求状态分布</h5>
+        <canvas id="statusChart" height="250"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card card-custom p-4">
+        <h5 class="mb-3"><i class="bi bi-clock-history me-2"></i>最近需求变更</h5>
+        <div id="recent-changes" class="timeline"></div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card card-custom p-4">
+        <h5 class="mb-3"><i class="bi bi-flag me-2"></i>最近Bug</h5>
+        <div id="recent-bugs" class="timeline"></div>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    let statusChart = null;
+    let ganttChart = null;
+
+    async function loadDashboard() {
+      try {
+        const [iterations, requirements, bugs, deployments, changes] = await Promise.all([
+          fetch('/api/iterations').then(r => r.json()),
+          fetch('/api/requirements').then(r => r.json()),
+          fetch('/api/bugs').then(r => r.json()),
+          fetch('/api/deployments').then(r => r.json()),
+          fetch('/api/requirements').then(r => r.json())
+        ]);
+
+        if (iterations.length > 0) {
+          const active = iterations.find(i => i.status === 'active') || iterations[0];
+          document.getElementById('current-iteration').textContent = active.name;
+          document.getElementById('iteration-status').textContent = `${active.start_date} ~ ${active.end_date}`;
+        }
+
+        const pendingReqs = requirements.filter(r => ['research', 'review'].includes(r.status)).length;
+        document.getElementById('pending-requirements').textContent = pendingReqs;
+
+        const pendingBugs = bugs.filter(b => b.status === 'open').length;
+        document.getElementById('pending-bugs').textContent = pendingBugs;
+
+        const grayscaleDeployment = deployments.find(d => d.status === 'grayscale');
+        if (grayscaleDeployment) {
+          document.getElementById('grayscale-percent').textContent = `${grayscaleDeployment.grayscale_percentage}%`;
+          document.getElementById('grayscale-env').textContent = grayscaleDeployment.environment;
+        }
+
+        renderStatusChart(requirements);
+        renderGanttChart(iterations, requirements);
+        renderRecentChanges(requirements);
+        renderRecentBugs(bugs);
+      } catch (error) {
+        console.error('加载仪表盘失败:', error);
+      }
+    }
+
+    function renderStatusChart(requirements) {
+      if (statusChart) {
+        statusChart.destroy();
+      }
+      
+      const statusCounts = {
+        research: requirements.filter(r => r.status === 'research').length,
+        review: requirements.filter(r => r.status === 'review').length,
+        planning: requirements.filter(r => r.status === 'planning').length,
+        development: requirements.filter(r => r.status === 'development').length,
+        testing: requirements.filter(r => r.status === 'testing').length,
+        completed: requirements.filter(r => r.status === 'completed').length
+      };
+
+      statusChart = new Chart(document.getElementById('statusChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['调研中', '评审中', '排期中', '开发中', '测试中', '已完成'],
+          datasets: [{
+            data: Object.values(statusCounts),
+            backgroundColor: ['#6c757d', '#ffc107', '#17a2b8', '#007bff', '#ff6b6b', '#28a745']
+          }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+      });
+    }
+
+    function renderGanttChart(iterations, requirements) {
+      if (ganttChart) {
+        ganttChart.destroy();
+      }
+
+      const ctx = document.getElementById('ganttCanvas').getContext('2d');
+      if (iterations.length === 0) return;
+
+      const iteration = iterations[0];
+      const startDate = new Date(iteration.start_date);
+      const endDate = new Date(iteration.end_date);
+      const totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+      const reqsInIteration = requirements.filter(r => r.iteration_id === iteration.id);
+
+      const labels = reqsInIteration.map(r => r.title);
+      const data = reqsInIteration.map(r => {
+        const progress = r.estimated_hours > 0 ? (r.actual_hours / r.estimated_hours) * 100 : 0;
+        return Math.min(progress, 100);
+      });
+
+      ganttChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: '完成进度 (%)',
+            data: data,
+            backgroundColor: data.map(d => d >= 100 ? '#28a745' : d >= 50 ? '#007bff' : '#ffc107'),
+            borderRadius: 4
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { beginAtZero: true, max: 100 },
+            y: { grid: { display: false } }
+          }
+        }
+      });
+    }
+
+    function renderRecentChanges(requirements) {
+      const container = document.getElementById('recent-changes');
+      const recentReqs = requirements.slice(0, 5);
+      
+      container.innerHTML = recentReqs.map(req => `
+        <div class="timeline-item">
+          <div class="d-flex justify-content-between">
+            <strong>${req.title}</strong>
+            <span class="text-muted small">${req.updated_at}</span>
+          </div>
+          <span class="status-badge" style="background: ${getStatusColor(req.status)}; color: white;">
+            ${getStatusText(req.status)}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function renderRecentBugs(bugs) {
+      const container = document.getElementById('recent-bugs');
+      const recentBugs = bugs.slice(0, 5);
+      
+      container.innerHTML = recentBugs.map(bug => `
+        <div class="timeline-item">
+          <div class="d-flex justify-content-between">
+            <strong>${bug.title}</strong>
+            <span class="text-muted small">${bug.created_at}</span>
+          </div>
+          <span class="status-badge" style="background: ${getSeverityColor(bug.severity)}; color: white;">
+            ${bug.severity}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function getStatusColor(status) {
+      const colors = {
+        research: '#6c757d',
+        review: '#ffc107',
+        planning: '#17a2b8',
+        development: '#007bff',
+        testing: '#ff6b6b',
+        completed: '#28a745'
+      };
+      return colors[status] || '#6c757d';
+    }
+
+    function getStatusText(status) {
+      const texts = {
+        research: '调研中',
+        review: '评审中',
+        planning: '排期中',
+        development: '开发中',
+        testing: '测试中',
+        completed: '已完成'
+      };
+      return texts[status] || status;
+    }
+
+    function getSeverityColor(severity) {
+      const colors = { critical: '#dc3545', high: '#fd7e14', medium: '#ffc107', low: '#28a745' };
+      return colors[severity] || '#6c757d';
+    }
+
+    window.refreshData = function() {
+      loadDashboard();
+    };
+
+    loadDashboard();
+  </script>
+</Layout>

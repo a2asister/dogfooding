@@ -1,0 +1,308 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-rocket-takeoff me-2"></i>发布管理</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDeployModal">
+      <i class="bi bi-plus-circle me-1"></i>新建发布
+    </button>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <div class="card card-custom">
+        <div class="card-body">
+          <h5 class="card-title">灰度发布进度</h5>
+          <div id="grayscale-monitor" style="display: none;">
+            <div class="row align-items-center">
+              <div class="col-md-2">
+                <strong id="grayscale-iter-name">--</strong>
+                <p class="text-muted mb-0" id="grayscale-env">--</p>
+              </div>
+              <div class="col-md-8">
+                <div class="progress" style="height: 30px;">
+                  <div id="grayscale-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                       style="background: linear-gradient(90deg, #007bff 0%, #28a745 100%);"></div>
+                </div>
+              </div>
+              <div class="col-md-2 text-center">
+                <h3 id="grayscale-percent-text">0%</h3>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12">
+                <div class="btn-group" role="group">
+                  <button class="btn btn-outline-primary" onclick="adjustGrayscale(10)">+10%</button>
+                  <button class="btn btn-outline-primary" onclick="adjustGrayscale(20)">+20%</button>
+                  <button class="btn btn-outline-primary" onclick="adjustGrayscale(50)">+50%</button>
+                  <button class="btn btn-outline-success" onclick="fullRelease()">全量发布</button>
+                  <button class="btn btn-outline-danger" onclick="rollback()">回滚</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p id="no-grayscale" class="text-muted text-center py-4">当前没有进行中的灰度发布</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-custom">
+    <div class="card-body">
+      <h5 class="card-title">发布历史</h5>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>迭代</th>
+              <th>环境</th>
+              <th>状态</th>
+              <th>灰度比例</th>
+              <th>发布时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="deployments-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addDeployModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新建发布</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addDeployForm">
+            <div class="mb-3">
+              <label class="form-label">关联迭代 *</label>
+              <select class="form-select" id="deploy-iteration" required></select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">环境 *</label>
+              <select class="form-select" id="deploy-env" required>
+                <option value="development">开发环境</option>
+                <option value="staging">测试环境</option>
+                <option value="production">生产环境</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">发布策略</label>
+              <select class="form-select" id="deploy-strategy">
+                <option value="immediate">立即发布</option>
+                <option value="grayscale">灰度发布</option>
+              </select>
+            </div>
+            <div class="mb-3" id="grayscale-options" style="display: none;">
+              <label class="form-label">初始灰度比例 (%)</label>
+              <input type="range" class="form-range" id="grayscale-range" min="0" max="90" step="10" value="10">
+              <div class="text-center"><strong id="grayscale-range-value">10%</strong></div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" onclick="addDeployment()">发布</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let deployments = [];
+    let iterations = [];
+    let currentGrayscale = null;
+
+    async function loadDeployments() {
+      try {
+        const [depls, iters] = await Promise.all([
+          fetch('/api/deployments').then(r => r.json()),
+          fetch('/api/iterations').then(r => r.json())
+        ]);
+        deployments = depls;
+        iterations = iters;
+        
+        const iterSelect = document.getElementById('deploy-iteration');
+        iterSelect.innerHTML = iters.map(i => `<option value="${i.id}">${i.name} (${i.version})</option>`).join('');
+        
+        renderDeploymentsTable();
+        checkGrayscaleStatus();
+      } catch (error) {
+        console.error('加载发布失败:', error);
+      }
+    }
+
+    function renderDeploymentsTable() {
+      const tableBody = document.getElementById('deployments-table');
+      tableBody.innerHTML = deployments.map(depl => {
+        const iter = iterations.find(i => i.id === depl.iteration_id);
+        return `
+          <tr>
+            <td><strong>${iter ? iter.name : '-'}</strong></td>
+            <td><span class="badge ${getEnvBadge(depl.environment)}">${getEnvText(depl.environment)}</span></td>
+            <td><span class="status-badge" style="background: ${getStatusColor(depl.status)}; color: white;">${getStatusText(depl.status)}</span></td>
+            <td>
+              ${depl.status === 'grayscale' ? `
+                <div class="progress" style="height: 8px; width: 100px;">
+                  <div class="progress-bar" style="width: ${depl.grayscale_percentage}%; background: #007bff;"></div>
+                </div>
+                <small class="text-muted">${depl.grayscale_percentage}%</small>
+              ` : '-'}
+            </td>
+            <td>${depl.deployed_at || '-'}</td>
+            <td>
+              ${depl.status === 'grayscale' ? `
+                <button class="btn btn-sm btn-info" onclick="viewGrayscaleDetail('${depl.id}')">管理</button>
+              ` : depl.status === 'deployed' ? `
+                <button class="btn btn-sm btn-danger" onclick="rollbackDeployment('${depl.id}')">回滚</button>
+              ` : '-'}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function checkGrayscaleStatus() {
+      const grayscale = deployments.find(d => d.status === 'grayscale');
+      const monitorDiv = document.getElementById('grayscale-monitor');
+      const noGrayscale = document.getElementById('no-grayscale');
+
+      if (grayscale) {
+        currentGrayscale = grayscale;
+        monitorDiv.style.display = 'block';
+        noGrayscale.style.display = 'none';
+        
+        const iter = iterations.find(i => i.id === grayscale.iteration_id);
+        document.getElementById('grayscale-iter-name').textContent = iter ? iter.name : '未知迭代';
+        document.getElementById('grayscale-env').textContent = getEnvText(grayscale.environment);
+        updateGrayscaleUI(grayscale.grayscale_percentage);
+      } else {
+        monitorDiv.style.display = 'none';
+        noGrayscale.style.display = 'block';
+        currentGrayscale = null;
+      }
+    }
+
+    function updateGrayscaleUI(percent) {
+      const progressBar = document.getElementById('grayscale-progress-bar');
+      progressBar.style.width = `${percent}%`;
+      progressBar.setAttribute('aria-valuenow', percent);
+      document.getElementById('grayscale-percent-text').textContent = `${percent}%`;
+    }
+
+    async function adjustGrayscale(increase) {
+      if (!currentGrayscale) return;
+      
+      const newPercent = Math.min(currentGrayscale.grayscale_percentage + increase, 90);
+      await updateDeploymentStatus(currentGrayscale.id, 'grayscale', newPercent);
+    }
+
+    async function fullRelease() {
+      if (!currentGrayscale) return;
+      if (confirm('确定要全量发布吗？这将把发布比例提升到 100%。')) {
+        await updateDeploymentStatus(currentGrayscale.id, 'deployed', 100);
+      }
+    }
+
+    async function rollback() {
+      if (!currentGrayscale) return;
+      if (confirm('确定要回滚此次发布吗？')) {
+        await updateDeploymentStatus(currentGrayscale.id, 'rolled_back', 0);
+      }
+    }
+
+    async function updateDeploymentStatus(id, status, percent) {
+      await fetch(`/api/deployments/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status, grayscale_percentage: percent })
+      });
+      loadDeployments();
+    }
+
+    async function addDeployment() {
+      const strategy = document.getElementById('deploy-strategy').value;
+      const data = {
+        iteration_id: document.getElementById('deploy-iteration').value,
+        environment: document.getElementById('deploy-env').value,
+        status: strategy === 'grayscale' ? 'grayscale' : 'deployed',
+        grayscale_percentage: strategy === 'grayscale' ? parseInt(document.getElementById('grayscale-range').value) : 100
+      };
+
+      await fetch('/api/deployments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      bootstrap.Modal.getInstance(document.getElementById('addDeployModal')).hide();
+      loadDeployments();
+    }
+
+    async function rollbackDeployment(id) {
+      if (confirm('确定要回滚此发布吗？')) {
+        await updateDeploymentStatus(id, 'rolled_back', 0);
+      }
+    }
+
+    function viewGrayscaleDetail(id) {
+      const depl = deployments.find(d => d.id === id);
+      if (depl) {
+        currentGrayscale = depl;
+        checkGrayscaleStatus();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function getEnvBadge(env) {
+      const badges = { development: 'bg-secondary', staging: 'bg-info', production: 'bg-success' };
+      return badges[env] || 'bg-secondary';
+    }
+
+    function getEnvText(env) {
+      const texts = { development: '开发环境', staging: '测试环境', production: '生产环境' };
+      return texts[env] || env;
+    }
+
+    function getStatusColor(status) {
+      const colors = {
+        pending: '#6c757d',
+        grayscale: '#17a2b8',
+        deployed: '#28a745',
+        rolled_back: '#dc3545'
+      };
+      return colors[status] || '#6c757d';
+    }
+
+    function getStatusText(status) {
+      const texts = {
+        pending: '待发布',
+        grayscale: '灰度中',
+        deployed: '已发布',
+        rolled_back: '已回滚'
+      };
+      return texts[status] || status;
+    }
+
+    document.getElementById('deploy-strategy').addEventListener('change', function() {
+      document.getElementById('grayscale-options').style.display = this.value === 'grayscale' ? 'block' : 'none';
+    });
+
+    document.getElementById('grayscale-range').addEventListener('input', function() {
+      document.getElementById('grayscale-range-value').textContent = this.value + '%';
+    });
+
+    setInterval(() => {
+      if (currentGrayscale) {
+        loadDeployments();
+      }
+    }, 5000);
+
+    loadDeployments();
+  </script>
+</Layout>

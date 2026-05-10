@@ -1,0 +1,318 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-repeat me-2"></i>迭代管理</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addIterationModal">
+      <i class="bi bi-plus-circle me-1"></i>新建迭代
+    </button>
+  </div>
+
+  <div class="card card-custom mb-4">
+    <div class="card-body">
+      <h5 class="card-title">迭代甘特图</h5>
+      <div id="gantt-container" style="height: 400px; overflow-x: auto;">
+        <canvas id="iterationGanttChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-custom">
+    <div class="card-body">
+      <h5 class="card-title">迭代列表</h5>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>迭代名称</th>
+              <th>版本号</th>
+              <th>开始日期</th>
+              <th>结束日期</th>
+              <th>状态</th>
+              <th>需求数量</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="iterations-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addIterationModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">新建迭代</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addIterationForm">
+            <div class="mb-3">
+              <label class="form-label">迭代名称 *</label>
+              <input type="text" class="form-control" id="iter-name" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">版本号 *</label>
+              <input type="text" class="form-control" id="iter-version" placeholder="v1.0.0" required>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">开始日期 *</label>
+                <input type="date" class="form-control" id="iter-start" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">结束日期 *</label>
+                <input type="date" class="form-control" id="iter-end" required>
+              </div>
+            </div>
+            <div class="mb-3 mt-3">
+              <label class="form-label">描述</label>
+              <textarea class="form-control" id="iter-desc" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" onclick="addIteration()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editIterationModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">编辑迭代</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editIterationForm">
+            <input type="hidden" id="edit-iter-id">
+            <div class="mb-3">
+              <label class="form-label">迭代名称 *</label>
+              <input type="text" class="form-control" id="edit-iter-name" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">版本号 *</label>
+              <input type="text" class="form-control" id="edit-iter-version" required>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">开始日期 *</label>
+                <input type="date" class="form-control" id="edit-iter-start" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">结束日期 *</label>
+                <input type="date" class="form-control" id="edit-iter-end" required>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <label class="form-label">状态</label>
+                <select class="form-select" id="edit-iter-status">
+                  <option value="planning">规划中</option>
+                  <option value="active">进行中</option>
+                  <option value="completed">已完成</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">描述</label>
+                <textarea class="form-control" id="edit-iter-desc" rows="2"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" onclick="updateIteration()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let iterations = [];
+    let requirements = [];
+
+    async function loadIterations() {
+      try {
+        const [iters, reqs] = await Promise.all([
+          fetch('/api/iterations').then(r => r.json()),
+          fetch('/api/requirements').then(r => r.json())
+        ]);
+        iterations = iters;
+        requirements = reqs;
+        
+        renderIterationsTable();
+        renderGanttChart();
+      } catch (error) {
+        console.error('加载迭代失败:', error);
+      }
+    }
+
+    function renderIterationsTable() {
+      const tableBody = document.getElementById('iterations-table');
+      tableBody.innerHTML = iterations.map(iter => {
+        const reqCount = requirements.filter(r => r.iteration_id === iter.id).length;
+        return `
+          <tr>
+            <td><strong>${iter.name}</strong></td>
+            <td><span class="badge bg-info">${iter.version}</span></td>
+            <td>${iter.start_date}</td>
+            <td>${iter.end_date}</td>
+            <td><span class="status-badge" style="background: ${getIterationStatusColor(iter.status)}; color: white;">${getIterationStatusText(iter.status)}</span></td>
+            <td><span class="badge bg-secondary">${reqCount} 个需求</span></td>
+            <td class="table-actions">
+              <button class="btn btn-sm btn-warning" onclick="editIteration('${iter.id}')"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-sm btn-danger" onclick="deleteIteration('${iter.id}')"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderGanttChart() {
+      if (iterations.length === 0) return;
+      
+      const ctx = document.getElementById('iterationGanttChart').getContext('2d');
+      
+      const labels = iterations.map(iter => iter.name);
+      const data = iterations.map(iter => {
+        const reqsInIter = requirements.filter(r => r.iteration_id === iter.id);
+        const totalEstimated = reqsInIter.reduce((sum, r) => sum + (r.estimated_hours || 0), 0);
+        const totalActual = reqsInIter.reduce((sum, r) => sum + (r.actual_hours || 0), 0);
+        return totalEstimated > 0 ? Math.min((totalActual / totalEstimated) * 100, 100) : 0;
+      });
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: '迭代完成度 (%)',
+            data: data,
+            backgroundColor: data.map(d => {
+              if (d >= 100) return '#28a745';
+              if (d >= 50) return '#007bff';
+              return '#ffc107';
+            }),
+            borderRadius: 8,
+            barThickness: 40
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const iter = iterations[context.dataIndex];
+                  const reqsInIter = requirements.filter(r => r.iteration_id === iter.id);
+                  const totalEstimated = reqsInIter.reduce((sum, r) => sum + (r.estimated_hours || 0), 0);
+                  const totalActual = reqsInIter.reduce((sum, r) => sum + (r.actual_hours || 0), 0);
+                  return [
+                    `进度: ${context.raw.toFixed(1)}%`,
+                    `预估工时: ${totalEstimated}h`,
+                    `实际工时: ${totalActual}h`,
+                    `需求数: ${reqsInIter.length}`
+                  ];
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              beginAtZero: true,
+              max: 100,
+              ticks: { callback: value => value + '%' }
+            },
+            y: {
+              grid: { display: false }
+            }
+          }
+        }
+      });
+    }
+
+    async function addIteration() {
+      const data = {
+        name: document.getElementById('iter-name').value,
+        version: document.getElementById('iter-version').value,
+        start_date: document.getElementById('iter-start').value,
+        end_date: document.getElementById('iter-end').value,
+        description: document.getElementById('iter-desc').value
+      };
+
+      await fetch('/api/iterations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      bootstrap.Modal.getInstance(document.getElementById('addIterationModal')).hide();
+      loadIterations();
+    }
+
+    async function editIteration(id) {
+      const iter = iterations.find(i => i.id === id);
+      if (!iter) return;
+
+      document.getElementById('edit-iter-id').value = iter.id;
+      document.getElementById('edit-iter-name').value = iter.name;
+      document.getElementById('edit-iter-version').value = iter.version;
+      document.getElementById('edit-iter-start').value = iter.start_date;
+      document.getElementById('edit-iter-end').value = iter.end_date;
+      document.getElementById('edit-iter-status').value = iter.status;
+      document.getElementById('edit-iter-desc').value = iter.description || '';
+
+      new bootstrap.Modal(document.getElementById('editIterationModal')).show();
+    }
+
+    async function updateIteration() {
+      const id = document.getElementById('edit-iter-id').value;
+      const data = {
+        name: document.getElementById('edit-iter-name').value,
+        version: document.getElementById('edit-iter-version').value,
+        start_date: document.getElementById('edit-iter-start').value,
+        end_date: document.getElementById('edit-iter-end').value,
+        status: document.getElementById('edit-iter-status').value,
+        description: document.getElementById('edit-iter-desc').value
+      };
+
+      await fetch(`/api/iterations/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      bootstrap.Modal.getInstance(document.getElementById('editIterationModal')).hide();
+      loadIterations();
+    }
+
+    async function deleteIteration(id) {
+      if (confirm('确定要删除这个迭代吗？关联的需求将不会被删除。')) {
+        await fetch(`/api/iterations/${id}`, { method: 'DELETE' });
+        loadIterations();
+      }
+    }
+
+    function getIterationStatusColor(status) {
+      const colors = { planning: '#6c757d', active: '#007bff', completed: '#28a745' };
+      return colors[status] || '#6c757d';
+    }
+
+    function getIterationStatusText(status) {
+      const texts = { planning: '规划中', active: '进行中', completed: '已完成' };
+      return texts[status] || status;
+    }
+
+    loadIterations();
+  </script>
+</Layout>

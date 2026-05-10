@@ -1,0 +1,25 @@
+{
+  "name": "product-iteration-management",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "全生命周期产品迭代管理系统",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:astro\"",
+    "dev:server": "node server/index.js",
+    "dev:astro": "astro dev --port 45678",
+    "build": "astro build",
+    "preview": "astro preview",
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "sql.js": "^1.10.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "astro": "^4.0.0",
+    "concurrently": "^8.2.2",
+    "chart.js": "^4.4.0"
+  }
+}
