@@ -27,6 +27,15 @@ class ActionExecutor {
       case 'log':
         result = await this.executeLogAction(config, context, engine);
         break;
+      case 'emitEvent':
+        result = await this.executeEmitEventAction(config, context, engine);
+        break;
+      case 'variable':
+        result = await this.executeVariableAction(config, context, engine);
+        break;
+      case 'delay':
+        result = await this.executeDelayAction(config, context, engine);
+        break;
       case 'custom':
       default:
         result = await this.executeCustomAction(config, context, engine);
@@ -191,6 +200,114 @@ class ActionExecutor {
       if (acc === null || acc === undefined) return undefined;
       return acc[key];
     }, obj);
+  }
+
+  static async executeEmitEventAction(config, context, engine) {
+    const { eventName, eventData = {} } = config;
+
+    if (!eventName) {
+      throw new Error('emitEvent action requires eventName');
+    }
+
+    const processedData = { ...eventData };
+    for (const [key, value] of Object.entries(processedData)) {
+      if (typeof value === 'string') {
+        processedData[key] = this.processTemplate(value, context);
+      }
+    }
+
+    store.addExecutionLog(engine.executionId, {
+      level: 'info',
+      message: `Emitting event: ${eventName}`,
+      nodeId: engine.executionId
+    });
+
+    engine.emit('workflow:event', {
+      eventName,
+      eventData: processedData,
+      context
+    });
+
+    return {
+      data: {
+        ...context,
+        eventEmitted: eventName,
+        eventData: processedData
+      }
+    };
+  }
+
+  static async executeVariableAction(config, context, engine) {
+    const { operation = 'set', variableName, value, expression } = config;
+
+    if (!variableName) {
+      throw new Error('variable action requires variableName');
+    }
+
+    let newValue;
+
+    if (expression) {
+      newValue = this.evaluateExpression(expression, context);
+    } else {
+      newValue = typeof value === 'string'
+        ? this.processTemplate(value, context)
+        : value;
+    }
+
+    const result = { ...context };
+
+    switch (operation) {
+      case 'set':
+        result[variableName] = newValue;
+        break;
+      case 'increment':
+        result[variableName] = (result[variableName] || 0) + (newValue || 1);
+        break;
+      case 'decrement':
+        result[variableName] = (result[variableName] || 0) - (newValue || 1);
+        break;
+      case 'delete':
+        delete result[variableName];
+        break;
+      default:
+        result[variableName] = newValue;
+    }
+
+    store.addExecutionLog(engine.executionId, {
+      level: 'debug',
+      message: `Variable ${variableName}: ${operation} = ${JSON.stringify(newValue)}`
+    });
+
+    return { data: result };
+  }
+
+  static async executeDelayAction(config, context, engine) {
+    const { amount = 1, unit = 'seconds' } = config;
+
+    const unitMultipliers = {
+      milliseconds: 1,
+      seconds: 1000,
+      minutes: 60 * 1000,
+      hours: 60 * 60 * 1000
+    };
+
+    const delayMs = amount * (unitMultipliers[unit] || 1000);
+
+    store.addExecutionLog(engine.executionId, {
+      level: 'info',
+      message: `Delaying for ${amount} ${unit}`,
+      nodeId: engine.executionId
+    });
+
+    await new Promise(resolve => setTimeout(resolve, delayMs));
+
+    return {
+      data: {
+        ...context,
+        delayCompleted: true,
+        delayMs
+      }
+    };
   }
 }
 

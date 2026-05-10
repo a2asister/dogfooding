@@ -1,35 +1,56 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { useParams, useNavigate, useLocation } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid'
-import { workflowApi, versionApi } from '../services/api'
-
-const NODE_TYPES = [
-  { type: 'start', label: '开始节点', icon: '▶', color: 'start' },
-  { type: 'end', label: '结束节点', icon: '■', color: 'end' },
-  { type: 'action', label: '执行动作', icon: '⚙', color: 'action' },
-  { type: 'condition', label: '条件判断', icon: '◆', color: 'condition' },
-  { type: 'loop', label: '循环执行', icon: '🔄', color: 'loop' },
-  { type: 'delay', label: '延迟触发', icon: '⏱', color: 'delay' },
-  { type: 'retry', label: '异常重试', icon: '↻', color: 'retry' },
-  { type: 'merge', label: '分支合并', icon: '⋈', color: 'merge' }
-]
+import ReactFlow, {
+  ReactFlowProvider,
+  addEdge,
+  applyNodeChanges,
+  applyEdgeChanges,
+  Controls,
+  Background,
+  MiniMap,
+  BackgroundVariant
+} from 'reactflow'
+import 'reactflow/dist/style.css'
+import { workflowApi, versionApi, executionApi } from '../services/api'
+import { useWorkflowStore, createNodeId, createEdgeId, NODE_DEFAULTS } from '../store/workflowStore'
+import { nodeTypes } from '../components/CustomNode'
+import NodeSidebar from '../components/NodeSidebar'
+import PropertyPanel from '../components/PropertyPanel'
+import Toolbar from '../components/Toolbar'
 
 const WorkflowEditor = () => {
   const { id: workflowId } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
-  const canvasRef = useRef(null)
-  
+  const reactFlowWrapper = useRef(null)
+  const [reactFlowInstance, setReactFlowInstance] = useState(null)
+
   const [workflow, setWorkflow] = useState(null)
-  const [nodes, setNodes] = useState([])
-  const [edges, setEdges] = useState([])
-  const [selectedNode, setSelectedNode] = useState(null)
-  const [selectedEdge, setSelectedEdge] = useState(null)
-  const [draggingNode, setDraggingNode] = useState(null)
-  const [connecting, setConnecting] = useState(null)
-  const [connectingPoint, setConnectingPoint] = useState(null)
   const [currentVersion, setCurrentVersion] = useState(null)
   const [versions, setVersions] = useState([])
+  const [executionLogs, setExecutionLogs] = useState([])
+  const [showLogs, setShowLogs] = useState(false)
+
+  const {
+    nodes,
+    edges,
+    setNodes,
+    setEdges,
+    setSelection,
+    selectedNodes,
+    selectedEdges,
+    undo,
+    redo,
+    copy,
+    paste,
+    deleteSelected,
+    duplicate,
+    getGraph,
+    loadGraph,
+    debugMode,
+    clipboard,
+    setHistorySkip
+  } = useWorkflowStore()
 
   const getVersionFromUrl = () => {
     const params = new URLSearchParams(location.search)
@@ -40,31 +61,79 @@ const WorkflowEditor = () => {
     loadWorkflow()
   }, [workflowId, location.search])
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
+      if (e.target.getAttribute('contenteditable') === 'true') return
+
+      if (e.ctrlKey || e.metaKey) {
+        switch (e.key.toLowerCase()) {
+          case 'z':
+            e.preventDefault()
+            if (e.shiftKey) {
+              redo()
+            } else {
+              undo()
+            }
+            break
+          case 'y':
+            e.preventDefault()
+            redo()
+            break
+          case 'c':
+            e.preventDefault()
+            copy()
+            break
+          case 'v':
+            e.preventDefault()
+            paste()
+            break
+          case 'd':
+            e.preventDefault()
+            duplicate()
+            break
+          case 'a':
+            e.preventDefault()
+            selectAll()
+            break
+        }
+      }
+
+      if ((e.key === 'Delete' || e.key === 'Backspace') && (selectedNodes.length > 0 || selectedEdges.length > 0)) {
+        e.preventDefault()
+        deleteSelected()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [selectedNodes, selectedEdges, undo, redo, copy, paste, deleteSelected, duplicate])
+
   const loadWorkflow = async () => {
     try {
       const data = await workflowApi.get(workflowId)
       setWorkflow(data)
-      
+
       const allVersions = await versionApi.list(workflowId)
       setVersions(allVersions)
-      
+
       const versionIdFromUrl = getVersionFromUrl()
-      
+
       if (allVersions.length > 0) {
         let targetVersion
         if (versionIdFromUrl) {
           targetVersion = allVersions.find(v => v.id === versionIdFromUrl)
         }
-        
+
         if (!targetVersion) {
           const activeVersion = allVersions.find(v => v.isActive)
           targetVersion = activeVersion || allVersions[allVersions.length - 1]
         }
-        
+
         if (targetVersion) {
           setCurrentVersion(targetVersion)
-          setNodes(targetVersion.graph?.nodes || [])
-          setEdges(targetVersion.graph?.edges || [])
+          setHistorySkip(true)
+          loadGraph(targetVersion.graph || { nodes: [], edges: [] })
         }
       } else {
         initDefaultNodes()
@@ -77,166 +146,123 @@ const WorkflowEditor = () => {
 
   const initDefaultNodes = () => {
     const startNode = {
-      id: uuidv4(),
-      type: 'start',
-      name: '开始',
+      id: createNodeId(),
+      type: 'custom',
       position: { x: 100, y: 200 },
-      config: {}
+      data: {
+        ...NODE_DEFAULTS.start,
+        nodeType: 'start'
+      }
     }
     const endNode = {
-      id: uuidv4(),
-      type: 'end',
-      name: '结束',
+      id: createNodeId(),
+      type: 'custom',
       position: { x: 600, y: 200 },
-      config: {}
+      data: {
+        ...NODE_DEFAULTS.end,
+        nodeType: 'end'
+      }
     }
+
+    setHistorySkip(true)
     setNodes([startNode, endNode])
     setEdges([])
   }
 
-  const handleNodeTypeDragStart = (e, nodeType) => {
-    e.dataTransfer.setData('nodeType', JSON.stringify(nodeType))
+  const selectAll = () => {
+    setSelection({
+      nodes: nodes.map(n => n.id),
+      edges: edges.map(e => e.id)
+    })
   }
 
-  const handleCanvasDrop = (e) => {
-    e.preventDefault()
-    const nodeTypeData = e.dataTransfer.getData('nodeType')
-    if (!nodeTypeData) return
+  const onNodesChange = useCallback(
+    (changes) => {
+      const updatedNodes = applyNodeChanges(changes, nodes)
+      setNodes(updatedNodes)
+    },
+    [nodes, setNodes]
+  )
 
-    const nodeType = JSON.parse(nodeTypeData)
-    const rect = canvasRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left + canvasRef.current.scrollLeft - 90
-    const y = e.clientY - rect.top + canvasRef.current.scrollTop - 40
+  const onEdgesChange = useCallback(
+    (changes) => {
+      const updatedEdges = applyEdgeChanges(changes, edges)
+      setEdges(updatedEdges)
+    },
+    [edges, setEdges]
+  )
 
-    const newNode = {
-      id: uuidv4(),
-      type: nodeType.type,
-      name: nodeType.label,
-      position: { x, y },
-      config: getDefaultConfig(nodeType.type)
-    }
+  const onConnect = useCallback(
+    (params) => {
+      const newEdge = {
+        id: createEdgeId(),
+        ...params,
+        animated: false,
+        label: '',
+        data: { label: '' }
+      }
+      setEdges(addEdge(newEdge, edges))
+    },
+    [edges, setEdges]
+  )
 
-    setNodes([...nodes, newNode])
-  }
+  const onDragOver = useCallback((event) => {
+    event.preventDefault()
+    event.dataTransfer.dropEffect = 'move'
+  }, [])
 
-  const getDefaultConfig = (type) => {
-    switch (type) {
-      case 'condition':
-        return { conditions: [], operator: 'and' }
-      case 'loop':
-        return { loopType: 'count', count: 1 }
-      case 'delay':
-        return { delayType: 'fixed', amount: 1, unit: 'seconds' }
-      case 'retry':
-        return { maxAttempts: 3, retryDelay: 1000, exponentialBackoff: true }
-      case 'merge':
-        return { strategy: 'all', mergeMode: 'concat' }
-      case 'action':
-        return { actionType: 'log', message: '' }
-      default:
-        return {}
-    }
-  }
+  const onDrop = useCallback(
+    (event) => {
+      event.preventDefault()
 
-  const handleNodeMouseDown = (e, node) => {
-    if (e.button !== 0) return
-    e.preventDefault()
-    e.stopPropagation()
-    
-    const rect = e.currentTarget.getBoundingClientRect()
-    const offsetX = e.clientX - rect.left
-    const offsetY = e.clientY - rect.top
-    
-    setDraggingNode({ node, offsetX, offsetY })
-    setSelectedNode(node)
-    setSelectedEdge(null)
-  }
+      const nodeTypeData = event.dataTransfer.getData('application/reactflow/newnode')
+      if (!nodeTypeData) return
 
-  const handleMouseMove = (e) => {
-    if (draggingNode) {
-      const rect = canvasRef.current.getBoundingClientRect()
-      const x = e.clientX - rect.left + canvasRef.current.scrollLeft - draggingNode.offsetX
-      const y = e.clientY - rect.top + canvasRef.current.scrollTop - draggingNode.offsetY
-      
-      setNodes(nodes.map(n => 
-        n.id === draggingNode.node.id 
-          ? { ...n, position: { x: Math.max(0, x), y: Math.max(0, y) } }
-          : n
-      ))
-    }
+      const nodeType = JSON.parse(nodeTypeData)
 
-    if (connecting) {
-      const rect = canvasRef.current.getBoundingClientRect()
-      setConnectingPoint({
-        x: e.clientX - rect.left + canvasRef.current.scrollLeft,
-        y: e.clientY - rect.top + canvasRef.current.scrollTop
+      const position = reactFlowInstance.screenToFlowPosition({
+        x: event.clientX,
+        y: event.clientY
       })
-    }
-  }
 
-  const handleMouseUp = () => {
-    setDraggingNode(null)
-    setConnecting(null)
-    setConnectingPoint(null)
-  }
+      const defaults = NODE_DEFAULTS[nodeType.type] || NODE_DEFAULTS.action
 
-  const startConnection = (e, node, direction) => {
-    e.stopPropagation()
-    setConnecting({ node, direction })
-  }
+      const newNode = {
+        id: createNodeId(),
+        type: 'custom',
+        position,
+        data: {
+          ...defaults,
+          nodeType: nodeType.type
+        }
+      }
 
-  const endConnection = (e, targetNode) => {
-    if (!connecting || connecting.node.id === targetNode.id) return
-    
-    const existingEdge = edges.find(edge => 
-      edge.source === connecting.node.id && edge.target === targetNode.id
-    )
-    
-    if (existingEdge) return
+      setNodes([...nodes, newNode])
+    },
+    [reactFlowInstance, nodes, setNodes]
+  )
 
-    const newEdge = {
-      id: uuidv4(),
-      source: connecting.node.id,
-      target: targetNode.id,
-      label: connecting.node.type === 'condition' ? 'Yes' : ''
-    }
-
-    setEdges([...edges, newEdge])
-    setConnecting(null)
-    setConnectingPoint(null)
-  }
-
-  const deleteSelected = () => {
-    if (selectedNode) {
-      setNodes(nodes.filter(n => n.id !== selectedNode.id))
-      setEdges(edges.filter(e => e.source !== selectedNode.id && e.target !== selectedNode.id))
-      setSelectedNode(null)
-    } else if (selectedEdge) {
-      setEdges(edges.filter(e => e.id !== selectedEdge.id))
-      setSelectedEdge(null)
-    }
-  }
-
-  const handleKeyDown = (e) => {
-    if ((e.key === 'Delete' || e.key === 'Backspace') && (selectedNode || selectedEdge)) {
-      deleteSelected()
-    }
-  }
+  const onSelectionChange = useCallback(({ nodes: selectedN, edges: selectedE }) => {
+    setSelection({
+      nodes: selectedN.map(n => n.id),
+      edges: selectedE.map(e => e.id)
+    })
+  }, [setSelection])
 
   const saveVersion = async () => {
     try {
-      const versions = await versionApi.list(workflowId)
-      const versionNum = versions.length + 1
-      
+      const allVersions = await versionApi.list(workflowId)
+      const versionNum = allVersions.length + 1
+
       await versionApi.create(workflowId, {
         name: `Version ${versionNum}`,
-        graph: { nodes, edges },
+        graph: getGraph(),
         config: {
           timeoutMs: 300000,
           alerts: { enabled: true }
         }
       })
-      
+
       alert('保存成功！')
     } catch (error) {
       console.error('Failed to save version:', error)
@@ -247,12 +273,12 @@ const WorkflowEditor = () => {
   const runWorkflow = async () => {
     try {
       await saveVersion()
-      const versions = await versionApi.list(workflowId)
-      const latestVersion = versions[versions.length - 1]
-      
+      const allVersions = await versionApi.list(workflowId)
+      const latestVersion = allVersions[allVersions.length - 1]
+
       await versionApi.activate(workflowId, latestVersion.id)
       const execution = await workflowApi.run(workflowId, latestVersion.id)
-      
+
       alert(`执行已启动! 执行ID: ${execution.id}`)
       navigate(`/workflows/${workflowId}`)
     } catch (error) {
@@ -261,255 +287,74 @@ const WorkflowEditor = () => {
     }
   }
 
-  const getNodeCenter = (node) => ({
-    x: node.position.x + 90,
-    y: node.position.y + 40
-  })
+  const handleDebug = async () => {
+    try {
+      const allVersions = await versionApi.list(workflowId)
+      const latestVersion = allVersions[allVersions.length - 1]
 
-  const updateNodeConfig = (nodeId, key, value) => {
-    setNodes(nodes.map(n => 
-      n.id === nodeId 
-        ? { ...n, config: { ...n.config, [key]: value } }
-        : n
-    ))
-    setSelectedNode(prev => 
-      prev?.id === nodeId 
-        ? { ...prev, config: { ...prev.config, [key]: value } }
-        : prev
-    )
+      await versionApi.activate(workflowId, latestVersion.id)
+      const execution = await workflowApi.run(workflowId, latestVersion.id, {
+        debug: true
+      })
+
+      pollExecutionLogs(execution.id)
+    } catch (error) {
+      console.error('Debug failed:', error)
+      alert('调试失败: ' + error.message)
+    }
   }
 
-  const renderNodeConfig = () => {
-    if (!selectedNode) return null
+  const pollExecutionLogs = async (executionId) => {
+    try {
+      const logs = await executionApi.getLogs(executionId)
+      setExecutionLogs(logs)
+      setShowLogs(true)
 
-    return (
-      <div className="property-panel">
-        <h3>节点配置</h3>
-        
-        <div className="form-group">
-          <label>节点名称</label>
-          <input
-            type="text"
-            value={selectedNode.name}
-            onChange={(e) => {
-              setNodes(nodes.map(n => 
-                n.id === selectedNode.id ? { ...n, name: e.target.value } : n
-              ))
-              setSelectedNode({ ...selectedNode, name: e.target.value })
-            }}
-          />
-        </div>
+      const interval = setInterval(async () => {
+        const newLogs = await executionApi.getLogs(executionId)
+        setExecutionLogs(newLogs)
 
-        {selectedNode.type === 'condition' && (
-          <div>
-            <div className="form-group">
-              <label>条件逻辑</label>
-              <select
-                value={selectedNode.config?.operator || 'and'}
-                onChange={(e) => updateNodeConfig(selectedNode.id, 'operator', e.target.value)}
-              >
-                <option value="and">所有条件满足 (AND)</option>
-                <option value="or">任一条件满足 (OR)</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>条件表达式</label>
-              <textarea
-                value={selectedNode.config?.condition || ''}
-                onChange={(e) => updateNodeConfig(selectedNode.id, 'condition', e.target.value)}
-                placeholder="例如: value > 10 && status === 'active'"
-                rows={3}
-              />
-            </div>
-          </div>
-        )}
+        const execution = await executionApi.get(executionId)
+        if (['completed', 'failed', 'cancelled', 'timeout'].includes(execution.status)) {
+          clearInterval(interval)
+        }
+      }, 1000)
 
-        {selectedNode.type === 'loop' && (
-          <div>
-            <div className="form-group">
-              <label>循环类型</label>
-              <select
-                value={selectedNode.config?.loopType || 'count'}
-                onChange={(e) => updateNodeConfig(selectedNode.id, 'loopType', e.target.value)}
-              >
-                <option value="count">固定次数</option>
-                <option value="condition">条件循环</option>
-                <option value="iterator">遍历数组</option>
-              </select>
-            </div>
-            {selectedNode.config?.loopType === 'count' && (
-              <div className="form-group">
-                <label>循环次数</label>
-                <input
-                  type="number"
-                  min="1"
-                  value={selectedNode.config?.count || 1}
-                  onChange={(e) => updateNodeConfig(selectedNode.id, 'count', parseInt(e.target.value))}
-                />
-              </div>
-            )}
-            {selectedNode.config?.loopType === 'condition' && (
-              <div className="form-group">
-                <label>循环条件</label>
-                <textarea
-                  value={selectedNode.config?.condition || ''}
-                  onChange={(e) => updateNodeConfig(selectedNode.id, 'condition', e.target.value)}
-                  rows={3}
-                />
-              </div>
-            )}
-          </div>
-        )}
-
-        {selectedNode.type === 'delay' && (
-          <div>
-            <div className="form-group">
-              <label>延迟类型</label>
-              <select
-                value={selectedNode.config?.delayType || 'fixed'}
-                onChange={(e) => updateNodeConfig(selectedNode.id, 'delayType', e.target.value)}
-              >
-                <option value="fixed">固定时间</option>
-                <option value="variable">动态变量</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>延迟时间</label>
-              <input
-                type="number"
-                min="0"
-                value={selectedNode.config?.amount || 1}
-                onChange={(e) => updateNodeConfig(selectedNode.id, 'amount', parseFloat(e.target.value))}
-              />
-            </div>
-            <div className="form-group">
-              <label>时间单位</label>
-              <select
-                value={selectedNode.config?.unit || 'seconds'}
-                onChange={(e) => updateNodeConfig(selectedNode.id, 'unit', e.target.value)}
-              >
-                <option value="milliseconds">毫秒</option>
-                <option value="seconds">秒</option>
-                <option value="minutes">分钟</option>
-                <option value="hours">小时</option>
-              </select>
-            </div>
-          </div>
-        )}
-
-        {selectedNode.type === 'retry' && (
-          <div>
-            <div className="form-group">
-              <label>最大重试次数</label>
-              <input
-                type="number"
-                min="1"
-                value={selectedNode.config?.maxAttempts || 3}
-                onChange={(e) => updateNodeConfig(selectedNode.id, 'maxAttempts', parseInt(e.target.value))}
-              />
-            </div>
-            <div className="form-group">
-              <label>重试间隔 (毫秒)</label>
-              <input
-                type="number"
-                min="0"
-                value={selectedNode.config?.retryDelay || 1000}
-                onChange={(e) => updateNodeConfig(selectedNode.id, 'retryDelay', parseInt(e.target.value))}
-              />
-            </div>
-          </div>
-        )}
-
-        {selectedNode.type === 'action' && (
-          <div>
-            <div className="form-group">
-              <label>动作类型</label>
-              <select
-                value={selectedNode.config?.actionType || 'log'}
-                onChange={(e) => updateNodeConfig(selectedNode.id, 'actionType', e.target.value)}
-              >
-                <option value="log">日志记录</option>
-                <option value="http">HTTP 请求</option>
-                <option value="script">脚本执行</option>
-                <option value="transform">数据转换</option>
-              </select>
-            </div>
-            {selectedNode.config?.actionType === 'log' && (
-              <div className="form-group">
-                <label>日志消息</label>
-                <textarea
-                  value={selectedNode.config?.message || ''}
-                  onChange={(e) => updateNodeConfig(selectedNode.id, 'message', e.target.value)}
-                  rows={3}
-                />
-              </div>
-            )}
-            {selectedNode.config?.actionType === 'http' && (
-              <>
-                <div className="form-group">
-                  <label>请求方法</label>
-                  <select
-                    value={selectedNode.config?.method || 'GET'}
-                    onChange={(e) => updateNodeConfig(selectedNode.id, 'method', e.target.value)}
-                  >
-                    <option value="GET">GET</option>
-                    <option value="POST">POST</option>
-                    <option value="PUT">PUT</option>
-                    <option value="DELETE">DELETE</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>URL</label>
-                  <input
-                    type="text"
-                    value={selectedNode.config?.url || ''}
-                    onChange={(e) => updateNodeConfig(selectedNode.id, 'url', e.target.value)}
-                  />
-                </div>
-              </>
-            )}
-          </div>
-        )}
-
-        {selectedNode.type === 'merge' && (
-          <div>
-            <div className="form-group">
-              <label>合并策略</label>
-              <select
-                value={selectedNode.config?.strategy || 'all'}
-                onChange={(e) => updateNodeConfig(selectedNode.id, 'strategy', e.target.value)}
-              >
-                <option value="all">等待所有分支</option>
-                <option value="first">等待第一个分支</option>
-                <option value="majority">等待多数分支</option>
-              </select>
-            </div>
-          </div>
-        )}
-
-        {(selectedNode.type !== 'start' && selectedNode.type !== 'end') && (
-          <button 
-            className="btn btn-danger" 
-            style={{ width: '100%', marginTop: '20px' }}
-            onClick={deleteSelected}
-          >
-            删除节点
-          </button>
-        )}
-      </div>
-    )
+      setTimeout(() => clearInterval(interval), 60000)
+    } catch (error) {
+      console.error('Failed to get logs:', error)
+    }
   }
 
   const handleVersionChange = (versionId) => {
     navigate(`/workflows/${workflowId}/edit?version=${versionId}`)
   }
 
+  const nodeColor = (node) => {
+    const type = node.data?.nodeType || node.type
+    const colors = {
+      start: '#10b981',
+      end: '#ef4444',
+      action: '#4361ee',
+      condition: '#f59e0b',
+      loop: '#8b5cf6',
+      delay: '#06b6d4',
+      retry: '#ec4899',
+      merge: '#64748b',
+      subworkflow: '#0ea5e9',
+      plugin: '#f97316',
+      fork: '#a855f7',
+      join: '#6366f1'
+    }
+    return colors[type] || '#4361ee'
+  }
+
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       <header className="header">
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <button 
-            className="btn btn-secondary" 
+          <button
+            className="btn btn-secondary"
             onClick={() => navigate(`/workflows/${workflowId}`)}
           >
             ← 返回
@@ -534,8 +379,19 @@ const WorkflowEditor = () => {
               ))}
             </select>
           )}
+          {debugMode && (
+            <span className="badge badge-warning" style={{ marginLeft: '12px' }}>
+              🔍 调试模式
+            </span>
+          )}
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
+          <button
+            className="btn btn-secondary"
+            onClick={() => setShowLogs(!showLogs)}
+          >
+            📋 日志
+          </button>
           <button className="btn btn-secondary" onClick={saveVersion}>
             💾 保存版本
           </button>
@@ -545,160 +401,127 @@ const WorkflowEditor = () => {
         </div>
       </header>
 
-      <div className="editor-container">
-        <div className="editor-sidebar">
-          <h3>节点类型</h3>
-          <div className="node-types">
-            {NODE_TYPES.map(nodeType => (
-              <div
-                key={nodeType.type}
-                className="node-type-item"
-                draggable
-                onDragStart={(e) => handleNodeTypeDragStart(e, nodeType)}
-              >
-                <span className={`node-icon node-icon-${nodeType.color}`}>
-                  {nodeType.icon}
-                </span>
-                <span>{nodeType.label}</span>
-              </div>
-            ))}
-          </div>
+      <Toolbar onDebug={handleDebug} />
+
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        <NodeSidebar />
+
+        <div style={{ flex: 1, position: 'relative' }} ref={reactFlowWrapper}>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onInit={setReactFlowInstance}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            onSelectionChange={onSelectionChange}
+            nodeTypes={nodeTypes}
+            fitView
+            snapToGrid
+            snapGrid={[15, 15]}
+            defaultEdgeOptions={{
+              animated: false,
+              style: { stroke: '#94a3b8', strokeWidth: 2 }
+            }}
+          >
+            <Controls />
+            <MiniMap
+              nodeColor={nodeColor}
+              nodeStrokeWidth={3}
+              zoomable
+              pannable
+            />
+            <Background
+              variant={BackgroundVariant.Dots}
+              gap={20}
+              size={1}
+              color="#e5e7eb"
+            />
+          </ReactFlow>
         </div>
 
-        <div 
-          className="canvas-area"
-          ref={canvasRef}
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={handleCanvasDrop}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onKeyDown={handleKeyDown}
-          tabIndex={0}
-          onClick={(e) => { 
-            if (e.target.classList.contains('canvas-area') || e.target.classList.contains('canvas-content')) {
-              setSelectedNode(null); 
-              setSelectedEdge(null) 
-            }
+        <PropertyPanel />
+      </div>
+
+      {showLogs && (
+        <div
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            left: '260px',
+            right: '320px',
+            height: '200px',
+            background: '#1e1e1e',
+            color: '#d4d4d4',
+            borderTop: '1px solid #333',
+            zIndex: 100,
+            display: 'flex',
+            flexDirection: 'column'
           }}
         >
-          <div className="canvas-content">
-            <svg
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+          <div
+            style={{
+              padding: '8px 16px',
+              background: '#2d2d2d',
+              borderBottom: '1px solid #333',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <span style={{ fontWeight: '500' }}>执行日志</span>
+            <button
+              onClick={() => setShowLogs(false)}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#d4d4d4',
+                cursor: 'pointer',
+                fontSize: '18px'
+              }}
             >
-              {edges.map(edge => {
-                const sourceNode = nodes.find(n => n.id === edge.source)
-                const targetNode = nodes.find(n => n.id === edge.target)
-                if (!sourceNode || !targetNode) return null
-
-                const sourceCenter = getNodeCenter(sourceNode)
-                const targetCenter = getNodeCenter(targetNode)
-                const dx = targetCenter.x - sourceCenter.x
-                const midX = sourceCenter.x + dx / 2
-
-                const path = `M ${sourceCenter.x} ${sourceCenter.y} C ${midX} ${sourceCenter.y}, ${midX} ${targetCenter.y}, ${targetCenter.x} ${targetCenter.y}`
-                
-                return (
-                  <g 
-                    key={edge.id}
-                    onClick={(e) => { 
-                      e.stopPropagation(); 
-                      setSelectedEdge(edge); 
-                      setSelectedNode(null) 
-                    }}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <path
-                      d={path}
-                      className={`connection-line ${selectedEdge?.id === edge.id ? 'selected' : ''}`}
-                      style={{ pointerEvents: 'stroke' }}
-                    />
-                    {edge.label && (
-                      <text
-                        x={midX}
-                        y={sourceCenter.y + (targetCenter.y - sourceCenter.y) / 2}
-                        className="connection-label"
-                        textAnchor="middle"
-                        dy="-4"
-                        style={{ pointerEvents: 'none' }}
-                      >
-                        {edge.label}
-                      </text>
-                    )}
-                  </g>
-                )
-              })}
-
-              {connecting && connectingPoint && (
-                <line
-                  x1={getNodeCenter(connecting.node).x}
-                  y1={getNodeCenter(connecting.node).y}
-                  x2={connectingPoint.x}
-                  y2={connectingPoint.y}
-                  stroke="#4361ee"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                />
-              )}
-            </svg>
-
-            {nodes.map(node => {
-              const nodeTypeInfo = NODE_TYPES.find(t => t.type === node.type)
-              return (
-                <div
-                  key={node.id}
-                  className={`workflow-node ${selectedNode?.id === node.id ? 'selected' : ''}`}
-                  style={{ left: node.position.x, top: node.position.y, zIndex: selectedNode?.id === node.id ? 100 : 10 }}
-                  onMouseDown={(e) => handleNodeMouseDown(e, node)}
-                  onMouseUp={(e) => {
-                    if (connecting) {
-                      endConnection(e, node)
-                    }
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    if (!draggingNode) {
-                      setSelectedNode(node)
-                      setSelectedEdge(null)
-                    }
-                  }}
-                >
-                  <div className="node-header">
-                    <span className={`node-icon node-icon-${nodeTypeInfo?.color || 'action'}`}>
-                      {nodeTypeInfo?.icon || '⚙'}
-                    </span>
-                    <div>
-                      <div className="node-name">{node.name}</div>
-                      <div className="node-type">{nodeTypeInfo?.label}</div>
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      position: 'absolute',
-                      right: '-6px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      width: '12px',
-                      height: '12px',
-                      background: '#4361ee',
-                      borderRadius: '50%',
-                      cursor: 'crosshair',
-                      zIndex: 20
-                    }}
-                    onMouseDown={(e) => startConnection(e, node, 'out')}
-                    onClick={(e) => e.stopPropagation()}
-                  />
+              ×
+            </button>
+          </div>
+          <div
+            style={{
+              flex: 1,
+              overflowY: 'auto',
+              padding: '12px',
+              fontFamily: 'Consolas, Monaco, monospace',
+              fontSize: '13px'
+            }}
+          >
+            {executionLogs.length === 0 ? (
+              <div style={{ color: '#666', textAlign: 'center', padding: '20px' }}>
+                暂无日志
+              </div>
+            ) : (
+              executionLogs.map((log, index) => (
+                <div key={index} className="log-entry" style={{ marginBottom: '4px' }}>
+                  <span style={{ color: '#666' }}>
+                    [{new Date(log.timestamp).toLocaleTimeString()}]
+                  </span>
+                  <span className={`log-${log.level}`} style={{ marginLeft: '8px' }}>
+                    [{log.level.toUpperCase()}]
+                  </span>
+                  <span style={{ marginLeft: '8px' }}>{log.message}</span>
                 </div>
-              )
-            })}
+              ))
+            )}
           </div>
         </div>
-
-        {renderNodeConfig()}
-      </div>
+      )}
     </div>
   )
 }
 
-export default WorkflowEditor
+const WorkflowEditorWithProvider = () => (
+  <ReactFlowProvider>
+    <WorkflowEditor />
+  </ReactFlowProvider>
+)
+
+export default WorkflowEditorWithProvider
