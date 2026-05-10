@@ -1,0 +1,12 @@
+{
+  "name": "smart-form-engine",
+  "version": "1.0.0",
+  "description": "智能表单引擎平台",
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build:client": "cd client && npm run build",
+    "start:server": "cd server && npm start"
+  }
+}
