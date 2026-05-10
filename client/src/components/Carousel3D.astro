@@ -1,0 +1,623 @@
+---
+interface ProductSpec {
+  key: string;
+  value: string;
+}
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  description: string | null;
+  imageUrl: string;
+  category: string | null;
+  specs: ProductSpec[] | null;
+  createdAt: string;
+}
+---
+
+<div class="carousel-container">
+  <div id="carousel-scene" class="carousel-scene">
+    <div id="carousel-track" class="carousel-track"></div>
+  </div>
+  
+  <div class="carousel-controls">
+    <button id="prev-btn" class="control-btn" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6" />
+      </svg>
+    </button>
+    <button id="next-btn" class="control-btn" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6" />
+      </svg>
+    </button>
+  </div>
+  
+  <div id="loading" class="loading">
+    <div class="loading-spinner"></div>
+    <span>Loading products...</span>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const track = document.getElementById('carousel-track');
+    const scene = document.getElementById('carousel-scene');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const loading = document.getElementById('loading');
+    
+    if (!track || !scene || !prevBtn || !nextBtn || !loading) return;
+    
+    interface ProductSpec {
+      key: string;
+      value: string;
+    }
+    
+    interface Product {
+      id: string;
+      name: string;
+      price: number;
+      description: string | null;
+      imageUrl: string;
+      category: string | null;
+      specs: ProductSpec[] | null;
+      createdAt: string;
+    }
+    
+    let products: Product[] = [];
+    let currentRotation = 0;
+    let targetRotation = 0;
+    let autoPlayId: number | null = null;
+    let isDragging = false;
+    let startX = 0;
+    let startRotation = 0;
+    let animationId: number | null = null;
+    let lastTime = 0;
+    
+    try {
+      const query = `
+        query {
+          products {
+            id
+            name
+            price
+            description
+            imageUrl
+            category
+            specs {
+              key
+              value
+            }
+            createdAt
+          }
+        }
+      `;
+      
+      const response = await fetch('/graphql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query })
+      });
+      
+      const result = await response.json();
+      products = result?.data?.products || [];
+    } catch (error) {
+      console.error('Failed to load products:', error);
+    }
+    
+    loading.style.display = 'none';
+    
+    if (products.length === 0) {
+      track.innerHTML = '<p class="no-products">No products available</p>';
+      return;
+    }
+    
+    const cardAngle = 360 / products.length;
+    const radius = 320;
+    
+    products.forEach((product, index) => {
+      const angle = index * cardAngle;
+      const card = document.createElement('div');
+      card.className = 'carousel-card';
+      card.dataset.index = index.toString();
+      card.dataset.baseAngle = angle.toString();
+      
+      const specsHtml = product.specs && product.specs.length > 0
+        ? product.specs.map(spec => 
+            `<div class="spec-item"><span class="spec-key">${spec.key}</span><span class="spec-value">${spec.value}</span></div>`
+          ).join('')
+        : '';
+      
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="card-image">
+              <img src="${product.imageUrl}" alt="${product.name}" loading="lazy" />
+            </div>
+            <div class="card-info">
+              <span class="card-category">${product.category || 'LUXURY'}</span>
+              <h3 class="card-name">${product.name}</h3>
+              <p class="card-price">$${product.price.toLocaleString()}</p>
+            </div>
+          </div>
+          <div class="card-face card-back">
+            <div class="back-header">
+              <h3>${product.name}</h3>
+              <p class="back-price">$${product.price.toLocaleString()}</p>
+            </div>
+            <div class="back-description">
+              <p>${product.description || 'Premium quality craftsmanship.'}</p>
+            </div>
+            ${specsHtml ? `<div class="back-specs"><h4>Specifications</h4><div class="specs-grid">${specsHtml}</div></div>` : ''}
+          </div>
+        </div>
+      `;
+      
+      track.appendChild(card);
+    });
+    
+    const cards = Array.from(track.querySelectorAll('.carousel-card')) as HTMLElement[];
+    
+    function updatePerspective() {
+      cards.forEach((card) => {
+        const baseAngle = parseFloat(card.dataset.baseAngle || '0');
+        const totalAngle = baseAngle + currentRotation;
+        const normalizedAngle = ((totalAngle % 360) + 360) % 360;
+        const angleRad = normalizedAngle * Math.PI / 180;
+        
+        const zNorm = Math.cos(angleRad);
+        const xPos = Math.sin(angleRad) * radius;
+        const zPos = zNorm * radius;
+        
+        const scale = 0.6 + (zNorm + 1) * 0.45;
+        const blur = (1 - Math.abs(zNorm)) * 4;
+        const opacity = 0.3 + (zNorm + 1) * 0.35;
+        const zIndex = Math.round((zNorm + 1) * 100);
+        
+        card.style.transform = `
+          rotateY(${currentRotation}deg)
+          translateX(${xPos}px)
+          translateZ(${zPos}px)
+          scale(${scale})
+        `;
+        card.style.filter = `blur(${blur}px)`;
+        card.style.opacity = opacity.toString();
+        card.style.zIndex = zIndex.toString();
+      });
+    }
+    
+    function easeOutCubic(t: number): number {
+      return 1 - Math.pow(1 - t, 3);
+    }
+    
+    function animate(timestamp: number) {
+      if (!lastTime) lastTime = timestamp;
+      const delta = timestamp - lastTime;
+      lastTime = timestamp;
+      
+      const diff = targetRotation - currentRotation;
+      
+      if (Math.abs(diff) > 0.01) {
+        const easingFactor = 0.12;
+        currentRotation += diff * easingFactor;
+      } else {
+        currentRotation = targetRotation;
+      }
+      
+      updatePerspective();
+      animationId = requestAnimationFrame(animate);
+    }
+    
+    function next() {
+      targetRotation -= cardAngle;
+    }
+    
+    function prev() {
+      targetRotation += cardAngle;
+    }
+    
+    function startAutoPlay() {
+      if (autoPlayId) return;
+      autoPlayId = window.setInterval(next, 4500);
+    }
+    
+    function stopAutoPlay() {
+      if (autoPlayId) {
+        clearInterval(autoPlayId);
+        autoPlayId = null;
+      }
+    }
+    
+    prevBtn.addEventListener('click', () => {
+      stopAutoPlay();
+      prev();
+      startAutoPlay();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      stopAutoPlay();
+      next();
+      startAutoPlay();
+    });
+    
+    scene.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startRotation = targetRotation;
+      stopAutoPlay();
+      scene.style.cursor = 'grabbing';
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.clientX - startX;
+      targetRotation = startRotation + deltaX * 0.3;
+    });
+    
+    document.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      scene.style.cursor = 'grab';
+      
+      const nearestAngle = Math.round(targetRotation / cardAngle) * cardAngle;
+      targetRotation = nearestAngle;
+      startAutoPlay();
+    });
+    
+    scene.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+      startRotation = targetRotation;
+      stopAutoPlay();
+    }, { passive: true });
+    
+    document.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.touches[0].clientX - startX;
+      targetRotation = startRotation + deltaX * 0.3;
+    }, { passive: true });
+    
+    document.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const nearestAngle = Math.round(targetRotation / cardAngle) * cardAngle;
+      targetRotation = nearestAngle;
+      startAutoPlay();
+    });
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        stopAutoPlay();
+        prev();
+        startAutoPlay();
+      } else if (e.key === 'ArrowRight') {
+        stopAutoPlay();
+        next();
+        startAutoPlay();
+      }
+    });
+    
+    scene.addEventListener('mouseenter', stopAutoPlay);
+    scene.addEventListener('mouseleave', startAutoPlay);
+    
+    updatePerspective();
+    animationId = requestAnimationFrame(animate);
+    startAutoPlay();
+  });
+</script>
+
+<style>
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .carousel-scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
+    cursor: grab;
+    user-select: none;
+  }
+
+  .carousel-scene:active {
+    cursor: grabbing;
+  }
+
+  .carousel-track {
+    position: relative;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+  }
+
+  .carousel-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 220px;
+    height: 310px;
+    margin-left: -110px;
+    margin-top: -155px;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    will-change: transform, filter, opacity;
+  }
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .carousel-card:hover .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(145deg, #1a1a2e 0%, #0f0f1a 100%);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 
+      0 25px 60px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(212, 175, 55, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .card-front {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-back {
+    transform: rotateY(180deg);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .card-image {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #2a2a4e 0%, #1a1a2e 100%);
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(10, 10, 15, 0.95), transparent);
+    pointer-events: none;
+  }
+
+  .card-info {
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-category {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(212, 175, 55, 0.85);
+    margin-bottom: 0.4rem;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 12px;
+  }
+
+  .card-name {
+    margin: 0 0 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: #f5f5f5;
+    line-height: 1.25;
+  }
+
+  .card-price {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #d4af37;
+    letter-spacing: 0.02em;
+  }
+
+  .back-header h3 {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    color: #f5f5f5;
+    line-height: 1.25;
+  }
+
+  .back-price {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #d4af37;
+  }
+
+  .back-description p {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: rgba(245, 245, 245, 0.7);
+  }
+
+  .back-specs h4 {
+    margin: 0 0 0.6rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(212, 175, 55, 0.8);
+  }
+
+  .specs-grid {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .spec-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  }
+
+  .spec-key {
+    font-size: 0.6rem;
+    color: rgba(245, 245, 245, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .spec-value {
+    font-size: 0.6rem;
+    color: #f5f5f5;
+    text-align: right;
+  }
+
+  .carousel-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 100;
+    padding: 0 1rem;
+  }
+
+  .control-btn {
+    pointer-events: auto;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    background: rgba(10, 10, 15, 0.75);
+    color: rgba(212, 175, 55, 0.75);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+  }
+
+  .control-btn:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: rgba(212, 175, 55, 0.5);
+    color: #d4af37;
+    transform: scale(1.08);
+  }
+
+  .control-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    color: rgba(212, 175, 55, 0.75);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+
+  .loading-spinner {
+    width: 36px;
+    height: 36px;
+    border: 2px solid rgba(212, 175, 55, 0.15);
+    border-top-color: #d4af37;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .no-products {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(245, 245, 245, 0.5);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .carousel-container {
+      height: 550px;
+    }
+
+    .carousel-scene {
+      perspective: 1000px;
+    }
+
+    .carousel-card {
+      width: 180px;
+      height: 255px;
+      margin-left: -90px;
+      margin-top: -127.5px;
+    }
+
+    .carousel-controls {
+      padding: 0 0.5rem;
+    }
+
+    .control-btn {
+      width: 44px;
+      height: 44px;
+    }
+
+    .control-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+</style>

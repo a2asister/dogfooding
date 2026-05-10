@@ -1,0 +1,166 @@
+{
+  "products": [
+    {
+      "id": "dd212cb3-0131-4627-8632-24e16d2650fb",
+      "name": "Platinum Pen Set",
+      "price": 8500,
+      "description": "Fountain and ballpoint pen with 18K gold nib and platinum body.",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20platinum%20fountain%20pen%20gold%20nib%20elegant%20product%20photography&image_size=square_hd",
+      "category": "Accessories",
+      "specs": [
+        {
+          "key": "Body",
+          "value": "Platinum 950"
+        },
+        {
+          "key": "Nib",
+          "value": "18K Gold"
+        },
+        {
+          "key": "Filling",
+          "value": "Converter/Cartridge"
+        },
+        {
+          "key": "Set Includes",
+          "value": "Fountain + Ballpoint"
+        }
+      ],
+      "createdAt": "2026-05-10T13:40:01.857Z"
+    },
+    {
+      "id": "da87d64f-60f3-417e-87f6-7bf8c0d49352",
+      "name": "Crystal Champagne Flutes",
+      "price": 3600,
+      "description": "Set of 6 hand-blown crystal glasses from Bohemia.",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20crystal%20champagne%20flutes%20elegant%20reflective%20product%20photography&image_size=square_hd",
+      "category": "Home",
+      "specs": [
+        {
+          "key": "Quantity",
+          "value": "Set of 6"
+        },
+        {
+          "key": "Material",
+          "value": "Lead-free Crystal"
+        },
+        {
+          "key": "Capacity",
+          "value": "220ml"
+        },
+        {
+          "key": "Origin",
+          "value": "Czech Republic"
+        }
+      ],
+      "createdAt": "2026-05-10T13:40:01.857Z"
+    },
+    {
+      "id": "8e7e87d5-5b74-4292-92fa-71a592c2afba",
+      "name": "Velvet Noir Perfume",
+      "price": 2200,
+      "description": "A mysterious blend of oud, amber, and rare Bulgarian rose.",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20black%20crystal%20perfume%20bottle%20elegant%20dark%20background%20product%20photography&image_size=square_hd",
+      "category": "Fragrance",
+      "specs": [
+        {
+          "key": "Volume",
+          "value": "100ml EDP"
+        },
+        {
+          "key": "Top Notes",
+          "value": "Saffron, Bergamot"
+        },
+        {
+          "key": "Heart Notes",
+          "value": "Bulgarian Rose, Oud"
+        },
+        {
+          "key": "Base Notes",
+          "value": "Amber, Musk"
+        }
+      ],
+      "createdAt": "2026-05-10T13:40:01.857Z"
+    },
+    {
+      "id": "2b9843e6-8f4b-47f0-9e02-3edfbeb515c6",
+      "name": "Midnight Leather Bag",
+      "price": 4800,
+      "description": "Hand-stitched Italian calfskin with 24K gold-plated hardware.",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20black%20leather%20handbag%20gold%20hardware%20elegant%20product%20photography&image_size=square_hd",
+      "category": "Accessories",
+      "specs": [
+        {
+          "key": "Material",
+          "value": "Italian Calfskin"
+        },
+        {
+          "key": "Hardware",
+          "value": "24K Gold Plated"
+        },
+        {
+          "key": "Dimensions",
+          "value": "35x25x15cm"
+        },
+        {
+          "key": "Origin",
+          "value": "Italy"
+        }
+      ],
+      "createdAt": "2026-05-10T13:40:01.857Z"
+    },
+    {
+      "id": "537448ff-5e62-46f5-8c06-b947a0f82f30",
+      "name": "Aurora Diamond Earrings",
+      "price": 28500,
+      "description": "Brilliant cut diamonds set in platinum, reflecting light from every angle.",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20diamond%20earrings%20platinum%20setting%20elegant%20product%20photography&image_size=square_hd",
+      "category": "Jewelry",
+      "specs": [
+        {
+          "key": "Total Carat",
+          "value": "4.2 ct"
+        },
+        {
+          "key": "Clarity",
+          "value": "VVS1"
+        },
+        {
+          "key": "Metal",
+          "value": "Platinum 950"
+        },
+        {
+          "key": "Cut",
+          "value": "Brilliant Round"
+        }
+      ],
+      "createdAt": "2026-05-10T13:40:01.857Z"
+    },
+    {
+      "id": "bf01eb53-202a-4cd9-bcbf-71cbb34a65a7",
+      "name": "Luxe Chronograph Watch",
+      "price": 12999,
+      "description": "Handcrafted Swiss precision timepiece with sapphire crystal and 18K gold accents.",
+      "imageUrl": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=luxury%20gold%20chronograph%20watch%20on%20black%20background%20product%20photography&image_size=square_hd",
+      "category": "Watches",
+      "specs": [
+        {
+          "key": "Movement",
+          "value": "Automatic Swiss"
+        },
+        {
+          "key": "Case Material",
+          "value": "18K Gold"
+        },
+        {
+          "key": "Glass",
+          "value": "Sapphire Crystal"
+        },
+        {
+          "key": "Water Resistance",
+          "value": "100m"
+        }
+      ],
+      "createdAt": "2026-05-10T13:40:01.857Z"
+    }
+  ]
+}

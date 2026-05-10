@@ -1,0 +1,227 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Carousel3D from '../components/Carousel3D.astro';
+import Particles from '../components/Particles.astro';
+---
+
+<Layout title="Luxe Gallery - 3D Product Showcase">
+  <main class="gallery-container">
+    <Particles />
+    
+    <section class="midground-layer"></section>
+    
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          <span class="title-line">LUXE</span>
+          <span class="title-line subtitle">COLLECTION</span>
+        </h1>
+        <p class="hero-description">Discover our exclusive selection of premium goods</p>
+        <div class="scroll-indicator">
+          <span class="scroll-arrow"></span>
+          <span class="scroll-text">EXPLORE</span>
+        </div>
+      </div>
+    </section>
+    
+    <section class="carousel-section">
+      <div class="carousel-wrapper">
+        <h2 class="section-title">Featured Products</h2>
+        <Carousel3D />
+      </div>
+    </section>
+    
+    <section class="footer-section">
+      <p>© 2025 Luxe Gallery. All rights reserved.</p>
+    </section>
+  </main>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const layers = {
+        background: document.querySelector('.particles-layer'),
+        midground: document.querySelector('.midground-layer')
+      };
+      
+      let rafPending = false;
+      let lastScrollY = 0;
+      
+      function updateParallax() {
+        const scrollY = window.scrollY;
+        
+        if (Math.abs(scrollY - lastScrollY) > 1) {
+          if (layers.background) {
+            layers.background.style.transform = `translate3d(0, ${scrollY * 0.3}px, 0)`;
+          }
+          if (layers.midground) {
+            layers.midground.style.transform = `translate3d(0, ${scrollY * 0.6}px, 0)`;
+          }
+          lastScrollY = scrollY;
+        }
+        
+        rafPending = false;
+      }
+      
+      window.addEventListener('scroll', () => {
+        if (!rafPending) {
+          rafPending = true;
+          window.requestAnimationFrame(updateParallax);
+        }
+      }, { passive: true });
+    });
+  </script>
+</Layout>
+
+<style>
+  .gallery-container {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+    overflow-x: hidden;
+    color: #f5f5f5;
+    font-family: 'Georgia', 'Times New Roman', serif;
+  }
+
+  .midground-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: 
+      radial-gradient(ellipse 80% 50% at 80% 20%, rgba(139, 69, 19, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(75, 0, 130, 0.06) 0%, transparent 50%);
+    z-index: 1;
+    backface-visibility: hidden;
+  }
+
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 2rem;
+  }
+
+  .hero-content {
+    text-align: center;
+    animation: fadeInUp 1.5s ease-out;
+  }
+
+  .hero-title {
+    margin: 0;
+    line-height: 1;
+  }
+
+  .title-line {
+    display: block;
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #d4af37 0%, #f5e6a3 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 60px rgba(212, 175, 55, 0.3);
+  }
+
+  .subtitle {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    letter-spacing: 0.5em;
+    margin-top: 0.5rem;
+  }
+
+  .hero-description {
+    margin-top: 2rem;
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(245, 245, 245, 0.7);
+    letter-spacing: 0.2em;
+    font-weight: 300;
+  }
+
+  .scroll-indicator {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: bounce 2s infinite;
+  }
+
+  .scroll-arrow {
+    width: 24px;
+    height: 24px;
+    border-right: 2px solid rgba(212, 175, 55, 0.6);
+    border-bottom: 2px solid rgba(212, 175, 55, 0.6);
+    transform: rotate(45deg);
+  }
+
+  .scroll-text {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: rgba(212, 175, 55, 0.6);
+  }
+
+  .carousel-section {
+    position: relative;
+    z-index: 10;
+    padding: 4rem 2rem 8rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-wrapper {
+    width: 100%;
+    max-width: 1400px;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(212, 175, 55, 0.8);
+    margin-bottom: 3rem;
+  }
+
+  .footer-section {
+    position: relative;
+    z-index: 10;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: rgba(245, 245, 245, 0.4);
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(10px);
+    }
+    60% {
+      transform: translateY(5px);
+    }
+  }
+</style>

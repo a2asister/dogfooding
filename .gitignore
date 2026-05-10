@@ -1,0 +1,14 @@
+node_modules
+dist
+.build
+.astro
+.server
+*.db
+*.sqlite
+*.sqlite3
+uploads
+.env
+.env.local
+.DS_Store
+.vscode/*
+!.vscode/extensions.json

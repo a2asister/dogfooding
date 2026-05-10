@@ -1,0 +1,122 @@
+---
+---
+
+<canvas id="particles-canvas" class="particles-layer"></canvas>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+    
+    let particles = [];
+    let width = 0;
+    let height = 0;
+    let animationId = null;
+    let lastTime = 0;
+    let tickCount = 0;
+    
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.scale(dpr, dpr);
+    }
+    
+    function initParticles() {
+      const count = Math.min(Math.floor((width * height) / 25000), 80);
+      particles = [];
+      
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.08,
+          vy: (Math.random() - 0.5) * 0.08,
+          size: Math.random() * 1.5 + 0.5,
+          opacity: Math.random() * 0.4 + 0.1,
+          twinklePhase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    
+    function animate(timestamp) {
+      const deltaTime = timestamp - lastTime;
+      lastTime = timestamp;
+      tickCount++;
+      
+      if (deltaTime > 50) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+      
+      ctx.clearRect(0, 0, width, height);
+      
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+        
+        if (tickCount % 3 === 0) {
+          p.twinklePhase += 0.05;
+        }
+        
+        const twinkle = Math.sin(p.twinklePhase) * 0.3 + 0.7;
+        const finalOpacity = p.opacity * twinkle;
+        
+        ctx.fillStyle = `rgba(212, 175, 55, ${finalOpacity})`;
+        ctx.beginPath();
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+      });
+      
+      animationId = requestAnimationFrame(animate);
+    }
+    
+    resize();
+    initParticles();
+    animationId = requestAnimationFrame(animate);
+    
+    let resizeTimeout = null;
+    window.addEventListener('resize', () => {
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        resize();
+        initParticles();
+      }, 200);
+    });
+    
+    const handleVisibilityChange = () => {
+      if (document.hidden && animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      } else if (!document.hidden) {
+        lastTime = performance.now();
+        animationId = requestAnimationFrame(animate);
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+  });
+</script>
+
+<style>
+  .particles-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+</style>
