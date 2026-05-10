@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="内容生态流量流转系统">
+  <div class="hero">
+    <h1>内容生态流量流转系统</h1>
+    <p class="subtitle">内容发布、审核、分发、流量推送、互动数据、变现数据全闭环</p>
+    <div class="features">
+      <div class="feature-card">
+        <h2>内容发布与审核</h2>
+        <p>完整的内容发布流程，多级审核机制确保内容质量</p>
+        <a href="/publish" class="btn">开始发布</a>
+      </div>
+      <div class="feature-card">
+        <h2>流量分发机制</h2>
+        <p>智能算法驱动，内容质量分级，流量权重动态分配</p>
+        <a href="/distribution" class="btn">查看分发</a>
+      </div>
+      <div class="feature-card">
+        <h2>数据复盘优化</h2>
+        <p>实时互动和变现数据，流量规则持续迭代优化</p>
+        <a href="/analytics" class="btn">数据分析</a>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 3rem;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+    .feature-card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .feature-card p {
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #4f46e5;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #4338ca;
+    }
+  </style>
+</Layout>

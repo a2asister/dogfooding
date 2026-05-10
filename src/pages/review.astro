@@ -1,0 +1,267 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="审核中心 - 内容生态系统">
+  <div class="review-container">
+    <h1>内容审核中心</h1>
+    <p class="description">审核待发布内容，确保内容质量和合规性</p>
+    
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-value" id="pendingCount">0</span>
+        <span class="stat-label">待审核</span>
+      </div>
+      <div class="stat-card approved">
+        <span class="stat-value" id="approvedCount">0</span>
+        <span class="stat-label">已通过</span>
+      </div>
+      <div class="stat-card rejected">
+        <span class="stat-value" id="rejectedCount">0</span>
+        <span class="stat-label">已拒绝</span>
+      </div>
+    </div>
+    
+    <div class="filter-section">
+      <select id="statusFilter">
+        <option value="pending">待审核</option>
+        <option value="approved">已通过</option>
+        <option value="rejected">已拒绝</option>
+        <option value="all">全部</option>
+      </select>
+      <button class="refresh-btn" id="refreshBtn">刷新</button>
+    </div>
+    
+    <div id="contentList" class="content-list">
+      <p class="loading">加载中...</p>
+    </div>
+  </div>
+
+  <script>
+    const statusLabels: Record<string, string> = {
+      pending: '待审核',
+      approved: '已通过',
+      rejected: '已拒绝'
+    };
+
+    const statusColors: Record<string, string> = {
+      pending: 'status-pending',
+      approved: 'status-approved',
+      rejected: 'status-rejected'
+    };
+
+    async function loadContents(status: string = 'all') {
+      const listDiv = document.getElementById('contentList');
+      try {
+        const response = await fetch(`/api/content/list?status=${status}`);
+        const result = await response.json();
+        
+        if (!response.ok) throw new Error(result.error);
+        
+        const contents = result.data.contents;
+        
+        // 更新统计
+        document.getElementById('pendingCount')!.textContent = result.data.stats.pending;
+        document.getElementById('approvedCount')!.textContent = result.data.stats.approved;
+        document.getElementById('rejectedCount')!.textContent = result.data.stats.rejected;
+        
+        if (contents.length === 0) {
+          listDiv!.innerHTML = '<p class="empty">暂无内容</p>';
+          return;
+        }
+        
+        listDiv!.innerHTML = contents.map((item: any) => `
+          <div class="content-card">
+            <div class="content-header">
+              <h3>${item.title}</h3>
+              <span class="status-badge ${statusColors[item.status]}">${statusLabels[item.status]}</span>
+            </div>
+            <div class="content-meta">
+              <span>作者: ${item.author}</span>
+              <span>分类: ${item.category}</span>
+              <span>发布时间: ${new Date(item.createdAt).toLocaleString()}</span>
+            </div>
+            <div class="content-preview">
+              <p>${item.content.substring(0, 200)}${item.content.length > 200 ? '...' : ''}</p>
+            </div>
+            ${item.tags && item.tags.length > 0 ? `
+              <div class="content-tags">
+                ${item.tags.map((tag: string) => `<span class="tag">${tag}</span>`).join('')}
+              </div>
+            ` : ''}
+            ${item.status === 'pending' ? `
+              <div class="action-buttons">
+                <button class="btn-approve" onclick="reviewContent('${item.id}', 'approved')">通过</button>
+                <button class="btn-reject" onclick="rejectContent('${item.id}')">拒绝</button>
+              </div>
+            ` : `
+              <div class="review-note">
+                ${item.reviewNote ? `<p><strong>审核备注:</strong> ${item.reviewNote}</p>` : ''}
+                ${item.reviewedAt ? `<p class="review-time">审核时间: ${new Date(item.reviewedAt).toLocaleString()}</p>` : ''}
+              </div>
+            `}
+          </div>
+        `).join('');
+        
+      } catch (error) {
+        listDiv!.innerHTML = `<p class="error">加载失败: ${error.message}</p>`;
+      }
+    }
+
+    async function reviewContent(id: string, status: 'approved' | 'rejected', note: string = '') {
+      try {
+        const response = await fetch('/api/content/review', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, status, reviewNote: note })
+        });
+        
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error);
+        
+        alert('审核成功！');
+        loadContents(document.getElementById('statusFilter')?.value || 'all');
+      } catch (error) {
+        alert(`审核失败: ${error.message}`);
+      }
+    }
+
+    async function rejectContent(id: string) {
+      const note = prompt('请输入拒绝原因：');
+      if (note !== null) {
+        await reviewContent(id, 'rejected', note);
+      }
+    }
+
+    // 暴露到全局
+    (window as any).reviewContent = reviewContent;
+    (window as any).rejectContent = rejectContent;
+
+    // 初始化
+    loadContents('pending');
+
+    // 事件绑定
+    document.getElementById('statusFilter')?.addEventListener('change', (e) => {
+      loadContents((e.target as HTMLSelectElement).value);
+    });
+
+    document.getElementById('refreshBtn')?.addEventListener('click', () => {
+      loadContents(document.getElementById('statusFilter')?.value || 'all');
+    });
+  </script>
+
+  <style is:global>
+    .review-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h1 { color: #333; margin-bottom: 0.5rem; }
+    .description { color: #666; margin-bottom: 2rem; }
+    
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      border-left: 4px solid #f59e0b;
+    }
+    .stat-card.approved { border-left-color: #10b981; }
+    .stat-card.rejected { border-left-color: #ef4444; }
+    .stat-value {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #333;
+    }
+    .stat-label { color: #666; }
+    
+    .filter-section {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    .filter-section select {
+      padding: 0.75rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      flex: 1;
+      max-width: 200px;
+    }
+    .refresh-btn {
+      padding: 0.75rem 1.5rem;
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    
+    .content-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .loading, .empty, .error { text-align: center; padding: 2rem; color: #666; }
+    
+    .content-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .content-header h3 { margin: 0; color: #333; }
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .status-pending { background: #fef3c7; color: #92400e; }
+    .status-approved { background: #d1fae5; color: #065f46; }
+    .status-rejected { background: #fee2e2; color: #991b1b; }
+    
+    .content-meta {
+      display: flex;
+      gap: 1.5rem;
+      color: #666;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+    }
+    .content-preview { color: #444; line-height: 1.6; margin-bottom: 1rem; }
+    .content-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .tag {
+      background: #e0e7ff;
+      color: #4338ca;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+    }
+    
+    .action-buttons { display: flex; gap: 1rem; }
+    .btn-approve, .btn-reject {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .btn-approve { background: #10b981; color: white; }
+    .btn-reject { background: #ef4444; color: white; }
+    
+    .review-note { background: #f8fafc; padding: 1rem; border-radius: 8px; }
+    .review-note p { margin: 0.25rem 0; color: #666; }
+    .review-time { font-size: 0.875rem; }
+  </style>
+</Layout>

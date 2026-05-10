@@ -1,0 +1,172 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="内容发布 - 内容生态系统">
+  <div class="publish-container">
+    <h1>内容发布</h1>
+    <p class="description">发布优质内容，经过审核后将获得流量分发</p>
+    
+    <form id="publishForm" class="publish-form">
+      <div class="form-group">
+        <label for="title">内容标题</label>
+        <input type="text" id="title" name="title" placeholder="请输入内容标题" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="category">内容分类</label>
+        <select id="category" name="category" required>
+          <option value="">请选择分类</option>
+          <option value="tech">科技</option>
+          <option value="lifestyle">生活方式</option>
+          <option value="education">教育</option>
+          <option value="entertainment">娱乐</option>
+          <option value="business">商业</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="content">内容正文</label>
+        <textarea id="content" name="content" rows="10" placeholder="请输入内容正文" required></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="author">作者昵称</label>
+        <input type="text" id="author" name="author" placeholder="请输入作者昵称" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="tags">标签（逗号分隔）</label>
+        <input type="text" id="tags" name="tags" placeholder="例如：人工智能, 科技创新, 未来趋势" />
+      </div>
+      
+      <button type="submit" class="submit-btn">提交发布</button>
+    </form>
+    
+    <div id="result" class="result-message" style="display: none;"></div>
+  </div>
+
+  <script>
+    document.getElementById('publishForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(e.target as HTMLFormElement);
+      const data = {
+        title: formData.get('title'),
+        category: formData.get('category'),
+        content: formData.get('content'),
+        author: formData.get('author'),
+        tags: formData.get('tags')?.toString().split(',').map(tag => tag.trim()) || []
+      };
+      
+      const resultDiv = document.getElementById('result');
+      
+      try {
+        const response = await fetch('/api/content/publish', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          resultDiv!.style.display = 'block';
+          resultDiv!.className = 'result-message success';
+          resultDiv!.innerHTML = `
+            <h3>✅ 发布成功！</h3>
+            <p>内容ID: ${result.data.id}</p>
+            <p>状态: 待审核</p>
+            <p>预计审核时间: 2-4小时</p>
+          `;
+          (e.target as HTMLFormElement).reset();
+        } else {
+          throw new Error(result.error);
+        }
+      } catch (error) {
+        resultDiv!.style.display = 'block';
+        resultDiv!.className = 'result-message error';
+        resultDiv!.innerHTML = `<h3>❌ 发布失败</h3><p>${error.message || '未知错误'}</p>`;
+      }
+    });
+  </script>
+
+  <style is:global>
+    .publish-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+    .description {
+      color: #666;
+      margin-bottom: 2rem;
+    }
+    .publish-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    label {
+      font-weight: 600;
+      color: #333;
+    }
+    input, select, textarea {
+      padding: 0.75rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #4f46e5;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .submit-btn {
+      padding: 1rem;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+    }
+    .result-message {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+    .result-message.success {
+      background: #d1fae5;
+      border: 1px solid #10b981;
+      color: #065f46;
+    }
+    .result-message.error {
+      background: #fee2e2;
+      border: 1px solid #ef4444;
+      color: #991b1b;
+    }
+  </style>
+</Layout>

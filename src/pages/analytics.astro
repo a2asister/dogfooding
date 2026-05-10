@@ -1,0 +1,540 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="数据复盘 - 内容生态系统">
+  <div class="analytics-container">
+    <h1>数据复盘中心</h1>
+    <p class="description">实时互动数据、变现数据监控，流量规则迭代优化</p>
+    
+    <div class="kpi-overview">
+      <div class="kpi-card">
+        <div class="kpi-icon">👁️</div>
+        <div class="kpi-info">
+          <span class="kpi-value" id="totalViews">0</span>
+          <span class="kpi-label">总浏览量</span>
+          <span class="kpi-change up" id="viewsChange">+0%</span>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">👍</div>
+        <div class="kpi-info">
+          <span class="kpi-value" id="totalLikes">0</span>
+          <span class="kpi-label">总点赞数</span>
+          <span class="kpi-change up" id="likesChange">+0%</span>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">💬</div>
+        <div class="kpi-info">
+          <span class="kpi-value" id="totalComments">0</span>
+          <span class="kpi-label">总评论数</span>
+          <span class="kpi-change up" id="commentsChange">+0%</span>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">💰</div>
+        <div class="kpi-info">
+          <span class="kpi-value" id="totalRevenue">¥0</span>
+          <span class="kpi-label">总收益</span>
+          <span class="kpi-change up" id="revenueChange">+0%</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-grid">
+      <div class="chart-card">
+        <h3>互动趋势</h3>
+        <div class="chart-container" id="engagementChart">
+          <p class="chart-placeholder">数据加载中...</p>
+        </div>
+      </div>
+      
+      <div class="chart-card">
+        <h3>变现数据分析</h3>
+        <div class="revenue-breakdown" id="revenueBreakdown">
+          <p class="loading">加载中...</p>
+        </div>
+      </div>
+      
+      <div class="chart-card full-width">
+        <h3>热门内容排行</h3>
+        <div class="top-contents" id="topContents">
+          <p class="loading">加载中...</p>
+        </div>
+      </div>
+      
+      <div class="chart-card full-width">
+        <h3>流量规则迭代历史</h3>
+        <div class="rule-iterations" id="ruleIterations">
+          <p class="loading">加载中...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function formatNumber(num: number): string {
+      if (num >= 10000) {
+        return (num / 10000).toFixed(1) + '万';
+      }
+      return num.toLocaleString();
+    }
+
+    function formatMoney(amount: number): string {
+      return '¥' + amount.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    async function loadKPIs() {
+      try {
+        const response = await fetch('/api/analytics/kpis');
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error);
+        
+        const data = result.data;
+        document.getElementById('totalViews')!.textContent = formatNumber(data.totalViews);
+        document.getElementById('totalLikes')!.textContent = formatNumber(data.totalLikes);
+        document.getElementById('totalComments')!.textContent = formatNumber(data.totalComments);
+        document.getElementById('totalRevenue')!.textContent = formatMoney(data.totalRevenue);
+        
+        document.getElementById('viewsChange')!.textContent = (data.viewsChange >= 0 ? '+' : '') + data.viewsChange + '%';
+        document.getElementById('viewsChange')!.className = 'kpi-change ' + (data.viewsChange >= 0 ? 'up' : 'down');
+        
+        document.getElementById('likesChange')!.textContent = (data.likesChange >= 0 ? '+' : '') + data.likesChange + '%';
+        document.getElementById('likesChange')!.className = 'kpi-change ' + (data.likesChange >= 0 ? 'up' : 'down');
+        
+        document.getElementById('commentsChange')!.textContent = (data.commentsChange >= 0 ? '+' : '') + data.commentsChange + '%';
+        document.getElementById('commentsChange')!.className = 'kpi-change ' + (data.commentsChange >= 0 ? 'up' : 'down');
+        
+        document.getElementById('revenueChange')!.textContent = (data.revenueChange >= 0 ? '+' : '') + data.revenueChange + '%';
+        document.getElementById('revenueChange')!.className = 'kpi-change ' + (data.revenueChange >= 0 ? 'up' : 'down');
+      } catch (error) {
+        console.error('加载KPI失败:', error);
+      }
+    }
+
+    async function loadEngagementChart() {
+      const chartDiv = document.getElementById('engagementChart');
+      try {
+        const response = await fetch('/api/analytics/engagement-trend');
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error);
+        
+        const data = result.data;
+        
+        // 简单的柱状图实现
+        const maxViews = Math.max(...data.map((d: any) => d.views), 1);
+        const maxLikes = Math.max(...data.map((d: any) => d.likes), 1);
+        
+        chartDiv!.innerHTML = `
+          <div class="simple-chart">
+            <div class="chart-legend">
+              <span><span class="legend-bar blue"></span> 浏览量</span>
+              <span><span class="legend-bar green"></span> 点赞数</span>
+            </div>
+            <div class="chart-bars">
+              ${data.map((day: any) => `
+                <div class="bar-group">
+                  <div class="bars-container">
+                    <div class="bar blue" style="height: ${(day.views / maxViews) * 100}%;" title="浏览量: ${formatNumber(day.views)}"></div>
+                    <div class="bar green" style="height: ${(day.likes / maxLikes) * 100}%;" title="点赞数: ${formatNumber(day.likes)}"></div>
+                  </div>
+                  <span class="bar-label">${day.date}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } catch (error) {
+        chartDiv!.innerHTML = `<p class="error">加载失败: ${error.message}</p>`;
+      }
+    }
+
+    async function loadRevenueBreakdown() {
+      const div = document.getElementById('revenueBreakdown');
+      try {
+        const response = await fetch('/api/analytics/revenue');
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error);
+        
+        const data = result.data;
+        const total = data.reduce((sum: number, item: any) => sum + item.value, 0);
+        
+        div!.innerHTML = `
+          <div class="revenue-summary">
+            <div class="revenue-total">
+              <span class="revenue-label">总收益</span>
+              <span class="revenue-value">${formatMoney(total)}</span>
+            </div>
+          </div>
+          <div class="revenue-list">
+            ${data.map((item: any) => {
+              const percentage = (item.value / total * 100).toFixed(1);
+              return `
+                <div class="revenue-item">
+                  <div class="revenue-header">
+                    <span class="revenue-name">${item.name}</span>
+                    <span class="revenue-amount">${formatMoney(item.value)} (${percentage}%)</span>
+                  </div>
+                  <div class="revenue-bar-container">
+                    <div class="revenue-bar" style="width: ${percentage}%;"></div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      } catch (error) {
+        div!.innerHTML = `<p class="error">加载失败: ${error.message}</p>`;
+      }
+    }
+
+    async function loadTopContents() {
+      const div = document.getElementById('topContents');
+      try {
+        const response = await fetch('/api/analytics/top-contents');
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error);
+        
+        const contents = result.data.contents;
+        
+        div!.innerHTML = `
+          <table class="contents-table">
+            <thead>
+              <tr>
+                <th>排名</th>
+                <th>内容标题</th>
+                <th>作者</th>
+                <th>浏览</th>
+                <th>互动率</th>
+                <th>收益</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${contents.map((item: any, index: number) => `
+                <tr>
+                  <td class="rank">
+                    ${index < 3 ? `<span class="rank-badge rank-${index + 1}">${index + 1}</span>` : index + 1}
+                  </td>
+                  <td class="title-cell">${item.title}</td>
+                  <td>${item.author}</td>
+                  <td>${formatNumber(item.views)}</td>
+                  <td>${(item.engagementRate * 100).toFixed(1)}%</td>
+                  <td class="revenue-cell">${formatMoney(item.revenue)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      } catch (error) {
+        div!.innerHTML = `<p class="error">加载失败: ${error.message}</p>`;
+      }
+    }
+
+    async function loadRuleIterations() {
+      const div = document.getElementById('ruleIterations');
+      try {
+        const response = await fetch('/api/analytics/rules-history');
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error);
+        
+        const history = result.data.history;
+        
+        div!.innerHTML = `
+          <div class="timeline">
+            ${history.map((item: any) => `
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <div class="timeline-header">
+                    <h4>${item.title}</h4>
+                    <span class="timeline-date">${new Date(item.date).toLocaleString()}</span>
+                  </div>
+                  <p class="timeline-desc">${item.description}</p>
+                  <div class="timeline-meta">
+                    <span class="impact-badge ${item.impact}">影响: ${item.impact === 'positive' ? '正向' : item.impact === 'negative' ? '负向' : '中性'}</span>
+                    <span class="effect-meta">效果: ${item.effect}</span>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } catch (error) {
+        div!.innerHTML = `<p class="error">加载失败: ${error.message}</p>`;
+      }
+    }
+
+    // 初始化
+    loadKPIs();
+    loadEngagementChart();
+    loadRevenueBreakdown();
+    loadTopContents();
+    loadRuleIterations();
+
+    // 每30秒刷新一次
+    setInterval(() => {
+      loadKPIs();
+      loadEngagementChart();
+      loadRevenueBreakdown();
+      loadTopContents();
+    }, 30000);
+  </script>
+
+  <style is:global>
+    .analytics-container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h1 { color: #333; margin-bottom: 0.5rem; }
+    .description { color: #666; margin-bottom: 2rem; }
+    
+    .kpi-overview {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-card {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+      border-radius: 12px;
+      align-items: center;
+    }
+    .kpi-icon { font-size: 2.5rem; }
+    .kpi-info { flex: 1; }
+    .kpi-value {
+      display: block;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #333;
+    }
+    .kpi-label {
+      display: block;
+      font-size: 0.875rem;
+      color: #666;
+      margin-bottom: 0.25rem;
+    }
+    .kpi-change {
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .kpi-change.up { color: #10b981; }
+    .kpi-change.down { color: #ef4444; }
+    
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .chart-card {
+      background: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+    .chart-card.full-width { grid-column: 1 / -1; }
+    .chart-card h3 { margin: 0 0 1rem 0; color: #333; }
+    
+    .loading, .error, .chart-placeholder {
+      text-align: center;
+      padding: 2rem;
+      color: #666;
+    }
+    
+    .simple-chart {
+      padding: 0.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .chart-legend {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      font-size: 0.875rem;
+      color: #333;
+    }
+    .legend-bar {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+    .legend-bar.blue { background: #4f46e5; }
+    .legend-bar.green { background: #10b981; }
+    
+    .chart-bars {
+      display: flex;
+      gap: 0.75rem;
+      height: 220px;
+      align-items: flex-end;
+      padding: 0 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .bar-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .bars-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 6px;
+      height: 180px;
+      width: 100%;
+    }
+    .bar {
+      width: 40%;
+      max-width: 30px;
+      min-width: 12px;
+      border-radius: 4px 4px 0 0;
+      transition: height 0.3s ease;
+    }
+    .bar.blue { background: #4f46e5; }
+    .bar.green { background: #10b981; }
+    .bar-label {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 0.5rem;
+      white-space: nowrap;
+    }
+    
+    .revenue-summary { margin-bottom: 1.5rem; }
+    .revenue-total {
+      text-align: center;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+    }
+    .revenue-label { display: block; font-size: 0.875rem; color: #666; }
+    .revenue-value { display: block; font-size: 1.5rem; font-weight: 700; color: #4f46e5; }
+    
+    .revenue-list { display: flex; flex-direction: column; gap: 1rem; }
+    .revenue-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .revenue-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .revenue-name { font-weight: 500; color: #333; }
+    .revenue-amount { font-weight: 600; color: #4f46e5; }
+    .revenue-bar-container {
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .revenue-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #4f46e5, #7c3aed);
+      border-radius: 4px;
+      transition: width 0.3s;
+    }
+    
+    .contents-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .contents-table th, .contents-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+      vertical-align: middle;
+    }
+    .contents-table th {
+      background: white;
+      font-weight: 600;
+      color: #333;
+    }
+    .contents-table tr:hover { background: white; }
+    .rank { width: 60px; text-align: center; }
+    .contents-table th.rank { text-align: center; }
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      line-height: 1;
+      font-weight: 700;
+      color: white;
+      vertical-align: middle;
+    }
+    .rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+    .rank-2 { background: linear-gradient(135deg, #94a3b8, #64748b); }
+    .rank-3 { background: linear-gradient(135deg, #d97706, #b45309); }
+    .title-cell { max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .revenue-cell { color: #10b981; font-weight: 500; }
+    
+    .timeline { position: relative; padding-left: 2.5rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 1rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #e5e7eb;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .timeline-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: calc(-1.5rem + 1px);
+      top: 0.25rem;
+      width: 16px;
+      height: 16px;
+      background: #4f46e5;
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px #4f46e5;
+      transform: translateX(-50%);
+    }
+    .timeline-content { background: white; padding: 1rem; border-radius: 8px; }
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-header h4 { margin: 0; color: #333; }
+    .timeline-date { font-size: 0.75rem; color: #666; }
+    .timeline-desc { color: #444; margin: 0 0 0.75rem 0; }
+    .timeline-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.75rem;
+    }
+    .impact-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .impact-badge.positive { background: #d1fae5; color: #065f46; }
+    .impact-badge.negative { background: #fee2e2; color: #991b1b; }
+    .impact-badge.neutral { background: #e0e7ff; color: #4338ca; }
+    .effect-meta { color: #666; }
+  </style>
+</Layout>
