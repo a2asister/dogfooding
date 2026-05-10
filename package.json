@@ -1,0 +1,21 @@
+{
+  "name": "smart-comparison",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build": "npm --prefix frontend run build && npm --prefix backend run build",
+    "start": "npm --prefix backend run start",
+    "stop:node": "powershell -ExecutionPolicy Bypass -File stop-node.ps1",
+    "stop:node:force": "taskkill /F /IM node.exe 2>nul || true"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
