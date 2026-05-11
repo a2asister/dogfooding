@@ -1,0 +1,17 @@
+{
+  "name": "scratch-card-server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@fastify/cors": "^8.4.0",
+    "fastify": "^4.24.0",
+    "better-sqlite3": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
