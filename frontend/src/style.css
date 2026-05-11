@@ -1,0 +1,200 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+@keyframes bubbleFlyIn {
+  0% {
+    transform: translateY(120px) scale(0.2);
+    opacity: 0;
+  }
+  40% {
+    transform: translateY(-30px) scale(1.0);
+    opacity: 1;
+  }
+  55% {
+    transform: translateY(15px) scale(0.95);
+  }
+  70% {
+    transform: translateY(-8px) scale(1.02);
+  }
+  85% {
+    transform: translateY(4px) scale(0.99);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bubbleInflat {
+  0% {
+    transform: scaleY(0.4) scaleX(1.6);
+    border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  }
+  15% {
+    transform: scaleY(1.35) scaleX(0.7);
+    border-radius: 40% 40% 30% 30% / 70% 70% 30% 30%;
+  }
+  30% {
+    transform: scaleY(0.85) scaleX(1.15);
+    border-radius: 35% 35% 25% 25% / 55% 55% 45% 45%;
+  }
+  45% {
+    transform: scaleY(1.1) scaleX(0.92);
+    border-radius: 30% 30% 22% 22% / 52% 52% 48% 48%;
+  }
+  60% {
+    transform: scaleY(0.96) scaleX(1.04);
+    border-radius: 25% 25% 20% 20% / 50% 50% 50% 50%;
+  }
+  75% {
+    transform: scaleY(1.02) scaleX(0.98);
+    border-radius: 22% 22% 18% 18% / 48% 48% 52% 52%;
+  }
+  88% {
+    transform: scaleY(0.99) scaleX(1.01);
+    border-radius: 20% 20% 15% 15% / 45% 45% 55% 55%;
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+    border-radius: 20px 20px 20px 4px;
+  }
+}
+
+@keyframes bubbleInflatReply {
+  0% {
+    transform: scaleY(0.4) scaleX(1.6);
+    border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+  }
+  15% {
+    transform: scaleY(1.35) scaleX(0.7);
+    border-radius: 40% 40% 30% 30% / 70% 70% 30% 30%;
+  }
+  30% {
+    transform: scaleY(0.85) scaleX(1.15);
+    border-radius: 35% 35% 25% 25% / 55% 55% 45% 45%;
+  }
+  45% {
+    transform: scaleY(1.1) scaleX(0.92);
+    border-radius: 30% 30% 22% 22% / 52% 52% 48% 48%;
+  }
+  60% {
+    transform: scaleY(0.96) scaleX(1.04);
+    border-radius: 25% 25% 20% 20% / 50% 50% 50% 50%;
+  }
+  75% {
+    transform: scaleY(1.02) scaleX(0.98);
+    border-radius: 22% 22% 18% 18% / 48% 48% 52% 52%;
+  }
+  88% {
+    transform: scaleY(0.99) scaleX(1.01);
+    border-radius: 20% 20% 15% 15% / 45% 45% 55% 55%;
+  }
+  100% {
+    transform: scaleY(1) scaleX(1);
+    border-radius: 20px 20px 4px 20px;
+  }
+}
+
+@keyframes bubbleSlideIn {
+  0% {
+    transform: translateX(80px) scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-15px) scale(1.05);
+    opacity: 1;
+  }
+  70% {
+    transform: translateX(8px) scale(0.98);
+  }
+  85% {
+    transform: translateX(-3px) scale(1.01);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: rotate(-5deg);
+  }
+  20%, 40%, 60%, 80% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes likePop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-fly-in {
+  animation: bubbleFlyIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.bubble-inflat {
+  animation: bubbleInflat 0.6s ease-out 0.65s forwards;
+  transform-origin: bottom center;
+}
+
+.animate-slide-in {
+  animation: bubbleSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.reply-inflat {
+  animation: bubbleInflatReply 0.5s ease-out 0.45s forwards;
+  transform-origin: bottom center;
+}
+
+.animate-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+.animate-like-pop {
+  animation: likePop 0.3s ease-out;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background-color: currentColor;
+  margin-left: 2px;
+  animation: blink 1s infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
