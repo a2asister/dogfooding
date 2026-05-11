@@ -1,0 +1,17 @@
+{
+  "name": "social-feed-server",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "build": "echo 'No build step needed'"
+  },
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "better-sqlite3": "^11.1.2",
+    "fastify": "^4.28.1",
+    "graphql": "^16.9.0",
+    "mercurius": "^14.1.0"
+  }
+}

@@ -1,0 +1,712 @@
+---
+---
+
+<div class="feed-container">
+  <div id="feed" class="masonry-grid">
+    <div class="masonry-grid__column" data-column="0"></div>
+    <div class="masonry-grid__column" data-column="1"></div>
+    <div class="masonry-grid__column" data-column="2"></div>
+  </div>
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <span>加载中...</span>
+  </div>
+  <div id="no-more" class="no-more hidden">
+    <span>✨ 已经到底啦</span>
+  </div>
+</div>
+
+<div id="particle-container" class="particle-container"></div>
+
+<script>
+  import { createHeartParticles } from '../utils/particles.js';
+  import { formatTime } from '../utils/time.js';
+
+  const GRAPHQL_ENDPOINT = 'http://localhost:43210/graphql';
+  const POSTS_PER_PAGE = 8;
+
+  let posts = [];
+  let nextCursor = null;
+  let hasMore = true;
+  let isLoading = false;
+
+  const feedEl = document.getElementById('feed');
+  const columns = feedEl.querySelectorAll('.masonry-grid__column');
+  const loadingEl = document.getElementById('loading');
+  const noMoreEl = document.getElementById('no-more');
+  const particleContainer = document.getElementById('particle-container');
+
+  async function fetchPosts(cursor = null) {
+    const query = `
+      query GetPosts($limit: Int, $cursor: Float) {
+        posts(limit: $limit, cursor: $cursor) {
+          items {
+            id
+            userId
+            username
+            avatar
+            content
+            images
+            createdAt
+          }
+          hasMore
+          nextCursor
+        }
+      }
+    `;
+
+    const response = await fetch(GRAPHQL_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query,
+        variables: { limit: POSTS_PER_PAGE, cursor }
+      })
+    });
+
+    const result = await response.json();
+    if (result.errors) {
+      console.error('GraphQL errors:', result.errors);
+      throw new Error('GraphQL query failed');
+    }
+    return result.data.posts;
+  }
+
+  function createPostCard(post, index, isNew = false) {
+    const card = document.createElement('article');
+    card.className = 'post-card' + (isNew ? ' post-card--new' : '');
+    
+    const rotateX = -10 + (Math.random() * -10);
+    const rotateY = -8 + (Math.random() * 16);
+    const rotateZ = -5 + (Math.random() * 10);
+    const translateY = 50 + (Math.random() * 40);
+    const scale = 0.85 + (Math.random() * 0.1);
+    
+    card.style.setProperty('--stagger-delay', `${index * 0.12}s`);
+    card.style.setProperty('--start-rotateX', `${rotateX}deg`);
+    card.style.setProperty('--start-rotateY', `${rotateY}deg`);
+    card.style.setProperty('--start-rotateZ', `${rotateZ}deg`);
+    card.style.setProperty('--start-translateY', `${translateY}px`);
+    card.style.setProperty('--start-scale', scale);
+    card.style.setProperty('--float-amount', `${5 + Math.random() * 10}px`);
+    card.dataset.postId = post.id;
+
+    const hasImages = post.images && post.images.length > 0;
+    
+    card.innerHTML = `
+      <div class="post-card__inner">
+        <div class="post-card__header">
+          <img src="${post.avatar}" alt="${post.username}" class="post-card__avatar" />
+          <div class="post-card__user-info">
+            <span class="post-card__username">${post.username}</span>
+            <span class="post-card__time">${formatTime(post.createdAt)}</span>
+          </div>
+        </div>
+        <p class="post-card__content">${post.content}</p>
+        ${hasImages ? `
+          <div class="post-card__images post-card__images--${post.images.length}">
+            ${post.images.map(img => `
+              <div class="post-card__image-wrapper">
+                <img src="${img}" alt="" class="post-card__image" loading="lazy" />
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+        <div class="post-card__actions">
+          <button class="post-card__action post-card__action--like" title="双击点赞">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            <span class="post-card__action-text">点赞</span>
+          </button>
+          <button class="post-card__action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span class="post-card__action-text">评论</span>
+          </button>
+          <button class="post-card__action">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="18" cy="5" r="3"/>
+              <circle cx="6" cy="12" r="3"/>
+              <circle cx="18" cy="19" r="3"/>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+            </svg>
+            <span class="post-card__action-text">分享</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    setupCardInteractions(card);
+    return card;
+  }
+
+  function setupCardInteractions(card) {
+    let clickTimer = null;
+    let lastClickTime = 0;
+
+    card.addEventListener('click', (e) => {
+      const now = Date.now();
+      const timeDiff = now - lastClickTime;
+
+      if (timeDiff < 300) {
+        clearTimeout(clickTimer);
+        handleDoubleClick(card, e);
+      } else {
+        clickTimer = setTimeout(() => {
+        }, 300);
+      }
+      lastClickTime = now;
+    });
+
+    const inner = card.querySelector('.post-card__inner');
+    
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -12;
+      const rotateY = ((x - centerX) / centerX) * 12;
+      
+      inner.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      inner.style.boxShadow = `${(x - centerX) / 20}px ${(y - centerY) / 20}px 40px rgba(0, 0, 0, 0.3)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      inner.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      inner.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+    });
+  }
+
+  function handleDoubleClick(card, e) {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    createHeartParticles(particleContainer, rect.left + x, rect.top + y);
+    
+    const likeBtn = card.querySelector('.post-card__action--like');
+    likeBtn.classList.add('liked');
+    
+    setTimeout(() => {
+      likeBtn.classList.remove('liked');
+    }, 1000);
+  }
+
+  function getActiveColumnCount() {
+    const width = window.innerWidth;
+    if (width <= 768) return 1;
+    if (width <= 1200) return 2;
+    return 3;
+  }
+
+  function getShortestColumn() {
+    const activeCount = getActiveColumnCount();
+    const activeColumns = Array.from(columns).slice(0, activeCount);
+    let shortest = activeColumns[0];
+    let minHeight = Infinity;
+    
+    activeColumns.forEach(col => {
+      const height = col.getBoundingClientRect().height;
+      if (height < minHeight) {
+        minHeight = height;
+        shortest = col;
+      }
+    });
+    
+    return shortest;
+  }
+
+  function renderPosts(newPosts, isAppend = false) {
+    if (!isAppend) {
+      columns.forEach(col => col.innerHTML = '');
+    }
+
+    newPosts.forEach((post, index) => {
+      const card = createPostCard(post, index, isAppend);
+      const targetColumn = getShortestColumn();
+      targetColumn.appendChild(card);
+    });
+  }
+
+  async function loadMore() {
+    if (isLoading || !hasMore) return;
+    
+    isLoading = true;
+    loadingEl.classList.remove('hidden');
+
+    try {
+      const result = await fetchPosts(nextCursor);
+      posts = [...posts, ...result.items];
+      nextCursor = result.nextCursor;
+      hasMore = result.hasMore;
+
+      renderPosts(result.items, true);
+
+      if (!hasMore) {
+        loadingEl.classList.add('hidden');
+        noMoreEl.classList.remove('hidden');
+      }
+    } catch (error) {
+      console.error('Failed to load posts:', error);
+    } finally {
+      isLoading = false;
+      if (hasMore) {
+        loadingEl.classList.add('hidden');
+      }
+    }
+  }
+
+  function setupInfiniteScroll() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          loadMore();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+
+    observer.observe(loadingEl);
+  }
+
+  loadMore().then(() => {
+    setupInfiniteScroll();
+  });
+</script>
+
+<style>
+  .feed-container {
+    position: relative;
+    min-height: 400px;
+  }
+
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    padding: 24px 0;
+  }
+
+  @media (max-width: 1200px) {
+    .masonry-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .masonry-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  .masonry-grid__column {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  @media (max-width: 1200px) {
+    .masonry-grid__column {
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .masonry-grid__column {
+      gap: 16px;
+    }
+  }
+
+  .post-card {
+    perspective: 1200px;
+    opacity: 0;
+    transform: 
+      translateY(var(--start-translateY, 60px)) 
+      rotateX(var(--start-rotateX, -15deg)) 
+      rotateY(var(--start-rotateY, 0deg)) 
+      rotateZ(var(--start-rotateZ, 0deg))
+      scale(var(--start-scale, 0.9));
+    animation: 
+      cardEnter 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: var(--stagger-delay, 0s);
+  }
+
+  .post-card--new {
+    opacity: 0;
+    transform: 
+      translateY(calc(var(--start-translateY, 60px) + 30px)) 
+      rotateX(calc(var(--start-rotateX, -15deg) - 5deg)) 
+      rotateY(var(--start-rotateY, 0deg)) 
+      rotateZ(var(--start-rotateZ, 0deg))
+      scale(calc(var(--start-scale, 0.9) - 0.05));
+    animation: 
+      cardEnterNew 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: var(--stagger-delay, 0s);
+  }
+
+  @keyframes cardEnter {
+    0% {
+      opacity: 0;
+      transform: 
+        translateY(var(--start-translateY, 60px)) 
+        rotateX(var(--start-rotateX, -15deg)) 
+        rotateY(var(--start-rotateY, 0deg)) 
+        rotateZ(var(--start-rotateZ, 0deg))
+        scale(var(--start-scale, 0.9));
+    }
+    20% {
+      opacity: 0.3;
+    }
+    65% {
+      opacity: 1;
+      transform: 
+        translateY(calc(var(--float-amount, 8px) * -1)) 
+        rotateX(calc(var(--start-rotateX, -15deg) * -0.3)) 
+        rotateY(calc(var(--start-rotateY, 0deg) * -0.3)) 
+        rotateZ(calc(var(--start-rotateZ, 0deg) * -0.3))
+        scale(1.03);
+    }
+    85% {
+      transform: 
+        translateY(calc(var(--float-amount, 8px) * 0.3)) 
+        rotateX(calc(var(--start-rotateX, -15deg) * 0.1)) 
+        rotateY(calc(var(--start-rotateY, 0deg) * 0.1)) 
+        rotateZ(calc(var(--start-rotateZ, 0deg) * 0.1))
+        scale(1.01);
+    }
+    100% {
+      opacity: 1;
+      transform: 
+        translateY(0) 
+        rotateX(0deg) 
+        rotateY(0deg) 
+        rotateZ(0deg)
+        scale(1);
+    }
+  }
+
+  @keyframes cardEnterNew {
+    0% {
+      opacity: 0;
+      transform: 
+        translateY(calc(var(--start-translateY, 60px) + 30px)) 
+        rotateX(calc(var(--start-rotateX, -15deg) - 5deg)) 
+        rotateY(var(--start-rotateY, 0deg)) 
+        rotateZ(var(--start-rotateZ, 0deg))
+        scale(calc(var(--start-scale, 0.9) - 0.05));
+    }
+    25% {
+      opacity: 0.4;
+    }
+    55% {
+      opacity: 0.95;
+      transform: 
+        translateY(calc(var(--float-amount, 8px) * -1.5)) 
+        rotateX(calc(var(--start-rotateX, -15deg) * -0.4)) 
+        rotateY(calc(var(--start-rotateY, 0deg) * -0.4)) 
+        rotateZ(calc(var(--start-rotateZ, 0deg) * -0.4))
+        scale(1.05);
+    }
+    75% {
+      transform: 
+        translateY(calc(var(--float-amount, 8px) * 0.4)) 
+        rotateX(calc(var(--start-rotateX, -15deg) * 0.15)) 
+        rotateY(calc(var(--start-rotateY, 0deg) * 0.15)) 
+        rotateZ(calc(var(--start-rotateZ, 0deg) * 0.15))
+        scale(1.02);
+    }
+    100% {
+      opacity: 1;
+      transform: 
+        translateY(0) 
+        rotateX(0deg) 
+        rotateY(0deg) 
+        rotateZ(0deg)
+        scale(1);
+    }
+  }
+
+  .post-card__inner {
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    padding: 20px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.3s ease;
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.07),
+      0 10px 25px -5px rgba(0, 0, 0, 0.1),
+      0 2px 10px -3px rgba(0, 0, 0, 0.05);
+    transform-style: preserve-3d;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+  }
+
+  .post-card:hover .post-card__inner {
+    box-shadow: 
+      0 10px 20px -3px rgba(0, 0, 0, 0.1),
+      0 25px 50px -12px rgba(0, 0, 0, 0.15),
+      0 4px 20px -5px rgba(102, 126, 234, 0.15);
+  }
+
+  .post-card__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .post-card__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.1),
+      0 0 0 3px rgba(102, 126, 234, 0.1);
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+  }
+
+  .post-card__user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .post-card__username {
+    font-weight: 700;
+    font-size: 15px;
+    color: #1a1a2e;
+    background: linear-gradient(135deg, #1a1a2e, #3a3a5e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .post-card__time {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+
+  .post-card__content {
+    font-size: 14px;
+    line-height: 1.75;
+    color: #475569;
+    margin-bottom: 16px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .post-card__images {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #f1f5f9;
+  }
+
+  .post-card__images--1 {
+    grid-template-columns: 1fr;
+  }
+
+  .post-card__images--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .post-card__images--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .post-card__image-wrapper {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #e2e8f0;
+  }
+
+  .post-card__images--1 .post-card__image-wrapper {
+    aspect-ratio: 4/3;
+    border-radius: 14px;
+  }
+
+  .post-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .post-card:hover .post-card__image {
+    transform: scale(1.08);
+  }
+
+  .post-card__actions {
+    display: flex;
+    gap: 6px;
+    padding: 14px 0 0;
+    border-top: 1px solid #f1f5f9;
+    margin-top: 4px;
+  }
+
+  .post-card__action {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .post-card__action::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    border-radius: 10px;
+  }
+
+  .post-card__action:hover {
+    color: #475569;
+    transform: translateY(-1px);
+  }
+
+  .post-card__action:hover::before {
+    opacity: 1;
+  }
+
+  .post-card__action:active {
+    transform: translateY(0);
+  }
+
+  .post-card__action > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .post-card__action svg {
+    width: 20px;
+    height: 20px;
+    transition: all 0.2s ease;
+  }
+
+  .post-card__action:hover svg {
+    transform: scale(1.1);
+  }
+
+  .post-card__action--like:hover {
+    color: #ef4444;
+  }
+
+  .post-card__action--like:hover svg {
+    filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.4));
+  }
+
+  .post-card__action--like.liked svg {
+    fill: #ef4444;
+    stroke: #ef4444;
+    animation: heartBeat 0.6s ease;
+  }
+
+  .post-card__action:nth-child(2):hover {
+    color: #3b82f6;
+  }
+
+  .post-card__action:nth-child(2):hover svg {
+    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.4));
+  }
+
+  .post-card__action:nth-child(3):hover {
+    color: #8b5cf6;
+  }
+
+  .post-card__action:nth-child(3):hover svg {
+    filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.4));
+  }
+
+  @keyframes heartBeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.4); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 48px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .loading.hidden {
+    display: none;
+  }
+
+  .spinner {
+    width: 26px;
+    height: 26px;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .no-more {
+    text-align: center;
+    padding: 48px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .no-more.hidden {
+    display: none;
+  }
+
+  .particle-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+  }
+</style>
