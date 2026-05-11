@@ -1,0 +1,37 @@
+{
+  "name": "quiz-server",
+  "version": "1.0.0",
+  "description": "Online Quiz System Backend",
+  "private": true,
+  "dependencies": {
+    "@midwayjs/bootstrap": "^3.12.0",
+    "@midwayjs/core": "^3.12.0",
+    "@midwayjs/decorator": "^3.12.0",
+    "@midwayjs/info": "^3.12.0",
+    "@midwayjs/koa": "^3.12.0",
+    "@midwayjs/logger": "^3.1.0",
+    "@midwayjs/typeorm": "^3.12.0",
+    "better-sqlite3": "^9.2.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.17"
+  },
+  "devDependencies": {
+    "@midwayjs/mock": "^3.12.0",
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/node": "^20.10.0",
+    "cross-env": "^7.0.3",
+    "mwts": "^1.3.0",
+    "mwtsc": "^1.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.3.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node ./bootstrap.js",
+    "dev": "cross-env NODE_ENV=local mwtsc --watch --run @midwayjs/mock/app.js",
+    "build": "mwtsc --cleanOutDir",
+    "test": "echo 'no test'"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "keep": {
+    "days": true,
+    "amount": 7
+  },
+  "auditLog": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/logs/.audit/.dc1a2e402b94cafff87058bf7a9b0a91f814bdbb-audit.json",
+  "files": [
+    {
+      "date": 1778481512819,
+      "name": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/logs/midway-app.log.2026-05-11",
+      "hash": "b2d049398f6a079aaa233053e1e668a7"
+    }
+  ],
+  "hashType": "md5"
+}
