@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     if (status) filter.status = status;
     if (isTemplate !== undefined) filter.isTemplate = isTemplate === 'true';
     
-    const forms = await Form.find(filter).sort({ createdAt: -1 });
+    const forms = await Form.find(filter);
     res.json(forms);
   } catch (error) {
     res.status(500).json({ error: error.message });

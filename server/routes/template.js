@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const filter = { isTemplate: true, status: 'published' };
     if (category) filter.category = category;
     
-    const templates = await Form.find(filter).sort({ createdAt: -1 });
+    const templates = await Form.find(filter);
     res.json(templates);
   } catch (error) {
     res.status(500).json({ error: error.message });
