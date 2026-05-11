@@ -1,0 +1,15 @@
+{
+  "name": "notification-center-client",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev --port 18088",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --port 18088",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.16.0"
+  }
+}

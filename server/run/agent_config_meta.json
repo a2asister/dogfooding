@@ -1,0 +1,310 @@
+{
+  "keys": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/config/config.default.js",
+  "middleware": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/config/config.default.js",
+  "cors": {
+    "origin": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/config/config.default.js",
+    "allowMethods": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/config/config.default.js",
+    "allowHeaders": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/config/config.default.js"
+  },
+  "security": {
+    "csrf": {
+      "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/config/config.default.js",
+      "type": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "ignoreJSON": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "useSession": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "cookieName": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "sessionName": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "headerName": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "bodyName": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "queryName": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "rotateWhenInvalid": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "supportedRequests": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "refererWhiteList": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "cookieOptions": {
+        "signed": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+      }
+    },
+    "domainWhiteList": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/config/config.default.js",
+    "protocolWhiteList": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+    "defaultMiddleware": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+    "xframe": {
+      "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "value": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+    },
+    "hsts": {
+      "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.local.js",
+      "maxAge": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "includeSubdomains": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+    },
+    "dta": {
+      "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+    },
+    "methodnoallow": {
+      "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+    },
+    "noopen": {
+      "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+    },
+    "nosniff": {
+      "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+    },
+    "referrerPolicy": {
+      "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "value": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+    },
+    "xssProtection": {
+      "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "value": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+    },
+    "csp": {
+      "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "policy": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+    },
+    "ssrf": {
+      "ipBlackList": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "ipExceptionList": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "hostnameExceptionList": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js",
+      "checkAddress": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+    }
+  },
+  "cluster": {
+    "listen": {
+      "port": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/config/config.local.js",
+      "hostname": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/config/config.local.js",
+      "path": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    }
+  },
+  "logger": {
+    "level": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/config/config.local.js",
+    "dir": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "encoding": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "env": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "consoleLevel": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "disableConsoleAfterReady": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "outputJSON": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "buffer": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "appLogName": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "coreLogName": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "agentLogName": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "errorLogName": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "coreLogger": {
+      "consoleLevel": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.local.js"
+    },
+    "allowDebugAtProd": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "enablePerformanceTimer": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "enableFastContextLogger": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+  },
+  "session": {
+    "maxAge": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-session/config/config.default.js",
+    "key": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-session/config/config.default.js",
+    "httpOnly": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-session/config/config.default.js",
+    "encrypt": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-session/config/config.default.js",
+    "logValue": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-session/config/config.default.js"
+  },
+  "helper": {
+    "shtml": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-security/config/config.default.js"
+  },
+  "jsonp": {
+    "limit": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-jsonp/config/config.default.js",
+    "callback": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-jsonp/config/config.default.js",
+    "csrf": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-jsonp/config/config.default.js"
+  },
+  "onerror": {
+    "errorPageUrl": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-onerror/config/config.default.js",
+    "appErrorFilter": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-onerror/config/config.default.js",
+    "templatePath": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-onerror/config/config.default.js"
+  },
+  "i18n": {
+    "defaultLocale": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-i18n/config/config.default.js",
+    "dirs": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-i18n/config/config.default.js",
+    "queryField": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-i18n/config/config.default.js",
+    "cookieField": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-i18n/config/config.default.js",
+    "cookieDomain": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-i18n/config/config.default.js",
+    "cookieMaxAge": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-i18n/config/config.default.js"
+  },
+  "watcher": {
+    "type": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-watcher/config/config.local.js",
+    "eventSources": {
+      "default": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-watcher/config/config.default.js",
+      "development": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-watcher/config/config.default.js"
+    }
+  },
+  "customLogger": {
+    "scheduleLogger": {
+      "consoleLevel": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-schedule/config/config.default.js",
+      "file": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-schedule/config/config.default.js"
+    }
+  },
+  "schedule": {
+    "directory": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-schedule/config/config.default.js"
+  },
+  "multipart": {
+    "mode": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "autoFields": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "defaultCharset": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "defaultParamCharset": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "fieldNameSize": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "fieldSize": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "fields": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "fileSize": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "files": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "fileExtensions": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "whitelist": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "allowArrayField": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "tmpdir": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+    "cleanSchedule": {
+      "cron": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js",
+      "disable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-multipart/config/config.default.js"
+    }
+  },
+  "development": {
+    "watchDirs": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-development/config/config.default.js",
+    "ignoreDirs": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-development/config/config.default.js",
+    "fastReady": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-development/config/config.default.js",
+    "reloadOnDebug": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-development/config/config.default.js",
+    "overrideDefault": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-development/config/config.default.js",
+    "overrideIgnore": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-development/config/config.default.js"
+  },
+  "logrotator": {
+    "filesRotateByHour": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-logrotator/config/config.default.js",
+    "hourDelimiter": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-logrotator/config/config.default.js",
+    "filesRotateBySize": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-logrotator/config/config.default.js",
+    "maxFileSize": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-logrotator/config/config.default.js",
+    "maxFiles": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-logrotator/config/config.default.js",
+    "rotateDuration": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-logrotator/config/config.default.js",
+    "maxDays": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-logrotator/config/config.default.js"
+  },
+  "static": {
+    "prefix": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-static/config/config.default.js",
+    "dir": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-static/config/config.default.js",
+    "dynamic": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-static/config/config.default.js",
+    "preload": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-static/config/config.default.js",
+    "buffer": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-static/config/config.default.js",
+    "maxFiles": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-static/config/config.default.js"
+  },
+  "view": {
+    "root": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-view/config/config.default.js",
+    "cache": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-view/config/config.local.js",
+    "defaultExtension": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-view/config/config.default.js",
+    "defaultViewEngine": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-view/config/config.default.js",
+    "mapping": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg-view/config/config.default.js"
+  },
+  "env": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "name": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "cookies": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "proxy": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "maxIpsCount": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "maxProxyCount": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "protocolHeaders": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "ipHeaders": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "hostHeaders": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "pkg": {
+    "name": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "version": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "description": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "private": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "egg": {
+      "declarations": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    },
+    "dependencies": {
+      "egg": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "egg-scripts": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "better-sqlite3": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "uuid": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "cors": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "egg-cors": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    },
+    "devDependencies": {
+      "egg-bin": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "egg-mock": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "eslint": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "eslint-config-egg": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    },
+    "engines": {
+      "node": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    },
+    "scripts": {
+      "start": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "stop": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "dev": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "debug": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "test": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "test-local": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "cov": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "lint": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "ci": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    },
+    "author": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "license": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+  },
+  "baseDir": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "HOME": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "rundir": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "dump": {
+    "ignore": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "timing": {
+      "slowBootActionMinDuration": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    }
+  },
+  "confusedConfigurations": {
+    "bodyparser": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "notFound": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "sitefile": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "middlewares": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "httpClient": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+  },
+  "notfound": {
+    "pageUrl": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+  },
+  "siteFile": {
+    "/favicon.ico": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "cacheControl": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+  },
+  "bodyParser": {
+    "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "encoding": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "formLimit": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "jsonLimit": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "textLimit": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "strict": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "queryString": {
+      "arrayLimit": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "depth": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "parameterLimit": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    },
+    "onerror": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+  },
+  "httpclient": {
+    "enableDNSCache": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "dnsCacheLookupInterval": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "dnsCacheMaxLength": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "request": {
+      "timeout": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    },
+    "httpAgent": {
+      "keepAlive": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "freeSocketTimeout": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "maxSockets": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "maxFreeSockets": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    },
+    "httpsAgent": {
+      "keepAlive": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "freeSocketTimeout": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "maxSockets": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+      "maxFreeSockets": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+    },
+    "useHttpClientNext": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+  },
+  "meta": {
+    "enable": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "logging": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+  },
+  "coreMiddleware": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "workerStartTimeout": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "serverTimeout": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+  "clusterClient": {
+    "maxWaitTime": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js",
+    "responseTimeout": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+  },
+  "onClientError": "/Users/zhuxiansheng/Documents/demo/ai/dogfooding/server/node_modules/egg/config/config.default.js"
+}

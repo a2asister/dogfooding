@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NotificationCenter from '../components/NotificationCenter.astro';
+---
+
+<Layout title="消息通知中心">
+  <main class="container">
+    <div class="header">
+      <h1>📬 消息通知中心</h1>
+      <button class="btn push-btn" id="pushBtn">
+        <span>模拟推送新通知</span>
+        <span class="pulse-dot"></span>
+      </button>
+    </div>
+    
+    <NotificationCenter />
+  </main>
+</Layout>
+
+<script>
+  const pushBtn = document.getElementById('pushBtn');
+  pushBtn.addEventListener('click', async () => {
+    try {
+      await fetch('http://127.0.0.1:18089/api/notifications/push', {
+        method: 'POST'
+      });
+      const event = new CustomEvent('refresh-notifications');
+      window.dispatchEvent(event);
+    } catch (error) {
+      console.error('推送通知失败:', error);
+    }
+  });
+</script>

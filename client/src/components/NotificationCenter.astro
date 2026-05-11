@@ -1,0 +1,261 @@
+---
+---
+
+<div class="notification-center">
+  <div class="center-header">
+    <div class="badge-container">
+      <span class="unread-badge" id="unreadBadge">0</span>
+    </div>
+    <button class="action-btn" id="markAllReadBtn">
+      全部已读
+    </button>
+  </div>
+
+  <div class="notifications-list" id="notificationsList">
+    <div class="empty-state">
+      <div class="empty-icon">🔔</div>
+      <p>暂无通知</p>
+    </div>
+  </div>
+
+  <div id="particlesContainer" class="particles-container"></div>
+</div>
+
+<script>
+  import { notificationApi } from '../api.js';
+
+  function formatTime(timestamp) {
+    const now = Date.now();
+    const diff = now - timestamp;
+    const minutes = Math.floor(diff / (1000 * 60));
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    if (minutes < 1) return '刚刚';
+    if (minutes < 60) return `${minutes}分钟前`;
+    if (hours < 24) return `${hours}小时前`;
+    return `${days}天前`;
+  }
+
+  function getIconHTML(type, extraData) {
+    switch (type) {
+      case 'like':
+        return '<span class="heart-icon">❤️</span>';
+      case 'comment':
+        return '<span class="bubble-icon">💬</span>';
+      case 'follow':
+        const avatar = extraData?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${Date.now()}`;
+        return `<img src="${avatar}" alt="avatar" class="avatar-icon" />`;
+      default:
+        return '<span>🔔</span>';
+    }
+  }
+
+  function createNotificationCard(notification, isNew = false) {
+    const card = document.createElement('div');
+    card.className = `notification-card ${notification.type}-type ${!notification.is_read ? 'unread' : ''} ${isNew ? 'slide-in' : ''}`;
+    card.dataset.id = notification.id;
+
+    const deleteAction = document.createElement('div');
+    deleteAction.className = 'delete-action';
+    deleteAction.innerHTML = '🗑️';
+    card.appendChild(deleteAction);
+
+    const content = document.createElement('div');
+    content.className = 'card-content';
+    content.innerHTML = `
+      <div class="icon-container">
+        ${getIconHTML(notification.type, notification.extra_data)}
+      </div>
+      <div class="card-title">
+        ${notification.title}
+        ${!notification.is_read ? '<span class="unread-dot"></span>' : ''}
+      </div>
+      <div class="card-desc">${notification.content}</div>
+      <div class="card-time">${formatTime(notification.created_at)}</div>
+    `;
+    card.appendChild(content);
+
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    const threshold = 80;
+
+    const handleStart = (e) => {
+      if (card.classList.contains('removing')) return;
+      const event = e.touches ? e.touches[0] : e;
+      startX = event.clientX;
+      currentX = 0;
+      isDragging = true;
+      card.style.transition = 'none';
+    };
+
+    const handleMove = (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const event = e.touches ? e.touches[0] : e;
+      const diff = event.clientX - startX;
+
+      if (diff < 0) {
+        currentX = Math.max(diff, -150);
+        content.style.transform = `translateX(${currentX}px)`;
+
+        const opacity = Math.min(Math.abs(currentX) / 100, 1);
+        deleteAction.style.opacity = opacity;
+      }
+    };
+
+    const handleEnd = async () => {
+      if (!isDragging) return;
+      isDragging = false;
+
+      card.style.transition = 'transform 0.3s ease';
+      content.style.transition = 'transform 0.3s ease';
+      deleteAction.style.transition = 'opacity 0.3s ease';
+
+      if (currentX < -threshold) {
+        createParticles(card);
+        card.classList.add('removing');
+        setTimeout(async () => {
+          await notificationApi.deleteNotification(notification.id);
+          card.remove();
+          updateUnreadCount();
+        }, 400);
+      } else {
+        content.style.transform = 'translateX(0)';
+        deleteAction.style.opacity = 0;
+      }
+    };
+
+    card.addEventListener('touchstart', handleStart, { passive: true });
+    card.addEventListener('touchmove', handleMove, { passive: false });
+    card.addEventListener('touchend', handleEnd);
+    card.addEventListener('mousedown', handleStart);
+    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('mouseup', handleEnd);
+
+    card.addEventListener('click', async () => {
+      if (!isDragging && !notification.is_read) {
+        await notificationApi.markAsRead(notification.id);
+        notification.is_read = true;
+        card.classList.remove('unread');
+        const dot = card.querySelector('.unread-dot');
+        if (dot) dot.remove();
+        updateUnreadCount();
+      }
+    });
+
+    return card;
+  }
+
+  function createParticles(card) {
+    const container = document.getElementById('particlesContainer');
+    const rect = card.getBoundingClientRect();
+    const centerRect = container.parentElement.getBoundingClientRect();
+
+    const colors = ['#ff6b6b', '#4ecdc4', '#667eea', '#ffa502', '#ff6348'];
+    const particleCount = 15;
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+
+      const size = Math.random() * 8 + 4;
+      const x = rect.left - centerRect.left + rect.width / 2 + (Math.random() - 0.5) * 100;
+      const y = rect.top - centerRect.top + rect.height / 2 + (Math.random() - 0.5) * 60;
+
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${x}px`;
+      particle.style.top = `${y}px`;
+      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.animationDelay = `${Math.random() * 0.1}s`;
+
+      particle.style.transform = `translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 80}px)`;
+
+      container.appendChild(particle);
+
+      setTimeout(() => {
+        particle.remove();
+      }, 700);
+    }
+  }
+
+  async function loadNotifications() {
+    const list = document.getElementById('notificationsList');
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><p>加载中...</p></div>';
+
+    try {
+      const result = await notificationApi.getNotifications();
+
+      if (result.success && result.data.notifications.length > 0) {
+        list.innerHTML = '';
+        result.data.notifications.forEach(notif => {
+          const card = createNotificationCard(notif);
+          list.appendChild(card);
+        });
+      } else {
+        list.innerHTML = '<div class="empty-state"><div class="empty-icon">🔔</div><p>暂无通知</p></div>';
+      }
+
+      updateUnreadBadge(result.data.unreadCount);
+    } catch (error) {
+      console.error('加载通知失败:', error);
+      list.innerHTML = '<div class="empty-state"><div class="empty-icon">❌</div><p>加载失败</p></div>';
+    }
+  }
+
+  async function updateUnreadCount() {
+    try {
+      const result = await notificationApi.getNotifications();
+      updateUnreadBadge(result.data.unreadCount);
+    } catch (error) {
+      console.error('获取未读数失败:', error);
+    }
+  }
+
+  function updateUnreadBadge(count) {
+    const badge = document.getElementById('unreadBadge');
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'inline-flex' : 'none';
+  }
+
+  document.getElementById('markAllReadBtn').addEventListener('click', async () => {
+    try {
+      await notificationApi.markAllAsRead();
+      document.querySelectorAll('.notification-card').forEach(card => {
+        card.classList.remove('unread');
+        const dot = card.querySelector('.unread-dot');
+        if (dot) dot.remove();
+      });
+      updateUnreadBadge(0);
+    } catch (error) {
+      console.error('标记全部已读失败:', error);
+    }
+  });
+
+  window.addEventListener('refresh-notifications', loadNotifications);
+
+  loadNotifications();
+
+  setInterval(async () => {
+    try {
+      const result = await notificationApi.getNotifications();
+      const list = document.getElementById('notificationsList');
+      const existingIds = new Set(
+        Array.from(list.querySelectorAll('.notification-card')).map(card => card.dataset.id)
+      );
+
+      result.data.notifications.forEach(notif => {
+        if (!existingIds.has(notif.id)) {
+          const card = createNotificationCard(notif, true);
+          list.insertBefore(card, list.firstChild);
+        }
+      });
+
+      updateUnreadBadge(result.data.unreadCount);
+    } catch (error) {
+      console.error('轮询检查新通知失败:', error);
+    }
+  }, 5000);
+</script>

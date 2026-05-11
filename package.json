@@ -1,0 +1,25 @@
+{
+  "name": "notification-center",
+  "version": "1.0.0",
+  "description": "消息通知中心 - 前端 Astro + 后端 Egg + SQLite",
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "preview": "cd client && npm run preview",
+    "start": "cd server && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "astro",
+    "egg",
+    "sqlite",
+    "notification-center"
+  ],
+  "author": "",
+  "license": "MIT"
+}
