@@ -1,0 +1,19 @@
+{
+  "name": "bubble-comment-system",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "npm --workspace server run dev",
+    "dev:client": "npm --workspace client run dev",
+    "install:all": "npm install && npm --workspace server install && npm --workspace client install",
+    "build": "npm --workspace server run build && npm --workspace client run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
