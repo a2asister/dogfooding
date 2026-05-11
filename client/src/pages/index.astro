@@ -1,0 +1,212 @@
+---
+import App from '../components/App';
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>购物车动画演示</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+        min-height: 100vh;
+      }
+      
+      .flying-image {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+      
+      .afterimage {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        border-radius: 8px;
+        opacity: 0.6;
+        transform: scale(0.9);
+        filter: blur(1px);
+      }
+    </style>
+  </head>
+  <body>
+    <App client:only="react" />
+    <script>
+      let isAnimating = false;
+      
+      function animateAddToCart(productImage, buttonRect) {
+        if (isAnimating) return;
+        isAnimating = true;
+        
+        const cartIcon = document.querySelector('.cart-icon-wrapper');
+        if (!cartIcon) {
+          isAnimating = false;
+          return;
+        }
+        
+        const cartRect = cartIcon.getBoundingClientRect();
+        const image = new Image();
+        image.src = productImage;
+        
+        image.onload = () => {
+          const startX = buttonRect.left + buttonRect.width / 2;
+          const startY = buttonRect.top + buttonRect.height / 2;
+          const endX = cartRect.left + cartRect.width / 2;
+          const endY = cartRect.top + cartRect.height / 2;
+          
+          const controlX = (startX + endX) / 2 - 100;
+          const controlY = Math.min(startY, endY) - 150;
+          
+          createFlyingImage(image.src, startX, startY, endX, endY, controlX, controlY, cartIcon);
+        };
+      }
+      
+      function createFlyingImage(src, startX, startY, endX, endY, controlX, controlY, cartIcon) {
+        const flyingImg = document.createElement('img');
+        flyingImg.src = src;
+        flyingImg.className = 'flying-image';
+        flyingImg.style.width = '80px';
+        flyingImg.style.height = '80px';
+        flyingImg.style.objectFit = 'cover';
+        document.body.appendChild(flyingImg);
+        
+        const afterimages = [];
+        for (let i = 0; i < 5; i++) {
+          const afterimage = document.createElement('img');
+          afterimage.src = src;
+          afterimage.className = 'afterimage';
+          afterimage.style.width = '80px';
+          afterimage.style.height = '80px';
+          afterimage.style.objectFit = 'cover';
+          afterimage.style.opacity = (0.5 - i * 0.1).toString();
+          afterimage.style.transform = `scale(${1 - i * 0.1})`;
+          document.body.appendChild(afterimage);
+          afterimages.push(afterimage);
+        }
+        
+        const duration = 800;
+        const startTime = performance.now();
+        
+        function animate(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easeProgress = easeInOutCubic(progress);
+          
+          const t = easeProgress;
+          const x = (1 - t) * (1 - t) * startX + 2 * (1 - t) * t * controlX + t * t * endX;
+          const y = (1 - t) * (1 - t) * startY + 2 * (1 - t) * t * controlY + t * t * endY;
+          
+          const scale = 1 - t * 0.6;
+          const rotate = t * 360;
+          
+          flyingImg.style.left = `${x - 40}px`;
+          flyingImg.style.top = `${y - 40}px`;
+          flyingImg.style.transform = `scale(${scale}) rotate(${rotate}deg)`;
+          flyingImg.style.opacity = (1 - t * 0.3).toString();
+          
+          afterimages.forEach((afterimage, i) => {
+            const delay = (i + 1) * 0.08;
+            const afterProgress = Math.max(0, easeProgress - delay);
+            const afterT = afterProgress;
+            const ax = (1 - afterT) * (1 - afterT) * startX + 2 * (1 - afterT) * afterT * controlX + afterT * afterT * endX;
+            const ay = (1 - afterT) * (1 - afterT) * startY + 2 * (1 - afterT) * afterT * controlY + afterT * afterT * endY;
+            
+            afterimage.style.left = `${ax - 40}px`;
+            afterimage.style.top = `${ay - 40}px`;
+            afterimage.style.transform = `scale(${(1 - afterT * 0.6) * (1 - i * 0.1)})`;
+            afterimage.style.opacity = ((0.5 - i * 0.1) * (1 - afterT)).toString();
+          });
+          
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            document.body.removeChild(flyingImg);
+            afterimages.forEach(a => document.body.removeChild(a));
+            
+            if (cartIcon && !cartIcon.classList.contains('bounce-animation')) {
+              cartIcon.classList.add('bounce-animation');
+              setTimeout(() => {
+                cartIcon.classList.remove('bounce-animation');
+              }, 600);
+            }
+            
+            const badge = cartIcon?.querySelector('.cart-badge');
+            if (badge) {
+              badge.classList.add('pop-animation');
+              setTimeout(() => {
+                badge.classList.remove('pop-animation');
+              }, 500);
+            }
+            
+            isAnimating = false;
+          }
+        }
+        
+        requestAnimationFrame(animate);
+      }
+      
+      function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+      
+      window.animateAddToCart = animateAddToCart;
+    </script>
+    <style>
+      .cart-icon-wrapper {
+        position: relative;
+        transition: transform 0.3s ease;
+      }
+      
+      .cart-icon-wrapper.bounce-animation {
+        animation: bounce 0.6s ease;
+      }
+      
+      .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: scale(1);
+        transition: transform 0.2s ease;
+      }
+      
+      .cart-badge.pop-animation {
+        animation: pop 0.5s ease;
+      }
+      
+      @keyframes bounce {
+        0% { transform: scale(1); }
+        30% { transform: scale(1.3); }
+        50% { transform: scale(0.9); }
+        70% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+      }
+      
+      @keyframes pop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.4); }
+        100% { transform: scale(1); }
+      }
+    </style>
+  </body>
+</html>
