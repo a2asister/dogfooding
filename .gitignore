@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+dist-ssr/
+*.tsbuildinfo
+
+# Egg.js
+server/app/public/
+server/logs/
+server/run/
+
+# Astro
+client/dist/
+client/.astro/
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Cache
+.cache/
+.tmp/
