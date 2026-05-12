@@ -1,0 +1,40 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateFileInput {
+  filename: String!
+  mimeType: String!
+  originalName: String!
+  size: Float!
+  totalChunks: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type FileEntity {
+  createdAt: DateTime!
+  filePath: String!
+  filename: String!
+  id: ID!
+  mimeType: String!
+  originalName: String!
+  size: Float!
+  status: String!
+  totalChunks: Float!
+  uploadedChunks: Float!
+}
+
+type Mutation {
+  createFile(input: CreateFileInput!): FileEntity!
+  deleteFile(id: String!): Boolean!
+}
+
+type Query {
+  file(id: String!): FileEntity
+  files: [FileEntity!]!
+  uploadProgress(id: String!): Int!
+}
