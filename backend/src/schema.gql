@@ -1,0 +1,90 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Color {
+  hex: String!
+  hsl: ColorHsl!
+  position: ColorPosition
+  rgb: ColorRgb!
+}
+
+type ColorHsl {
+  h: Float!
+  l: Float!
+  s: Float!
+}
+
+type ColorPalette {
+  colors: [Color!]!
+  name: String!
+  relationships: [ColorRelationship!]
+  type: String!
+}
+
+type ColorPosition {
+  x: Float!
+  y: Float!
+}
+
+type ColorRelationship {
+  color1: String!
+  color2: String!
+  strength: Float!
+  type: String!
+}
+
+type ColorRgb {
+  b: Float!
+  g: Float!
+  r: Float!
+}
+
+type ColorStatistics {
+  brightness: Float!
+  contrast: Float!
+  saturation: Float!
+  warmth: Float!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ImageAnalysisResult {
+  colors: [Color!]!
+  dominantColor: Color!
+  statistics: ColorStatistics!
+}
+
+type Mutation {
+  deletePalette(id: String!): Boolean!
+  extractColorsFromImage(base64Image: String!, colorCount: Float! = 5): ImageAnalysisResult!
+  savePalette(input: SavePaletteInput!): Palette!
+}
+
+type Palette {
+  colors: [String!]!
+  createdAt: DateTime!
+  emotion: String
+  id: ID!
+  name: String!
+  thumbnail: String
+  type: String
+}
+
+type Query {
+  generateAnalogousPalette(baseColor: String!): ColorPalette!
+  generateComplementaryPalette(baseColor: String!): ColorPalette!
+  generateEmotionalPalette(emotion: String!): ColorPalette!
+  generateTriadicPalette(baseColor: String!): ColorPalette!
+  getSavedPalettes: [Palette!]!
+}
+
+input SavePaletteInput {
+  colors: [String!]!
+  emotion: String
+  name: String!
+  type: String
+}
