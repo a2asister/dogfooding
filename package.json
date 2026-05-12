@@ -1,0 +1,20 @@
+{
+  "name": "kanban-app",
+  "version": "1.0.0",
+  "description": "Kanban board application with Vue2, TypeScript, NestJS, SQLite, and GraphQL",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\" --kill-others-on-fail",
+    "dev:frontend": "cd frontend && npm run serve",
+    "dev:backend": "cd backend && npm run start:dev",
+    "build": "cd frontend && npm run build && cd ../backend && npm run build",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

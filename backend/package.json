@@ -1,0 +1,37 @@
+{
+  "name": "kanban-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch"
+  },
+  "dependencies": {
+    "@nestjs/common": "^9.4.0",
+    "@nestjs/core": "^9.4.0",
+    "@nestjs/graphql": "^11.0.6",
+    "@nestjs/apollo": "^11.0.6",
+    "@nestjs/platform-express": "^9.4.0",
+    "@nestjs/typeorm": "^9.0.1",
+    "@nestjs/websockets": "^9.4.0",
+    "@nestjs/platform-socket.io": "^9.4.0",
+    "apollo-server-express": "^3.12.0",
+    "graphql": "^16.6.0",
+    "graphql-subscriptions": "^2.0.0",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.0",
+    "sqlite3": "^5.1.6",
+    "typeorm": "^0.3.15"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^9.4.2",
+    "@nestjs/schematics": "^9.1.0",
+    "@types/node": "^18.15.11",
+    "rimraf": "^5.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}

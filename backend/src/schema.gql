@@ -1,0 +1,67 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateTaskInput {
+  description: String
+  order: Float
+  priority: TaskPriority
+  status: TaskStatus
+  title: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createTask(createTaskInput: CreateTaskInput!): Task!
+  removeTask(id: ID!): Task!
+  updateTask(updateTaskInput: UpdateTaskInput!): Task!
+}
+
+type Query {
+  task(id: ID!): Task!
+  tasks: [Task!]!
+  tasksByStatus(status: TaskStatus!): [Task!]!
+}
+
+type Subscription {
+  taskCreated: Task!
+  taskDeleted: Task!
+  taskUpdated: Task!
+}
+
+type Task {
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  order: Float!
+  priority: TaskPriority!
+  status: TaskStatus!
+  title: String!
+  updatedAt: DateTime!
+}
+
+enum TaskPriority {
+  HIGH
+  LOW
+  MEDIUM
+}
+
+enum TaskStatus {
+  DONE
+  IN_PROGRESS
+  REVIEW
+  TODO
+}
+
+input UpdateTaskInput {
+  description: String
+  id: ID!
+  order: Float
+  priority: TaskPriority
+  status: TaskStatus
+  title: String
+}
