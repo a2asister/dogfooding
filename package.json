@@ -1,0 +1,20 @@
+{
+  "name": "3d-flowchart-editor",
+  "version": "1.0.0",
+  "description": "3D节点式流程图动态编辑器",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run start:dev",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "cd client && vite build",
+    "build:server": "cd server && npm run build",
+    "lint": "npm run lint:client && npm run lint:server",
+    "lint:client": "cd client && eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "lint:server": "cd server && eslint . --ext .ts --fix"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

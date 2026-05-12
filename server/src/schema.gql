@@ -1,0 +1,55 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Flowchart {
+  id: ID!
+  name: String!
+  nodes: String!
+  connections: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  flowcharts: [Flowchart!]!
+  flowchart(id: String!): Flowchart!
+}
+
+type Mutation {
+  saveFlowchart(data: FlowchartInput!): Flowchart!
+  deleteFlowchart(id: String!): Boolean!
+}
+
+input FlowchartInput {
+  id: String
+  name: String!
+  nodes: [NodeInput!]!
+  connections: [ConnectionInput!]!
+}
+
+input NodeInput {
+  id: String!
+  name: String!
+  type: String!
+  position: NodePositionInput!
+  collapsed: Boolean!
+  children: [String!]!
+}
+
+input NodePositionInput {
+  x: Float!
+  y: Float!
+  z: Float!
+}
+
+input ConnectionInput {
+  id: String!
+  from: String!
+  to: String!
+}
