@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AssetProviderWrapper from '../components/AssetProviderWrapper';
+---
+
+<Layout title="资产配置可视化">
+  <main class="container">
+    <h1>资产配置可视化</h1>
+    <AssetProviderWrapper client:load />
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  @media (max-width: 1200px) {
+    .container :global(div[style*="grid-template-columns"]) {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
