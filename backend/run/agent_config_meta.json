@@ -1,0 +1,318 @@
+{
+  "keys": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+  "middleware": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+  "sequelize": {
+    "dialect": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+    "storage": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+    "dialectOptions": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+    "define": {
+      "timestamps": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+      "underscored": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js"
+    },
+    "database": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-sequelize\\config\\config.default.js",
+    "host": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-sequelize\\config\\config.default.js",
+    "port": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-sequelize\\config\\config.default.js",
+    "username": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-sequelize\\config\\config.default.js",
+    "password": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-sequelize\\config\\config.default.js"
+  },
+  "graphql": {
+    "router": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+    "app": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+    "agent": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+    "defaultEmptySchema": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js"
+  },
+  "cors": {
+    "origin": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+    "allowMethods": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+    "credentials": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js"
+  },
+  "security": {
+    "csrf": {
+      "enable": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+      "type": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "ignoreJSON": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "useSession": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "cookieName": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "sessionName": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "headerName": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "bodyName": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "queryName": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "rotateWhenInvalid": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "supportedRequests": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "refererWhiteList": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "cookieOptions": {
+        "signed": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+      }
+    },
+    "methodnoallow": {
+      "enable": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js"
+    },
+    "domainWhiteList": "D:\\projects\\dogfooding3\\backend\\config\\config.default.js",
+    "protocolWhiteList": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+    "defaultMiddleware": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+    "xframe": {
+      "enable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "value": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "hsts": {
+      "enable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.local.js",
+      "maxAge": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "includeSubdomains": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "dta": {
+      "enable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "noopen": {
+      "enable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "nosniff": {
+      "enable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "referrerPolicy": {
+      "enable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "value": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "xssProtection": {
+      "enable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "value": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "csp": {
+      "enable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "policy": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+    },
+    "ssrf": {
+      "ipBlackList": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "ipExceptionList": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "hostnameExceptionList": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js",
+      "checkAddress": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+    }
+  },
+  "session": {
+    "maxAge": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-session\\config\\config.default.js",
+    "key": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-session\\config\\config.default.js",
+    "httpOnly": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-session\\config\\config.default.js",
+    "encrypt": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-session\\config\\config.default.js",
+    "logValue": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-session\\config\\config.default.js"
+  },
+  "helper": {
+    "shtml": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-security\\config\\config.default.js"
+  },
+  "jsonp": {
+    "limit": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-jsonp\\config\\config.default.js",
+    "callback": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-jsonp\\config\\config.default.js",
+    "csrf": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-jsonp\\config\\config.default.js"
+  },
+  "onerror": {
+    "errorPageUrl": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-onerror\\config\\config.default.js",
+    "appErrorFilter": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-onerror\\config\\config.default.js",
+    "templatePath": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-onerror\\config\\config.default.js"
+  },
+  "i18n": {
+    "defaultLocale": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-i18n\\config\\config.default.js",
+    "dirs": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-i18n\\config\\config.default.js",
+    "queryField": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-i18n\\config\\config.default.js",
+    "cookieField": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-i18n\\config\\config.default.js",
+    "cookieDomain": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-i18n\\config\\config.default.js",
+    "cookieMaxAge": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-i18n\\config\\config.default.js"
+  },
+  "watcher": {
+    "type": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-watcher\\config\\config.local.js",
+    "eventSources": {
+      "default": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-watcher\\config\\config.default.js",
+      "development": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-watcher\\config\\config.default.js"
+    }
+  },
+  "customLogger": {
+    "scheduleLogger": {
+      "consoleLevel": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-schedule\\config\\config.default.js",
+      "file": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-schedule\\config\\config.default.js"
+    }
+  },
+  "schedule": {
+    "directory": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-schedule\\config\\config.default.js"
+  },
+  "multipart": {
+    "mode": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "autoFields": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "defaultCharset": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "defaultParamCharset": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fieldNameSize": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fieldSize": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fields": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fileSize": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "files": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "fileExtensions": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "whitelist": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "allowArrayField": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "tmpdir": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+    "cleanSchedule": {
+      "cron": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js",
+      "disable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-multipart\\config\\config.default.js"
+    }
+  },
+  "development": {
+    "watchDirs": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-development\\config\\config.default.js",
+    "ignoreDirs": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-development\\config\\config.default.js",
+    "fastReady": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-development\\config\\config.default.js",
+    "reloadOnDebug": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-development\\config\\config.default.js",
+    "overrideDefault": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-development\\config\\config.default.js",
+    "overrideIgnore": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-development\\config\\config.default.js"
+  },
+  "logrotator": {
+    "filesRotateByHour": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "hourDelimiter": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "filesRotateBySize": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "maxFileSize": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "maxFiles": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "rotateDuration": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-logrotator\\config\\config.default.js",
+    "maxDays": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-logrotator\\config\\config.default.js"
+  },
+  "static": {
+    "prefix": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-static\\config\\config.default.js",
+    "dir": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-static\\config\\config.default.js",
+    "dynamic": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-static\\config\\config.default.js",
+    "preload": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-static\\config\\config.default.js",
+    "buffer": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-static\\config\\config.default.js",
+    "maxFiles": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-static\\config\\config.default.js"
+  },
+  "view": {
+    "root": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-view\\config\\config.default.js",
+    "cache": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-view\\config\\config.local.js",
+    "defaultExtension": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-view\\config\\config.default.js",
+    "defaultViewEngine": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-view\\config\\config.default.js",
+    "mapping": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg-view\\config\\config.default.js"
+  },
+  "env": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "name": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "cookies": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "proxy": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "maxIpsCount": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "maxProxyCount": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "protocolHeaders": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "ipHeaders": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "hostHeaders": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "pkg": {
+    "name": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "version": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "description": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "private": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "egg": {
+      "declarations": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+    },
+    "dependencies": {
+      "egg": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "egg-cors": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "egg-graphql": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "egg-scripts": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "sequelize": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "sqlite3": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "egg-sequelize": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+    },
+    "devDependencies": {
+      "egg-bin": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "egg-mock": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+    },
+    "scripts": {
+      "dev": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "start": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "stop": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+    }
+  },
+  "baseDir": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "HOME": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "rundir": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "dump": {
+    "ignore": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "timing": {
+      "slowBootActionMinDuration": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+    }
+  },
+  "confusedConfigurations": {
+    "bodyparser": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "notFound": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "sitefile": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "middlewares": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "httpClient": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+  },
+  "notfound": {
+    "pageUrl": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+  },
+  "siteFile": {
+    "/favicon.ico": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "cacheControl": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+  },
+  "bodyParser": {
+    "enable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "encoding": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "formLimit": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "jsonLimit": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "textLimit": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "strict": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "queryString": {
+      "arrayLimit": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "depth": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "parameterLimit": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+    },
+    "onerror": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+  },
+  "logger": {
+    "dir": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "encoding": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "env": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "level": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "consoleLevel": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "disableConsoleAfterReady": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "outputJSON": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "buffer": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "appLogName": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "coreLogName": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "agentLogName": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "errorLogName": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "coreLogger": {
+      "consoleLevel": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.local.js"
+    },
+    "allowDebugAtProd": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "enablePerformanceTimer": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "enableFastContextLogger": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+  },
+  "httpclient": {
+    "enableDNSCache": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "dnsCacheLookupInterval": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "dnsCacheMaxLength": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "request": {
+      "timeout": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+    },
+    "httpAgent": {
+      "keepAlive": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "freeSocketTimeout": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "maxSockets": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "maxFreeSockets": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+    },
+    "httpsAgent": {
+      "keepAlive": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "freeSocketTimeout": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "maxSockets": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "maxFreeSockets": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+    },
+    "useHttpClientNext": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+  },
+  "meta": {
+    "enable": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "logging": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+  },
+  "coreMiddleware": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "workerStartTimeout": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "serverTimeout": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+  "cluster": {
+    "listen": {
+      "path": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "port": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+      "hostname": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+    }
+  },
+  "clusterClient": {
+    "maxWaitTime": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js",
+    "responseTimeout": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+  },
+  "onClientError": "D:\\projects\\dogfooding3\\backend\\node_modules\\egg\\config\\config.default.js"
+}

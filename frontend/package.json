@@ -1,0 +1,22 @@
+{
+  "name": "learning-progress-frontend",
+  "version": "1.0.0",
+  "description": "学习进度追踪前端",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 45678",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "solid-js": "^1.8.12",
+    "@apollo/client": "^3.8.8",
+    "graphql": "^16.8.1",
+    "@solidjs/router": "^0.10.5"
+  },
+  "devDependencies": {
+    "vite": "^5.0.10",
+    "vite-plugin-solid": "^2.8.0",
+    "typescript": "^5.3.3"
+  }
+}

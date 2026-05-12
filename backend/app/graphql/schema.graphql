@@ -1,0 +1,52 @@
+type Course {
+  id: Int!
+  name: String!
+  subject: String!
+  totalLessons: Int!
+  completedLessons: Int!
+  isCompleted: Boolean!
+  progress: Float!
+}
+
+type SubjectProgress {
+  subject: String!
+  totalCourses: Int!
+  completedCourses: Int!
+  totalLessons: Int!
+  completedLessons: Int!
+  progress: Float!
+  courses: [Course!]!
+}
+
+type OverallProgress {
+  totalCourses: Int!
+  completedCourses: Int!
+  totalLessons: Int!
+  completedLessons: Int!
+  progress: Float!
+  subjects: [SubjectProgress!]!
+}
+
+type Query {
+  courses: [Course!]!
+  course(id: Int!): Course
+  overallProgress: OverallProgress!
+  subjectProgress(subject: String!): SubjectProgress
+}
+
+type Mutation {
+  createCourse(
+    name: String!
+    subject: String!
+    totalLessons: Int!
+  ): Course!
+
+  updateCourseProgress(
+    id: Int!
+    completedLessons: Int!
+  ): Course!
+
+  markCourseComplete(id: Int!): Course!
+
+  deleteCourse(id: Int!): Boolean!
+}
