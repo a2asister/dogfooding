@@ -1,0 +1,37 @@
+[
+  {
+    "command": "help",
+    "response": "Available Commands:\n====================\nhelp     - Show this help message\nclear    - Clear the terminal\nwhoami   - Display current user\ndate     - Show current date and time\nls       - List files\nabout    - About this terminal\necho     - Echo a message\nneofetch - System information",
+    "isError": false
+  },
+  {
+    "command": "clear",
+    "response": "[CLEAR]",
+    "isError": false
+  },
+  {
+    "command": "whoami",
+    "response": "guest@crt-terminal",
+    "isError": false
+  },
+  {
+    "command": "date",
+    "response": "[DATE]",
+    "isError": false
+  },
+  {
+    "command": "ls",
+    "response": "total 8\ndrwxr-xr-x  4 guest  guest  128 May 12 10:00 .\ndrwxr-xr-x  4 guest  guest  128 May 12 10:00 ..\n-rw-r--r--  1 guest  guest  512 May 12 10:00 readme.txt\n-rw-r--r--  1 guest  guest  256 May 12 10:00 config.json\ndrwxr-xr-x  2 guest  guest   64 May 12 10:00 docs/\ndrwxr-xr-x  2 guest  guest   64 May 12 10:00 src/",
+    "isError": false
+  },
+  {
+    "command": "about",
+    "response": "CRT Terminal v1.0.0\n===================\nA retro CRT terminal emulator\nBuilt with Vue2 + TypeScript + NestJS + SQLite\nFeatures:\n- Scanline effects\n- Screen curvature\n- Color bleeding\n- Typing animations\n- Blinking cursor with glow",
+    "isError": false
+  },
+  {
+    "command": "neofetch",
+    "response": "        .--.         guest@crt-terminal\n       |o_o |        -----------------\n       |:_/ |        OS: Retro CRT OS\n      //   \\ \\       Host: Virtual Machine\n     (|     | )      Kernel: Classic 1.0\n     /'\\_   _/`\\     Shell: CRT-SH\n     \\___)=(___/     Terminal: CRT-Emulator\n                      CPU: Vintage Processor\n                      Memory: 640K / 640K",
+    "isError": false
+  }
+]
