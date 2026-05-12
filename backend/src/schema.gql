@@ -1,0 +1,44 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ApprovalNode {
+  approvedAt: DateTime
+  approver: String
+  comment: String
+  id: ID!
+  name: String!
+  order: Float!
+  role: String!
+  status: String!
+}
+
+type ApprovalProcess {
+  description: String!
+  id: ID!
+  name: String!
+  nodes: [ApprovalNode!]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createSampleApprovalProcess: ApprovalProcess!
+  updateApproval(input: UpdateApprovalInput!): ApprovalNode!
+}
+
+type Query {
+  approvalProcess(id: ID!): ApprovalProcess
+  approvalProcesses: [ApprovalProcess!]!
+  checkPermission(nodeRole: String!, userRole: String!): Boolean!
+}
+
+input UpdateApprovalInput {
+  action: String!
+  approver: String!
+  comment: String
+  nodeId: ID!
+}
