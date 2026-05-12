@@ -1,0 +1,179 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  min-height: 100vh;
+  color: #e0e0e0;
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+    opacity: 1;
+  }
+  50% {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmerBorder {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes typingIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.code-char {
+  display: inline-block;
+  animation: typingIn 0.1s ease-out forwards;
+}
+
+.code-char.glowing {
+  animation: typingIn 0.1s ease-out forwards, glow 1.5s ease-in-out;
+}
+
+.token-keyword {
+  color: #c678dd;
+  transition: color 0.3s ease;
+}
+
+.token-string {
+  color: #98c379;
+  transition: color 0.3s ease;
+}
+
+.token-comment {
+  color: #5c6370;
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+.token-function {
+  color: #61afef;
+  transition: color 0.3s ease;
+}
+
+.token-number {
+  color: #d19a66;
+  transition: color 0.3s ease;
+}
+
+.token-operator {
+  color: #56b6c2;
+  transition: color 0.3s ease;
+}
+
+.token-punctuation {
+  color: #abb2bf;
+  transition: color 0.3s ease;
+}
+
+.token-text {
+  color: #e5e9f0;
+  transition: color 0.3s ease;
+}
+
+.code-line {
+  position: relative;
+  padding: 2px 8px;
+  margin: 1px 0;
+  line-height: 1.6;
+  transition: background-color 0.2s ease;
+  color: #e5e9f0;
+}
+
+.code-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: transparent;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.code-line.selected::before {
+  background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+  background-size: 200% 100%;
+  animation: shimmerBorder 2s linear infinite;
+  box-shadow: 0 0 10px #667eea, 0 0 20px #764ba2;
+}
+
+.code-line:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.copy-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.copy-btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: ripple 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+.flip-container {
+  perspective: 1500px;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+
+.flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+}
+
+.flip-back {
+  transform: rotateY(180deg);
+}
