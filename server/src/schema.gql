@@ -1,0 +1,53 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Config {
+  createdAt: DateTime!
+  description: String
+  enabled: Boolean!
+  group: String!
+  id: ID!
+  name: String!
+  type: String!
+  updatedAt: DateTime!
+  value: String!
+}
+
+input CreateConfigInput {
+  description: String
+  enabled: Boolean! = false
+  group: String!
+  name: String!
+  type: String!
+  value: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createConfig(input: CreateConfigInput!): Config!
+  deleteConfig(id: ID!): Boolean!
+  importConfigs(jsonString: String!): [Config!]!
+  updateConfig(input: UpdateConfigInput!): Config!
+}
+
+type Query {
+  config(id: ID!): Config!
+  configs: [Config!]!
+  configsByGroup(group: String!): [Config!]!
+  exportConfigs: String!
+}
+
+input UpdateConfigInput {
+  description: String
+  enabled: Boolean
+  group: String
+  id: ID!
+  name: String
+  type: String
+  value: String
+}
