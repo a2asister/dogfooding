@@ -1,0 +1,33 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Log {
+  id: ID!
+  title: String!
+  content: String!
+  category: String!
+  createdAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  logs: [Log!]!
+  log(id: ID!): Log!
+  logsByCategory(category: String!): [Log!]!
+}
+
+type Mutation {
+  createLog(createLogInput: CreateLogInput!): Log!
+  removeLog(id: ID!): Log!
+}
+
+input CreateLogInput {
+  title: String!
+  content: String!
+  category: String!
+}
