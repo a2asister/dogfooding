@@ -1,0 +1,85 @@
+{
+  "hash": "b9efa60c",
+  "configHash": "64701b06",
+  "lockfileHash": "83ab2517",
+  "browserHash": "b839323c",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "342a82c8",
+      "needsInterop": false
+    },
+    "@angular/common/http": {
+      "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
+      "file": "@angular_common_http.js",
+      "fileHash": "9db74a1c",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "e06891a1",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "e72dbd70",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "b0f35d94",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "78e7d503",
+      "needsInterop": false
+    },
+    "@apollo/client/core": {
+      "src": "../../../../../node_modules/@apollo/client/core/index.js",
+      "file": "@apollo_client_core.js",
+      "fileHash": "abd4e099",
+      "needsInterop": false
+    },
+    "apollo-angular": {
+      "src": "../../../../../node_modules/apollo-angular/fesm2022/ngApollo.mjs",
+      "file": "apollo-angular.js",
+      "fileHash": "41e5a7b1",
+      "needsInterop": false
+    },
+    "rxjs": {
+      "src": "../../../../../node_modules/rxjs/dist/esm5/index.js",
+      "file": "rxjs.js",
+      "fileHash": "78b6da2c",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-4Q6JY7SM": {
+      "file": "chunk-4Q6JY7SM.js"
+    },
+    "chunk-YTGIBB47": {
+      "file": "chunk-YTGIBB47.js"
+    },
+    "chunk-HMUGN7KU": {
+      "file": "chunk-HMUGN7KU.js"
+    },
+    "chunk-AOUAEWGF": {
+      "file": "chunk-AOUAEWGF.js"
+    },
+    "chunk-I5HHMIX5": {
+      "file": "chunk-I5HHMIX5.js"
+    },
+    "chunk-QLJGG54J": {
+      "file": "chunk-QLJGG54J.js"
+    },
+    "chunk-DXSXPOD3": {
+      "file": "chunk-DXSXPOD3.js"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createProject(name: String!): Project!
+  createSubtitle(animationType: String, color: String, endTime: Float!, fontFamily: String, fontSize: Int, projectId: ID!, startTime: Float!, text: String!): Subtitle!
+  deleteProject(id: ID!): Boolean!
+  deleteSubtitle(id: ID!): Boolean!
+  exportVideo(format: String, projectId: ID!): String!
+  updateProject(backgroundColor: String, id: ID!, name: String, videoHeight: Float, videoWidth: Float): Project!
+  updateSubtitle(animationType: String, color: String, endTime: Float, fontFamily: String, fontSize: Int, id: ID!, startTime: Float, text: String): Subtitle!
+}
+
+type Project {
+  audioFile: String
+  backgroundColor: String
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  subtitles: [Subtitle!]
+  videoHeight: Float
+  videoWidth: Float
+}
+
+type Query {
+  project(id: ID!): Project!
+  projects: [Project!]!
+  subtitles(projectId: ID!): [Subtitle!]!
+}
+
+type Subtitle {
+  animationType: String
+  color: String
+  endTime: Float!
+  fontFamily: String
+  fontSize: Int
+  id: ID!
+  projectId: ID!
+  startTime: Float!
+  text: String!
+}

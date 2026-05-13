@@ -1,0 +1,114 @@
+<div class="app-container">
+  <header class="header">
+    <h1>🎵 动态字幕律动视频生成器</h1>
+    <p>让字幕跟随音乐跳动起来！</p>
+  </header>
+
+  <div class="main-content">
+    <aside class="sidebar">
+      <div class="section">
+        <h3>项目列表</h3>
+        <div class="create-project">
+          <input
+            [(ngModel)]="newProjectName"
+            placeholder="新项目名称"
+            (keyup.enter)="createProject()"
+          />
+          <button (click)="createProject()" class="btn-primary">创建</button>
+        </div>
+        <div class="project-list">
+          <div
+            *ngFor="let project of projects"
+            class="project-item"
+            [class.active]="selectedProject?.id === project.id"
+            (click)="selectProject(project)"
+          >
+            <span class="project-name">{{ project.name }}</span>
+            <span class="project-date">{{ project.createdAt | date:'MM-dd' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" *ngIf="selectedProject">
+        <h3>字幕管理</h3>
+        <div class="subtitle-form">
+          <input
+            [(ngModel)]="newSubtitleText"
+            placeholder="字幕文本"
+          />
+          <div class="time-inputs">
+            <input
+              [(ngModel)]="newStartTime"
+              type="number"
+              step="0.1"
+              placeholder="开始时间"
+            />
+            <input
+              [(ngModel)]="newEndTime"
+              type="number"
+              step="0.1"
+              placeholder="结束时间"
+            />
+          </div>
+          <select [(ngModel)]="selectedAnimationType">
+            <option *ngFor="let type of animationTypes" [value]="type.value">
+              {{ type.label }}
+            </option>
+          </select>
+          <button (click)="addSubtitle()" class="btn-secondary">添加字幕</button>
+        </div>
+
+        <div class="subtitle-list" *ngIf="selectedProject.subtitles?.length">
+          <div *ngFor="let sub of selectedProject.subtitles" class="subtitle-item">
+            <span class="subtitle-text">{{ sub.text }}</span>
+            <span class="subtitle-time">{{ sub.startTime }}s - {{ sub.endTime }}s</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="preview-area">
+      <div class="canvas-container" *ngIf="selectedProject">
+        <canvas
+          #canvas
+          [width]="selectedProject.videoWidth || 1080"
+          [height]="selectedProject.videoHeight || 1920"
+        ></canvas>
+        
+        <audio #audioElement (ended)="stopAudio()"></audio>
+      </div>
+
+      <div class="controls" *ngIf="selectedProject">
+        <div class="audio-upload">
+          <label class="file-label">
+            <input type="file" accept="audio/*" (change)="onFileSelected($event)" />
+            📁 上传音频
+          </label>
+        </div>
+
+        <div class="playback-controls">
+          <button (click)="togglePlay()" class="btn-play">
+            {{ isPlaying ? '⏸ 暂停' : '▶ 播放' }}
+          </button>
+          <button (click)="stopAudio()" class="btn-stop">⏹ 停止</button>
+        </div>
+
+        <div class="audio-visualizer">
+          <div class="bar" [style.height.%]="audioData.bass / 2.55"></div>
+          <div class="bar" [style.height.%]="audioData.mid / 2.55"></div>
+          <div class="bar" [style.height.%]="audioData.high / 2.55"></div>
+          <div class="bar energy" [style.height.%]="audioData.energy / 2.55"></div>
+        </div>
+
+        <div class="time-display">
+          当前时间: {{ currentTime.toFixed(2) }}s
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="!selectedProject">
+        <div class="empty-icon">🎬</div>
+        <p>选择或创建一个项目开始制作</p>
+      </div>
+    </main>
+  </div>
+</div>
