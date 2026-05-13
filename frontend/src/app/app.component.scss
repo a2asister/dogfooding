@@ -1,0 +1,157 @@
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.header {
+  text-align: center;
+  padding: 32px 20px;
+  color: white;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 0 0 24px 0;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.5px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.mode-btn,
+.refresh-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  &.active {
+    background: white;
+    color: #667eea;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.hint {
+  font-size: 14px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-height: 600px;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  gap: 16px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  perspective: 2000px;
+  transform-style: preserve-3d;
+  max-width: 1200px;
+}
+
+.skill-card-item {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.grid-mode {
+  .skill-card-item {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .skill-card-item:nth-child(1) { animation-delay: 0.1s; }
+  .skill-card-item:nth-child(2) { animation-delay: 0.2s; }
+  .skill-card-item:nth-child(3) { animation-delay: 0.3s; }
+  .skill-card-item:nth-child(4) { animation-delay: 0.4s; }
+  .skill-card-item:nth-child(5) { animation-delay: 0.5s; }
+  .skill-card-item:nth-child(6) { animation-delay: 0.6s; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stack-mode {
+  position: relative;
+  min-height: 400px;
+  min-width: 300px;
+}
+
+.mode-3d {
+  transform-style: preserve-3d;
+  animation: rotate3d 20s linear infinite;
+}
+
+@keyframes rotate3d {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.footer {
+  text-align: center;
+  padding: 24px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+}

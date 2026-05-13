@@ -1,0 +1,26 @@
+<div class="card-container" (click)="toggleFlip()">
+  <div
+    class="card"
+    [style.transform]="getCardTransform()"
+    [style.background]="getCardBackground()"
+    [style.transition]="getCardTransition()"
+  >
+    <div class="card-front">
+      <div class="card-icon" *ngIf="skill.icon">{{ skill.icon }}</div>
+      <h3 class="card-name">{{ skill.name }}</h3>
+      <div class="proficiency-bar">
+        <div class="proficiency-fill" [style.width.%]="skill.proficiency"></div>
+      </div>
+      <p class="proficiency-text">{{ skill.proficiency }}%</p>
+      <span class="card-category" *ngIf="skill.category">{{ skill.category }}</span>
+    </div>
+    <div class="card-back">
+      <h4 class="back-title">{{ skill.name }}</h4>
+      <p class="back-description" *ngIf="skill.description">{{ skill.description }}</p>
+      <div class="back-stats">
+        <span class="stat-item">熟练度: {{ skill.proficiency }}%</span>
+        <span class="stat-item" *ngIf="skill.category">分类: {{ skill.category }}</span>
+      </div>
+    </div>
+  </div>
+</div>

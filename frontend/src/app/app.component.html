@@ -1,0 +1,45 @@
+<div class="app-container">
+  <header class="header">
+    <h1 class="title">{{ title }}</h1>
+    <div class="controls">
+      <button
+        *ngFor="let mode of viewModes"
+        class="mode-btn"
+        [class.active]="viewMode === mode.value"
+        (click)="setViewMode(mode.value)"
+      >
+        {{ mode.label }}
+      </button>
+      <button class="refresh-btn" (click)="refreshSkills()">
+        🔄 重置
+      </button>
+    </div>
+    <p class="hint">💡 点击卡片翻转 | 拖拽卡片移动 | 支持物理动画效果</p>
+  </header>
+
+  <main class="main-content">
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner"></div>
+      <p>加载中...</p>
+    </div>
+
+    <div
+      class="cards-container"
+      [class.grid-mode]="viewMode === 'grid'"
+      [class.stack-mode]="viewMode === 'stack'"
+      [class.mode-3d]="viewMode === '3d'"
+      *ngIf="!isLoading"
+    >
+      <app-skill-card
+        *ngFor="let skill of skills; let i = index"
+        [skill]="skill"
+        class="skill-card-item"
+        [style.z-index]="i + 1"
+      ></app-skill-card>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>3D魔方式技能卡片展示系统 - Angular + NestJS + GraphQL</p>
+  </footer>
+</div>

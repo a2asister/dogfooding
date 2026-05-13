@@ -1,0 +1,87 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type CardStyleConfig {
+  animationDuration: Float!
+  borderRadius: Float!
+  cardHeight: Float!
+  cardWidth: Float!
+  enableReflection: Boolean!
+  enableShadow: Boolean!
+  id: Int!
+  scaleOnHover: Float!
+  spacing: Float!
+  userId: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createSkill(category: String, description: String, icon: String, name: String!, primaryColor: String, proficiency: Int, secondaryColor: String, userId: Int!): Skill!
+  createUser(avatar: String, username: String!): User!
+  deleteSkill(id: Int!): Boolean!
+  recordVisit(userAgent: String, userId: Int!, visitorIp: String): VisitRecord!
+  saveCardStyleConfig(animationDuration: Int, borderRadius: Int, cardHeight: Int, cardWidth: Int, enableReflection: Boolean, enableShadow: Boolean, scaleOnHover: Float, spacing: Int, userId: Int!): CardStyleConfig!
+  togglePrivacy(id: Int!, isPublic: Boolean!): User
+  updateSkill(category: String, description: String, icon: String, id: Int!, name: String, primaryColor: String, proficiency: Int, secondaryColor: String): Skill
+  updateSkillPositions(skills: String!): [Skill!]!
+  updateUser(avatar: String, id: Int!, username: String): User
+}
+
+type ProfileStats {
+  averageProficiency: Int!
+  totalSkills: Int!
+  totalVisits: Int!
+}
+
+type Query {
+  cardStyleConfig(userId: Int!): CardStyleConfig
+  skills(userId: Int!): [Skill!]!
+  user(id: Int!): User
+  userProfile(userAgent: String, userId: Int!, visitorIp: String): UserProfile!
+  userProfileAdmin(userId: Int!): UserProfile!
+  users: [User!]!
+  visitCount(userId: Int!): Int!
+  visitRecords(limit: Int, userId: Int!): [VisitRecord!]!
+}
+
+type Skill {
+  category: String
+  description: String
+  icon: String
+  id: Int!
+  name: String!
+  positionX: Int!
+  positionY: Int!
+  primaryColor: String!
+  proficiency: Int!
+  rotation: Int!
+  secondaryColor: String!
+  userId: Int!
+}
+
+type User {
+  avatar: String
+  id: Int!
+  isPublic: Boolean!
+  username: String!
+}
+
+type UserProfile {
+  skills: [Skill!]!
+  stats: ProfileStats!
+  styleConfig: CardStyleConfig
+  user: User!
+}
+
+type VisitRecord {
+  id: Int!
+  userAgent: String
+  userId: Int!
+  visitedAt: DateTime!
+  visitorIp: String
+}
