@@ -1,0 +1,58 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateFoodInput {
+  calories: Float!
+  carbs: Float!
+  category: String!
+  fat: Float!
+  image: String
+  name: String!
+  protein: Float!
+  unit: String
+}
+
+input CreateMealRecordInput {
+  date: String!
+  foodId: Int!
+  mealType: String!
+  quantity: Float!
+}
+
+type Food {
+  calories: Float!
+  carbs: Float!
+  category: String!
+  fat: Float!
+  id: Int!
+  image: String!
+  name: String!
+  protein: Float!
+  unit: String!
+}
+
+type MealRecord {
+  date: String!
+  food: Food!
+  foodId: Int!
+  id: Int!
+  mealType: String!
+  quantity: Float!
+}
+
+type Mutation {
+  createFood(createFoodInput: CreateFoodInput!): Food!
+  createMealRecord(createMealRecordInput: CreateMealRecordInput!): MealRecord!
+  deleteMealRecord(id: Int!): Boolean!
+}
+
+type Query {
+  food(id: Int!): Food!
+  foodCategories: [String!]!
+  foods: [Food!]!
+  foodsByCategory(category: String!): [Food!]!
+  mealRecords: [MealRecord!]!
+  mealRecordsByDate(date: String!): [MealRecord!]!
+  mealRecordsByDateRange(endDate: String!, startDate: String!): [MealRecord!]!
+}
