@@ -1,0 +1,17 @@
+{
+  "name": "course-client",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev --port 3000",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "three": "^0.160.0",
+    "@types/three": "^0.160.0"
+  },
+  "devDependencies": {
+    "astro": "^4.0.0"
+  }
+}

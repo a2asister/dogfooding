@@ -1,0 +1,19 @@
+{
+  "name": "course-server",
+  "version": "1.0.0",
+  "description": "Egg.js backend for course selector",
+  "private": true,
+  "dependencies": {
+    "egg": "^3.17.5",
+    "egg-sequelize": "^6.0.0",
+    "egg-cors": "^2.2.3",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "egg-bin": "^6.8.0"
+  },
+  "scripts": {
+    "dev": "egg-bin dev --port 7001",
+    "debug": "egg-bin debug"
+  }
+}

@@ -1,0 +1,41 @@
+---
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D 课程选择器</title>
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <h1>🎓 3D 课程选择器</h1>
+      <p>左右滑动旋转立方体查看不同课程</p>
+    </header>
+
+    <div id="tag-cloud" class="tag-cloud"></div>
+
+    <div class="scene-container">
+      <canvas id="cube-canvas"></canvas>
+    </div>
+
+    <div id="course-detail" class="course-detail hidden">
+      <div class="detail-content">
+        <button class="close-btn" id="close-detail">×</button>
+        <img id="detail-cover" src="" alt="课程封面">
+        <h2 id="detail-name"></h2>
+        <div class="detail-info">
+          <span id="detail-instructor"></span>
+          <span id="detail-duration"></span>
+        </div>
+        <p id="detail-description"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
