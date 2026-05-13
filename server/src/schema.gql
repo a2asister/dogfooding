@@ -1,0 +1,147 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Book {
+  author: String!
+  category: String
+  coverImage: String!
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  isPublic: Boolean!
+  pages: [String!]!
+  readingProgresses: [ReadingProgress!]
+  title: String!
+  totalPages: Int!
+  updatedAt: DateTime!
+}
+
+input CreateBookInput {
+  author: String!
+  category: String
+  coverImage: String!
+  description: String
+  isPublic: Boolean! = false
+  pages: [String!]!
+  title: String!
+  totalPages: Int!
+}
+
+input CreateReadingProgressInput {
+  bookId: ID!
+  currentPage: Int! = 0
+  isBookmarked: Boolean! = false
+  userId: ID!
+}
+
+input CreateUserInput {
+  avatar: String
+  nickname: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  """创建画册"""
+  createBook(createBookInput: CreateBookInput!): Book!
+
+  """创建或更新阅读进度"""
+  createReadingProgress(createReadingProgressInput: CreateReadingProgressInput!): ReadingProgress!
+
+  """创建用户"""
+  createUser(createUserInput: CreateUserInput!): User!
+
+  """删除画册"""
+  deleteBook(id: ID!): Boolean!
+
+  """删除阅读进度"""
+  deleteReadingProgress(id: ID!): Boolean!
+
+  """获取或创建用户"""
+  getOrCreateUser(nickname: String, username: String!): User!
+
+  """更新画册"""
+  updateBook(id: ID!, updateBookInput: UpdateBookInput!): Book!
+
+  """更新阅读进度"""
+  updateReadingProgress(id: ID!, updateReadingProgressInput: UpdateReadingProgressInput!): ReadingProgress!
+}
+
+type Query {
+  """获取单个画册"""
+  book(id: ID!): Book!
+
+  """获取用户的书签列表"""
+  bookmarkedBooksByUser(userId: ID!): [ReadingProgress!]!
+
+  """获取所有画册"""
+  books: [Book!]!
+
+  """获取公开画册"""
+  publicBooks: [Book!]!
+
+  """获取单个阅读进度"""
+  readingProgress(id: ID!): ReadingProgress!
+
+  """获取用户某本书的阅读进度"""
+  readingProgressByUserAndBook(bookId: ID!, userId: ID!): ReadingProgress
+
+  """获取所有阅读进度"""
+  readingProgresses: [ReadingProgress!]!
+
+  """获取用户的所有阅读进度"""
+  readingProgressesByUser(userId: ID!): [ReadingProgress!]!
+
+  """搜索画册"""
+  searchBooks(keyword: String!): [Book!]!
+
+  """获取单个用户"""
+  user(id: ID!): User!
+
+  """获取所有用户"""
+  users: [User!]!
+}
+
+type ReadingProgress {
+  book: Book!
+  bookId: String!
+  createdAt: DateTime!
+  currentPage: Int!
+  id: ID!
+  isBookmarked: Boolean!
+  updatedAt: DateTime!
+  user: User!
+  userId: String!
+}
+
+input UpdateBookInput {
+  author: String
+  category: String
+  coverImage: String
+  description: String
+  isPublic: Boolean
+  pages: [String!]
+  title: String
+  totalPages: Int
+}
+
+input UpdateReadingProgressInput {
+  bookId: ID
+  currentPage: Int
+  isBookmarked: Boolean
+  userId: ID
+}
+
+type User {
+  avatar: String
+  createdAt: DateTime!
+  id: ID!
+  nickname: String!
+  readingProgresses: [ReadingProgress!]
+  username: String!
+}
