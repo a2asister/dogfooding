@@ -1,0 +1,106 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateResumeInput {
+  content: String!
+  layout: String!
+  templateId: String
+  title: String!
+  userId: String!
+}
+
+input CreateTemplateInput {
+  layout: String!
+  name: String!
+  styles: String!
+  userId: String!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createResume(input: CreateResumeInput!): Resume!
+  createTemplate(input: CreateTemplateInput!): Template!
+  createUser(input: CreateUserInput!): User!
+  deleteResume(id: String!): Boolean!
+  deleteTemplate(id: String!): Boolean!
+  deleteUser(id: String!): Boolean!
+  exportResume(id: String!): String!
+  updateResume(id: String!, input: UpdateResumeInput!): Resume!
+  updateTemplate(id: String!, input: UpdateTemplateInput!): Template!
+  updateUser(id: String!, input: UpdateUserInput!): User!
+}
+
+type Query {
+  resume(id: String!): Resume
+  resumes(userId: String!): [Resume!]!
+  template(id: String!): Template
+  templates(userId: String!): [Template!]!
+  user(id: String!): User
+  users: [User!]!
+}
+
+type Resume {
+  content: String!
+  createdAt: DateTime!
+  id: ID!
+  isPublished: Boolean!
+  layout: String!
+  template: Template
+  templateId: String
+  title: String!
+  updatedAt: DateTime!
+  user: User
+  userId: String!
+}
+
+type Template {
+  createdAt: DateTime!
+  id: ID!
+  isPublic: Boolean!
+  layout: String!
+  name: String!
+  resumes: [Resume!]
+  styles: String!
+  updatedAt: DateTime!
+  userId: String!
+}
+
+input UpdateResumeInput {
+  content: String
+  isPublished: Boolean
+  layout: String
+  templateId: String
+  title: String
+}
+
+input UpdateTemplateInput {
+  isPublic: Boolean
+  layout: String
+  name: String
+  styles: String
+}
+
+input UpdateUserInput {
+  email: String
+  name: String
+}
+
+type User {
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  name: String!
+  resumes: [Resume!]
+  templates: [Template!]
+  updatedAt: DateTime!
+}
