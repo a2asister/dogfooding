@@ -1,0 +1,69 @@
+<div class="color-generator">
+  <h2>🎨 创建配色方案</h2>
+
+  <form [formGroup]="colorForm" (ngSubmit)="onSubmit()" class="generator-form">
+    <div class="form-group">
+      <label>方案名称</label>
+      <input type="text" formControlName="name" placeholder="输入配色方案名称" required>
+    </div>
+
+    <div class="form-group">
+      <label>描述 (可选)</label>
+      <textarea formControlName="description" placeholder="添加描述..." rows="2"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>颜色选择</label>
+      <div class="colors-container">
+        <div
+          *ngFor="let _ of colors.controls; let i = index"
+          class="color-input-wrapper"
+          [style.animationDelay]="i * 0.05 + 's'"
+        >
+          <input
+            type="color"
+            [formControl]="getColorControl(i)"
+            class="color-picker"
+          >
+          <button
+            type="button"
+            class="remove-color-btn"
+            (click)="removeColor(i)"
+            *ngIf="colors.length > 2"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <div class="color-actions">
+        <button type="button" class="btn-add-color" (click)="addColor()">
+          + 添加颜色
+        </button>
+        <button
+          type="button"
+          class="btn-random"
+          [class.generating]="isGenerating"
+          (click)="generateRandomScheme()"
+        >
+          🎲 随机生成
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <label class="checkbox-label">
+        <input type="checkbox" formControlName="isFavorite">
+        <span>收藏此方案</span>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" formControlName="isTemplate">
+        <span>设为模板</span>
+      </label>
+    </div>
+
+    <button type="submit" class="btn-submit" [disabled]="!colorForm.valid">
+      ✨ 创建配色方案
+    </button>
+  </form>
+</div>

@@ -1,0 +1,55 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type ColorScheme {
+  colors: [String!]!
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  isArchived: Boolean!
+  isFavorite: Boolean!
+  isTemplate: Boolean!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input CreateColorSchemeInput {
+  colors: [String!]!
+  description: String
+  isArchived: Boolean
+  isFavorite: Boolean
+  isTemplate: Boolean
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createColorScheme(createColorSchemeInput: CreateColorSchemeInput!): ColorScheme!
+  removeColorScheme(id: ID!): ColorScheme!
+  toggleArchive(id: ID!): ColorScheme!
+  toggleFavorite(id: ID!): ColorScheme!
+  updateColorScheme(updateColorSchemeInput: UpdateColorSchemeInput!): ColorScheme!
+}
+
+type Query {
+  archivedColorSchemes: [ColorScheme!]!
+  colorScheme(id: ID!): ColorScheme!
+  colorSchemeTemplates: [ColorScheme!]!
+  colorSchemes: [ColorScheme!]!
+  favoriteColorSchemes: [ColorScheme!]!
+}
+
+input UpdateColorSchemeInput {
+  colors: [String!]
+  description: String
+  id: ID!
+  isArchived: Boolean
+  isFavorite: Boolean
+  isTemplate: Boolean
+  name: String
+}

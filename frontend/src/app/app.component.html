@@ -1,0 +1,49 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1 class="app-title">🎨 动态配色方案生成器</h1>
+    <p class="app-subtitle">创造、管理和分享你的配色灵感</p>
+  </header>
+
+  <main class="app-main">
+    <div class="content-wrapper">
+      <aside class="sidebar">
+        <app-color-generator (createScheme)="onCreateScheme($event)"></app-color-generator>
+      </aside>
+
+      <section class="color-schemes-section">
+        <div class="tabs-container">
+          <button
+            *ngFor="let tab of tabs"
+            class="tab-btn"
+            [class.active]="activeTab === tab"
+            (click)="onTabChange(tab)"
+          >
+            {{ getTabLabel(tab) }}
+          </button>
+        </div>
+
+        <div *ngIf="loading" class="loading-state">
+          <div class="spinner"></div>
+          <p>加载中...</p>
+        </div>
+
+        <div *ngIf="!loading && colorSchemes.length === 0" class="empty-state">
+          <div class="empty-icon">🎨</div>
+          <h3>还没有配色方案</h3>
+          <p>创建你的第一个配色方案开始吧！</p>
+        </div>
+
+        <div *ngIf="!loading && colorSchemes.length > 0" class="color-grid" [@listAnimation]="colorSchemes.length">
+          <app-color-card
+            *ngFor="let scheme of colorSchemes; trackBy: trackById"
+            [colorScheme]="scheme"
+            (toggleFavorite)="onToggleFavorite($event)"
+            (toggleArchive)="onToggleArchive($event)"
+            (delete)="onDelete($event)"
+            class="color-card-item"
+          ></app-color-card>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

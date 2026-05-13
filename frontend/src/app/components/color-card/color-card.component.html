@@ -1,0 +1,46 @@
+<div
+  class="color-card"
+  [@cardHover]="isHovered ? 'hovered' : 'normal'"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <div class="color-preview" [style.background]="'linear-gradient(135deg, ' + getGradientColors() + ')'">
+    <div class="fluid-overlay"></div>
+    <div class="color-dots">
+      <div
+        *ngFor="let color of colorScheme.colors; let i = index"
+        class="color-dot"
+        [style.background]="color"
+        [style.animation-delay]="i * 0.1 + 's'"
+        (click)="copyToClipboard(color)"
+      ></div>
+    </div>
+  </div>
+
+  <div class="card-content">
+    <h3 class="scheme-name">{{ colorScheme.name }}</h3>
+    <p *ngIf="colorScheme.description" class="scheme-description">{{ colorScheme.description }}</p>
+
+    <div class="card-actions">
+      <button
+        class="action-btn favorite-btn"
+        [class.active]="colorScheme.isFavorite"
+        [@favoritePulse]="isFavoriteAnimating ? 'active' : 'inactive'"
+        (click)="onToggleFavorite()"
+      >
+        <span class="icon">{{ colorScheme.isFavorite ? '❤️' : '🤍' }}</span>
+      </button>
+
+      <button
+        class="action-btn archive-btn"
+        (click)="toggleArchive.emit(colorScheme.id)"
+      >
+        <span class="icon">{{ colorScheme.isArchived ? '📦' : '📁' }}</span>
+      </button>
+
+      <button class="action-btn delete-btn" (click)="delete.emit(colorScheme.id)">
+        <span class="icon">🗑️</span>
+      </button>
+    </div>
+  </div>
+</div>
