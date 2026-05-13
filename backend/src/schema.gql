@@ -1,0 +1,161 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type BrowseRecord {
+  browseTime: DateTime!
+  houseId: Float!
+  id: ID!
+  ipAddress: String!
+  userId: String
+}
+
+type BrowseStats {
+  houseId: Float
+  total: Float!
+}
+
+type Building {
+  address: String!
+  createdAt: DateTime!
+  floors: [Floor!]!
+  id: ID!
+  isActive: Boolean!
+  latitude: Float!
+  longitude: Float!
+  name: String!
+  totalFloors: Float!
+}
+
+input CreateBuildingInput {
+  address: String!
+  latitude: Float!
+  longitude: Float!
+  name: String!
+  totalFloors: Float!
+}
+
+input CreateHouseInput {
+  floorId: Float!
+  houseNumber: String!
+  houseTypeId: Float!
+  orientation: String
+  price: Float!
+}
+
+input CreateHouseTypeInput {
+  area: Float!
+  bathrooms: Float!
+  bedrooms: Float!
+  description: String!
+  floorPlanUrl: String
+  livingRooms: Float!
+  name: String!
+}
+
+input CreateReservationInput {
+  houseId: Float!
+  phone: String!
+  remark: String
+  reservationTime: DateTime!
+  userName: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Floor {
+  building: Building!
+  buildingId: Float!
+  floorNumber: Float!
+  houses: [House!]!
+  id: ID!
+  isActive: Boolean!
+}
+
+type House {
+  createdAt: DateTime!
+  floor: Floor!
+  floorId: Float!
+  houseNumber: String!
+  houseType: HouseType!
+  houseTypeId: Float!
+  id: ID!
+  isActive: Boolean!
+  orientation: String!
+  price: Float!
+  status: String!
+}
+
+type HouseType {
+  area: Float!
+  bathrooms: Float!
+  bedrooms: Float!
+  createdAt: DateTime!
+  description: String!
+  floorPlanUrl: String!
+  houses: [House!]!
+  id: ID!
+  livingRooms: Float!
+  name: String!
+}
+
+type Mutation {
+  addBrowseRecord(houseId: ID!, ipAddress: String!, userId: String): BrowseRecord!
+  createBuilding(input: CreateBuildingInput!): Building!
+  createFloor(buildingId: ID!, floorNumber: Float!): Floor!
+  createHouse(input: CreateHouseInput!): House!
+  createHouseType(input: CreateHouseTypeInput!): HouseType!
+  createReservation(input: CreateReservationInput!): Reservation!
+  deleteBuilding(id: ID!): Boolean!
+  deleteHouse(id: ID!): Boolean!
+  updateBuilding(id: ID!, input: UpdateBuildingInput!): Building
+  updateHouse(id: ID!, input: UpdateHouseInput!): House
+  updateReservationStatus(id: ID!, status: String!): Reservation
+}
+
+type Query {
+  browseRecords: [BrowseRecord!]!
+  browseStats(houseId: ID): [BrowseStats!]!
+  building(id: ID!): Building
+  buildings: [Building!]!
+  floor(id: ID!): Floor
+  floors(buildingId: ID): [Floor!]!
+  house(id: ID!): House
+  houseType(id: ID!): HouseType
+  houseTypes: [HouseType!]!
+  houses(status: String): [House!]!
+  housesByFloor(floorId: ID!): [House!]!
+  reservation(id: ID!): Reservation
+  reservations: [Reservation!]!
+}
+
+type Reservation {
+  createdAt: DateTime!
+  houseId: Float!
+  id: ID!
+  phone: String!
+  remark: String!
+  reservationTime: DateTime!
+  status: String!
+  userName: String!
+}
+
+input UpdateBuildingInput {
+  address: String
+  isActive: Boolean
+  latitude: Float
+  longitude: Float
+  name: String
+  totalFloors: Float
+}
+
+input UpdateHouseInput {
+  houseNumber: String
+  isActive: Boolean
+  orientation: String
+  price: Float
+  status: String
+}

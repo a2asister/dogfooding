@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: #0a0e27;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.ui-overlay {
+  position: fixed;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.ui-overlay > * {
+  pointer-events: auto;
+}
+
+.control-panel {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: rgba(20, 30, 60, 0.9);
+  border: 1px solid rgba(100, 150, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.control-panel h3 {
+  color: #64b5f6;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.control-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+  border: 1px solid rgba(100, 180, 255, 0.4);
+  border-radius: 8px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.control-btn:hover {
+  background: linear-gradient(135deg, #2d5a87 0%, #3d7ab7 100%);
+  border-color: rgba(100, 180, 255, 0.7);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(100, 180, 255, 0.3);
+}
+
+.info-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(20, 30, 60, 0.9);
+  border: 1px solid rgba(100, 150, 255, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 320px;
+}
+
+.info-panel h2 {
+  color: #64b5f6;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.info-item {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(100, 150, 255, 0.2);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  color: #8899aa;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.info-value {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.status-available {
+  color: #4caf50;
+}
+
+.status-sold {
+  color: #f44336;
+}
+
+.status-reserved {
+  color: #ff9800;
+}
+
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: #64b5f6;
+}
