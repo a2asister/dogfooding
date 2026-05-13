@@ -1,0 +1,54 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateDashboardInput {
+  config: String!
+  description: String
+  isTemplate: Boolean! = false
+  name: String!
+}
+
+type Dashboard {
+  config: String!
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  isTemplate: Boolean!
+  name: String!
+  updatedAt: DateTime!
+  viewCount: Float!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createDashboard(input: CreateDashboardInput!): Dashboard!
+  deleteDashboard(id: ID!): Boolean!
+  incrementViewCount(id: ID!): Dashboard!
+  updateDashboard(input: UpdateDashboardInput!): Dashboard!
+}
+
+type Query {
+  dashboard(id: ID!): Dashboard!
+  dashboardStatistics: Statistics!
+  dashboardTemplates: [Dashboard!]!
+  dashboards: [Dashboard!]!
+}
+
+type Statistics {
+  templates: Float!
+  total: Float!
+  totalViews: Float!
+}
+
+input UpdateDashboardInput {
+  config: String
+  description: String
+  id: ID!
+  isTemplate: Boolean
+  name: String
+}
