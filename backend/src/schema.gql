@@ -1,0 +1,66 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TripNode {
+  id: ID!
+  name: String!
+  address: String
+  arrivalTime: DateTime!
+  note: String
+  order: Float!
+  tripId: ID!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Trip {
+  id: ID!
+  title: String!
+  description: String
+  category: String!
+  isArchived: Boolean!
+  createdAt: DateTime!
+  nodes: [TripNode!]!
+}
+
+type Query {
+  trips(category: String, isArchived: Boolean): [Trip!]!
+  trip(id: ID!): Trip!
+  categories: [String!]!
+}
+
+type Mutation {
+  createTrip(createTripInput: CreateTripInput!): Trip!
+  createTripNode(createTripNodeInput: CreateTripNodeInput!): TripNode!
+  updateTrip(updateTripInput: UpdateTripInput!): Trip!
+  removeTrip(id: ID!): Boolean!
+  removeTripNode(id: ID!): Boolean!
+}
+
+input CreateTripInput {
+  title: String!
+  description: String
+  category: String!
+  nodes: [CreateTripNodeInput!]
+}
+
+input CreateTripNodeInput {
+  name: String!
+  address: String
+  arrivalTime: DateTime!
+  note: String
+  order: Float!
+  tripId: ID!
+}
+
+input UpdateTripInput {
+  id: ID!
+  title: String
+  description: String
+  category: String
+  isArchived: Boolean
+}
