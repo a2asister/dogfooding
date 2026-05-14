@@ -1,0 +1,204 @@
+.ruler-container {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(180deg, #2d2d44 0%, #1f1f32 100%);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.ruler-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 120px;
+  cursor: crosshair;
+  scrollbar-width: thin;
+  scrollbar-color: #4a4a6a #1f1f32;
+  position: relative;
+  border-radius: 12px;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #1f1f32;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #4a4a6a, #5a5a7a);
+    border-radius: 4px;
+    transition: background 0.3s;
+
+    &:hover {
+      background: linear-gradient(90deg, #5a5a7a, #6a6a8a);
+    }
+  }
+}
+
+.ruler-track {
+  position: relative;
+  height: 80px;
+  min-width: 5000px;
+  background: linear-gradient(180deg, #252538 0%, #1a1a2a 100%);
+  border-radius: 8px;
+}
+
+.ruler-tick {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  background: linear-gradient(180deg, #6a6a8a, #4a4a6a);
+  transition: all 0.2s ease;
+
+  &.major {
+    height: 40px;
+    background: linear-gradient(180deg, #00d4ff, #0099cc);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+  }
+
+  &.half {
+    height: 28px;
+    background: linear-gradient(180deg, #8a8aaa, #6a6a8a);
+  }
+
+  &.minor {
+    height: 18px;
+  }
+
+  .tick-label {
+    position: absolute;
+    top: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: 600;
+    color: #00d4ff;
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    white-space: nowrap;
+  }
+}
+
+.cursor-line {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  background: linear-gradient(180deg, #ff6b6b, #ee5a5a);
+  z-index: 10;
+  transition: height 0.2s ease;
+
+  .line-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 100%;
+    background: linear-gradient(180deg, 
+      rgba(255, 107, 107, 0.4),
+      rgba(255, 107, 107, 0)
+    );
+    animation: glow-pulse 1.5s ease-in-out infinite;
+  }
+
+  .value-badge {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 20px;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.drag-start {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #4ade80, #22c55e);
+  border-radius: 2px;
+  z-index: 5;
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+}
+
+.highlight-area {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    rgba(74, 222, 128, 0.15),
+    rgba(74, 222, 128, 0.25)
+  );
+  border-left: 2px solid rgba(74, 222, 128, 0.8);
+  border-right: 2px solid rgba(74, 222, 128, 0.8);
+  z-index: 4;
+}
+
+.measurement-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #2d2d44 0%, #1f1f32 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  .measurement-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: #00d4ff;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+    letter-spacing: -2px;
+  }
+
+  .measurement-unit {
+    font-size: 20px;
+    color: #8a8aaa;
+    margin-left: 10px;
+    font-weight: 500;
+  }
+
+  .preview-label {
+    font-size: 14px;
+    color: #ffd700;
+    margin-right: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  &.preview {
+    border-color: rgba(255, 215, 0, 0.4);
+    background: linear-gradient(135deg, #2d2d44 0%, #2a2a3a 100%);
+    
+    .measurement-value {
+      color: #ffd700;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    }
+  }
+}
