@@ -1,0 +1,37 @@
+<div class="favorites-container">
+  <h2>我的收藏</h2>
+  
+  <div *ngIf="getFavoriteCourses().length === 0" class="no-favorites">
+    <div class="empty-icon">💝</div>
+    <p>还没有收藏任何课程</p>
+    <p class="hint">去课程列表看看吧！</p>
+  </div>
+
+  <div class="favorites-grid">
+    <div 
+      *ngFor="let course of getFavoriteCourses()" 
+      class="favorite-card"
+      (click)="onSelectCourse(course)"
+    >
+      <div class="course-thumbnail-large">
+        <span class="thumbnail-emoji-large">{{ course.thumbnail }}</span>
+      </div>
+      <div class="course-info">
+        <h3>{{ course.name }}</h3>
+        <p class="course-desc">{{ course.description }}</p>
+        <div class="course-tags">
+          <span class="tag">{{ course.duration }}分钟</span>
+          <span class="tag">{{ course.calories }}卡路里</span>
+          <span class="tag difficulty-tag">{{ course.difficulty }}</span>
+        </div>
+      </div>
+      <button 
+        class="remove-favorite-btn"
+        (click)="$event.stopPropagation(); onToggleFavorite(course.id)"
+        title="取消收藏"
+      >
+        ❤️
+      </button>
+    </div>
+  </div>
+</div>

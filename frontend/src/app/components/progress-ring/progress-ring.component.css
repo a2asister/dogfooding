@@ -1,0 +1,20 @@
+.progress-ring {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-circle {
+  transition: stroke-dashoffset 0.1s ease-out;
+}
+
+.progress-text {
+  font-size: 18px;
+  font-weight: bold;
+  fill: #667eea;
+}
+
+.progress-label {
+  font-size: 10px;
+  fill: #888;
+}

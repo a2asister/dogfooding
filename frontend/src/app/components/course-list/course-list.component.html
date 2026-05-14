@@ -1,0 +1,38 @@
+<div class="course-list">
+  <h2>全部课程</h2>
+  <div class="course-grid">
+    <div 
+      *ngFor="let course of courses" 
+      class="course-card-large"
+      (click)="onSelectCourse(course)"
+    >
+      <div class="course-thumbnail">
+        <span class="thumbnail-emoji">{{ course.thumbnail }}</span>
+      </div>
+      <div class="course-details">
+        <h3>{{ course.name }}</h3>
+        <p class="course-description">{{ course.description }}</p>
+        <div class="course-meta">
+          <span class="meta-item">
+            <span class="meta-icon">⏱</span>
+            {{ course.duration }}分钟
+          </span>
+          <span class="meta-item">
+            <span class="meta-icon">🔥</span>
+            {{ course.calories }}卡路里
+          </span>
+          <span class="meta-item difficulty" [class]="'difficulty-' + course.difficulty">
+            <span class="meta-icon">📊</span>
+            {{ course.difficulty }}
+          </span>
+        </div>
+      </div>
+      <button 
+        class="favorite-btn-large"
+        (click)="$event.stopPropagation(); onToggleFavorite(course.id)"
+      >
+        {{ isFavorite(course.id) ? '❤️' : '🤍' }}
+      </button>
+    </div>
+  </div>
+</div>

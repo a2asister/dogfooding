@@ -1,0 +1,118 @@
+.favorites-container h2 {
+  color: #667eea;
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+.no-favorites {
+  text-align: center;
+  padding: 60px 30px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 15px;
+}
+
+.no-favorites p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.no-favorites .hint {
+  color: #888;
+  font-size: 14px;
+}
+
+.favorites-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.favorite-card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  position: relative;
+  align-items: center;
+}
+
+.favorite-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+}
+
+.course-thumbnail-large {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.thumbnail-emoji-large {
+  font-size: 50px;
+}
+
+.course-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.course-info h3 {
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+
+.course-desc {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.course-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 4px 12px;
+  background: #f0f0f0;
+  border-radius: 15px;
+  font-size: 12px;
+  color: #666;
+}
+
+.tag.difficulty-tag {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.remove-favorite-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  padding: 5px;
+}
+
+.remove-favorite-btn:hover {
+  transform: scale(1.2);
+}

@@ -1,0 +1,58 @@
+<div class="progress-ring">
+  <svg width="120" height="120" viewBox="0 0 120 120">
+    <defs>
+      <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+      </linearGradient>
+      <filter id="progressGlow">
+        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    
+    <circle 
+      cx="60" 
+      cy="60" 
+      r="45" 
+      fill="none" 
+      stroke="#e0e0e0" 
+      stroke-width="8"
+    />
+    
+    <circle 
+      cx="60" 
+      cy="60" 
+      r="45" 
+      fill="none" 
+      stroke="url(#progressGradient)" 
+      stroke-width="8"
+      stroke-linecap="round"
+      [style.strokeDasharray]="circumference"
+      [style.strokeDashoffset]="strokeDashoffset"
+      transform="rotate(-90 60 60)"
+      filter="url(#progressGlow)"
+      class="progress-circle"
+    />
+    
+    <text 
+      x="60" 
+      y="55" 
+      text-anchor="middle" 
+      class="progress-text"
+    >
+      {{ displayProgress }}%
+    </text>
+    <text 
+      x="60" 
+      y="75" 
+      text-anchor="middle" 
+      class="progress-label"
+    >
+      完成度
+    </text>
+  </svg>
+</div>

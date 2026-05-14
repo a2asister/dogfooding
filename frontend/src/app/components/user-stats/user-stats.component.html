@@ -1,0 +1,26 @@
+<div class="stats-container">
+  <h2>训练统计</h2>
+  
+  <div class="stats-grid">
+    <div 
+      *ngFor="let config of getStatConfig()" 
+      class="stat-card"
+    >
+      <div class="stat-icon">{{ config.icon }}</div>
+      <div class="stat-value">{{ getStatValue(config.key) }}</div>
+      <div class="stat-label">{{ config.label }}</div>
+    </div>
+  </div>
+
+  <div class="checkin-history">
+    <h3>打卡记录</h3>
+    <div *ngIf="checkinRecords.length === 0" class="no-records">
+      暂无打卡记录，开始你的第一次训练吧！
+    </div>
+    <div *ngFor="let record of checkinRecords" class="checkin-item">
+      <div class="checkin-date">{{ record.date }}</div>
+      <div class="checkin-course">{{ record.courseName }}</div>
+      <div class="checkin-duration">{{ record.duration }}分钟</div>
+    </div>
+  </div>
+</div>

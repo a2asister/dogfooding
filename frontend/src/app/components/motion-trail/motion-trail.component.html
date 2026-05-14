@@ -1,0 +1,31 @@
+<div class="motion-trail">
+  <svg width="400" height="300" viewBox="0 0 400 300" class="trail-svg">
+    <defs>
+      <linearGradient id="trailGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    
+    <polyline 
+      *ngIf="trailPoints.length > 1"
+      [attr.points]="getPolylinePoints()"
+      fill="none"
+      stroke="url(#trailGradient)"
+      stroke-width="4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="trail-line"
+    />
+    
+    <circle 
+      *ngFor="let point of trailPoints; let i = index"
+      [attr.cx]="point.x"
+      [attr.cy]="point.y"
+      [attr.r]="10 - i * 0.5"
+      fill="#667eea"
+      [attr.opacity]="point.opacity"
+      class="trail-dot"
+    />
+  </svg>
+</div>

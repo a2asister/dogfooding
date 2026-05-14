@@ -1,0 +1,51 @@
+<div class="skeleton-container">
+  <svg width="400" height="300" viewBox="0 0 400 300">
+    <defs>
+      <linearGradient id="boneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+      </linearGradient>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+    
+    <line 
+      *ngFor="let bone of bones" 
+      [attr.x1]="bone.from.x" 
+      [attr.y1]="bone.from.y" 
+      [attr.x2]="bone.to.x" 
+      [attr.y2]="bone.to.y"
+      stroke="url(#boneGradient)"
+      stroke-width="6"
+      stroke-linecap="round"
+      filter="url(#glow)"
+      class="bone-line"
+    />
+    
+    <circle 
+      *ngFor="let joint of joints" 
+      [attr.cx]="joint.x" 
+      [attr.cy]="joint.y" 
+      r="8"
+      fill="#667eea"
+      filter="url(#glow)"
+      class="joint-circle"
+    />
+    
+    <circle 
+      [attr.cx]="joints[0]?.x" 
+      [attr.cy]="joints[0]?.y" 
+      r="25"
+      fill="none"
+      stroke="url(#boneGradient)"
+      stroke-width="4"
+      filter="url(#glow)"
+      class="head-circle"
+    />
+  </svg>
+</div>

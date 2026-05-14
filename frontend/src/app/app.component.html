@@ -1,0 +1,113 @@
+<div class="app-container">
+  <header class="header">
+    <h1>🏋️ 健身动作动态跟练系统</h1>
+    <div class="tabs">
+      <button 
+        [class.active]="activeTab === 'workout'" 
+        (click)="activeTab = 'workout'"
+        class="tab-btn"
+      >
+        跟练
+      </button>
+      <button 
+        [class.active]="activeTab === 'courses'" 
+        (click)="activeTab = 'courses'"
+        class="tab-btn"
+      >
+        课程
+      </button>
+      <button 
+        [class.active]="activeTab === 'stats'" 
+        (click)="activeTab = 'stats'"
+        class="tab-btn"
+      >
+        统计
+      </button>
+      <button 
+        [class.active]="activeTab === 'favorites'" 
+        (click)="activeTab = 'favorites'"
+        class="tab-btn"
+      >
+        收藏
+      </button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div *ngIf="activeTab === 'workout'" class="workout-section">
+      <div class="animation-container">
+        <app-skeleton-animation [frame]="currentFrame"></app-skeleton-animation>
+        <app-motion-trail [frame]="currentFrame"></app-motion-trail>
+        
+        <div class="progress-container">
+          <app-progress-ring [progress]="progress"></app-progress-ring>
+        </div>
+
+        <div class="controls">
+          <button class="control-btn play-btn" (click)="togglePlay()">
+            {{ isPlaying ? '⏸ 暂停' : '▶ 开始' }}
+          </button>
+          <button class="control-btn reset-btn" (click)="resetProgress()">
+            🔄 重置
+          </button>
+        </div>
+
+        <div *ngIf="selectedCourse" class="course-info">
+          <h3>{{ selectedCourse.thumbnail }} {{ selectedCourse.name }}</h3>
+          <p>{{ selectedCourse.description }}</p>
+          <div class="course-meta">
+            <span>⏱ {{ selectedCourse.duration }}分钟</span>
+            <span>🔥 {{ selectedCourse.calories }}卡路里</span>
+            <span>📊 {{ selectedCourse.difficulty }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="course-selector">
+        <h3>选择课程</h3>
+        <div class="course-grid">
+          <div 
+            *ngFor="let course of courses" 
+            class="course-card"
+            [class.selected]="selectedCourse?.id === course.id"
+            (click)="selectCourse(course)"
+          >
+            <span class="course-emoji">{{ course.thumbnail }}</span>
+            <h4>{{ course.name }}</h4>
+            <p class="course-desc">{{ course.description }}</p>
+            <button 
+              class="favorite-btn"
+              (click)="$event.stopPropagation(); toggleFavorite(course.id)"
+            >
+              {{ favorites.includes(course.id) ? '❤️' : '🤍' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'courses'" class="courses-section">
+      <app-course-list 
+        [courses]="courses" 
+        [favorites]="favorites"
+        (selectCourse)="selectCourse($event)"
+        (toggleFavorite)="toggleFavorite($event)"
+      ></app-course-list>
+    </div>
+
+    <div *ngIf="activeTab === 'stats'" class="stats-section">
+      <app-user-stats [stats]="userStats" [checkinRecords]="checkinRecords"></app-user-stats>
+    </div>
+
+    <div *ngIf="activeTab === 'favorites'" class="favorites-section">
+      <app-favorites 
+        [courses]="courses" 
+        [favorites]="favorites"
+        (selectCourse)="selectCourse($event)"
+        (toggleFavorite)="toggleFavorite($event)"
+      ></app-favorites>
+    </div>
+
+    <app-checkin-icon *ngIf="showCheckin" [visible]="showCheckin"></app-checkin-icon>
+  </main>
+</div>
