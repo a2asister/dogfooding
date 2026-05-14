@@ -1,0 +1,28 @@
+{
+  "name": "wallpaper-frontend",
+  "version": "1.0.0",
+  "description": "壁纸适配前端应用",
+  "scripts": {
+    "dev": "vite --mode development --port 4892",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@builder.io/qwik": "^1.4.5",
+    "@builder.io/qwik-city": "^1.4.5"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.56.5",
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-qwik": "^1.4.5",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.0",
+    "vite-tsconfig-paths": "^4.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
