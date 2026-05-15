@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, Index } from 'typeorm';
 import { User } from './user.entity';
 
 @Entity()
@@ -24,6 +24,12 @@ export class FileItem {
   @Column()
   userId!: number;
 
+  @Column({ default: false })
+  isDeleted!: boolean;
+
+  @Column({ type: 'text', nullable: true })
+  originalPath!: string | null;
+
   @ManyToOne(() => User)
   @JoinColumn({ name: 'userId' })
   user!: User;
@@ -33,4 +39,13 @@ export class FileItem {
 
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  @Column({ type: 'datetime', nullable: true })
+  deletedAt!: Date | null;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  mimeType!: string | null;
+
+  @Column({ type: 'bigint', default: 0 })
+  size!: number;
 }

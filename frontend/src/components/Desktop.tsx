@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DesktopConfig, DesktopIcon, WindowState, FileItem } from '../types';
-import { desktopApi } from '../services/api';
+import { desktopApi, windowStateApi } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import Window from './Window';
 import FileExplorer from './FileExplorer';
@@ -23,6 +23,7 @@ const Desktop: React.FC = () => {
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [draggingIcon, setDraggingIcon] = useState<string | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
   const dragStartPos = useRef({ x: 0, y: 0 });
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ const Desktop: React.FC = () => {
 
   useEffect(() => {
     loadDesktopConfig();
+    loadWindowStates();
   }, []);
 
   const loadDesktopConfig = async () => {
@@ -45,60 +47,155 @@ const Desktop: React.FC = () => {
     }
   };
 
+  const loadWindowStates = async () => {
+    try {
+      const response = await windowStateApi.getAllWindows();
+      setWindows(response.data);
+      setIsLoaded(true);
+    } catch (err) {
+      console.error('加载窗口状态失败', err);
+      setIsLoaded(true);
+    }
+  };
+
+  const saveWindowState = async (windowState: WindowState) => {
+    try {
+      await windowStateApi.createWindow(windowState);
+    } catch (err) {
+      console.error('保存窗口状态失败', err);
+    }
+  };
+
+  const updateWindowState = async (windowId: string, updates: Partial<WindowState>) => {
+    try {
+      await windowStateApi.updateWindow(windowId, updates);
+    } catch (err) {
+      console.error('更新窗口状态失败', err);
+    }
+  };
+
   const handleIconDoubleClick = (icon: DesktopIcon) => {
-    if (icon.type === 'app' && icon.id === '1') {
-      openFileExplorer();
+    if (icon.type === 'app') {
+      if (icon.id === '1') {
+        openFileExplorer();
+      } else if (icon.id === '2') {
+        openTrash();
+      }
     }
   };
 
   const openFileExplorer = () => {
+    const windowId = `explorer-${Date.now()}`;
     const newWindow: WindowState = {
-      id: `explorer-${Date.now()}`,
+      windowId,
       title: '文件资源管理器',
       type: 'explorer',
       x: 100 + windows.length * 30,
       y: 50 + windows.length * 30,
       width: 700,
       height: 500,
+      zIndex: windows.length + 1,
     };
     setWindows([...windows, newWindow]);
+    saveWindowState(newWindow);
+  };
+
+  const openTrash = () => {
+    const windowId = `trash-${Date.now()}`;
+    const newWindow: WindowState = {
+      windowId,
+      title: '回收站',
+      type: 'trash',
+      x: 150 + windows.length * 30,
+      y: 80 + windows.length * 30,
+      width: 700,
+      height: 500,
+      zIndex: windows.length + 1,
+    };
+    setWindows([...windows, newWindow]);
+    saveWindowState(newWindow);
   };
 
   const handleOpenFile = (file: FileItem) => {
+    const windowId = `editor-${Date.now()}`;
     const newWindow: WindowState = {
-      id: `editor-${Date.now()}`,
+      windowId,
       title: file.name,
       type: 'editor',
       x: 150 + windows.length * 30,
       y: 80 + windows.length * 30,
       width: 600,
       height: 450,
+      zIndex: windows.length + 1,
       data: file,
     };
     setWindows([...windows, newWindow]);
+    saveWindowState(newWindow);
   };
 
-  const handleCloseWindow = (id: string) => {
-    setWindows(windows.filter((w) => w.id !== id));
-  };
-
-  const handleMinimizeWindow = (id: string) => {
-    setWindows(windows.map((w) =>
-      w.id === id ? { ...w, isMinimized: true } : w
-    ));
-  };
-
-  const handleRestoreWindow = (id: string) => {
-    setWindows(windows.map((w) =>
-      w.id === id ? { ...w, isMinimized: false } : w
-    ));
-  };
-
-  const handleTaskbarItemClick = (id: string) => {
-    const window = windows.find((w) => w.id === id);
-    if (window?.isMinimized) {
-      handleRestoreWindow(id);
+  const handleCloseWindow = async (windowId: string) => {
+    setWindows(windows.filter((w) => w.windowId !== windowId));
+    try {
+      await windowStateApi.closeWindow(windowId);
+    } catch (err) {
+      console.error('关闭窗口失败', err);
     }
+  };
+
+  const handleMinimizeWindow = (windowId: string) => {
+    const updatedWindows = windows.map((w) =>
+      w.windowId === windowId ? { ...w, isMinimized: true } : w
+    );
+    setWindows(updatedWindows);
+    updateWindowState(windowId, { isMinimized: true });
+  };
+
+  const handleRestoreWindow = (windowId: string) => {
+    const updatedWindows = windows.map((w) =>
+      w.windowId === windowId ? { ...w, isMinimized: false } : w
+    );
+    setWindows(updatedWindows);
+    updateWindowState(windowId, { isMinimized: false });
+  };
+
+  const handleMaximizeWindow = (windowId: string, isMaximized: boolean) => {
+    const updatedWindows = windows.map((w) =>
+      w.windowId === windowId ? { ...w, isMaximized } : w
+    );
+    setWindows(updatedWindows);
+    updateWindowState(windowId, { isMaximized });
+  };
+
+  const handleMoveWindow = (windowId: string, x: number, y: number) => {
+    const updatedWindows = windows.map((w) =>
+      w.windowId === windowId ? { ...w, x, y } : w
+    );
+    setWindows(updatedWindows);
+    updateWindowState(windowId, { x, y });
+  };
+
+  const handleResizeWindow = (windowId: string, width: number, height: number) => {
+    const updatedWindows = windows.map((w) =>
+      w.windowId === windowId ? { ...w, width, height } : w
+    );
+    setWindows(updatedWindows);
+    updateWindowState(windowId, { width, height });
+  };
+
+  const handleTaskbarItemClick = (windowId: string) => {
+    const window = windows.find((w) => w.windowId === windowId);
+    if (window?.isMinimized) {
+      handleRestoreWindow(windowId);
+    }
+  };
+
+  const bringToFront = (windowId: string) => {
+    const maxZIndex = Math.max(...windows.map((w) => w.zIndex || 0), 0);
+    const updatedWindows = windows.map((w) =>
+      w.windowId === windowId ? { ...w, zIndex: maxZIndex + 1 } : w
+    );
+    setWindows(updatedWindows);
+    updateWindowState(windowId, { zIndex: maxZIndex + 1 });
   };
 
   const handleIconMouseDown = (e: React.MouseEvent, iconId: string) => {
@@ -142,7 +239,7 @@ const Desktop: React.FC = () => {
     navigate('/');
   };
 
-  if (!config) {
+  if (!config || !isLoaded) {
     return <div style={{ padding: '20px', color: 'white', background: '#333', height: '100vh' }}>加载中...</div>;
   }
 
@@ -172,12 +269,17 @@ const Desktop: React.FC = () => {
 
         {windows.map((window) => (
           <Window
-            key={window.id}
+            key={window.windowId}
             window={window}
             onClose={handleCloseWindow}
             onMinimize={handleMinimizeWindow}
+            onMaximize={handleMaximizeWindow}
+            onMove={handleMoveWindow}
+            onResize={handleResizeWindow}
+            onFocus={() => bringToFront(window.windowId)}
           >
             {window.type === 'explorer' && <FileExplorer onOpenFile={handleOpenFile} />}
+            {window.type === 'trash' && <FileExplorer onOpenFile={handleOpenFile} showTrash={true} />}
             {window.type === 'editor' && window.data && (
               <TextEditor file={window.data} onSave={() => {}} />
             )}
@@ -192,9 +294,10 @@ const Desktop: React.FC = () => {
         <div className="taskbar-items">
           {windows.map((w) => (
             <div
-              key={w.id}
+              key={w.windowId}
               className={`taskbar-item ${w.isMinimized ? 'minimized' : ''}`}
-              onClick={() => handleTaskbarItemClick(w.id)}
+              onClick={() => handleTaskbarItemClick(w.windowId)}
+              title={w.title}
             >
               {w.title}
             </div>

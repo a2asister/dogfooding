@@ -36,17 +36,61 @@ export interface FileItem {
   userId: number;
   createdAt: string;
   updatedAt: string;
+  isDeleted: boolean;
+  deletedAt: string | null;
+  originalPath: string | null;
+  mimeType: string | null;
+  size: number;
 }
 
 export interface WindowState {
-  id: string;
+  id?: number;
+  windowId: string;
   title: string;
-  type: 'explorer' | 'editor';
+  type: 'explorer' | 'editor' | 'calculator' | 'browser' | 'settings' | 'trash';
   x: number;
   y: number;
   width: number;
   height: number;
   isMinimized?: boolean;
   isMaximized?: boolean;
+  zIndex?: number;
   data?: any;
+  userId?: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface AppData {
+  id: number;
+  appType: 'notepad' | 'calculator' | 'browser';
+  content: string | null;
+  metadata: any;
+  title: string | null;
+  userId: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export enum SortField {
+  NAME = 'name',
+  CREATED_AT = 'createdAt',
+  UPDATED_AT = 'updatedAt',
+  TYPE = 'type',
+  SIZE = 'size',
+}
+
+export enum SortOrder {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export interface BatchOperationResult {
+  total: number;
+  successCount: number;
+  results: Array<{
+    fileId: number;
+    success: boolean;
+    error?: string;
+  }>;
 }

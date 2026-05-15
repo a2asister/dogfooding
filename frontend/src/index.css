@@ -600,3 +600,31 @@ body {
 .context-menu-item:hover {
   background: #f0f0f0;
 }
+
+.window-resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  cursor: se-resize;
+  background: linear-gradient(135deg, transparent 50%, #ccc 50%);
+}
+
+.window-resize-handle:hover {
+  background: linear-gradient(135deg, transparent 50%, #999 50%);
+}
+
+.file-col-name.clickable,
+.file-col-date.clickable,
+.file-col-type.clickable,
+.file-col-size.clickable {
+  cursor: pointer;
+}
+
+.file-col-name.clickable:hover,
+.file-col-date.clickable:hover,
+.file-col-type.clickable:hover,
+.file-col-size.clickable:hover {
+  background: #e5e5e5;
+}

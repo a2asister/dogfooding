@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ClipboardProvider } from './contexts/ClipboardContext';
 import AuthPage from './components/AuthPage';
 import Desktop from './components/Desktop';
 
@@ -24,7 +25,9 @@ const AppContent: React.FC = () => {
         path="/desktop"
         element={
           <ProtectedRoute>
-            <Desktop />
+            <ClipboardProvider>
+              <Desktop />
+            </ClipboardProvider>
           </ProtectedRoute>
         }
       />
