@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+*.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Cache
+.cache/
+.temp/
+tmp/
+
+# TypeScript
+*.tsbuildinfo
+
+# NestJS
+dist/
+
+# Vue / Vite
+.vite/
+.vitepress/
+
+# ESLint cache
+.eslintcache
