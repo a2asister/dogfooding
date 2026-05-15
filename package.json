@@ -1,0 +1,46 @@
+{
+  "name": "sql-visualizer",
+  "version": "1.0.0",
+  "description": "Web端SQL可视化工具",
+  "type": "module",
+  "overrides": {
+    "is-generator-function": "1.0.10"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "tsx watch server/index.ts",
+    "dev:client": "astro dev --port 38765",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build:client": "astro build",
+    "start": "node dist/server/index.js",
+    "lint": "eslint . --ext .ts,.tsx,.astro",
+    "lint:fix": "eslint . --ext .ts,.tsx,.astro --fix"
+  },
+  "dependencies": {
+    "@koa/cors": "^5.0.0",
+    "better-sqlite3": "^9.6.0",
+    "koa": "^2.15.3",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^12.0.1"
+  },
+  "devDependencies": {
+    "@astrojs/vue": "^4.5.0",
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/codemirror": "^5.60.15",
+    "@types/koa": "^2.15.0",
+    "@types/koa__cors": "^5.0.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa-router": "^7.4.8",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "astro": "^4.12.2",
+    "codemirror": "^5.65.16",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-astro": "^1.2.3",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4",
+    "vue": "^3.4.34"
+  }
+}
