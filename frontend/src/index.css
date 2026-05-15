@@ -6,8 +6,8 @@
 
 body {
   font-family: 'Courier New', Courier, monospace;
-  background-color: #000000;
-  color: #00ff00;
+  background-color: #0a0a0a;
+  color: #e0e0e0;
   overflow: hidden;
 }
 
@@ -34,14 +34,77 @@ body {
 }
 
 .output-panel::-webkit-scrollbar-thumb {
-  background: #333333;
+  background: #444444;
   border-radius: 4px;
 }
 
 .output-line {
   white-space: pre-wrap;
   word-break: break-all;
-  line-height: 1.4;
+  line-height: 1.5;
+  padding: 1px 0;
+}
+
+.output-command {
+  color: #ffffff;
+}
+
+.output-result {
+  color: #e0e0e0;
+}
+
+.output-error {
+  color: #ff4444;
+}
+
+.output-warning {
+  color: #ffaa00;
+}
+
+.output-info {
+  color: #44aaff;
+}
+
+.output-loading {
+  color: #888888;
+}
+
+.line-icon {
+  display: inline-block;
+  width: 24px;
+  text-align: center;
+}
+
+.spinner {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.completions-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 0;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.completion-item {
+  color: #88ccff;
+  padding: 2px 8px;
+  background: #1a1a2e;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.completion-item:hover {
+  background: #2a2a4e;
 }
 
 .input-line {
@@ -49,41 +112,22 @@ body {
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
+  padding-top: 4px;
 }
 
 .prompt {
-  color: #00ff00;
+  color: #00ff88;
   white-space: nowrap;
+  font-weight: bold;
 }
 
-.input-wrapper {
-  position: relative;
+.command-input {
   flex: 1;
-  display: flex;
-  align-items: center;
-}
-
-.input-text {
-  color: #00ff00;
-  white-space: pre;
-}
-
-.cursor {
-  display: inline-block;
-  width: 8px;
-  height: 16px;
-  background-color: #00ff00;
-  animation: blink 1s step-end infinite;
-  margin-left: 1px;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.hidden-input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  caret-color: #ffffff;
 }

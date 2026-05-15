@@ -145,6 +145,168 @@ export class FileSystem {
     const node = this.getNodeById(nodeId);
     return node?.type ?? null;
   }
+
+  private deleteRecursive(nodeId: number): void {
+    const children = db.prepare('SELECT id FROM nodes WHERE parent_id = ?').all(nodeId) as FileNode[];
+    for (const child of children) {
+      this.deleteRecursive(child.id);
+    }
+    db.prepare('DELETE FROM nodes WHERE id = ?').run(nodeId);
+  }
+
+  delete(path: string, recursive: boolean = false): boolean {
+    const resolved = this.resolvePath(path);
+    if (resolved === '/') return false;
+    
+    const nodeId = this.getNodeId(resolved);
+    if (nodeId === null) return false;
+    
+    const node = this.getNodeById(nodeId);
+    if (node === null) return false;
+    
+    if (node.type === 'dir') {
+      const children = db.prepare('SELECT id FROM nodes WHERE parent_id = ?').all(nodeId) as FileNode[];
+      if (children.length > 0 && !recursive) {
+        return false;
+      }
+      this.deleteRecursive(nodeId);
+    } else {
+      db.prepare('DELETE FROM nodes WHERE id = ?').run(nodeId);
+    }
+    
+    return true;
+  }
+
+  writeFile(path: string, content: string): boolean {
+    const resolved = this.resolvePath(path);
+    const nodeId = this.getNodeId(resolved);
+    
+    if (nodeId !== null) {
+      const node = this.getNodeById(nodeId);
+      if (node?.type === 'file') {
+        const result = db.prepare('UPDATE nodes SET content = ? WHERE id = ?').run(content, nodeId);
+        return result.changes > 0;
+      }
+      return false;
+    }
+    
+    return this.createFile(path, content);
+  }
+
+  copy(source: string, destination: string): boolean {
+    const resolvedSource = this.resolvePath(source);
+    const resolvedDest = this.resolvePath(destination);
+    
+    const sourceId = this.getNodeId(resolvedSource);
+    if (sourceId === null) return false;
+    
+    const sourceNode = this.getNodeById(sourceId);
+    if (sourceNode === null) return false;
+    
+    const destParentPath = resolvedDest.substring(0, resolvedDest.lastIndexOf('/')) || '/';
+    const destName = resolvedDest.substring(resolvedDest.lastIndexOf('/') + 1);
+    
+    const destParentId = this.getNodeId(destParentPath);
+    if (destParentId === null) return false;
+    
+    const destId = this.getNodeId(resolvedDest);
+    if (destId !== null) {
+      const destNode = this.getNodeById(destId);
+      if (destNode?.type === 'dir') {
+        return this.copyToDirectory(sourceId, destId, sourceNode.name);
+      }
+      return false;
+    }
+    
+    if (sourceNode.type === 'file') {
+      const result = db.prepare('INSERT INTO nodes (name, type, parent_id, content) VALUES (?, ?, ?, ?)').run(destName, 'file', destParentId, sourceNode.content);
+      return result.changes > 0;
+    }
+    
+    return this.copyDirectoryRecursive(sourceId, destParentId, destName);
+  }
+
+  private copyToDirectory(sourceId: number, destDirId: number, name: string): boolean {
+    const sourceNode = this.getNodeById(sourceId);
+    if (sourceNode === null) return false;
+    
+    const existing = db.prepare('SELECT id FROM nodes WHERE parent_id = ? AND name = ?').get(destDirId, name) as FileNode | undefined;
+    if (existing !== undefined) return false;
+    
+    if (sourceNode.type === 'file') {
+      const result = db.prepare('INSERT INTO nodes (name, type, parent_id, content) VALUES (?, ?, ?, ?)').run(name, 'file', destDirId, sourceNode.content);
+      return result.changes > 0;
+    }
+    
+    return this.copyDirectoryRecursive(sourceId, destDirId, name);
+  }
+
+  private copyDirectoryRecursive(sourceDirId: number, destParentId: number, newName: string): boolean {
+    const result = db.prepare('INSERT INTO nodes (name, type, parent_id) VALUES (?, ?, ?)').run(newName, 'dir', destParentId);
+    if (result.changes === 0) return false;
+    
+    const newDirId = Number(result.lastInsertRowid);
+    const children = db.prepare('SELECT id, name, type, content FROM nodes WHERE parent_id = ?').all(sourceDirId) as FileNode[];
+    
+    for (const child of children) {
+      if (child.type === 'file') {
+        db.prepare('INSERT INTO nodes (name, type, parent_id, content) VALUES (?, ?, ?, ?)').run(child.name, 'file', newDirId, child.content);
+      } else {
+        this.copyDirectoryRecursive(child.id, newDirId, child.name);
+      }
+    }
+    
+    return true;
+  }
+
+  move(source: string, destination: string): boolean {
+    const resolvedSource = this.resolvePath(source);
+    const resolvedDest = this.resolvePath(destination);
+    
+    if (resolvedSource === '/') return false;
+    
+    const sourceId = this.getNodeId(resolvedSource);
+    if (sourceId === null) return false;
+    
+    const destId = this.getNodeId(resolvedDest);
+    
+    if (destId !== null) {
+      const destNode = this.getNodeById(destId);
+      if (destNode?.type === 'dir') {
+        const sourceName = resolvedSource.substring(resolvedSource.lastIndexOf('/') + 1);
+        const existing = db.prepare('SELECT id FROM nodes WHERE parent_id = ? AND name = ?').get(destId, sourceName) as FileNode | undefined;
+        if (existing !== undefined) return false;
+        const result = db.prepare('UPDATE nodes SET parent_id = ? WHERE id = ?').run(destId, sourceId);
+        return result.changes > 0;
+      }
+      return false;
+    }
+    
+    const destParentPath = resolvedDest.substring(0, resolvedDest.lastIndexOf('/')) || '/';
+    const destName = resolvedDest.substring(resolvedDest.lastIndexOf('/') + 1);
+    
+    const destParentId = this.getNodeId(destParentPath);
+    if (destParentId === null) return false;
+    
+    const result = db.prepare('UPDATE nodes SET parent_id = ?, name = ? WHERE id = ?').run(destParentId, destName, sourceId);
+    return result.changes > 0;
+  }
+
+  getNodeInfo(path: string): { name: string; type: string; size: number; created_at: string } | null {
+    const resolved = this.resolvePath(path);
+    const nodeId = this.getNodeId(resolved);
+    if (nodeId === null) return null;
+    
+    const node = this.getNodeById(nodeId);
+    if (node === null) return null;
+    
+    return {
+      name: node.name,
+      type: node.type,
+      size: node.content?.length || 0,
+      created_at: node.created_at,
+    };
+  }
 }
 
 export const fs = new FileSystem();
