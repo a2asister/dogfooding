@@ -82,6 +82,25 @@ const Desktop: React.FC = () => {
     setWindows(windows.filter((w) => w.id !== id));
   };
 
+  const handleMinimizeWindow = (id: string) => {
+    setWindows(windows.map((w) =>
+      w.id === id ? { ...w, isMinimized: true } : w
+    ));
+  };
+
+  const handleRestoreWindow = (id: string) => {
+    setWindows(windows.map((w) =>
+      w.id === id ? { ...w, isMinimized: false } : w
+    ));
+  };
+
+  const handleTaskbarItemClick = (id: string) => {
+    const window = windows.find((w) => w.id === id);
+    if (window?.isMinimized) {
+      handleRestoreWindow(id);
+    }
+  };
+
   const handleIconMouseDown = (e: React.MouseEvent, iconId: string) => {
     e.stopPropagation();
     setSelectedIcon(iconId);
@@ -152,7 +171,12 @@ const Desktop: React.FC = () => {
         ))}
 
         {windows.map((window) => (
-          <Window key={window.id} window={window} onClose={handleCloseWindow}>
+          <Window
+            key={window.id}
+            window={window}
+            onClose={handleCloseWindow}
+            onMinimize={handleMinimizeWindow}
+          >
             {window.type === 'explorer' && <FileExplorer onOpenFile={handleOpenFile} />}
             {window.type === 'editor' && window.data && (
               <TextEditor file={window.data} onSave={() => {}} />
@@ -169,15 +193,8 @@ const Desktop: React.FC = () => {
           {windows.map((w) => (
             <div
               key={w.id}
-              style={{
-                padding: '6px 12px',
-                background: 'rgba(255,255,255,0.1)',
-                borderRadius: '4px',
-                color: 'white',
-                fontSize: '12px',
-                cursor: 'pointer',
-                marginRight: '4px',
-              }}
+              className={`taskbar-item ${w.isMinimized ? 'minimized' : ''}`}
+              onClick={() => handleTaskbarItemClick(w.id)}
             >
               {w.title}
             </div>

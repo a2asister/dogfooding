@@ -46,5 +46,7 @@ export interface WindowState {
   y: number;
   width: number;
   height: number;
+  isMinimized?: boolean;
+  isMaximized?: boolean;
   data?: any;
 }
