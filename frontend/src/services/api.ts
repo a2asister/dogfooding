@@ -1,5 +1,21 @@
 import axios from 'axios';
-import { User, DesktopConfig, FileItem, WindowState, AppData, SortField, SortOrder, BatchOperationResult } from '../types';
+import {
+  User,
+  DesktopConfig,
+  FileItem,
+  WindowState,
+  AppData,
+  SortField,
+  SortOrder,
+  BatchOperationResult,
+  ThemeConfig,
+  DisplayConfig,
+  DateTimeConfig,
+  PersonalizationConfig,
+  Notification,
+  SearchResult,
+  SearchCategory,
+} from '../types';
 
 const api = axios.create({
   baseURL: '/api',
@@ -16,6 +32,18 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const authApi = {
   register: (username: string, password: string) =>
     api.post<{ access_token: string; user: User }>('/auth/register', { username, password }),
@@ -28,7 +56,39 @@ export const desktopApi = {
   getConfig: () => api.get<DesktopConfig>('/desktop/init'),
   saveLayout: (layout: DesktopConfig['layout']) =>
     api.post('/desktop/layout', { layout }),
+  saveTheme: (theme: ThemeConfig) => api.put('/desktop/theme', theme),
+  saveWallpaper: (wallpaper: string) => api.put('/desktop/wallpaper', { wallpaper }),
+  saveTaskbarConfig: (taskbarConfig: DesktopConfig['taskbarConfig']) =>
+    api.put('/desktop/taskbar', taskbarConfig),
+  saveDisplayConfig: (display: DisplayConfig) => api.put('/desktop/display', display),
+  saveDateTimeConfig: (dateTime: DateTimeConfig) => api.put('/desktop/datetime', dateTime),
+  savePersonalizationConfig: (personalization: PersonalizationConfig) =>
+    api.put('/desktop/personalization', personalization),
+  repairConfig: () => api.post('/desktop/repair'),
   getIcons: () => api.get('/desktop/icons'),
+};
+
+export const notificationsApi = {
+  getAll: (limit?: number, offset?: number) =>
+    api.get<{ notifications: Notification[]; total: number }>('/notifications', { params: { limit, offset } }),
+  getUnreadCount: () => api.get<{ count: number }>('/notifications/unread/count'),
+  create: (data: { title: string; message: string; type?: string; category?: string }) =>
+    api.post<Notification>('/notifications', data),
+  markAsRead: (id: number) => api.put(`/notifications/${id}/read`),
+  markAllAsRead: () => api.put('/notifications/read/all'),
+  delete: (id: number) => api.delete(`/notifications/${id}`),
+  clearAll: () => api.delete('/notifications/clear/all'),
+  batchDelete: (ids: number[]) => api.post('/notifications/batch/delete', { ids }),
+  repair: () => api.post('/notifications/repair'),
+};
+
+export const searchApi = {
+  search: (query: string, category?: SearchCategory, limit?: number, exact?: boolean) =>
+    api.get<{ results: SearchResult[]; total: number }>('/search', {
+      params: { q: query, category, limit, exact: exact ? 'true' : 'false' },
+    }),
+  getRecent: () => api.get<{ searches: string[] }>('/search/recent'),
+  repair: () => api.post('/search/repair'),
 };
 
 export const filesApi = {

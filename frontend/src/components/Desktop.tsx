@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DesktopConfig, DesktopIcon, WindowState, FileItem } from '../types';
-import { desktopApi, windowStateApi } from '../services/api';
+import { desktopApi, windowStateApi, notificationsApi } from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
+import { ThemeProvider } from '../contexts/ThemeContext';
 import Window from './Window';
 import FileExplorer from './FileExplorer';
 import TextEditor from './TextEditor';
+import SettingsPanel from './SettingsPanel';
+import NotificationCenter from './NotificationCenter';
+import SearchPanel from './SearchPanel';
 
 const iconMap: Record<string, string> = {
   computer: '💻',
@@ -14,19 +18,33 @@ const iconMap: Record<string, string> = {
   file: '📄',
   explorer: '📂',
   settings: '⚙️',
+  notepad: '📝',
+  calculator: '🧮',
 };
 
-const Desktop: React.FC = () => {
+const DesktopContent: React.FC = () => {
   const [config, setConfig] = useState<DesktopConfig | null>(null);
   const [startMenuOpen, setStartMenuOpen] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   const [windows, setWindows] = useState<WindowState[]>([]);
   const [selectedIcon, setSelectedIcon] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [draggingIcon, setDraggingIcon] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const dragStartPos = useRef({ x: 0, y: 0 });
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (config?.display?.scale) {
+      document.documentElement.style.setProperty('--display-scale', String(config.display.scale));
+    } else {
+      document.documentElement.style.setProperty('--display-scale', '1');
+    }
+  }, [config?.display?.scale]);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -36,7 +54,17 @@ const Desktop: React.FC = () => {
   useEffect(() => {
     loadDesktopConfig();
     loadWindowStates();
+    loadUnreadCount();
   }, []);
+
+  const loadUnreadCount = async () => {
+    try {
+      const response = await notificationsApi.getUnreadCount();
+      setUnreadCount(response.data.count);
+    } catch (err) {
+      console.error('加载未读通知失败', err);
+    }
+  };
 
   const loadDesktopConfig = async () => {
     try {
@@ -80,6 +108,8 @@ const Desktop: React.FC = () => {
         openFileExplorer();
       } else if (icon.id === '2') {
         openTrash();
+      } else if (icon.id === '3') {
+        openSettings();
       }
     }
   };
@@ -114,6 +144,11 @@ const Desktop: React.FC = () => {
     };
     setWindows([...windows, newWindow]);
     saveWindowState(newWindow);
+  };
+
+  const openSettings = () => {
+    setShowSettings(true);
+    setStartMenuOpen(false);
   };
 
   const handleOpenFile = (file: FileItem) => {
@@ -232,11 +267,27 @@ const Desktop: React.FC = () => {
   const handleDesktopClick = () => {
     setSelectedIcon(null);
     setStartMenuOpen(false);
+    setShowSettings(false);
+    setShowNotifications(false);
+    setShowSearch(false);
   };
 
   const handleLogout = () => {
     logout();
     navigate('/');
+  };
+
+  const handleConfigUpdate = (newConfig: DesktopConfig) => {
+    setConfig(newConfig);
+  };
+
+  const handleOpenApp = (appId: string) => {
+    if (appId === 'explorer') {
+      openFileExplorer();
+    } else if (appId === 'settings') {
+      openSettings();
+    }
+    setShowSearch(false);
   };
 
   if (!config || !isLoaded) {
@@ -251,21 +302,32 @@ const Desktop: React.FC = () => {
     >
       <div
         className="desktop"
-        style={{ backgroundImage: `url(${config.wallpaper})`, backgroundSize: 'cover' }}
+        style={{
+          backgroundImage: `url(${config.wallpaper})`,
+          backgroundSize: 'cover',
+          height: config.taskbarConfig.position === 'top' || config.taskbarConfig.position === 'bottom'
+            ? 'calc(100% - 48px)'
+            : '100%',
+          marginLeft: config.taskbarConfig.position === 'left' ? '48px' : '0',
+          marginRight: config.taskbarConfig.position === 'right' ? '48px' : '0',
+          marginTop: config.taskbarConfig.position === 'top' ? '48px' : '0',
+        }}
         onClick={handleDesktopClick}
       >
-        {config.layout.map((icon) => (
-          <div
-            key={icon.id}
-            className={`desktop-icon ${selectedIcon === icon.id ? 'selected' : ''}`}
-            style={{ left: icon.x, top: icon.y }}
-            onMouseDown={(e) => handleIconMouseDown(e, icon.id)}
-            onDoubleClick={() => handleIconDoubleClick(icon)}
-          >
-            <div className="icon-image">{iconMap[icon.icon] || '📄'}</div>
-            <div className="icon-name">{icon.name}</div>
-          </div>
-        ))}
+        <div className="desktop-icons-container">
+          {config.layout.map((icon) => (
+            <div
+              key={icon.id}
+              className={`desktop-icon ${selectedIcon === icon.id ? 'selected' : ''}`}
+              style={{ left: icon.x, top: icon.y }}
+              onMouseDown={(e) => handleIconMouseDown(e, icon.id)}
+              onDoubleClick={() => handleIconDoubleClick(icon)}
+            >
+              <div className="icon-image">{iconMap[icon.icon] || '📄'}</div>
+              <div className="icon-name">{icon.name}</div>
+            </div>
+          ))}
+        </div>
 
         {windows.map((window) => (
           <Window
@@ -287,10 +349,18 @@ const Desktop: React.FC = () => {
         ))}
       </div>
 
-      <div className="taskbar">
-        <div className="start-button" onClick={() => setStartMenuOpen(!startMenuOpen)}>
-          ⊞
+      <div className={`taskbar position-${config.taskbarConfig.position || 'bottom'} ${config.taskbarConfig.autoHide ? 'auto-hide' : ''}`}>
+        <div className="taskbar-left">
+          <div className="start-button" onClick={() => setStartMenuOpen(!startMenuOpen)}>
+            ⊞
+          </div>
+          {config.taskbarConfig.showSearch !== false && (
+            <div className="search-button" onClick={() => setShowSearch(!showSearch)}>
+              🔍
+            </div>
+          )}
         </div>
+
         <div className="taskbar-items">
           {windows.map((w) => (
             <div
@@ -303,14 +373,25 @@ const Desktop: React.FC = () => {
             </div>
           ))}
         </div>
-        <div className="taskbar-time">
-          <div>{currentTime.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}</div>
-          <div>{currentTime.toLocaleDateString('zh-CN')}</div>
+
+        <div className="taskbar-right-section" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {config.taskbarConfig.showNotifications !== false && (
+            <div className="notification-button" onClick={() => setShowNotifications(!showNotifications)}>
+              🔔
+              {unreadCount > 0 && <span className="unread-badge">{unreadCount}</span>}
+            </div>
+          )}
+          {config.taskbarConfig.showTime !== false && (
+            <div className="taskbar-time">
+              <div>{currentTime.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: config.dateTime?.showSeconds ? '2-digit' : undefined })}</div>
+              {config.dateTime?.showDate !== false && <div>{currentTime.toLocaleDateString('zh-CN')}</div>}
+            </div>
+          )}
         </div>
       </div>
 
-      <div className={`start-menu ${startMenuOpen ? 'open' : ''}`}>
-        <div style={{ color: 'white', marginBottom: '16px', padding: '8px' }}>
+      <div className={`start-menu ${startMenuOpen ? 'open' : ''} position-${config.taskbarConfig.position || 'bottom'}`}>
+        <div style={{ color: 'var(--text-primary)', marginBottom: '16px', padding: '8px' }}>
           用户: {user?.username}
         </div>
         <div className="start-menu-items">
@@ -320,6 +401,7 @@ const Desktop: React.FC = () => {
               className="start-menu-item"
               onClick={() => {
                 if (item.id === '1') openFileExplorer();
+                if (item.id === '2') openSettings();
                 setStartMenuOpen(false);
               }}
             >
@@ -328,24 +410,59 @@ const Desktop: React.FC = () => {
             </div>
           ))}
         </div>
-        <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-          <button
-            onClick={handleLogout}
-            style={{
-              width: '100%',
-              padding: '10px',
-              background: 'rgba(255,255,255,0.1)',
-              border: 'none',
-              color: 'white',
-              borderRadius: '4px',
-              cursor: 'pointer',
-            }}
-          >
+        <div className="start-menu-divider">
+          <button className="logout-button" onClick={handleLogout}>
             注销
           </button>
         </div>
       </div>
+
+      {showSettings && (
+        <div className="overlay" onClick={() => setShowSettings(false)}>
+          <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
+            <SettingsPanel config={config} onUpdate={handleConfigUpdate} onClose={() => setShowSettings(false)} />
+          </div>
+        </div>
+      )}
+
+      {showNotifications && (
+        <div className="overlay" onClick={() => setShowNotifications(false)}>
+          <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
+            <NotificationCenter onClose={() => setShowNotifications(false)} />
+          </div>
+        </div>
+      )}
+
+      {showSearch && (
+        <div className="overlay" onClick={() => setShowSearch(false)}>
+          <div className="overlay-content" onClick={(e) => e.stopPropagation()}>
+            <SearchPanel onClose={() => setShowSearch(false)} onOpenApp={handleOpenApp} />
+          </div>
+        </div>
+      )}
     </div>
+  );
+};
+
+const Desktop: React.FC = () => {
+  const [config, setConfig] = useState<DesktopConfig | null>(null);
+
+  useEffect(() => {
+    const loadConfig = async () => {
+      try {
+        const response = await desktopApi.getConfig();
+        setConfig(response.data);
+      } catch (err) {
+        console.error('加载配置失败', err);
+      }
+    };
+    loadConfig();
+  }, []);
+
+  return (
+    <ThemeProvider initialConfig={config}>
+      <DesktopContent />
+    </ThemeProvider>
   );
 };
 
