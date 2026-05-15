@@ -6,9 +6,27 @@
 
 body {
   font-family: 'Courier New', Courier, monospace;
+  overflow: hidden;
+}
+
+.theme-dark {
   background-color: #0a0a0a;
   color: #e0e0e0;
-  overflow: hidden;
+}
+
+.theme-light {
+  background-color: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.theme-retro-green {
+  background-color: #0a1a0a;
+  color: #33ff33;
+}
+
+.theme-hacker {
+  background-color: #000000;
+  color: #00ff00;
 }
 
 .terminal {
@@ -25,16 +43,43 @@ body {
   padding-right: 8px;
 }
 
+.theme-dark .output-panel::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+.theme-light .output-panel::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+.theme-retro-green .output-panel::-webkit-scrollbar-track {
+  background: #1a2a1a;
+}
+
+.theme-hacker .output-panel::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
 .output-panel::-webkit-scrollbar {
   width: 8px;
 }
 
-.output-panel::-webkit-scrollbar-track {
-  background: #1a1a1a;
+.theme-dark .output-panel::-webkit-scrollbar-thumb {
+  background: #444444;
+  border-radius: 4px;
 }
 
-.output-panel::-webkit-scrollbar-thumb {
-  background: #444444;
+.theme-light .output-panel::-webkit-scrollbar-thumb {
+  background: #999999;
+  border-radius: 4px;
+}
+
+.theme-retro-green .output-panel::-webkit-scrollbar-thumb {
+  background: #336633;
+  border-radius: 4px;
+}
+
+.theme-hacker .output-panel::-webkit-scrollbar-thumb {
+  background: #003300;
   border-radius: 4px;
 }
 
@@ -45,13 +90,15 @@ body {
   padding: 1px 0;
 }
 
-.output-command {
-  color: #ffffff;
-}
+.theme-dark .output-command { color: #ffffff; }
+.theme-light .output-command { color: #000000; }
+.theme-retro-green .output-command { color: #66ff66; }
+.theme-hacker .output-command { color: #00ff00; }
 
-.output-result {
-  color: #e0e0e0;
-}
+.theme-dark .output-result { color: #e0e0e0; }
+.theme-light .output-result { color: #333333; }
+.theme-retro-green .output-result { color: #33ff33; }
+.theme-hacker .output-result { color: #00cc00; }
 
 .output-error {
   color: #ff4444;
@@ -65,9 +112,10 @@ body {
   color: #44aaff;
 }
 
-.output-loading {
-  color: #888888;
-}
+.theme-dark .output-loading { color: #888888; }
+.theme-light .output-loading { color: #666666; }
+.theme-retro-green .output-loading { color: #339933; }
+.theme-hacker .output-loading { color: #006600; }
 
 .line-icon {
   display: inline-block;
@@ -86,26 +134,63 @@ body {
   to { transform: rotate(360deg); }
 }
 
+.theme-dark .completions-panel {
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.theme-light .completions-panel {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.theme-retro-green .completions-panel {
+  border-top: 1px solid #336633;
+  border-bottom: 1px solid #336633;
+}
+
+.theme-hacker .completions-panel {
+  border-top: 1px solid #003300;
+  border-bottom: 1px solid #003300;
+}
+
 .completions-panel {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   padding: 8px 0;
-  border-top: 1px solid #333;
-  border-bottom: 1px solid #333;
+}
+
+.theme-dark .completion-item {
+  color: #88ccff;
+  background: #1a1a2e;
+}
+
+.theme-light .completion-item {
+  color: #0066cc;
+  background: #e6f0ff;
+}
+
+.theme-retro-green .completion-item {
+  color: #66ff66;
+  background: #1a2a1a;
+}
+
+.theme-hacker .completion-item {
+  color: #00ff00;
+  background: #0a1a0a;
 }
 
 .completion-item {
-  color: #88ccff;
   padding: 2px 8px;
-  background: #1a1a2e;
   border-radius: 3px;
   cursor: pointer;
 }
 
-.completion-item:hover {
-  background: #2a2a4e;
-}
+.theme-dark .completion-item:hover { background: #2a2a4e; }
+.theme-light .completion-item:hover { background: #cce0ff; }
+.theme-retro-green .completion-item:hover { background: #2a4a2a; }
+.theme-hacker .completion-item:hover { background: #0a2a0a; }
 
 .input-line {
   display: flex;
@@ -115,19 +200,128 @@ body {
   padding-top: 4px;
 }
 
+.theme-dark .prompt { color: #00ff88; }
+.theme-light .prompt { color: #008844; }
+.theme-retro-green .prompt { color: #66ff66; }
+.theme-hacker .prompt { color: #00ff00; }
+
 .prompt {
-  color: #00ff88;
   white-space: nowrap;
   font-weight: bold;
 }
+
+.theme-dark .command-input { color: #ffffff; caret-color: #ffffff; }
+.theme-light .command-input { color: #000000; caret-color: #000000; }
+.theme-retro-green .command-input { color: #33ff33; caret-color: #33ff33; }
+.theme-hacker .command-input { color: #00ff00; caret-color: #00ff00; }
 
 .command-input {
   flex: 1;
   background: transparent;
   border: none;
   outline: none;
-  color: #ffffff;
   font-family: 'Courier New', Courier, monospace;
   font-size: 16px;
-  caret-color: #ffffff;
+}
+
+.vim-editor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.theme-dark .vim-editor { background: #1a1a1a; color: #e0e0e0; }
+.theme-light .vim-editor { background: #ffffff; color: #1a1a1a; }
+.theme-retro-green .vim-editor { background: #0a1a0a; color: #33ff33; }
+.theme-hacker .vim-editor { background: #000000; color: #00ff00; }
+
+.vim-header {
+  padding: 8px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-dark .vim-header { border-bottom: 1px solid #333; color: #888888; }
+.theme-light .vim-header { border-bottom: 1px solid #ccc; color: #666666; }
+.theme-retro-green .vim-header { border-bottom: 1px solid #336633; color: #66aa66; }
+.theme-hacker .vim-header { border-bottom: 1px solid #003300; color: #00aa00; }
+
+.vim-content {
+  flex: 1;
+  padding: 8px;
+  overflow-y: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  white-space: pre-wrap;
+  outline: none;
+  border: none;
+  resize: none;
+  line-height: 1.5;
+}
+
+.theme-dark .vim-content { background: #1a1a1a; color: #e0e0e0; caret-color: #ffffff; }
+.theme-light .vim-content { background: #ffffff; color: #1a1a1a; caret-color: #000000; }
+.theme-retro-green .vim-content { background: #0a1a0a; color: #33ff33; caret-color: #33ff33; }
+.theme-hacker .vim-content { background: #000000; color: #00ff00; caret-color: #00ff00; }
+
+.vim-content:read-only {
+  opacity: 1;
+}
+
+.theme-dark .vim-content:read-only { color: #888888; }
+.theme-light .vim-content:read-only { color: #999999; }
+.theme-retro-green .vim-content:read-only { color: #66aa66; }
+.theme-hacker .vim-content:read-only { color: #00aa00; }
+
+.vim-footer {
+  padding: 8px;
+  border-top: 1px solid #333;
+  display: flex;
+  gap: 8px;
+}
+
+.theme-dark .vim-footer { border-top: 1px solid #333; }
+.theme-light .vim-footer { border-top: 1px solid #ccc; }
+.theme-retro-green .vim-footer { border-top: 1px solid #336633; }
+.theme-hacker .vim-footer { border-top: 1px solid #003300; }
+
+.vim-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+}
+
+.theme-dark .vim-input { color: #e0e0e0; }
+.theme-light .vim-input { color: #1a1a1a; }
+.theme-retro-green .vim-input { color: #33ff33; }
+.theme-hacker .vim-input { color: #00ff00; }
+
+.file-upload-zone {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 100;
+  font-size: 14px;
+}
+
+.theme-dark .file-upload-zone { background: #2a2a2a; border: 1px solid #444; color: #e0e0e0; }
+.theme-light .file-upload-zone { background: #f0f0f0; border: 1px solid #ccc; color: #1a1a1a; }
+.theme-retro-green .file-upload-zone { background: #1a2a1a; border: 1px solid #336633; color: #33ff33; }
+.theme-hacker .file-upload-zone { background: #0a1a0a; border: 1px solid #003300; color: #00ff00; }
+
+.hidden-input {
+  display: none;
 }

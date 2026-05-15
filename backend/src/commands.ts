@@ -1,4 +1,5 @@
 import { fs } from './filesystem';
+import { getConfig, setConfig, getAllAliases, setAlias, deleteAlias, addCommandHistory, getCommandHistory, searchCommandHistory, deleteCommandHistory, clearCommandHistory } from './db';
 
 interface OutputLine {
   type: 'command' | 'result' | 'error' | 'warning' | 'info';
@@ -469,6 +470,210 @@ const commands: Record<string, CommandHandler> = {
     clear: true,
   }),
 
+  theme: (args: string[]) => {
+    const themes = ['dark', 'light', 'retro-green', 'hacker'];
+    
+    if (args.length === 0) {
+      const currentTheme = getConfig('theme', 'dark');
+      return {
+        output: [info(`Current theme: ${currentTheme}\nAvailable themes: ${themes.join(', ')}`)],
+        path: fs.getCurrentPath(),
+      };
+    }
+    
+    if (args[0] === 'custom' && args.length >= 4) {
+      const [, bg, text, prompt] = args;
+      const customTheme = JSON.stringify({ type: 'custom', bg, text, prompt });
+      setConfig('theme', customTheme);
+      return {
+        output: [result('Custom theme applied successfully')],
+        path: fs.getCurrentPath(),
+      };
+    }
+    
+    const themeName = args[0];
+    if (!themes.includes(themeName)) {
+      return {
+        output: [error(`Unknown theme: ${themeName}\nAvailable themes: ${themes.join(', ')}`)],
+        path: fs.getCurrentPath(),
+      };
+    }
+    
+    setConfig('theme', themeName);
+    return {
+      output: [result(`Theme changed to: ${themeName}`)],
+      path: fs.getCurrentPath(),
+    };
+  },
+
+  alias: (args: string[]) => {
+    if (args.length === 0) {
+      const aliases = getAllAliases();
+      if (aliases.size === 0) {
+        return {
+          output: [info('No aliases defined')],
+          path: fs.getCurrentPath(),
+        };
+      }
+      const aliasList = Array.from(aliases.entries())
+        .map(([alias, cmd]) => `${alias}='${cmd}'`)
+        .join('\n');
+      return {
+        output: [result(aliasList)],
+        path: fs.getCurrentPath(),
+      };
+    }
+
+    if (args[0] === '-d' && args.length >= 2) {
+      const aliasName = args[1];
+      const deleted = deleteAlias(aliasName);
+      if (deleted) {
+        return {
+          output: [result(`Alias '${aliasName}' deleted`)],
+          path: fs.getCurrentPath(),
+        };
+      }
+      return {
+        output: [error(`Alias '${aliasName}' not found`)],
+        path: fs.getCurrentPath(),
+      };
+    }
+
+    const fullArg = args.join(' ');
+    const match = fullArg.match(/^([a-zA-Z0-9_-]+)=(.+)$/);
+    if (!match) {
+      return {
+        output: [error('Usage: alias name=command\n       alias -d name')],
+        path: fs.getCurrentPath(),
+      };
+    }
+
+    const [, aliasName, command] = match;
+    setAlias(aliasName, command);
+    return {
+      output: [result(`Alias '${aliasName}' set to '${command}'`)],
+      path: fs.getCurrentPath(),
+    };
+  },
+
+  prompt: (args: string[]) => {
+    if (args.length === 0) {
+      const currentPrompt = getConfig('prompt', '%user@%host:%path$ ');
+      return {
+        output: [info(`Current prompt format: ${currentPrompt}\nVariables: %user, %host, %path, %time, %date`)],
+        path: fs.getCurrentPath(),
+      };
+    }
+
+    const newPrompt = args.join(' ');
+    setConfig('prompt', newPrompt);
+    return {
+      output: [result(`Prompt format changed to: ${newPrompt}`)],
+      path: fs.getCurrentPath(),
+    };
+  },
+
+  source: (args: string[]) => {
+    if (args.length === 0) {
+      return {
+        output: [error('source: missing file operand')],
+        path: fs.getCurrentPath(),
+      };
+    }
+
+    const fileName = args[0];
+    if (!fs.exists(fileName)) {
+      return {
+        output: [error(`source: ${fileName}: No such file or directory`)],
+        path: fs.getCurrentPath(),
+      };
+    }
+
+    if (fs.getType(fileName) === 'dir') {
+      return {
+        output: [error(`source: ${fileName}: Is a directory`)],
+        path: fs.getCurrentPath(),
+      };
+    }
+
+    const content = fs.readFile(fileName) || '';
+    const lines = content.split('\n').filter(line => line.trim() && !line.trim().startsWith('#'));
+    
+    const outputs: OutputLine[] = [];
+    for (const line of lines) {
+      const result = executeCommand(line);
+      outputs.push(...result.output);
+    }
+
+    return {
+      output: outputs,
+      path: fs.getCurrentPath(),
+    };
+  },
+
+  history: (args: string[]) => {
+    const { flags, positional } = parseArgs(args);
+    
+    if (flags.includes('c') || flags.includes('clear')) {
+      clearCommandHistory();
+      return {
+        output: [result('History cleared')],
+        path: fs.getCurrentPath(),
+      };
+    }
+
+    if (flags.includes('d') && positional.length > 0) {
+      const id = parseInt(positional[0]);
+      if (isNaN(id)) {
+        return {
+          output: [error('Invalid history ID')],
+          path: fs.getCurrentPath(),
+        };
+      }
+      const deleted = deleteCommandHistory(id);
+      if (deleted) {
+        return {
+          output: [result(`History entry ${id} deleted`)],
+          path: fs.getCurrentPath(),
+        };
+      }
+      return {
+        output: [error(`History entry ${id} not found`)],
+        path: fs.getCurrentPath(),
+      };
+    }
+
+    if (flags.includes('s') && positional.length > 0) {
+      const pattern = positional.join(' ');
+      const history = searchCommandHistory(pattern);
+      if (history.length === 0) {
+        return {
+          output: [info('No matching history entries')],
+          path: fs.getCurrentPath(),
+        };
+      }
+      const historyList = history.reverse().map(h => `  ${h.id}  ${h.command}`).join('\n');
+      return {
+        output: [result(historyList)],
+        path: fs.getCurrentPath(),
+      };
+    }
+
+    const limit = positional[0] ? parseInt(positional[0]) : undefined;
+    const history = getCommandHistory(limit);
+    if (history.length === 0) {
+      return {
+        output: [info('No history entries')],
+        path: fs.getCurrentPath(),
+      };
+    }
+    const historyList = history.reverse().map(h => `  ${h.id}  ${h.command}`).join('\n');
+    return {
+      output: [result(historyList)],
+      path: fs.getCurrentPath(),
+    };
+  },
+
   help: () => {
     const helpText = `
 Available commands:
@@ -491,6 +696,15 @@ Available commands:
   tail [-n] <file> Print last lines of file
   wc <file>        Count lines, words, characters
   clear            Clear the terminal screen
+  theme [name]     Change terminal theme (dark, light, retro-green, hacker)
+  alias [name=cmd] Set/list command aliases
+  alias -d <name>  Delete alias
+  prompt [format]  Customize command prompt (%user, %host, %path, %time, %date)
+  source <file>    Execute commands from script file
+  history [n]      Show command history
+  history -c       Clear history
+  history -d <id>  Delete history entry
+  history -s <pat> Search history
   help             Show this help message
     `.trim();
     return {
@@ -506,7 +720,19 @@ export function executeCommand(input: string): CommandResult {
     return { output: [], path: fs.getCurrentPath() };
   }
 
-  const parts = trimmed.split(/\s+/);
+  addCommandHistory(trimmed, fs.getCurrentPath());
+
+  const aliases = getAllAliases();
+  let processedInput = trimmed;
+  const firstSpace = trimmed.indexOf(' ');
+  const firstWord = firstSpace === -1 ? trimmed : trimmed.substring(0, firstSpace);
+  
+  if (aliases.has(firstWord)) {
+    const aliasValue = aliases.get(firstWord)!;
+    processedInput = firstSpace === -1 ? aliasValue : aliasValue + trimmed.substring(firstSpace);
+  }
+
+  const parts = processedInput.split(/\s+/);
   const cmd = parts[0].toLowerCase();
   const args = parts.slice(1);
 
@@ -528,9 +754,12 @@ export function getCurrentPath(): string {
 export function getCompletions(partial: string, path: string): string[] {
   const commandCompletions = Object.keys(commands).filter(cmd => cmd.startsWith(partial));
   
+  const aliases = getAllAliases();
+  const aliasCompletions = Array.from(aliases.keys()).filter(alias => alias.startsWith(partial));
+  
   const fileCompletions = fs.listDirectory(path)
     .filter(item => item.name.startsWith(partial))
     .map(item => item.type === 'dir' ? `${item.name}/` : item.name);
 
-  return [...new Set([...commandCompletions, ...fileCompletions])];
+  return [...new Set([...commandCompletions, ...aliasCompletions, ...fileCompletions])];
 }
