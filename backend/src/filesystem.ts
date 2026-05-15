@@ -1,27 +1,40 @@
-import db from './db';
+import db, { type FileNode, getTeamMembers, type Team, getUserById } from './db';
+import { v4 as uuidv4 } from 'uuid';
 
-interface FileNode {
+export type ContextType = 'user' | 'team';
+
+export interface FileSystemContext {
+  type: ContextType;
   id: number;
-  name: string;
-  type: 'file' | 'dir';
-  parent_id: number | null;
-  content: string;
-  created_at: string;
 }
 
 export class FileSystem {
-  private currentPath: string = '/';
+  private currentPaths: Map<string, string> = new Map();
 
-  private getNodeId(path: string): number | null {
-    const root = db.prepare('SELECT id FROM nodes WHERE parent_id IS NULL AND name = \'/\'').get() as FileNode | undefined;
-    if (root === undefined) return null;
+  private getContextKey(context: FileSystemContext): string {
+    return `${context.type}:${context.id}`;
+  }
+
+  private getRootId(context: FileSystemContext): number | null {
+    let row: FileNode | undefined;
+    if (context.type === 'user') {
+      row = db.prepare('SELECT id FROM nodes WHERE parent_id IS NULL AND name = \'/\' AND owner_id = ?').get(context.id) as FileNode | undefined;
+    } else {
+      row = db.prepare('SELECT id FROM nodes WHERE parent_id IS NULL AND name = \'/\' AND team_id = ?').get(context.id) as FileNode | undefined;
+    }
+    return row?.id ?? null;
+  }
+
+  private getNodeId(context: FileSystemContext, path: string): number | null {
+    const rootId = this.getRootId(context);
+    if (rootId === null) return null;
     
     if (path === '/') {
-      return root.id;
+      return rootId;
     }
 
     const parts = path.split('/').filter(Boolean);
-    let currentId: number = root.id;
+    let currentId: number = rootId;
 
     for (const part of parts) {
       const node = db.prepare('SELECT id, type FROM nodes WHERE parent_id = ? AND name = ?').get(currentId, part) as FileNode | undefined;
@@ -36,11 +49,11 @@ export class FileSystem {
     return node ?? null;
   }
 
-  private resolvePath(pathStr: string): string {
+  private resolvePath(currentPath: string, pathStr: string): string {
     if (pathStr.startsWith('/')) {
       return this.normalizePath(pathStr);
     }
-    return this.normalizePath(this.joinPath(this.currentPath, pathStr));
+    return this.normalizePath(this.joinPath(currentPath, pathStr));
   }
 
   private normalizePath(pathStr: string): string {
@@ -62,68 +75,98 @@ export class FileSystem {
     return a + (a.endsWith('/') ? '' : '/') + b;
   }
 
-  getCurrentPath(): string {
-    return this.currentPath;
+  getCurrentPath(context: FileSystemContext): string {
+    const key = this.getContextKey(context);
+    return this.currentPaths.get(key) || '/';
   }
 
-  setCurrentPath(path: string): boolean {
-    const resolved = this.resolvePath(path);
-    const nodeId = this.getNodeId(resolved);
+  setCurrentPath(context: FileSystemContext, path: string): boolean {
+    const currentPath = this.getCurrentPath(context);
+    const resolved = this.resolvePath(currentPath, path);
+    const nodeId = this.getNodeId(context, resolved);
     if (nodeId === null) return false;
     
     const node = this.getNodeById(nodeId);
     if (node === null || node.type !== 'dir') return false;
     
-    this.currentPath = resolved;
+    const key = this.getContextKey(context);
+    this.currentPaths.set(key, resolved);
     return true;
   }
 
-  listDirectory(path?: string): { name: string; type: string }[] {
-    const targetPath = path !== undefined ? this.resolvePath(path) : this.currentPath;
-    const dirId = this.getNodeId(targetPath);
+  listDirectory(context: FileSystemContext, path?: string): { name: string; type: string; uuid: string }[] {
+    const currentPath = this.getCurrentPath(context);
+    const targetPath = path !== undefined ? this.resolvePath(currentPath, path) : currentPath;
+    const dirId = this.getNodeId(context, targetPath);
     if (dirId === null) return [];
 
-    const nodes = db.prepare('SELECT name, type FROM nodes WHERE parent_id = ? ORDER BY type, name').all(dirId) as FileNode[];
-    return nodes.map(n => ({ name: n.name, type: n.type }));
+    const nodes = db.prepare('SELECT name, type, uuid FROM nodes WHERE parent_id = ? ORDER BY type, name').all(dirId) as (FileNode & { uuid: string })[];
+    return nodes.map(n => ({ name: n.name, type: n.type, uuid: n.uuid }));
   }
 
-  createDirectory(path: string): boolean {
-    const resolved = this.resolvePath(path);
+  createDirectory(context: FileSystemContext, path: string): boolean {
+    const currentPath = this.getCurrentPath(context);
+    const resolved = this.resolvePath(currentPath, path);
     if (resolved === '/') return false;
     
     const parentPath = resolved.substring(0, resolved.lastIndexOf('/')) || '/';
     const dirName = resolved.substring(resolved.lastIndexOf('/') + 1);
     
-    const parentId = this.getNodeId(parentPath);
+    const parentId = this.getNodeId(context, parentPath);
     if (parentId === null) return false;
     
     const existing = db.prepare('SELECT id FROM nodes WHERE parent_id = ? AND name = ?').get(parentId, dirName) as FileNode | undefined;
     if (existing !== undefined) return false;
     
-    const result = db.prepare('INSERT INTO nodes (name, type, parent_id) VALUES (?, ?, ?)').run(dirName, 'dir', parentId);
+    const uuid = uuidv4();
+    const result = db.prepare(`
+      INSERT INTO nodes (uuid, name, type, parent_id, owner_id, team_id)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `).run(
+      uuid,
+      dirName,
+      'dir',
+      parentId,
+      context.type === 'user' ? context.id : null,
+      context.type === 'team' ? context.id : null
+    );
     return result.changes > 0;
   }
 
-  createFile(path: string, content: string = ''): boolean {
-    const resolved = this.resolvePath(path);
+  createFile(context: FileSystemContext, path: string, content: string = ''): boolean {
+    const currentPath = this.getCurrentPath(context);
+    const resolved = this.resolvePath(currentPath, path);
     const parentPath = resolved.substring(0, resolved.lastIndexOf('/')) || '/';
     const fileName = resolved.substring(resolved.lastIndexOf('/') + 1);
     
     if (fileName === '') return false;
     
-    const parentId = this.getNodeId(parentPath);
+    const parentId = this.getNodeId(context, parentPath);
     if (parentId === null) return false;
     
     const existing = db.prepare('SELECT id FROM nodes WHERE parent_id = ? AND name = ?').get(parentId, fileName) as FileNode | undefined;
     if (existing !== undefined) return false;
     
-    const result = db.prepare('INSERT INTO nodes (name, type, parent_id, content) VALUES (?, ?, ?, ?)').run(fileName, 'file', parentId, content);
+    const uuid = uuidv4();
+    const result = db.prepare(`
+      INSERT INTO nodes (uuid, name, type, parent_id, content, owner_id, team_id)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      uuid,
+      fileName,
+      'file',
+      parentId,
+      content,
+      context.type === 'user' ? context.id : null,
+      context.type === 'team' ? context.id : null
+    );
     return result.changes > 0;
   }
 
-  readFile(path: string): string | null {
-    const resolved = this.resolvePath(path);
-    const fileId = this.getNodeId(resolved);
+  readFile(context: FileSystemContext, path: string): string | null {
+    const currentPath = this.getCurrentPath(context);
+    const resolved = this.resolvePath(currentPath, path);
+    const fileId = this.getNodeId(context, resolved);
     if (fileId === null) return null;
     
     const node = this.getNodeById(fileId);
@@ -132,14 +175,16 @@ export class FileSystem {
     return node.content;
   }
 
-  exists(path: string): boolean {
-    const resolved = this.resolvePath(path);
-    return this.getNodeId(resolved) !== null;
+  exists(context: FileSystemContext, path: string): boolean {
+    const currentPath = this.getCurrentPath(context);
+    const resolved = this.resolvePath(currentPath, path);
+    return this.getNodeId(context, resolved) !== null;
   }
 
-  getType(path: string): 'file' | 'dir' | null {
-    const resolved = this.resolvePath(path);
-    const nodeId = this.getNodeId(resolved);
+  getType(context: FileSystemContext, path: string): 'file' | 'dir' | null {
+    const currentPath = this.getCurrentPath(context);
+    const resolved = this.resolvePath(currentPath, path);
+    const nodeId = this.getNodeId(context, resolved);
     if (nodeId === null) return null;
     
     const node = this.getNodeById(nodeId);
@@ -154,11 +199,12 @@ export class FileSystem {
     db.prepare('DELETE FROM nodes WHERE id = ?').run(nodeId);
   }
 
-  delete(path: string, recursive: boolean = false): boolean {
-    const resolved = this.resolvePath(path);
+  delete(context: FileSystemContext, path: string, recursive: boolean = false): boolean {
+    const currentPath = this.getCurrentPath(context);
+    const resolved = this.resolvePath(currentPath, path);
     if (resolved === '/') return false;
     
-    const nodeId = this.getNodeId(resolved);
+    const nodeId = this.getNodeId(context, resolved);
     if (nodeId === null) return false;
     
     const node = this.getNodeById(nodeId);
@@ -177,27 +223,29 @@ export class FileSystem {
     return true;
   }
 
-  writeFile(path: string, content: string): boolean {
-    const resolved = this.resolvePath(path);
-    const nodeId = this.getNodeId(resolved);
+  writeFile(context: FileSystemContext, path: string, content: string): boolean {
+    const currentPath = this.getCurrentPath(context);
+    const resolved = this.resolvePath(currentPath, path);
+    const nodeId = this.getNodeId(context, resolved);
     
     if (nodeId !== null) {
       const node = this.getNodeById(nodeId);
       if (node?.type === 'file') {
-        const result = db.prepare('UPDATE nodes SET content = ? WHERE id = ?').run(content, nodeId);
+        const result = db.prepare('UPDATE nodes SET content = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?').run(content, nodeId);
         return result.changes > 0;
       }
       return false;
     }
     
-    return this.createFile(path, content);
+    return this.createFile(context, path, content);
   }
 
-  copy(source: string, destination: string): boolean {
-    const resolvedSource = this.resolvePath(source);
-    const resolvedDest = this.resolvePath(destination);
+  copy(context: FileSystemContext, source: string, destination: string): boolean {
+    const currentPath = this.getCurrentPath(context);
+    const resolvedSource = this.resolvePath(currentPath, source);
+    const resolvedDest = this.resolvePath(currentPath, destination);
     
-    const sourceId = this.getNodeId(resolvedSource);
+    const sourceId = this.getNodeId(context, resolvedSource);
     if (sourceId === null) return false;
     
     const sourceNode = this.getNodeById(sourceId);
@@ -206,27 +254,39 @@ export class FileSystem {
     const destParentPath = resolvedDest.substring(0, resolvedDest.lastIndexOf('/')) || '/';
     const destName = resolvedDest.substring(resolvedDest.lastIndexOf('/') + 1);
     
-    const destParentId = this.getNodeId(destParentPath);
+    const destParentId = this.getNodeId(context, destParentPath);
     if (destParentId === null) return false;
     
-    const destId = this.getNodeId(resolvedDest);
+    const destId = this.getNodeId(context, resolvedDest);
     if (destId !== null) {
       const destNode = this.getNodeById(destId);
       if (destNode?.type === 'dir') {
-        return this.copyToDirectory(sourceId, destId, sourceNode.name);
+        return this.copyToDirectory(context, sourceId, destId, sourceNode.name);
       }
       return false;
     }
     
     if (sourceNode.type === 'file') {
-      const result = db.prepare('INSERT INTO nodes (name, type, parent_id, content) VALUES (?, ?, ?, ?)').run(destName, 'file', destParentId, sourceNode.content);
+      const uuid = uuidv4();
+      const result = db.prepare(`
+        INSERT INTO nodes (uuid, name, type, parent_id, content, owner_id, team_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `).run(
+        uuid,
+        destName,
+        'file',
+        destParentId,
+        sourceNode.content,
+        context.type === 'user' ? context.id : null,
+        context.type === 'team' ? context.id : null
+      );
       return result.changes > 0;
     }
     
-    return this.copyDirectoryRecursive(sourceId, destParentId, destName);
+    return this.copyDirectoryRecursive(context, sourceId, destParentId, destName);
   }
 
-  private copyToDirectory(sourceId: number, destDirId: number, name: string): boolean {
+  private copyToDirectory(context: FileSystemContext, sourceId: number, destDirId: number, name: string): boolean {
     const sourceNode = this.getNodeById(sourceId);
     if (sourceNode === null) return false;
     
@@ -234,15 +294,38 @@ export class FileSystem {
     if (existing !== undefined) return false;
     
     if (sourceNode.type === 'file') {
-      const result = db.prepare('INSERT INTO nodes (name, type, parent_id, content) VALUES (?, ?, ?, ?)').run(name, 'file', destDirId, sourceNode.content);
+      const uuid = uuidv4();
+      const result = db.prepare(`
+        INSERT INTO nodes (uuid, name, type, parent_id, content, owner_id, team_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `).run(
+        uuid,
+        name,
+        'file',
+        destDirId,
+        sourceNode.content,
+        context.type === 'user' ? context.id : null,
+        context.type === 'team' ? context.id : null
+      );
       return result.changes > 0;
     }
     
-    return this.copyDirectoryRecursive(sourceId, destDirId, name);
+    return this.copyDirectoryRecursive(context, sourceId, destDirId, name);
   }
 
-  private copyDirectoryRecursive(sourceDirId: number, destParentId: number, newName: string): boolean {
-    const result = db.prepare('INSERT INTO nodes (name, type, parent_id) VALUES (?, ?, ?)').run(newName, 'dir', destParentId);
+  private copyDirectoryRecursive(context: FileSystemContext, sourceDirId: number, destParentId: number, newName: string): boolean {
+    const uuid = uuidv4();
+    const result = db.prepare(`
+      INSERT INTO nodes (uuid, name, type, parent_id, owner_id, team_id)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `).run(
+      uuid,
+      newName,
+      'dir',
+      destParentId,
+      context.type === 'user' ? context.id : null,
+      context.type === 'team' ? context.id : null
+    );
     if (result.changes === 0) return false;
     
     const newDirId = Number(result.lastInsertRowid);
@@ -250,25 +333,38 @@ export class FileSystem {
     
     for (const child of children) {
       if (child.type === 'file') {
-        db.prepare('INSERT INTO nodes (name, type, parent_id, content) VALUES (?, ?, ?, ?)').run(child.name, 'file', newDirId, child.content);
+        const childUuid = uuidv4();
+        db.prepare(`
+          INSERT INTO nodes (uuid, name, type, parent_id, content, owner_id, team_id)
+          VALUES (?, ?, ?, ?, ?, ?, ?)
+        `).run(
+          childUuid,
+          child.name,
+          'file',
+          newDirId,
+          child.content,
+          context.type === 'user' ? context.id : null,
+          context.type === 'team' ? context.id : null
+        );
       } else {
-        this.copyDirectoryRecursive(child.id, newDirId, child.name);
+        this.copyDirectoryRecursive(context, child.id, newDirId, child.name);
       }
     }
     
     return true;
   }
 
-  move(source: string, destination: string): boolean {
-    const resolvedSource = this.resolvePath(source);
-    const resolvedDest = this.resolvePath(destination);
+  move(context: FileSystemContext, source: string, destination: string): boolean {
+    const currentPath = this.getCurrentPath(context);
+    const resolvedSource = this.resolvePath(currentPath, source);
+    const resolvedDest = this.resolvePath(currentPath, destination);
     
     if (resolvedSource === '/') return false;
     
-    const sourceId = this.getNodeId(resolvedSource);
+    const sourceId = this.getNodeId(context, resolvedSource);
     if (sourceId === null) return false;
     
-    const destId = this.getNodeId(resolvedDest);
+    const destId = this.getNodeId(context, resolvedDest);
     
     if (destId !== null) {
       const destNode = this.getNodeById(destId);
@@ -276,7 +372,7 @@ export class FileSystem {
         const sourceName = resolvedSource.substring(resolvedSource.lastIndexOf('/') + 1);
         const existing = db.prepare('SELECT id FROM nodes WHERE parent_id = ? AND name = ?').get(destId, sourceName) as FileNode | undefined;
         if (existing !== undefined) return false;
-        const result = db.prepare('UPDATE nodes SET parent_id = ? WHERE id = ?').run(destId, sourceId);
+        const result = db.prepare('UPDATE nodes SET parent_id = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?').run(destId, sourceId);
         return result.changes > 0;
       }
       return false;
@@ -285,16 +381,17 @@ export class FileSystem {
     const destParentPath = resolvedDest.substring(0, resolvedDest.lastIndexOf('/')) || '/';
     const destName = resolvedDest.substring(resolvedDest.lastIndexOf('/') + 1);
     
-    const destParentId = this.getNodeId(destParentPath);
+    const destParentId = this.getNodeId(context, destParentPath);
     if (destParentId === null) return false;
     
-    const result = db.prepare('UPDATE nodes SET parent_id = ?, name = ? WHERE id = ?').run(destParentId, destName, sourceId);
+    const result = db.prepare('UPDATE nodes SET parent_id = ?, name = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?').run(destParentId, destName, sourceId);
     return result.changes > 0;
   }
 
-  getNodeInfo(path: string): { name: string; type: string; size: number; created_at: string } | null {
-    const resolved = this.resolvePath(path);
-    const nodeId = this.getNodeId(resolved);
+  getNodeInfo(context: FileSystemContext, path: string): { name: string; type: string; size: number; created_at: string; updated_at: string; uuid: string } | null {
+    const currentPath = this.getCurrentPath(context);
+    const resolved = this.resolvePath(currentPath, path);
+    const nodeId = this.getNodeId(context, resolved);
     if (nodeId === null) return null;
     
     const node = this.getNodeById(nodeId);
@@ -305,7 +402,117 @@ export class FileSystem {
       type: node.type,
       size: node.content?.length || 0,
       created_at: node.created_at,
+      updated_at: node.updated_at,
+      uuid: node.uuid,
     };
+  }
+
+  getNodeIdByUuid(uuid: string): number | null {
+    const node = db.prepare('SELECT id FROM nodes WHERE uuid = ?').get(uuid) as { id: number } | undefined;
+    return node?.id ?? null;
+  }
+
+  getNodeByUuid(uuid: string): FileNode | null {
+    const node = db.prepare('SELECT * FROM nodes WHERE uuid = ?').get(uuid) as FileNode | undefined;
+    return node ?? null;
+  }
+
+  getNodeById(id: number): FileNode | null {
+    const node = db.prepare('SELECT * FROM nodes WHERE id = ?').get(id) as FileNode | undefined;
+    return node ?? null;
+  }
+
+  getNode(context: FileSystemContext, path: string): FileNode | null {
+    const currentPath = this.getCurrentPath(context);
+    const resolvedPath = this.resolvePath(currentPath, path);
+    const nodeId = this.getNodeId(context, resolvedPath);
+    if (nodeId === null) return null;
+    return this.getNodeById(nodeId);
+  }
+
+  hasAccess(userId: number, nodeId: number): boolean {
+    const node = this.getNodeById(nodeId);
+    if (!node) return false;
+    
+    if (node.owner_id === userId) return true;
+    if (node.is_public) return true;
+    
+    if (node.team_id) {
+      const members = getTeamMembers(node.team_id);
+      return members.some(m => m.user_id === userId);
+    }
+    
+    return false;
+  }
+
+  canEdit(userId: number, nodeId: number): boolean {
+    const node = this.getNodeById(nodeId);
+    if (!node) return false;
+    
+    if (node.owner_id === userId) return true;
+    
+    if (node.team_id) {
+      const members = getTeamMembers(node.team_id);
+      const member = members.find(m => m.user_id === userId);
+      if (member && (member.role === 'admin' || member.role === 'member')) {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+
+  exportData(context: FileSystemContext): { nodes: FileNode[] } {
+    let nodes: FileNode[];
+    if (context.type === 'user') {
+      nodes = db.prepare('SELECT * FROM nodes WHERE owner_id = ?').all(context.id) as FileNode[];
+    } else {
+      nodes = db.prepare('SELECT * FROM nodes WHERE team_id = ?').all(context.id) as FileNode[];
+    }
+    return { nodes };
+  }
+
+  importData(context: FileSystemContext, data: { nodes: FileNode[] }): boolean {
+    try {
+      for (const node of data.nodes) {
+        if (node.type === 'dir') {
+          const uuid = uuidv4();
+          db.prepare(`
+            INSERT INTO nodes (uuid, name, type, parent_id, owner_id, team_id)
+            VALUES (?, ?, ?, ?, ?, ?)
+          `).run(
+            uuid,
+            node.name,
+            'dir',
+            node.parent_id,
+            context.type === 'user' ? context.id : null,
+            context.type === 'team' ? context.id : null
+          );
+        } else {
+          const uuid = uuidv4();
+          db.prepare(`
+            INSERT INTO nodes (uuid, name, type, parent_id, content, owner_id, team_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+          `).run(
+            uuid,
+            node.name,
+            'file',
+            node.parent_id,
+            node.content,
+            context.type === 'user' ? context.id : null,
+            context.type === 'team' ? context.id : null
+          );
+        }
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  setPublic(nodeId: number, isPublic: boolean): boolean {
+    const result = db.prepare('UPDATE nodes SET is_public = ? WHERE id = ?').run(isPublic ? 1 : 0, nodeId);
+    return result.changes > 0;
   }
 }
 

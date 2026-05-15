@@ -1,0 +1,1782 @@
+TAP version 14
+# Subtest: Setup - Create test user and token
+    not ok 1 - UNIQUE constraint failed: users.email
+      ---
+      stack: |
+        createUser (src/db.ts:277:6)
+        Test.<anonymous> (tests/integration.test.ts:20:26)
+      at:
+        fileName: src\db.ts
+        lineNumber: 277
+        columnNumber: 6
+        functionName: createUser
+      type: SqliteError
+      code: SQLITE_CONSTRAINT_UNIQUE
+      tapCaught: returnedPromiseRejection
+      source: >2
+            INSERT INTO users (uuid, email, phone, username, password_hash)
+            VALUES (?, ?, ?, ?, ?)
+          `).run(uuid, data.email || null, data.phone || null, data.username || null, passwordHash);
+        -----^
+      
+          const userId = Number(result.lastInsertRowid);
+      ...
+    
+    1..1
+not ok 1 - Setup - Create test user and token # time=103.998ms
+  ---
+  at:
+    fileName: tests\integration.test.ts
+    lineNumber: 18
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/integration.test.ts
+      lineNumber: 18
+      columnNumber: 15
+  source: |
+    let userId: number;
+    let teamId: number;
+  
+    tap.test('Setup - Create test user and token', async () => {
+      const user = createUser({
+  ...
+
+# Subtest: Authentication API
+    # Subtest: POST /api/auth/register - should register with email
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 36
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 36
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:36:11)
+          source: |2
+                    email: 'integration@example.com',
+                    password: 'password123',
+                  },
+                });
+                t.equal(response.statusCode, 200, 'Should return 200');
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return token
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 38
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 38
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:38:11)
+          source: |2
+                  },
+                });
+                t.equal(response.statusCode, 200, 'Should return 200');
+            ----------^
+                const body = JSON.parse(response.body);
+                t.ok(body.token, 'Should return token');
+          ...
+        
+        not ok 3 - Should return user
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 39
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 39
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:39:11)
+          source: |2
+                });
+                t.equal(response.statusCode, 200, 'Should return 200');
+                const body = JSON.parse(response.body);
+            ----------^
+                t.ok(body.token, 'Should return token');
+                t.ok(body.user, 'Should return user');
+          ...
+        
+        1..3
+    not ok 1 - POST /api/auth/register - should register with email # time=42.975ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 27
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 27
+          columnNumber: 7
+      source: >2
+          authToken = server.jwt.sign({ userId: user.id, uuid: user.uuid });
+        });
+      
+      
+        tap.test('Authentication API', async (t) => {
+          t.test('POST /api/auth/register - should register with email', async (t) => {
+      ...
+    
+    # Subtest: POST /api/auth/login - should login with email
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 50
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 50
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:50:11)
+          source: |2
+                  payload: {
+                    email: 'integration@example.com',
+                    password: 'password123',
+            ----------^
+                  },
+                });
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return token
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 52
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 52
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:52:11)
+          source: |2
+                    password: 'password123',
+                  },
+                });
+                t.equal(response.statusCode, 200, 'Should return 200');
+                const body = JSON.parse(response.body);
+          ...
+        
+        1..2
+    not ok 2 - POST /api/auth/login - should login with email # time=6.883ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 41
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 41
+          columnNumber: 7
+      source: |2
+            const body = JSON.parse(response.body);
+            t.ok(body.token, 'Should return token');
+            t.ok(body.user, 'Should return user');
+        ------^
+          });
+      ...
+    
+    # Subtest: POST /api/auth/login - should reject invalid credentials
+        not ok 1 - Should return 401
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 63
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 63
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:63:11)
+          source: |2
+                  url: '/api/auth/login',
+                  payload: {
+                    email: 'integration@example.com',
+            ----------^
+                    password: 'wrongpassword',
+                  },
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -401
+            +404
+          ...
+        
+        1..1
+    not ok 3 - POST /api/auth/login - should reject invalid credentials # time=3.816ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 54
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 54
+          columnNumber: 7
+      source: |2
+            });
+            t.equal(response.statusCode, 200, 'Should return 200');
+            const body = JSON.parse(response.body);
+        ------^
+            t.ok(body.token, 'Should return token');
+          });
+      ...
+    
+    # Subtest: GET /api/auth/me - should get current user
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 73
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 73
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:73:11)
+          source: |2
+                const response = await server.inject({
+                  method: 'GET',
+                  url: '/api/auth/me',
+            ----------^
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return correct user
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 75
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 75
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:75:11)
+          source: |2
+                  url: '/api/auth/me',
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+            ----------^
+                  },
+                });
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -auth@example.com
+            +undefined
+          ...
+        
+        1..2
+    not ok 4 - GET /api/auth/me - should get current user # time=8.861ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 65
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 65
+          columnNumber: 7
+      source: |2
+                email: 'integration@example.com',
+                password: 'wrongpassword',
+              },
+        ------^
+            });
+            t.equal(response.statusCode, 401, 'Should return 401');
+      ...
+    
+    1..4
+not ok 2 - Authentication API # time=71.568ms
+  ---
+  at:
+    fileName: tests\integration.test.ts
+    lineNumber: 26
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/integration.test.ts
+      lineNumber: 26
+      columnNumber: 15
+  source: |2
+      userId = user.id;
+      authToken = server.jwt.sign({ userId: user.id, uuid: user.uuid });
+    });
+  
+    tap.test('Authentication API', async (t) => {
+  ...
+
+# Subtest: File System API
+    # Subtest: POST /api/file/write - should write file
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 91
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 91
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:91:11)
+          source: |2
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+                  },
+                  payload: {
+                    filename: 'integration.txt',
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        1..1
+    not ok 1 - POST /api/file/write - should write file # time=4.58ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 79
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 79
+          columnNumber: 7
+      source: |2
+            });
+            t.equal(response.statusCode, 200, 'Should return 200');
+            const body = JSON.parse(response.body);
+        ------^
+            t.equal(body.email, 'auth@example.com', 'Should return correct user');
+          });
+      ...
+    
+    # Subtest: POST /api/file/read - should read file
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 104
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 104
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:104:11)
+          source: |2
+                  method: 'POST',
+                  url: '/api/file/read',
+                  headers: {
+            ----------^
+                    authorization: `Bearer ${authToken}`,
+                  },
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should read correct content
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 106
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 106
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:106:11)
+          source: |2
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+                  },
+                  payload: {
+                    filename: 'integration.txt',
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -integration test content
+            +undefined
+          ...
+        
+        1..2
+    not ok 2 - POST /api/file/read - should read file # time=5.487ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 93
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 93
+          columnNumber: 7
+      source: |2
+              },
+              payload: {
+                filename: 'integration.txt',
+        ------^
+                content: 'integration test content',
+              },
+      ...
+    
+    # Subtest: GET /api/file/list - should list directory
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 116
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 116
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:116:11)
+          source: |2
+              });
+          
+              t.test('GET /api/file/list - should list directory', async (t) => {
+            ----------^
+                const response = await server.inject({
+                  method: 'GET',
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return items array
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 118
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 118
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:118:11)
+          source: |2
+              t.test('GET /api/file/list - should list directory', async (t) => {
+                const response = await server.inject({
+                  method: 'GET',
+            ----------^
+                  url: '/api/file/list',
+                  headers: {
+          ...
+        
+        1..2
+    not ok 3 - GET /api/file/list - should list directory # time=4.466ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 108
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 108
+          columnNumber: 7
+      source: |2
+              },
+              payload: {
+                filename: 'integration.txt',
+        ------^
+              },
+            });
+      ...
+    
+    # Subtest: GET /api/export - should export data
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 128
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 128
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:128:11)
+          source: |2
+                t.ok(Array.isArray(body.items), 'Should return items array');
+              });
+          
+              t.test('GET /api/export - should export data', async (t) => {
+                const response = await server.inject({
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should have nodes
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 130
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 130
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:130:11)
+          source: |2
+          
+              t.test('GET /api/export - should export data', async (t) => {
+                const response = await server.inject({
+            ----------^
+                  method: 'GET',
+                  url: '/api/export',
+          ...
+        
+        1..2
+    not ok 4 - GET /api/export - should export data # time=4.128ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 120
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 120
+          columnNumber: 7
+      source: |2
+              method: 'GET',
+              url: '/api/file/list',
+              headers: {
+        ------^
+                authorization: `Bearer ${authToken}`,
+              },
+      ...
+    
+    1..4
+not ok 3 - File System API # time=27.555ms
+  ---
+  at:
+    fileName: tests\integration.test.ts
+    lineNumber: 78
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/integration.test.ts
+      lineNumber: 78
+      columnNumber: 15
+  source: |2
+          },
+        });
+        t.equal(response.statusCode, 200, 'Should return 200');
+    --------------^
+        const body = JSON.parse(response.body);
+        t.equal(body.email, 'auth@example.com', 'Should return correct user');
+  ...
+
+# Subtest: Command Execution API
+    # Subtest: POST /api/execute - should execute pwd command
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 145
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 145
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:145:11)
+          source: |
+            tap.test('Command Execution API', async (t) => {
+              t.test('POST /api/execute - should execute pwd command', async (t) => {
+                const response = await server.inject({
+            ----------^
+                  method: 'POST',
+                  url: '/api/execute',
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should have output
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 147
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 147
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:147:11)
+          source: |2
+                const response = await server.inject({
+                  method: 'POST',
+                  url: '/api/execute',
+            ----------^
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+          ...
+        
+        not ok 3 - Should have path
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 148
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 148
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:148:11)
+          source: |2
+                  method: 'POST',
+                  url: '/api/execute',
+                  headers: {
+            ----------^
+                    authorization: `Bearer ${authToken}`,
+                  },
+          ...
+        
+        1..3
+    not ok 1 - POST /api/execute - should execute pwd command # time=8.438ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 134
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 134
+          columnNumber: 7
+      source: |2
+              url: '/api/export',
+              headers: {
+                authorization: `Bearer ${authToken}`,
+        ------^
+              },
+            });
+      ...
+    
+    # Subtest: POST /api/execute - should execute ls command
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 161
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 161
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:161:11)
+          source: |2
+              });
+          
+              t.test('POST /api/execute - should execute ls command', async (t) => {
+            ----------^
+                const response = await server.inject({
+                  method: 'POST',
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should have output
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 163
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 163
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:163:11)
+          source: |2
+              t.test('POST /api/execute - should execute ls command', async (t) => {
+                const response = await server.inject({
+                  method: 'POST',
+            ----------^
+                  url: '/api/execute',
+                  headers: {
+          ...
+        
+        1..2
+    not ok 2 - POST /api/execute - should execute ls command # time=6.509ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 150
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 150
+          columnNumber: 7
+      source: |2
+              headers: {
+                authorization: `Bearer ${authToken}`,
+              },
+        ------^
+              payload: {
+                command: 'pwd',
+      ...
+    
+    # Subtest: POST /api/execute - should execute whoami command
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 176
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 176
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:176:11)
+          source: |2
+                t.ok(body.output, 'Should have output');
+              });
+          
+              t.test('POST /api/execute - should execute whoami command', async (t) => {
+                const response = await server.inject({
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should have output
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 178
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 178
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:178:11)
+          source: |2
+          
+              t.test('POST /api/execute - should execute whoami command', async (t) => {
+                const response = await server.inject({
+            ----------^
+                  method: 'POST',
+                  url: '/api/execute',
+          ...
+        
+        1..2
+    not ok 3 - POST /api/execute - should execute whoami command # time=11.133ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 165
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 165
+          columnNumber: 7
+      source: |2
+              method: 'POST',
+              url: '/api/execute',
+              headers: {
+        ------^
+                authorization: `Bearer ${authToken}`,
+              },
+      ...
+    
+    # Subtest: POST /api/completions - should get completions
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 192
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 192
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:192:11)
+          source: |2
+                t.ok(body.output, 'Should have output');
+              });
+          
+              t.test('POST /api/completions - should get completions', async (t) => {
+                const response = await server.inject({
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return completions array
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 194
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 194
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:194:11)
+          source: |2
+          
+              t.test('POST /api/completions - should get completions', async (t) => {
+                const response = await server.inject({
+            ----------^
+                  method: 'POST',
+                  url: '/api/completions',
+          ...
+        
+        1..2
+    not ok 4 - POST /api/completions - should get completions # time=4.048ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 180
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 180
+          columnNumber: 7
+      source: |2
+            const response = await server.inject({
+              method: 'POST',
+              url: '/api/execute',
+        ------^
+              headers: {
+                authorization: `Bearer ${authToken}`,
+      ...
+    
+    1..4
+not ok 4 - Command Execution API # time=39.176ms
+  ---
+  at:
+    fileName: tests\integration.test.ts
+    lineNumber: 133
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/integration.test.ts
+      lineNumber: 133
+      columnNumber: 15
+  source: |2
+          method: 'GET',
+          url: '/api/export',
+          headers: {
+    --------------^
+            authorization: `Bearer ${authToken}`,
+          },
+  ...
+
+# Subtest: Team API
+    # Subtest: POST /api/teams - should create team
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 210
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 210
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:210:11)
+          source: |2
+              });
+            });
+          
+            tap.test('Team API', async (t) => {
+              t.test('POST /api/teams - should create team', async (t) => {
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should have correct name
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 212
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 212
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:212:11)
+          source: |
+          
+            tap.test('Team API', async (t) => {
+              t.test('POST /api/teams - should create team', async (t) => {
+            ----------^
+                const response = await server.inject({
+                  method: 'POST',
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -Integration Team
+            +undefined
+          ...
+        
+        1..2
+    not ok 1 - POST /api/teams - should create team # time=4.872ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 198
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 198
+          columnNumber: 7
+      source: |2
+              url: '/api/completions',
+              headers: {
+                authorization: `Bearer ${authToken}`,
+        ------^
+              },
+              payload: {
+      ...
+    
+    # Subtest: GET /api/teams - should get user teams
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 223
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 223
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:223:11)
+          source: |2
+                    description: 'Integration test team',
+                  },
+                });
+                t.equal(response.statusCode, 200, 'Should return 200');
+                const body = JSON.parse(response.body);
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return teams array
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 225
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 225
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:225:11)
+          source: |2
+                });
+                t.equal(response.statusCode, 200, 'Should return 200');
+                const body = JSON.parse(response.body);
+            ----------^
+                t.equal(body.name, 'Integration Team', 'Should have correct name');
+                teamId = body.id;
+          ...
+        
+        1..2
+    not ok 2 - GET /api/teams - should get user teams # time=3.758ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 215
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 215
+          columnNumber: 7
+      source: |2
+            const response = await server.inject({
+              method: 'POST',
+              url: '/api/teams',
+        ------^
+              headers: {
+                authorization: `Bearer ${authToken}`,
+      ...
+    
+    # Subtest: GET /api/teams/:id/members - should get team members
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 235
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 235
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:235:11)
+          source: |2
+                  url: '/api/teams',
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+            ----------^
+                  },
+                });
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return members array
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 237
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 237
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:237:11)
+          source: |2
+                    authorization: `Bearer ${authToken}`,
+                  },
+                });
+                t.equal(response.statusCode, 200, 'Should return 200');
+                const body = JSON.parse(response.body);
+          ...
+        
+        1..2
+    not ok 3 - GET /api/teams/:id/members - should get team members # time=4.629ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 227
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 227
+          columnNumber: 7
+      source: |2
+            const body = JSON.parse(response.body);
+            t.equal(body.name, 'Integration Team', 'Should have correct name');
+            teamId = body.id;
+        ------^
+          });
+      ...
+    
+    1..3
+not ok 5 - Team API # time=17.832ms
+  ---
+  at:
+    fileName: tests\integration.test.ts
+    lineNumber: 197
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/integration.test.ts
+      lineNumber: 197
+      columnNumber: 15
+  source: |2
+          method: 'POST',
+          url: '/api/completions',
+          headers: {
+    --------------^
+            authorization: `Bearer ${authToken}`,
+          },
+  ...
+
+# Subtest: Plugin API
+    # Subtest: POST /api/plugins - should create plugin
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 255
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 255
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:255:11)
+          source: |2
+                t.ok(Array.isArray(body.members), 'Should return members array');
+              });
+            });
+          
+            tap.test('Plugin API', async (t) => {
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        1..1
+    not ok 1 - POST /api/plugins - should create plugin # time=3.452ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 241
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 241
+          columnNumber: 7
+      source: >2
+            const body = JSON.parse(response.body);
+            t.ok(Array.isArray(body.teams), 'Should return teams array');
+          });
+      
+          t.test('GET /api/teams/:id/members - should get team members', async (t) => {
+      ...
+    
+    # Subtest: GET /api/plugins/search - should search plugins
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 262
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 262
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:262:11)
+          source: |2
+                  method: 'POST',
+                  url: '/api/plugins',
+                  headers: {
+            ----------^
+                    authorization: `Bearer ${authToken}`,
+                  },
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return plugins array
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 264
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 264
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:264:11)
+          source: |2
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+                  },
+                  payload: {
+                    name: 'integration-plugin',
+          ...
+        
+        1..2
+    not ok 2 - GET /api/plugins/search - should search plugins # time=3.533ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 257
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 257
+          columnNumber: 7
+      source: |
+        });
+      
+        tap.test('Plugin API', async (t) => {
+        ------^
+          t.test('POST /api/plugins - should create plugin', async (t) => {
+            const response = await server.inject({
+      ...
+    
+    # Subtest: GET /api/plugins/mine - should get user plugins
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 274
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 274
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:274:11)
+          source: |2
+                t.equal(response.statusCode, 200, 'Should return 200');
+              });
+          
+              t.test('GET /api/plugins/search - should search plugins', async (t) => {
+                const response = await server.inject({
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return plugins array
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 276
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 276
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:276:11)
+          source: |2
+          
+              t.test('GET /api/plugins/search - should search plugins', async (t) => {
+                const response = await server.inject({
+            ----------^
+                  method: 'GET',
+                  url: '/api/plugins/search?q=integration',
+          ...
+        
+        1..2
+    not ok 3 - GET /api/plugins/mine - should get user plugins # time=6.53ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 266
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 266
+          columnNumber: 7
+      source: |2
+              },
+              payload: {
+                name: 'integration-plugin',
+        ------^
+                description: 'Integration test plugin',
+                version: '1.0.0',
+      ...
+    
+    1..3
+not ok 6 - Plugin API # time=18.446ms
+  ---
+  at:
+    fileName: tests\integration.test.ts
+    lineNumber: 240
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/integration.test.ts
+      lineNumber: 240
+      columnNumber: 15
+  source: |2
+        t.equal(response.statusCode, 200, 'Should return 200');
+        const body = JSON.parse(response.body);
+        t.ok(Array.isArray(body.teams), 'Should return teams array');
+    --------------^
+      });
+  ...
+
+# Subtest: Config and History API
+    # Subtest: GET /api/config - should get config
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 288
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 288
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:288:11)
+          source: |2
+                const response = await server.inject({
+                  method: 'GET',
+                  url: '/api/plugins/mine',
+            ----------^
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should have theme
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 290
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 290
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:290:11)
+          source: |2
+                  url: '/api/plugins/mine',
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+            ----------^
+                  },
+                });
+          ...
+        
+        not ok 3 - Should have prompt
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 291
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 291
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:291:11)
+          source: |2
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+                  },
+                });
+                t.equal(response.statusCode, 200, 'Should return 200');
+          ...
+        
+        1..3
+    not ok 1 - GET /api/config - should get config # time=7.742ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 280
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 280
+          columnNumber: 7
+      source: |2
+              url: '/api/plugins/search?q=integration',
+            });
+            t.equal(response.statusCode, 200, 'Should return 200');
+        ------^
+            const body = JSON.parse(response.body);
+            t.ok(Array.isArray(body.plugins), 'Should return plugins array');
+      ...
+    
+    # Subtest: GET /api/history - should get history
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 301
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 301
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:301:11)
+          source: |
+            tap.test('Config and History API', async (t) => {
+              t.test('GET /api/config - should get config', async (t) => {
+                const response = await server.inject({
+            ----------^
+                  method: 'GET',
+                  url: '/api/config',
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return history array
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 303
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 303
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:303:11)
+          source: |2
+                const response = await server.inject({
+                  method: 'GET',
+                  url: '/api/config',
+            ----------^
+                  headers: {
+                    authorization: `Bearer ${authToken}`,
+          ...
+        
+        1..2
+    not ok 2 - GET /api/history - should get history # time=4.001ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 293
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 293
+          columnNumber: 7
+      source: |2
+              },
+            });
+            t.equal(response.statusCode, 200, 'Should return 200');
+        ------^
+            const body = JSON.parse(response.body);
+            t.ok(Array.isArray(body.plugins), 'Should return plugins array');
+      ...
+    
+    # Subtest: GET /api/aliases - should get aliases
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 313
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 313
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:313:11)
+          source: |2
+                t.ok(body.prompt, 'Should have prompt');
+              });
+          
+              t.test('GET /api/history - should get history', async (t) => {
+                const response = await server.inject({
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        1..1
+    not ok 3 - GET /api/aliases - should get aliases # time=2.488ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 305
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 305
+          columnNumber: 7
+      source: |2
+              url: '/api/config',
+              headers: {
+                authorization: `Bearer ${authToken}`,
+        ------^
+              },
+            });
+      ...
+    
+    1..3
+not ok 7 - Config and History API # time=19.676ms
+  ---
+  at:
+    fileName: tests\integration.test.ts
+    lineNumber: 279
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/integration.test.ts
+      lineNumber: 279
+      columnNumber: 15
+  source: |2
+          method: 'GET',
+          url: '/api/plugins/search?q=integration',
+        });
+        t.equal(response.statusCode, 200, 'Should return 200');
+        const body = JSON.parse(response.body);
+  ...
+
+# Subtest: Embed API
+    # Subtest: GET /api/embed/generate - should generate embed code
+        not ok 1 - Should return 200
+          ---
+          compare: ===
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 325
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 325
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:325:11)
+          source: |2
+                const body = JSON.parse(response.body);
+                t.ok(Array.isArray(body.history), 'Should return history array');
+              });
+          
+              t.test('GET /api/aliases - should get aliases', async (t) => {
+          diff: |
+            --- expected
+            +++ actual
+            @@ -1,1 +1,1 @@
+            -200
+            +404
+          ...
+        
+        not ok 2 - Should return embed code
+          ---
+          at:
+            fileName: tests\integration.test.ts
+            lineNumber: 327
+            columnNumber: 11
+            typeName: Test
+            generated:
+              fileName: tests/integration.test.ts
+              lineNumber: 327
+              columnNumber: 11
+          stack: |
+            Test.<anonymous> (tests/integration.test.ts:327:11)
+          source: |2
+              });
+          
+              t.test('GET /api/aliases - should get aliases', async (t) => {
+            ----------^
+                const response = await server.inject({
+                  method: 'GET',
+          ...
+        
+        1..2
+    not ok 1 - GET /api/embed/generate - should generate embed code # time=3.302ms
+      ---
+      at:
+        fileName: tests\integration.test.ts
+        lineNumber: 317
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/integration.test.ts
+          lineNumber: 317
+          columnNumber: 7
+      source: |2
+            const response = await server.inject({
+              method: 'GET',
+              url: '/api/history',
+        ------^
+              headers: {
+                authorization: `Bearer ${authToken}`,
+      ...
+    
+    1..1
+not ok 8 - Embed API # time=5.571ms
+  ---
+  at:
+    fileName: tests\integration.test.ts
+    lineNumber: 316
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/integration.test.ts
+      lineNumber: 316
+      columnNumber: 15
+  source: |2
+      t.test('GET /api/history - should get history', async (t) => {
+        const response = await server.inject({
+          method: 'GET',
+    --------------^
+          url: '/api/history',
+          headers: {
+  ...
+
+1..8

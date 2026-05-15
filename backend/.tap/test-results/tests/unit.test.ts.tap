@@ -1,0 +1,345 @@
+TAP version 14
+# Subtest: Database - User Operations
+    # Subtest: createUser - should create a user with email
+        not ok 1 - UNIQUE constraint failed: users.email
+          ---
+          stack: |
+            createUser (src/db.ts:277:6)
+            Test.<anonymous> (tests/unit.test.ts:8:28)
+          at:
+            fileName: src\db.ts
+            lineNumber: 277
+            columnNumber: 6
+            functionName: createUser
+          type: SqliteError
+          code: SQLITE_CONSTRAINT_UNIQUE
+          tapCaught: returnedPromiseRejection
+          source: >2
+                INSERT INTO users (uuid, email, phone, username, password_hash)
+                VALUES (?, ?, ?, ?, ?)
+              `).run(uuid, data.email || null, data.phone || null, data.username || null, passwordHash);
+            -----^
+          
+              const userId = Number(result.lastInsertRowid);
+          ...
+        
+        1..1
+    not ok 1 - createUser - should create a user with email # time=92.196ms
+      ---
+      at:
+        fileName: tests\unit.test.ts
+        lineNumber: 11
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/unit.test.ts
+          lineNumber: 11
+          columnNumber: 7
+      source: |2
+              email: 'test@example.com',
+              password: 'password123',
+            });
+        ------^
+            t.ok(user.id, 'User should have an id');
+            t.equal(user.email, 'test@example.com');
+      ...
+    
+    # Subtest: createUser - should create a user with phone
+        not ok 1 - UNIQUE constraint failed: users.phone
+          ---
+          stack: |
+            createUser (src/db.ts:277:6)
+            Test.<anonymous> (tests/unit.test.ts:18:28)
+          at:
+            fileName: src\db.ts
+            lineNumber: 277
+            columnNumber: 6
+            functionName: createUser
+          type: SqliteError
+          code: SQLITE_CONSTRAINT_UNIQUE
+          tapCaught: returnedPromiseRejection
+          source: >2
+                INSERT INTO users (uuid, email, phone, username, password_hash)
+                VALUES (?, ?, ?, ?, ?)
+              `).run(uuid, data.email || null, data.phone || null, data.username || null, passwordHash);
+            -----^
+          
+              const userId = Number(result.lastInsertRowid);
+          ...
+        
+        1..1
+    not ok 2 - createUser - should create a user with phone # time=59.873ms
+      ---
+      at:
+        fileName: tests\unit.test.ts
+        lineNumber: 20
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/unit.test.ts
+          lineNumber: 20
+          columnNumber: 7
+      source: |2
+            const user = createUser({
+              phone: '13800138000',
+              password: 'password123',
+        ------^
+            });
+            t.ok(user.id, 'User should have an id');
+      ...
+    
+    # Subtest: createUser - should create a user with username
+        not ok 1 - UNIQUE constraint failed: users.username
+          ---
+          stack: |
+            createUser (src/db.ts:277:6)
+            Test.<anonymous> (tests/unit.test.ts:27:28)
+          at:
+            fileName: src\db.ts
+            lineNumber: 277
+            columnNumber: 6
+            functionName: createUser
+          type: SqliteError
+          code: SQLITE_CONSTRAINT_UNIQUE
+          tapCaught: returnedPromiseRejection
+          source: >2
+                INSERT INTO users (uuid, email, phone, username, password_hash)
+                VALUES (?, ?, ?, ?, ?)
+              `).run(uuid, data.email || null, data.phone || null, data.username || null, passwordHash);
+            -----^
+          
+              const userId = Number(result.lastInsertRowid);
+          ...
+        
+        1..1
+    not ok 3 - createUser - should create a user with username # time=63.312ms
+      ---
+      at:
+        fileName: tests\unit.test.ts
+        lineNumber: 28
+        columnNumber: 7
+        typeName: Test
+        generated:
+          fileName: tests/unit.test.ts
+          lineNumber: 28
+          columnNumber: 7
+      source: |2
+          t.test('createUser - should create a user with username', async (t) => {
+            const user = createUser({
+              username: 'testuser',
+        ------^
+              password: 'password123',
+            });
+      ...
+    
+    # Subtest: getUserByEmail - should get user by email
+        ok 1 - Should find user
+        ok 2 - should be equal
+        1..2
+    ok 4 - getUserByEmail - should get user by email # time=1.087ms
+    
+    # Subtest: verifyPassword - should verify correct password
+        ok 1 - Should find user
+        ok 2 - Password should be valid
+        ok 3 - Wrong password should fail
+        1..3
+    ok 5 - verifyPassword - should verify correct password # time=119.365ms
+    
+    1..5
+not ok 1 - Database - User Operations # time=351.208ms
+  ---
+  at:
+    fileName: tests\unit.test.ts
+    lineNumber: 10
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/unit.test.ts
+      lineNumber: 10
+      columnNumber: 15
+  source: |2
+        const user = createUser({
+          email: 'test@example.com',
+          password: 'password123',
+    --------------^
+        });
+        t.ok(user.id, 'User should have an id');
+  ...
+
+# Subtest: Database - Team Operations
+    not ok 1 - UNIQUE constraint failed: users.email
+      ---
+      stack: |
+        createUser (src/db.ts:277:6)
+        Test.<anonymous> (tests/unit.test.ts:52:26)
+      at:
+        fileName: src\db.ts
+        lineNumber: 277
+        columnNumber: 6
+        functionName: createUser
+      type: SqliteError
+      code: SQLITE_CONSTRAINT_UNIQUE
+      tapCaught: returnedPromiseRejection
+      source: >2
+            INSERT INTO users (uuid, email, phone, username, password_hash)
+            VALUES (?, ?, ?, ?, ?)
+          `).run(uuid, data.email || null, data.phone || null, data.username || null, passwordHash);
+        -----^
+      
+          const userId = Number(result.lastInsertRowid);
+      ...
+    
+    1..1
+not ok 2 - Database - Team Operations # time=60.034ms
+  ---
+  at:
+    fileName: tests\unit.test.ts
+    lineNumber: 50
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/unit.test.ts
+      lineNumber: 50
+      columnNumber: 15
+  source: >2
+      });
+    });
+  
+  
+    tap.test('Database - Team Operations', async (t) => {
+      const user = createUser({ email: 'team@example.com', password: 'password123' });
+  ...
+
+# Subtest: Database - Share Operations
+    not ok 1 - UNIQUE constraint failed: users.email
+      ---
+      stack: |
+        createUser (src/db.ts:277:6)
+        Test.<anonymous> (tests/unit.test.ts:83:26)
+      at:
+        fileName: src\db.ts
+        lineNumber: 277
+        columnNumber: 6
+        functionName: createUser
+      type: SqliteError
+      code: SQLITE_CONSTRAINT_UNIQUE
+      tapCaught: returnedPromiseRejection
+      source: >2
+            INSERT INTO users (uuid, email, phone, username, password_hash)
+            VALUES (?, ?, ?, ?, ?)
+          `).run(uuid, data.email || null, data.phone || null, data.username || null, passwordHash);
+        -----^
+      
+          const userId = Number(result.lastInsertRowid);
+      ...
+    
+    1..1
+not ok 3 - Database - Share Operations # time=62.617ms
+  ---
+  at:
+    fileName: tests\unit.test.ts
+    lineNumber: 76
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/unit.test.ts
+      lineNumber: 76
+      columnNumber: 15
+  source: |2
+      t.test('getTeamMembers - should get team members', async (t) => {
+        const team = createTeam('Get Members Team', '', user.id);
+        const members = getTeamMembers(team.id);
+    --------------^
+        t.ok(Array.isArray(members), 'Should return array');
+        t.ok(members.length > 0, 'Should have at least one member');
+  ...
+
+# Subtest: Database - Plugin Operations
+    not ok 1 - UNIQUE constraint failed: users.email
+      ---
+      stack: |
+        createUser (src/db.ts:277:6)
+        Test.<anonymous> (tests/unit.test.ts:109:26)
+      at:
+        fileName: src\db.ts
+        lineNumber: 277
+        columnNumber: 6
+        functionName: createUser
+      type: SqliteError
+      code: SQLITE_CONSTRAINT_UNIQUE
+      tapCaught: returnedPromiseRejection
+      source: >2
+            INSERT INTO users (uuid, email, phone, username, password_hash)
+            VALUES (?, ?, ?, ?, ?)
+          `).run(uuid, data.email || null, data.phone || null, data.username || null, passwordHash);
+        -----^
+      
+          const userId = Number(result.lastInsertRowid);
+      ...
+    
+    1..1
+not ok 4 - Database - Plugin Operations # time=59.5ms
+  ---
+  at:
+    fileName: tests\unit.test.ts
+    lineNumber: 99
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/unit.test.ts
+      lineNumber: 99
+      columnNumber: 15
+  source: |2
+      t.test('getShareByUuid - should get share by uuid', async (t) => {
+        t.ok(nodeId, 'Should have node id');
+        if (nodeId) {
+    --------------^
+          const share = createShare(nodeId, user.id, 'edit');
+          const found = getShareByUuid(share.uuid);
+  ...
+
+# Subtest: FileSystem - Basic Operations
+    not ok 1 - UNIQUE constraint failed: users.email
+      ---
+      stack: |
+        createUser (src/db.ts:277:6)
+        Test.<anonymous> (tests/unit.test.ts:147:26)
+      at:
+        fileName: src\db.ts
+        lineNumber: 277
+        columnNumber: 6
+        functionName: createUser
+      type: SqliteError
+      code: SQLITE_CONSTRAINT_UNIQUE
+      tapCaught: returnedPromiseRejection
+      source: >2
+            INSERT INTO users (uuid, email, phone, username, password_hash)
+            VALUES (?, ?, ?, ?, ?)
+          `).run(uuid, data.email || null, data.phone || null, data.username || null, passwordHash);
+        -----^
+      
+          const userId = Number(result.lastInsertRowid);
+      ...
+    
+    1..1
+not ok 5 - FileSystem - Basic Operations # time=57.019ms
+  ---
+  at:
+    fileName: tests\unit.test.ts
+    lineNumber: 132
+    columnNumber: 15
+    typeName: Object
+    generated:
+      fileName: tests/unit.test.ts
+      lineNumber: 132
+      columnNumber: 15
+  source: |2
+        const plugin = createPlugin({
+          name: 'install-test',
+          version: '1.0.0',
+    --------------^
+          code: 'console.log("test")',
+          createdBy: user.id,
+  ...
+
+1..5
