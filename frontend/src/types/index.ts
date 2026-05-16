@@ -2,6 +2,8 @@ export type ThemeMode = 'light' | 'dark' | 'auto';
 export type NotificationType = 'info' | 'success' | 'warning' | 'error';
 export type NotificationCategory = 'system' | 'file' | 'app' | 'update' | 'security';
 export type SearchCategory = 'all' | 'files' | 'folders' | 'apps' | 'settings';
+export type WidgetType = 'weather' | 'time' | 'todo' | 'calendar';
+export type AppType = 'image-viewer' | 'video-player' | 'document-reader' | 'web-app' | 'task-manager' | 'app-store';
 
 export interface User {
   id: number;
@@ -55,7 +57,7 @@ export interface DesktopConfig {
   layout: DesktopIcon[];
   taskbarConfig: {
     showTime: boolean;
-    position: 'bottom' | 'top';
+    position: 'bottom' | 'top' | 'left' | 'right';
     showSearch: boolean;
     showNotifications: boolean;
     autoHide: boolean;
@@ -119,7 +121,7 @@ export interface WindowState {
   id?: number;
   windowId: string;
   title: string;
-  type: 'explorer' | 'editor' | 'calculator' | 'browser' | 'settings' | 'trash' | 'notifications';
+  type: 'explorer' | 'editor' | 'calculator' | 'browser' | 'settings' | 'trash' | 'notifications' | 'image-viewer' | 'video-player' | 'document-reader' | 'web-app' | 'task-manager' | 'app-store';
   x: number;
   y: number;
   width: number;
@@ -175,4 +177,58 @@ export interface ApiError {
   timestamp: string;
   path: string;
   canRepair: boolean;
+}
+
+export interface Widget {
+  id: string;
+  type: WidgetType;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  data?: any;
+}
+
+export interface WebApp {
+  id: string;
+  name: string;
+  icon: string;
+  url: string;
+  description: string;
+  category: string;
+  isBuiltIn: boolean;
+  addedToDesktop?: boolean;
+  addedToStartMenu?: boolean;
+}
+
+export interface Process {
+  id: string;
+  name: string;
+  type: AppType | string;
+  memoryUsage: number;
+  cpuUsage: number;
+  startTime: string;
+  windowId?: string;
+}
+
+export interface TodoItem {
+  id: string;
+  text: string;
+  completed: boolean;
+  createdAt: string;
+}
+
+export interface WeatherData {
+  temperature: number;
+  condition: string;
+  humidity: number;
+  city: string;
+  icon: string;
+}
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  date: string;
+  time?: string;
 }

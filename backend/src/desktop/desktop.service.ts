@@ -66,11 +66,15 @@ export class DesktopService {
             { id: '1', name: '此电脑', icon: 'computer', x: 20, y: 20, type: 'app' },
             { id: '2', name: '回收站', icon: 'recycle', x: 20, y: 120, type: 'app' },
             { id: '3', name: '文档', icon: 'folder', x: 20, y: 220, type: 'folder' },
+            { id: '4', name: '任务管理器', icon: 'task-manager', x: 20, y: 320, type: 'app' },
+            { id: '5', name: '应用商店', icon: 'app-store', x: 20, y: 420, type: 'app' },
           ],
           taskbarConfig: { showTime: true, position: 'bottom', showSearch: true, showNotifications: true, autoHide: false },
           startMenu: [
             { id: '1', name: '文件资源管理器', icon: 'explorer' },
             { id: '2', name: '设置', icon: 'settings' },
+            { id: '4', name: '任务管理器', icon: 'task-manager' },
+            { id: '5', name: '应用商店', icon: 'app-store' },
           ],
           theme: this.getDefaultTheme(),
           display: this.getDefaultDisplay(),
@@ -125,6 +129,51 @@ export class DesktopService {
       needsFix = true;
     }
 
+    if (!fixedConfig.layout || !Array.isArray(fixedConfig.layout) || fixedConfig.layout.length < 3) {
+      fixedConfig.layout = [
+        { id: '1', name: '此电脑', icon: 'computer', x: 20, y: 20, type: 'app' },
+        { id: '2', name: '回收站', icon: 'recycle', x: 20, y: 120, type: 'app' },
+        { id: '3', name: '文档', icon: 'folder', x: 20, y: 220, type: 'folder' },
+        { id: '4', name: '任务管理器', icon: 'task-manager', x: 20, y: 320, type: 'app' },
+        { id: '5', name: '应用商店', icon: 'app-store', x: 20, y: 420, type: 'app' },
+      ];
+      needsFix = true;
+    } else {
+      const hasTaskManager = fixedConfig.layout.some(item => item.id === '4');
+      const hasAppStore = fixedConfig.layout.some(item => item.id === '5');
+      
+      if (!hasTaskManager) {
+        fixedConfig.layout.push({ id: '4', name: '任务管理器', icon: 'task-manager', x: 20, y: 320, type: 'app' });
+        needsFix = true;
+      }
+      if (!hasAppStore) {
+        fixedConfig.layout.push({ id: '5', name: '应用商店', icon: 'app-store', x: 20, y: 420, type: 'app' });
+        needsFix = true;
+      }
+    }
+
+    if (!fixedConfig.startMenu || !Array.isArray(fixedConfig.startMenu) || fixedConfig.startMenu.length < 2) {
+      fixedConfig.startMenu = [
+        { id: '1', name: '文件资源管理器', icon: 'explorer' },
+        { id: '2', name: '设置', icon: 'settings' },
+        { id: '4', name: '任务管理器', icon: 'task-manager' },
+        { id: '5', name: '应用商店', icon: 'app-store' },
+      ];
+      needsFix = true;
+    } else {
+      const hasTaskManager = fixedConfig.startMenu.some(item => item.id === '4');
+      const hasAppStore = fixedConfig.startMenu.some(item => item.id === '5');
+      
+      if (!hasTaskManager) {
+        fixedConfig.startMenu.push({ id: '4', name: '任务管理器', icon: 'task-manager' });
+        needsFix = true;
+      }
+      if (!hasAppStore) {
+        fixedConfig.startMenu.push({ id: '5', name: '应用商店', icon: 'app-store' });
+        needsFix = true;
+      }
+    }
+
     if (needsFix) {
       this.logger.log('检测到配置异常，已自动修复');
       this.desktopConfigRepository.save(fixedConfig).catch(err => {
@@ -162,6 +211,8 @@ export class DesktopService {
       config.startMenu = [
         { id: '1', name: '文件资源管理器', icon: 'explorer' },
         { id: '2', name: '设置', icon: 'settings' },
+        { id: '4', name: '任务管理器', icon: 'task-manager' },
+        { id: '5', name: '应用商店', icon: 'app-store' },
       ];
       needsSave = true;
     }
