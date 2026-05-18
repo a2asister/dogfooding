@@ -25,6 +25,12 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/NoteDetail.vue'),
   },
   {
+    path: '/note/:id/edit',
+    name: 'EditNote',
+    component: () => import('@/views/EditNote.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/create',
     name: 'CreateNote',
     component: () => import('@/views/CreateNote.vue'),
@@ -37,6 +43,45 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/trash',
+    name: 'Trash',
+    component: () => import('@/views/Trash.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: () => import('@/views/Search.vue'),
+  },
+  {
+    path: '/topics',
+    name: 'Topics',
+    component: () => import('@/views/TopicSquare.vue'),
+  },
+  {
+    path: '/topic/:id',
+    name: 'TopicDetail',
+    component: () => import('@/views/TopicDetail.vue'),
+  },
+  {
+    path: '/collections',
+    name: 'Collections',
+    component: () => import('@/views/Collections.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/collections/:id',
+    name: 'CollectionDetail',
+    component: () => import('@/views/CollectionDetail.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    component: () => import('@/views/Notifications.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/user/:id',
     name: 'UserProfile',
     component: () => import('@/views/UserProfile.vue'),
@@ -45,6 +90,18 @@ const routes: RouteRecordRaw[] = [
     path: '/profile',
     name: 'Profile',
     component: () => import('@/views/Profile.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('@/views/Settings.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/publish',
+    name: 'Publish',
+    component: () => import('@/views/CreateNote.vue'),
     meta: { requiresAuth: true },
   },
   {
@@ -86,7 +143,7 @@ router.beforeEach(async (to, _from, next) => {
     return;
   }
   
-  if (to.meta.requiresAdmin && !userStore.isAdmin) {
+  if (to.meta.requiresAdmin) {
     if (!userStore.user) {
       await userStore.fetchCurrentUser();
     }

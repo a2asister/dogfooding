@@ -5,7 +5,11 @@ import { Topic } from '../entities/Topic';
 import { Like } from '../entities/Like';
 import { Favorite } from '../entities/Favorite';
 import { User } from '../entities/User';
-import { In } from 'typeorm';
+import { In, Not } from 'typeorm';
+import { createLikeNotification, createFavoriteNotification } from '../utils/notification';
+import { calculateHotScore } from '../utils/hotScore';
+import { Block, BlockType } from '../entities/Block';
+import { Dislike } from '../entities/Dislike';
 
 const noteRepository = AppDataSource.getRepository(Note);
 const topicRepository = AppDataSource.getRepository(Topic);
@@ -228,6 +232,7 @@ export const likeNote = async (req: Request, res: Response): Promise<void> => {
     if (existingLike) {
       await likeRepository.remove(existingLike);
       note.likeCount = Math.max(0, note.likeCount - 1);
+      note.hotScore = calculateHotScore(note);
       await noteRepository.save(note);
       res.json({ message: '取消点赞成功', liked: false, likeCount: note.likeCount });
     } else {
@@ -237,7 +242,19 @@ export const likeNote = async (req: Request, res: Response): Promise<void> => {
       });
       await likeRepository.save(like);
       note.likeCount += 1;
+      note.hotScore = calculateHotScore(note);
       await noteRepository.save(note);
+
+      if (note.author.id !== req.user.id) {
+        await createLikeNotification(
+          note.id,
+          note.title,
+          note.author.id,
+          req.user.id,
+          req.user.nickname
+        );
+      }
+
       res.json({ message: '点赞成功', liked: true, likeCount: note.likeCount });
     }
   } catch (error) {
@@ -268,6 +285,7 @@ export const favoriteNote = async (req: Request, res: Response): Promise<void> =
     if (existingFavorite) {
       await favoriteRepository.remove(existingFavorite);
       note.favoriteCount = Math.max(0, note.favoriteCount - 1);
+      note.hotScore = calculateHotScore(note);
       await noteRepository.save(note);
       res.json({ message: '取消收藏成功', favorited: false, favoriteCount: note.favoriteCount });
     } else {
@@ -277,7 +295,19 @@ export const favoriteNote = async (req: Request, res: Response): Promise<void> =
       });
       await favoriteRepository.save(favorite);
       note.favoriteCount += 1;
+      note.hotScore = calculateHotScore(note);
       await noteRepository.save(note);
+
+      if (note.author.id !== req.user.id) {
+        await createFavoriteNotification(
+          note.id,
+          note.title,
+          note.author.id,
+          req.user.id,
+          req.user.nickname
+        );
+      }
+
       res.json({ message: '收藏成功', favorited: true, favoriteCount: note.favoriteCount });
     }
   } catch (error) {

@@ -8,11 +8,14 @@ import {
   ManyToMany,
   JoinTable,
   OneToMany,
+  DeleteDateColumn,
 } from 'typeorm';
 import { User } from './User';
 import { Topic } from './Topic';
 import { Like } from './Like';
 import { Favorite } from './Favorite';
+import { Comment } from './Comment';
+import { Dislike } from './Dislike';
 
 export enum NoteStatus {
   DRAFT = 'draft',
@@ -71,6 +74,26 @@ export class Note {
   @Column({ default: 0 })
   viewCount: number;
 
+  @Column({ default: 0 })
+  commentCount: number;
+
+  @Column({ type: 'float', default: 0 })
+  hotScore: number;
+
+  @Column({ default: false })
+  isDeleted: boolean;
+
+  @DeleteDateColumn({ nullable: true })
+  deletedAt: Date;
+
+  @Column({ type: 'simple-json', nullable: true })
+  locationInfo: {
+    lat: number;
+    lng: number;
+    address: string;
+    city: string;
+  };
+
   @Column({ nullable: true })
   rejectReason: string;
 
@@ -90,6 +113,12 @@ export class Note {
 
   @OneToMany(() => Favorite, (favorite) => favorite.note)
   favorites: Favorite[];
+
+  @OneToMany(() => Comment, (comment) => comment.note)
+  comments: Comment[];
+
+  @OneToMany(() => Dislike, (dislike) => dislike.note)
+  dislikes: Dislike[];
 
   @CreateDateColumn()
   createdAt: Date;

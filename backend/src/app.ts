@@ -11,6 +11,15 @@ import noteRoutes from './routes/note.routes';
 import userRoutes from './routes/user.routes';
 import fileRoutes from './routes/file.routes';
 import adminRoutes from './routes/admin.routes';
+import commentRoutes from './routes/comment.routes';
+import feedRoutes from './routes/feed.routes';
+import searchRoutes from './routes/search.routes';
+import topicRoutes from './routes/topic.routes';
+import collectionRoutes from './routes/collection.routes';
+import notificationRoutes from './routes/notification.routes';
+import reportRoutes from './routes/report.routes';
+import userExtendedRoutes from './routes/userExtended.routes';
+import noteExtendedRoutes from './routes/noteExtended.routes';
 import { User, UserRole } from './entities/User';
 import bcrypt from 'bcryptjs';
 
@@ -31,9 +40,18 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/notes', noteRoutes);
+app.use('/api/notes', noteExtendedRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/users', userExtendedRoutes);
 app.use('/api/files', fileRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/comments', commentRoutes);
+app.use('/api/feed', feedRoutes);
+app.use('/api/search', searchRoutes);
+app.use('/api/topics', topicRoutes);
+app.use('/api/collections', collectionRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/reports', reportRoutes);
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: '图文社区服务运行正常' });

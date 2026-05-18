@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../config/database';
 import { User } from '../entities/User';
 import { Follow } from '../entities/Follow';
+import { createFollowNotification } from '../utils/notification';
 
 const userRepository = AppDataSource.getRepository(User);
 const followRepository = AppDataSource.getRepository(Follow);
@@ -79,6 +80,9 @@ export const followUser = async (req: Request, res: Response): Promise<void> => 
       await followRepository.save(follow);
       await userRepository.increment({ id }, 'followerCount', 1);
       await userRepository.increment({ id: req.user.id }, 'followingCount', 1);
+
+      await createFollowNotification(id, req.user.id, req.user.nickname);
+
       res.json({ message: '关注成功', following: true });
     }
   } catch (error) {

@@ -2,12 +2,32 @@
   <div class="layout">
     <el-header class="header">
       <div class="container flex-between">
-        <div class="logo cursor-pointer" @click="$router.push('/')">
-          <el-icon size="28" color="#409eff"><Picture /></el-icon>
-          <span>图文社区</span>
+        <div class="left-section">
+          <div class="logo cursor-pointer" @click="$router.push('/')">
+            <el-icon size="28" color="#409eff"><Picture /></el-icon>
+            <span>图文社区</span>
+          </div>
+          <div class="nav-links">
+            <router-link to="/" class="nav-link" active-class="active">首页</router-link>
+            <router-link to="/topics" class="nav-link" active-class="active">话题广场</router-link>
+          </div>
+        </div>
+        <div class="center-section">
+          <div class="search-box" @click="$router.push('/search')">
+            <el-icon><Search /></el-icon>
+            <input type="text" placeholder="搜索笔记、用户、话题" readonly />
+          </div>
         </div>
         <div class="nav">
           <template v-if="userStore.isLoggedIn">
+            <router-link to="/notifications" class="notification-icon">
+              <el-badge :value="unreadCount" :hidden="unreadCount === 0" class="badge">
+                <el-icon size="22"><Bell /></el-icon>
+              </el-badge>
+            </router-link>
+            <router-link to="/collections" class="collection-icon">
+              <el-icon size="22"><FolderOpened /></el-icon>
+            </router-link>
             <el-button type="primary" @click="$router.push('/create')">
               <el-icon><Plus /></el-icon>
               发布笔记
@@ -22,7 +42,10 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item command="profile">个人中心</el-dropdown-item>
+                  <el-dropdown-item command="collections">我的合集</el-dropdown-item>
                   <el-dropdown-item command="drafts">草稿箱</el-dropdown-item>
+                  <el-dropdown-item command="trash">回收站</el-dropdown-item>
+                  <el-dropdown-item command="settings">设置</el-dropdown-item>
                   <el-dropdown-item v-if="userStore.isAdmin" command="admin">后台管理</el-dropdown-item>
                   <el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
@@ -50,21 +73,57 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
-import { Picture, Plus } from '@element-plus/icons-vue';
+import { Picture, Plus, Search, Bell, FolderOpened } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
+import { getUnreadCount } from '@/api/notification';
 
 const router = useRouter();
 const userStore = useUserStore();
+
+const unreadCount = ref(0);
+let timer: any = null;
+
+const fetchUnreadCount = async () => {
+  if (!userStore.isLoggedIn) {
+    unreadCount.value = 0;
+    return;
+  }
+  try {
+    const res = await getUnreadCount();
+    unreadCount.value = res.total;
+  } catch (error) {
+    console.error('获取未读消息数失败:', error);
+  }
+};
+
+onMounted(() => {
+  fetchUnreadCount();
+  timer = setInterval(fetchUnreadCount, 30000);
+});
+
+onUnmounted(() => {
+  if (timer) clearInterval(timer);
+});
 
 const handleCommand = (command: string) => {
   switch (command) {
     case 'profile':
       router.push('/profile');
       break;
+    case 'collections':
+      router.push('/collections');
+      break;
     case 'drafts':
       router.push('/drafts');
+      break;
+    case 'trash':
+      router.push('/trash');
+      break;
+    case 'settings':
+      router.push('/settings');
       break;
     case 'admin':
       router.push('/admin');
@@ -92,6 +151,20 @@ const handleCommand = (command: string) => {
   height: 64px !important;
   line-height: 64px;
   
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  
+  .left-section {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-shrink: 0;
+  }
+  
   .logo {
     display: flex;
     align-items: center;
@@ -101,10 +174,89 @@ const handleCommand = (command: string) => {
     color: #333;
   }
   
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    
+    .nav-link {
+      font-size: 15px;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+      
+      &:hover,
+      &.active {
+        color: #409eff;
+      }
+    }
+  }
+  
+  .center-section {
+    flex: 1;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    height: 36px;
+    padding: 0 16px;
+    background: #f5f5f5;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+    
+    &:hover {
+      background: #e8e8e8;
+    }
+    
+    .el-icon {
+      color: #999;
+      font-size: 16px;
+    }
+    
+    input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      
+      &::placeholder {
+        color: #999;
+      }
+    }
+  }
+  
   .nav {
     display: flex;
     align-items: center;
     gap: 16px;
+    flex-shrink: 0;
+  }
+  
+  .notification-icon,
+  .collection-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #666;
+    transition: all 0.3s;
+    
+    &:hover {
+      background: #f5f5f5;
+      color: #409eff;
+    }
   }
   
   .user-info {
