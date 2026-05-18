@@ -1,0 +1,21 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "module": "ESNext",
+    "target": "ES2022",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"],
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "useDefineForClassFields": true,
+    "exactOptionalPropertyTypes": false,
+    "noUncheckedIndexedAccess": false,
+    "strictPropertyInitialization": false
+  },
+  "include": ["src/**/*", "src/**/*.vue"],
+  "exclude": ["node_modules", "dist"]
+}
