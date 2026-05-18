@@ -1,0 +1,61 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+dist
+dist-ssr
+build
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vite
+.vite
+
+# Rust / WASM
+wasm/target
+wasm/pkg
+public/wasm
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+server/data
+
+# Cache
+.cache
+.parcel-cache
+.turbo
+.eslintcache
+
+# TypeScript
+*.tsbuildinfo
+
+# OS specific
+Thumbs.db
