@@ -1,0 +1,23 @@
+{
+  "name": "watermark-remover",
+  "version": "1.0.0",
+  "description": "无损图片去水印工具 - Vue3 + Express + TypeScript + SQLite + WASM",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "npm run build:wasm && npm run build:server && npm run build:client",
+    "build:wasm": "cd wasm && wasm-pack build --target web --out-dir ../client/src/wasm",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "lint": "npm run lint:client && npm run lint:server",
+    "lint:client": "cd client && npm run lint",
+    "lint:server": "cd server && npm run lint",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
