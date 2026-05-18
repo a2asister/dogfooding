@@ -1,0 +1,21 @@
+{
+  "name": "game-official-website",
+  "version": "1.0.0",
+  "description": "游戏官方网站 - Vue3 + Express + TypeScript + SQLite",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "lint": "cd frontend && npm run lint",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "init:db": "cd backend && npm run init:db"
+  },
+  "keywords": ["vue3", "express", "typescript", "sqlite", "game-website"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
