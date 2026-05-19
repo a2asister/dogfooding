@@ -76,11 +76,23 @@ export const eventController = {
 
   async create(req: Request, res: Response): Promise<void> {
     try {
-      const { title, description, cover_image, start_time, end_time, status, is_published, link_url, sort_order } = req.body;
+      const { title, description, cover_image, start_time, end_time, status, is_published, link_url, sort_order, is_hot, scheduled_publish_time, scheduled_offline_time } = req.body;
       
       if (!title) {
         res.status(400).json({ code: 400, message: '标题不能为空', data: null });
         return;
+      }
+
+      let finalIsPublished = is_published || 0;
+      
+      if (scheduled_publish_time) {
+        const now = new Date();
+        const scheduleTime = new Date(scheduled_publish_time);
+        if (scheduleTime > now) {
+          finalIsPublished = 0;
+        } else {
+          finalIsPublished = is_published || 1;
+        }
       }
 
       const id = eventModel.create({
@@ -90,12 +102,15 @@ export const eventController = {
         start_time: start_time || null,
         end_time: end_time || null,
         status: status || 'upcoming',
-        is_published: is_published || 0,
+        is_published: finalIsPublished,
+        is_hot: is_hot || 0,
         link_url: link_url || null,
-        sort_order: sort_order || 0
+        sort_order: sort_order || 0,
+        scheduled_publish_time: scheduled_publish_time || null,
+        scheduled_offline_time: scheduled_offline_time || null
       });
       
-      res.json({ code: 0, message: '创建成功', data: { id } });
+      res.json({ code: 0, message: finalIsPublished ? '创建成功' : '已创建，将在指定时间发布', data: { id } });
     } catch (error) {
       res.status(500).json({ code: 500, message: '服务器错误', data: null });
     }

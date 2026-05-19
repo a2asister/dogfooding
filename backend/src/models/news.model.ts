@@ -73,9 +73,25 @@ export const newsModel = {
 
   create(data: Omit<News, 'id' | 'view_count' | 'created_at' | 'updated_at'>): number {
     const result = db.prepare(`
-      INSERT INTO news (title, content, category, cover_image, is_top)
-      VALUES (?, ?, ?, ?, ?)
-    `).run(data.title, data.content, data.category, data.cover_image, data.is_top);
+      INSERT INTO news (title, title_en, content, content_en, category, cover_image, is_top, is_hot, is_recommend, tags, status, scheduled_publish_time, scheduled_offline_time, publish_time, share_count)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      data.title,
+      data.title_en || null,
+      data.content,
+      data.content_en || null,
+      data.category,
+      data.cover_image,
+      data.is_top || 0,
+      data.is_hot || 0,
+      data.is_recommend || 0,
+      data.tags || null,
+      data.status || 'published',
+      data.scheduled_publish_time || null,
+      data.scheduled_offline_time || null,
+      data.publish_time || null,
+      data.share_count || 0
+    );
     return Number(result.lastInsertRowid);
   },
 

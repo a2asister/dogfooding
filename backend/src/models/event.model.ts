@@ -49,11 +49,24 @@ export const eventModel = {
 
   create(data: Omit<Event, 'id' | 'created_at' | 'updated_at'>): number {
     const result = db.prepare(`
-      INSERT INTO events (title, description, cover_image, start_time, end_time, status, is_published, link_url, sort_order)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO events (title, title_en, description, description_en, cover_image, start_time, end_time, status, is_published, is_hot, click_count, link_url, sort_order, scheduled_publish_time, scheduled_offline_time)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
-      data.title, data.description, data.cover_image, data.start_time, 
-      data.end_time, data.status, data.is_published, data.link_url, data.sort_order
+      data.title,
+      data.title_en || null,
+      data.description,
+      data.description_en || null,
+      data.cover_image,
+      data.start_time,
+      data.end_time,
+      data.status,
+      data.is_published,
+      data.is_hot || 0,
+      data.click_count || 0,
+      data.link_url,
+      data.sort_order,
+      data.scheduled_publish_time || null,
+      data.scheduled_offline_time || null
     );
     return Number(result.lastInsertRowid);
   },
