@@ -86,10 +86,10 @@
               <p>浏览量趋势 (近7天)</p>
               <div class="trend-bars">
                 <div
-                  v-for="(value, index) in overview?.viewsTrend || []"
+                  v-for="(value, index) in viewsTrend"
                   :key="index"
                   class="bar"
-                  :style="{ height: `${Math.max((value / Math.max(...(overview?.viewsTrend || [1]))) * 100, 10}%` }"
+                  :style="{ height: getBarHeight(value) }"
                 />
               </div>
             </div>
@@ -189,7 +189,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useUserStore } from '@/stores/user';
 import { getCreatorOverview, getCreatorDataRange, getMyVerification } from '@/api/creator';
 import Layout from '@/components/Layout.vue';
@@ -217,6 +217,20 @@ const dateRange = ref<[Date, Date]>([
 ]);
 
 const latestData = ref<CreatorData | null>(null);
+
+const viewsTrend = computed(() => {
+  return overview.value?.viewsTrend || [];
+});
+
+const maxViewsTrend = computed(() => {
+  const trend = viewsTrend.value;
+  return trend.length > 0 ? Math.max(...trend) : 1;
+});
+
+const getBarHeight = (value: number) => {
+  const height = Math.max((value / maxViewsTrend.value) * 100, 10);
+  return `${height}%`;
+};
 
 const getStatusTitle = (status: string) => {
   const map: Record<string, string> = {

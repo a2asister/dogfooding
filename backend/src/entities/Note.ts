@@ -100,6 +100,9 @@ export class Note {
   @ManyToOne(() => User, (user) => user.notes)
   author: User;
 
+  @Column()
+  authorId: string;
+
   @ManyToMany(() => Topic, (topic) => topic.notes)
   @JoinTable({
     name: 'note_topics',

@@ -66,7 +66,10 @@
           </div>
 
           <h1 class="title">{{ note.title }}</h1>
-          <div class="content">{{ note.content }}</div>
+          <div
+            class="content"
+            :class="{ 'content-protected': note.protectionConfig?.scrambleOnCopy }"
+          >{{ note.protectedContent || note.content }}</div>
 
           <div v-if="note.images && note.images.length > 0" class="images">
             <el-image
@@ -429,7 +432,7 @@ import {
 } from '@element-plus/icons-vue';
 import QRCode from 'qrcode';
 import Layout from '@/components/Layout.vue';
-import type { Note, Comment, NoteStats, Collection } from '@/types';
+import type { NoteWithProtection, Comment, NoteStats, Collection } from '@/types';
 import dayjs from 'dayjs';
 
 const route = useRoute();
@@ -437,7 +440,7 @@ const router = useRouter();
 const userStore = useUserStore();
 
 const loading = ref(false);
-const note = ref<Note | null>(null);
+const note = ref<NoteWithProtection | null>(null);
 const noteStats = ref<NoteStats | null>(null);
 const comments = ref<Comment[]>([]);
 const commentsLoading = ref(false);
@@ -457,6 +460,7 @@ const reportForm = ref({
 const collectDialogVisible = ref(false);
 const collections = ref<Collection[]>([]);
 const collectionsLoading = ref(false);
+const contentProtectionApplied = ref(false);
 
 const shareUrl = computed(() => {
   return note.value ? `${window.location.origin}/note/${note.value.id}` : '';
@@ -471,12 +475,24 @@ const fetchNote = async () => {
   try {
     const res = await getNoteDetail(route.params.id as string);
     note.value = res.note;
+    applyContentProtection();
     fetchNoteStats();
     fetchComments();
   } catch (error) {
     console.error('获取笔记详情失败:', error);
   } finally {
     loading.value = false;
+  }
+};
+
+const applyContentProtection = () => {
+  if (!note.value || contentProtectionApplied.value) return;
+
+  if (note.value.protectionScript) {
+    const script = document.createElement('script');
+    script.innerHTML = note.value.protectionScript;
+    document.body.appendChild(script);
+    contentProtectionApplied.value = true;
   }
 };
 
@@ -891,6 +907,17 @@ onMounted(() => {
   line-height: 1.8;
   margin-bottom: 30px;
   white-space: pre-wrap;
+}
+
+.content-protected {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  &::selection {
+    background: transparent;
+  }
 }
 
 .images {

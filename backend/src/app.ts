@@ -26,6 +26,15 @@ import contentReviewRoutes from './routes/contentReview.routes';
 import riskControlRoutes from './routes/riskControl.routes';
 import operationRoutes from './routes/operation.routes';
 import creatorRoutes from './routes/creator.routes';
+import orderRoutes from './routes/order.routes';
+import earningRoutes from './routes/earning.routes';
+import membershipRoutes from './routes/membership.routes';
+import promotionRoutes from './routes/promotion.routes';
+import analyticsRoutes from './routes/analytics.routes';
+import messageRoutes from './routes/message.routes';
+import communityRoutes from './routes/community.routes';
+import creatorReportRoutes from './routes/creatorReport.routes';
+import productRoutes from './routes/product.routes';
 import { User, UserRole } from './entities/User';
 import bcrypt from 'bcryptjs';
 
@@ -64,6 +73,15 @@ app.use('/api/content-review', contentReviewRoutes);
 app.use('/api/risk-control', riskControlRoutes);
 app.use('/api/operation', operationRoutes);
 app.use('/api/creator', creatorRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/earnings', earningRoutes);
+app.use('/api/membership', membershipRoutes);
+app.use('/api/promotions', promotionRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/communities', communityRoutes);
+app.use('/api/creator-reports', creatorReportRoutes);
+app.use('/api/products', productRoutes);
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: '图文社区服务运行正常' });

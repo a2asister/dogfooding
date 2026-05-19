@@ -1,5 +1,5 @@
 import request from './request';
-import type { Note, CreateNoteParams, NoteStats, UserNoteStats, SensitiveCheckResult } from '@/types';
+import type { Note, CreateNoteParams, NoteStats, UserNoteStats, SensitiveCheckResult, NoteWithProtection } from '@/types';
 
 export const getNoteList = (params: {
   page?: number;
@@ -11,7 +11,7 @@ export const getNoteList = (params: {
 };
 
 export const getNoteDetail = (id: string) => {
-  return request.get<{ note: Note }>(`/notes/${id}`);
+  return request.get<{ note: NoteWithProtection }>(`/notes/${id}`);
 };
 
 export const createNote = (data: CreateNoteParams) => {

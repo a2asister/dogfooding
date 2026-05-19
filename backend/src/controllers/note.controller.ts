@@ -10,6 +10,8 @@ import { createLikeNotification, createFavoriteNotification } from '../utils/not
 import { calculateHotScore } from '../utils/hotScore';
 import { Block, BlockType } from '../entities/Block';
 import { Dislike } from '../entities/Dislike';
+import { generateCopyProtectionScript, generateCopyProtectionCSS, protectContent } from '../utils/contentProtection';
+import { ContentProtection } from '../entities/ContentProtection';
 
 const noteRepository = AppDataSource.getRepository(Note);
 const topicRepository = AppDataSource.getRepository(Topic);
@@ -176,11 +178,59 @@ export const getNoteDetail = async (req: Request, res: Response): Promise<void> 
       }));
     }
 
+    const contentProtectionRepository = AppDataSource.getRepository(ContentProtection);
+    const protection = await contentProtectionRepository.findOne({
+      where: { noteId: note.id, isActive: true },
+    });
+
+    const isAuthor = req.user && req.user.id === note.author.id;
+    let displayContent = note.content;
+    let protectionScript = '';
+    let protectionCSS = '';
+    let isProtected = false;
+
+    if (protection && !isAuthor) {
+      isProtected = true;
+      
+      if (protection.protectionType === 'paywall') {
+        const hasAccess = req.user ? true : false;
+        if (!hasAccess) {
+          displayContent = note.content.substring(0, 200) + '...\n\n[此内容为付费内容，请购买后查看完整内容]';
+        }
+      } else if (protection.protectionType === 'subscription_only') {
+        const userMembershipRepository = AppDataSource.getRepository('UserMembership');
+        const hasMembership = req.user && !!(await userMembershipRepository.findOne({
+          where: { userId: req.user.id, status: 'active' },
+        }));
+        if (!hasMembership) {
+          displayContent = note.content.substring(0, 200) + '...\n\n[此内容为会员专属内容，请升级会员后查看]';
+        }
+      }
+
+      const { protectedContent } = protectContent(note.content, {
+        scrambleIntensity: 0.15,
+        zeroWidthDensity: 0.05,
+      });
+      displayContent = protectedContent;
+
+      protectionScript = generateCopyProtectionScript(note.id, {
+        disableCopy: protection.disableKeyboardCopy,
+        disableRightClick: protection.disableRightClick,
+        disableSelect: protection.disableTextSelection,
+        watermarkText: protection.enableWatermark && protection.watermarkConfig?.text
+          ? protection.watermarkConfig.text
+          : `来自${note.author.nickname}的原创内容`,
+      });
+
+      protectionCSS = protection.disableTextSelection ? generateCopyProtectionCSS() : '';
+    }
+
     res.json({
       note: {
         id: note.id,
         title: note.title,
-        content: note.content,
+        content: displayContent,
+        originalContent: isAuthor ? note.content : undefined,
         images: note.images,
         location: note.location,
         likeCount: note.likeCount,
@@ -202,6 +252,14 @@ export const getNoteDetail = async (req: Request, res: Response): Promise<void> 
         isLiked,
         isFavorited,
         createdAt: note.createdAt,
+      },
+      protection: {
+        isProtected,
+        protectionScript,
+        protectionCSS,
+        disableCopy: protection?.disableKeyboardCopy || false,
+        disableRightClick: protection?.disableRightClick || false,
+        disableSelect: protection?.disableTextSelection || false,
       },
     });
   } catch (error) {

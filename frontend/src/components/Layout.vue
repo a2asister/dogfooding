@@ -42,9 +42,19 @@
               <template #dropdown>
                 <el-dropdown-menu>
                   <el-dropdown-item command="profile">个人中心</el-dropdown-item>
+                  <el-dropdown-item command="products">商品管理</el-dropdown-item>
+                  <el-dropdown-item command="orders">我的订单</el-dropdown-item>
+                  <el-dropdown-item command="earnings">收益中心</el-dropdown-item>
+                  <el-dropdown-item command="promotion">推广中心</el-dropdown-item>
+                  <el-dropdown-item command="reports">创作报告</el-dropdown-item>
                   <el-dropdown-item command="collections">我的合集</el-dropdown-item>
                   <el-dropdown-item command="drafts">草稿箱</el-dropdown-item>
                   <el-dropdown-item command="trash">回收站</el-dropdown-item>
+                  <el-dropdown-item command="messages">消息中心</el-dropdown-item>
+                  <el-dropdown-item command="membership">会员中心</el-dropdown-item>
+                  <el-dropdown-item command="communities">社群中心</el-dropdown-item>
+                  <el-dropdown-item command="analytics">数据分析</el-dropdown-item>
+                  <el-dropdown-item command="creator-center">创作者中心</el-dropdown-item>
                   <el-dropdown-item command="settings">设置</el-dropdown-item>
                   <el-dropdown-item v-if="userStore.isAdmin" command="admin">后台管理</el-dropdown-item>
                   <el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
@@ -112,6 +122,36 @@ const handleCommand = (command: string) => {
   switch (command) {
     case 'profile':
       router.push('/profile');
+      break;
+    case 'products':
+      router.push('/products');
+      break;
+    case 'orders':
+      router.push('/orders');
+      break;
+    case 'earnings':
+      router.push('/earnings');
+      break;
+    case 'membership':
+      router.push('/membership');
+      break;
+    case 'promotion':
+      router.push('/promotion');
+      break;
+    case 'analytics':
+      router.push('/analytics');
+      break;
+    case 'messages':
+      router.push('/messages');
+      break;
+    case 'communities':
+      router.push('/communities');
+      break;
+    case 'reports':
+      router.push('/creator/reports');
+      break;
+    case 'creator-center':
+      router.push('/creator/center');
       break;
     case 'collections':
       router.push('/collections');

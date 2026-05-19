@@ -587,3 +587,374 @@ export interface AdminUser {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Product {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  originalPrice?: number;
+  commissionRate: number;
+  commissionAmount: number;
+  imageUrl: string;
+  productUrl: string;
+  platform: string;
+  category?: string;
+  salesCount: number;
+  clickCount: number;
+  isActive: boolean;
+  creatorId: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProductLink {
+  id: string;
+  noteId: string;
+  productId: string;
+  product?: Product;
+  linkCode: string;
+  clickCount: number;
+  conversionCount: number;
+  createdAt: string;
+}
+
+export interface Order {
+  id: string;
+  orderNo: string;
+  userId: string;
+  user?: User;
+  totalAmount: number;
+  status: 'pending' | 'paid' | 'shipped' | 'completed' | 'cancelled' | 'refunded';
+  paymentMethod?: string;
+  paymentTime?: string;
+  items: OrderItem[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface OrderItem {
+  id: string;
+  orderId: string;
+  itemType: 'product' | 'membership' | 'promotion' | 'tip';
+  itemId: string;
+  title: string;
+  imageUrl?: string;
+  unitPrice: number;
+  quantity: number;
+  amount: number;
+  commissionRate?: number;
+  commissionAmount?: number;
+  sellerId?: string;
+  metadata?: Record<string, any>;
+  createdAt: string;
+}
+
+export interface Earning {
+  id: string;
+  userId: string;
+  user?: User;
+  type: 'commission' | 'tip' | 'subscription' | 'ad_revenue' | 'platform_reward';
+  amount: number;
+  currency: string;
+  status: 'pending' | 'available' | 'settled' | 'cancelled';
+  orderId?: string;
+  orderItemId?: string;
+  noteId?: string;
+  productId?: string;
+  fromUserId?: string;
+  description?: string;
+  settlementDate?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface EarningSummary {
+  totalEarnings: number;
+  availableBalance: number;
+  pendingBalance: number;
+  settledBalance: number;
+  todayEarnings: number;
+  weekEarnings: number;
+  monthEarnings: number;
+  earningsByType: Record<string, number>;
+}
+
+export interface Withdrawal {
+  id: string;
+  userId: string;
+  amount: number;
+  fee: number;
+  netAmount: number;
+  status: 'pending' | 'processing' | 'completed' | 'rejected';
+  method: 'alipay' | 'wechat' | 'bank';
+  accountInfo: Record<string, any>;
+  transactionId?: string;
+  processorId?: string;
+  rejectReason?: string;
+  processedAt?: string;
+  completedAt?: string;
+  createdAt: string;
+}
+
+export interface MembershipPlan {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  originalPrice?: number;
+  duration: number;
+  durationUnit: 'day' | 'month' | 'year';
+  features: string[];
+  tier: number;
+  isActive: boolean;
+  sort: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UserMembership {
+  id: string;
+  userId: string;
+  user?: User;
+  planId: string;
+  plan?: MembershipPlan;
+  status: 'active' | 'expired' | 'cancelled';
+  startDate: string;
+  expiresAt: string;
+  autoRenew: boolean;
+  orderId?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Promotion {
+  id: string;
+  userId: string;
+  user?: User;
+  noteId: string;
+  note?: Note;
+  planType: 'views_boost' | 'likes_boost' | 'followers_boost' | 'hot_promotion';
+  budget: number;
+  spentAmount: number;
+  targetViews: number;
+  currentViews: number;
+  durationHours: number;
+  boostMultiplier: number;
+  startTime?: string;
+  endTime?: string;
+  status: 'pending' | 'active' | 'paused' | 'completed' | 'cancelled' | 'failed';
+  metadata?: Record<string, any>;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DailySiteStats {
+  id: string;
+  date: string;
+  totalUsers: number;
+  newUsers: number;
+  activeUsers: number;
+  totalNotes: number;
+  newNotes: number;
+  totalViews: number;
+  newViews: number;
+  totalLikes: number;
+  newLikes: number;
+  totalComments: number;
+  newComments: number;
+  totalFavorites: number;
+  newFavorites: number;
+  totalFollows: number;
+  newFollows: number;
+  pageViews: number;
+  uniqueVisitors: number;
+  bounceRate: number;
+  avgSessionDuration: number;
+  retentionDay1: number;
+  retentionDay7: number;
+  retentionDay30: number;
+  totalRevenue: number;
+  paidUsers: number;
+  conversionRate: number;
+  createdAt: string;
+}
+
+export interface AnalyticsOverview {
+  todayUV: number;
+  todayPV: number;
+  todayNewUsers: number;
+  todayActiveUsers: number;
+  todayRevenue: number;
+  weekUV: number;
+  weekPV: number;
+  monthUV: number;
+  monthPV: number;
+  avgRetentionDay1: number;
+  avgRetentionDay7: number;
+  avgConversionRate: number;
+  topNotes: Array<{ noteId: string; title: string; views: number; engagementRate: number }>;
+  trafficSources: Array<{ source: string; count: number; percentage: number }>;
+}
+
+export interface Message {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  sender?: User;
+  receiverId: string;
+  receiver?: User;
+  type: 'text' | 'image' | 'link' | 'note_share' | 'product_share';
+  content: string;
+  status: 'sent' | 'delivered' | 'read' | 'failed' | 'recalled';
+  metadata?: {
+    imageUrl?: string;
+    linkUrl?: string;
+    linkTitle?: string;
+    linkImage?: string;
+    noteId?: string;
+    noteTitle?: string;
+    productId?: string;
+    productTitle?: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Conversation {
+  id: string;
+  type: 'private' | 'group';
+  name?: string;
+  avatar?: string;
+  participants: ConversationParticipant[];
+  lastMessage?: Message;
+  unreadCount: number;
+  lastMessageAt: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ConversationParticipant {
+  id: string;
+  conversationId: string;
+  userId: string;
+  user?: User;
+  isAdmin: boolean;
+  isMuted: boolean;
+  isBlocked: boolean;
+  lastReadAt?: string;
+  joinedAt: string;
+}
+
+export interface Community {
+  id: string;
+  name: string;
+  description: string;
+  avatar?: string;
+  cover?: string;
+  category: string;
+  ownerId: string;
+  owner?: User;
+  memberCount: number;
+  postCount: number;
+  isPublic: boolean;
+  isOfficial: boolean;
+  status: 'active' | 'banned' | 'closed';
+  settings: Record<string, any>;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CommunityMember {
+  id: string;
+  communityId: string;
+  userId: string;
+  user?: User;
+  roles: string[];
+  status: 'active' | 'pending' | 'banned' | 'muted' | 'left';
+  joinReason?: string;
+  joinedAt: string;
+}
+
+export interface CreatorReport {
+  id: string;
+  userId: string;
+  user?: User;
+  type: 'daily' | 'weekly';
+  periodStart: string;
+  periodEnd: string;
+  totalViews: number;
+  totalLikes: number;
+  totalComments: number;
+  totalFavorites: number;
+  totalShares: number;
+  newFollowers: number;
+  lostFollowers: number;
+  netFollowers: number;
+  newNotes: number;
+  engagementRate: number;
+  activeFans: number;
+  totalEarnings: number;
+  topNotes: Array<{
+    noteId: string;
+    title: string;
+    views: number;
+    likes: number;
+    comments: number;
+    engagementRate: number;
+  }>;
+  fanDemographics: {
+    gender: Record<string, number>;
+    ageRange: Record<string, number>;
+    location: Record<string, number>;
+    interests: Record<string, number>;
+  };
+  trafficSources: Array<{ source: string; count: number; percentage: number }>;
+  insights: string[];
+  recommendations: string[];
+  createdAt: string;
+}
+
+export interface UserTier {
+  id: string;
+  userId: string;
+  level: number;
+  name: string;
+  experience: number;
+  nextLevelExp: number;
+  privileges: string[];
+  updatedAt: string;
+}
+
+export interface CopyrightClaim {
+  id: string;
+  noteId: string;
+  note?: Note;
+  claimantId: string;
+  claimant?: User;
+  originalContentUrl?: string;
+  evidence: string[];
+  description: string;
+  status: 'pending' | 'approved' | 'rejected';
+  reviewerId?: string;
+  reviewNote?: string;
+  reviewedAt?: string;
+  createdAt: string;
+}
+
+export interface ContentProtectionConfig {
+  enabled: boolean;
+  disableCopy: boolean;
+  disableRightClick: boolean;
+  disableTextSelection: boolean;
+  scrambleOnCopy: boolean;
+  scrambleIntensity: number;
+  addWatermark: boolean;
+  watermarkText?: string;
+}
+
+export interface NoteWithProtection extends Note {
+  protectedContent?: string;
+  protectionScript?: string;
+  protectionConfig?: ContentProtectionConfig;
+}

@@ -56,6 +56,9 @@ export class Product {
   @Column({ default: 0 })
   commissionRate: number;
 
+  @Column({ nullable: true })
+  creatorId: string;
+
   @OneToMany(() => NoteProduct, (noteProduct) => noteProduct.product)
   noteProducts: NoteProduct[];
 
