@@ -227,3 +227,363 @@ export interface SensitiveCheckResult {
   foundWords: string[];
   message: string;
 }
+
+export interface UserTag {
+  id: string;
+  name: string;
+  category: string;
+  description?: string;
+  icon?: string;
+  color?: string;
+  userCount: number;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface UserTagRelation {
+  id: string;
+  userId: string;
+  tagId: string;
+  tag: UserTag;
+  weight: number;
+  source: string;
+  createdAt: string;
+}
+
+export interface UserBehavior {
+  id: string;
+  userId: string;
+  behaviorType: string;
+  targetType: string;
+  targetId: string;
+  noteId?: string;
+  metadata?: Record<string, any>;
+  ip?: string;
+  userAgent?: string;
+  createdAt: string;
+}
+
+export interface UserProfile {
+  user: User;
+  tags: UserTagRelation[];
+  behaviorStats: {
+    totalViews: number;
+    totalLikes: number;
+    totalComments: number;
+    totalSearches: number;
+    activeDays: number;
+  };
+  topInterests: string[];
+}
+
+export interface RecommendNote extends Note {
+  recommendScore: number;
+  matchTags: string[];
+}
+
+export interface RecommendResult {
+  list: RecommendNote[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+export interface ReviewTask {
+  id: string;
+  type: 'note' | 'comment' | 'user';
+  targetId: string;
+  content: string;
+  targetUserId: string;
+  targetUser?: User;
+  status: 'pending' | 'reviewing' | 'approved' | 'rejected';
+  level: 'low' | 'medium' | 'high';
+  aiResult?: {
+    passed: boolean;
+    riskLevel: string;
+    categories: string[];
+    score: number;
+  };
+  reviewerId?: string;
+  reviewer?: User;
+  reviewNote?: string;
+  reviewedAt?: string;
+  createdAt: string;
+}
+
+export interface ReviewTaskResult {
+  list: ReviewTask[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+export interface ViolationDetectionResult {
+  passed: boolean;
+  riskLevel: 'low' | 'medium' | 'high';
+  categories: string[];
+  details: { type: string; description: string }[];
+  score: number;
+}
+
+export interface ContentRestriction {
+  id: string;
+  noteId: string;
+  note?: Note;
+  type: string;
+  level: string;
+  reasons: any[];
+  flowMultiplier: number;
+  operatorId?: string;
+  operator?: User;
+  remark?: string;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface UserRestriction {
+  id: string;
+  userId: string;
+  user?: User;
+  type: 'mute' | 'flow_limit' | 'ban' | 'warning';
+  scope: 'comment' | 'post' | 'all';
+  reason: string;
+  operatorId?: string;
+  operator?: User;
+  isActive: boolean;
+  isPermanent: boolean;
+  expiresAt?: string;
+  createdAt: string;
+  liftedAt?: string;
+  liftedReason?: string;
+}
+
+export interface BehaviorRisk {
+  id: string;
+  type: string;
+  level: string;
+  status: string;
+  userId?: string;
+  user?: User;
+  noteId?: string;
+  note?: Note;
+  commentId?: string;
+  evidence: Record<string, any>;
+  confidence: number;
+  reviewerId?: string;
+  reviewer?: User;
+  reviewNote?: string;
+  reviewedAt?: string;
+  processedAt?: string;
+  detectedAt: string;
+}
+
+export interface AccountRisk {
+  id: string;
+  type: string;
+  level: string;
+  status: string;
+  userId: string;
+  user: User;
+  actionTaken: string;
+  evidence: Record<string, any>;
+  confidence: number;
+  loginDetails?: Record<string, any>;
+  batchDetails?: Record<string, any>;
+  reviewerId?: string;
+  reviewer?: User;
+  reviewNote?: string;
+  reviewedAt?: string;
+  processedAt?: string;
+  detectedAt: string;
+}
+
+export interface LoginLog {
+  id: string;
+  userId?: string;
+  user?: User;
+  username?: string;
+  phone?: string;
+  status: 'success' | 'failed';
+  ip?: string;
+  userAgent?: string;
+  deviceInfo?: Record<string, any>;
+  failReason?: string;
+  isNewDevice: boolean;
+  isNewLocation: boolean;
+  createdAt: string;
+}
+
+export interface RegisterLog {
+  id: string;
+  userId?: string;
+  user?: User;
+  username?: string;
+  phone?: string;
+  status: 'success' | 'failed';
+  ip?: string;
+  userAgent?: string;
+  deviceInfo?: Record<string, any>;
+  failReason?: string;
+  isSuspicious: boolean;
+  createdAt: string;
+}
+
+export interface Banner {
+  id: string;
+  title: string;
+  image: string;
+  position: 'home_top' | 'home_middle' | 'topic_top';
+  type: 'note' | 'topic' | 'url';
+  targetId?: string;
+  targetUrl?: string;
+  description?: string;
+  sort: number;
+  isActive: boolean;
+  clickCount: number;
+  startTime?: string;
+  endTime?: string;
+  creatorId?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface HotRank {
+  id: string;
+  type: 'daily' | 'weekly' | 'monthly';
+  noteId: string;
+  note?: Note;
+  score: number;
+  baseScore: number;
+  boostValue: number;
+  isPinned: boolean;
+  rank: number;
+  createdAt: string;
+}
+
+export interface FlowSupport {
+  id: string;
+  noteId: string;
+  note?: Note;
+  type: 'cold_start' | 'manual' | 'event';
+  boostMultiplier: number;
+  reason?: string;
+  targetViews?: number;
+  currentViews: number;
+  operatorId?: string;
+  operator?: User;
+  startTime?: string;
+  endTime?: string;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface CreatorData {
+  id: string;
+  userId: string;
+  date: string;
+  totalViews: number;
+  totalLikes: number;
+  totalComments: number;
+  totalFavorites: number;
+  totalShares: number;
+  newFollowers: number;
+  newNotes: number;
+  engagementRate: number;
+  noteStats: Array<{
+    noteId: string;
+    title: string;
+    views: number;
+    likes: number;
+    comments: number;
+    favorites: number;
+  }>;
+  fanDemographics: {
+    gender: Record<string, number>;
+    ageRange: Record<string, number>;
+    location: Record<string, number>;
+    interests: Record<string, number>;
+  };
+  createdAt: string;
+}
+
+export interface CreatorOverview {
+  totalViews: number;
+  totalLikes: number;
+  totalComments: number;
+  totalFavorites: number;
+  totalFollowers: number;
+  totalNotes: number;
+  engagementRate: number;
+  viewsTrend: number[];
+  followersTrend: number[];
+  topNotes: Note[];
+}
+
+export interface CreatorVerification {
+  id: string;
+  userId: string;
+  user?: User;
+  type: 'personal' | 'organization' | 'expert' | 'celebrity';
+  realName: string;
+  idCard?: string;
+  organizationName?: string;
+  organizationLicense?: string;
+  materials?: Array<{ type: string; url: string; description: string }>;
+  description?: string;
+  status: 'pending' | 'approved' | 'rejected' | 'expired' | 'cancelled';
+  reviewerId?: string;
+  reviewer?: User;
+  reviewNote?: string;
+  verifiedAt?: string;
+  expiresAt?: string;
+  level: number;
+  badgeText?: string;
+  badgeIcon?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Role {
+  id: string;
+  name: string;
+  code: string;
+  description?: string;
+  isSystem: boolean;
+  isActive: boolean;
+  permissions: Permission[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Permission {
+  id: string;
+  name: string;
+  code: string;
+  type: 'menu' | 'button' | 'api';
+  path?: string;
+  icon?: string;
+  sort: number;
+  parentId?: string;
+  children?: Permission[];
+  description?: string;
+  isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AdminUser {
+  id: string;
+  username: string;
+  nickname: string;
+  avatar?: string;
+  email?: string;
+  phone?: string;
+  status: 'active' | 'inactive' | 'locked';
+  isSuperAdmin: boolean;
+  loginCount: number;
+  lastLoginAt?: string;
+  lastLoginIp?: string;
+  roles: Role[];
+  createdAt: string;
+  updatedAt: string;
+}

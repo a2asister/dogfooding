@@ -105,6 +105,18 @@ const routes: RouteRecordRaw[] = [
     meta: { requiresAuth: true },
   },
   {
+    path: '/creator/center',
+    name: 'CreatorCenter',
+    component: () => import('@/views/CreatorCenter.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/creator/verification',
+    name: 'CreatorVerification',
+    component: () => import('@/views/CreatorVerification.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
     path: '/admin',
     name: 'Admin',
     component: () => import('@/views/admin/Index.vue'),
@@ -118,13 +130,78 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: 'users',
-        name: 'AdminUsers',
+        name: 'AdminUserList',
         component: () => import('@/views/admin/Users.vue'),
       },
       {
         path: 'settings',
         name: 'AdminSettings',
         component: () => import('@/views/admin/Settings.vue'),
+      },
+      {
+        path: 'review/tasks',
+        name: 'AdminReviewTasks',
+        component: () => import('@/views/admin/ReviewTasks.vue'),
+      },
+      {
+        path: 'review/logs',
+        name: 'AdminReviewLogs',
+        component: () => import('@/views/admin/ReviewLogs.vue'),
+      },
+      {
+        path: 'risk/behavior',
+        name: 'AdminBehaviorRisks',
+        component: () => import('@/views/admin/BehaviorRisks.vue'),
+      },
+      {
+        path: 'risk/account',
+        name: 'AdminAccountRisks',
+        component: () => import('@/views/admin/AccountRisks.vue'),
+      },
+      {
+        path: 'risk/login-logs',
+        name: 'AdminLoginLogs',
+        component: () => import('@/views/admin/LoginLogs.vue'),
+      },
+      {
+        path: 'risk/register-logs',
+        name: 'AdminRegisterLogs',
+        component: () => import('@/views/admin/RegisterLogs.vue'),
+      },
+      {
+        path: 'operation/banners',
+        name: 'AdminBanners',
+        component: () => import('@/views/admin/BannerManage.vue'),
+      },
+      {
+        path: 'operation/hot-ranks',
+        name: 'AdminHotRanks',
+        component: () => import('@/views/admin/HotRanks.vue'),
+      },
+      {
+        path: 'operation/flow-support',
+        name: 'AdminFlowSupport',
+        component: () => import('@/views/admin/FlowSupport.vue'),
+      },
+      {
+        path: 'creator/verifications',
+        name: 'AdminVerifications',
+        component: () => import('@/views/admin/VerificationReview.vue'),
+      },
+      {
+        path: 'creator/data',
+        name: 'AdminCreatorData',
+        component: () => import('@/views/admin/CreatorDataCenter.vue'),
+      },
+      {
+        path: 'system/roles',
+        name: 'AdminRoles',
+        component: () => import('@/views/admin/RolePermissions.vue'),
+      },
+      {
+        path: 'system/admins',
+        name: 'AdminUsers',
+        component: () => import('@/views/admin/AdminUsers.vue'),
       },
     ],
   },

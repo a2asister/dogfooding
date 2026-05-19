@@ -12,7 +12,95 @@
           background-color="#304156"
           text-color="#bfcbd9"
           active-text-color="#409eff"
+          :default-openeds="['review', 'risk', 'operation', 'system']"
         >
+          <el-sub-menu index="review">
+            <template #title>
+              <el-icon><CircleCheck /></el-icon>
+              <span>内容审核</span>
+            </template>
+            <el-menu-item index="/admin/review/tasks">
+              <el-icon><Document /></el-icon>
+              <span>审核任务</span>
+            </el-menu-item>
+            <el-menu-item index="/admin/review/logs">
+              <el-icon><Notebook /></el-icon>
+              <span>审核日志</span>
+            </el-menu-item>
+          </el-sub-menu>
+
+          <el-sub-menu index="risk">
+            <template #title>
+              <el-icon><Lock /></el-icon>
+              <span>风控中心</span>
+            </template>
+            <el-menu-item index="/admin/risk/behavior">
+              <el-icon><Warning /></el-icon>
+              <span>行为风控</span>
+            </el-menu-item>
+            <el-menu-item index="/admin/risk/account">
+              <el-icon><UserFilled /></el-icon>
+              <span>账号风控</span>
+            </el-menu-item>
+            <el-menu-item index="/admin/risk/login-logs">
+              <el-icon><Key /></el-icon>
+              <span>登录日志</span>
+            </el-menu-item>
+            <el-menu-item index="/admin/risk/register-logs">
+              <el-icon><Avatar /></el-icon>
+              <span>注册日志</span>
+            </el-menu-item>
+          </el-sub-menu>
+
+          <el-sub-menu index="operation">
+            <template #title>
+              <el-icon><Operation /></el-icon>
+              <span>运营管理</span>
+            </template>
+            <el-menu-item index="/admin/operation/banners">
+              <el-icon><Picture /></el-icon>
+              <span>Banner管理</span>
+            </el-menu-item>
+            <el-menu-item index="/admin/operation/hot-ranks">
+              <el-icon><Trophy /></el-icon>
+              <span>热门榜单</span>
+            </el-menu-item>
+            <el-menu-item index="/admin/operation/flow-support">
+              <el-icon><TrendCharts /></el-icon>
+              <span>流量扶持</span>
+            </el-menu-item>
+          </el-sub-menu>
+
+          <el-sub-menu index="creator">
+            <template #title>
+              <el-icon><Medal /></el-icon>
+              <span>创作者管理</span>
+            </template>
+            <el-menu-item index="/admin/creator/verifications">
+              <el-icon><Postcard /></el-icon>
+              <span>达人认证</span>
+            </el-menu-item>
+            <el-menu-item index="/admin/creator/data">
+              <el-icon><DataAnalysis /></el-icon>
+              <span>数据中心</span>
+            </el-menu-item>
+          </el-sub-menu>
+
+          <el-sub-menu index="system">
+            <template #title>
+              <el-icon><Setting /></el-icon>
+              <span>系统管理</span>
+            </template>
+            <el-menu-item index="/admin/system/roles">
+              <el-icon><Lock /></el-icon>
+              <span>角色权限</span>
+            </el-menu-item>
+            <el-menu-item index="/admin/system/admins">
+              <el-icon><User /></el-icon>
+              <span>管理员</span>
+            </el-menu-item>
+          </el-sub-menu>
+
           <el-menu-item index="/admin/notes">
             <el-icon><Document /></el-icon>
             <span>笔记审核</span>
@@ -54,7 +142,26 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useUserStore } from '@/stores/user';
-import { Setting, Document, User, Tools } from '@element-plus/icons-vue';
+import {
+  Setting,
+  Document,
+  User,
+  Tools,
+  CircleCheck,
+  Notebook,
+  Warning,
+  UserFilled,
+  Key,
+  Avatar,
+  Operation,
+  Picture,
+  Trophy,
+  TrendCharts,
+  Medal,
+  Postcard,
+  DataAnalysis,
+  Lock,
+} from '@element-plus/icons-vue';
 
 const route = useRoute();
 const userStore = useUserStore();

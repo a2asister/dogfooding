@@ -20,6 +20,12 @@ import notificationRoutes from './routes/notification.routes';
 import reportRoutes from './routes/report.routes';
 import userExtendedRoutes from './routes/userExtended.routes';
 import noteExtendedRoutes from './routes/noteExtended.routes';
+import userProfileRoutes from './routes/userProfile.routes';
+import recommendRoutes from './routes/recommend.routes';
+import contentReviewRoutes from './routes/contentReview.routes';
+import riskControlRoutes from './routes/riskControl.routes';
+import operationRoutes from './routes/operation.routes';
+import creatorRoutes from './routes/creator.routes';
 import { User, UserRole } from './entities/User';
 import bcrypt from 'bcryptjs';
 
@@ -52,6 +58,12 @@ app.use('/api/topics', topicRoutes);
 app.use('/api/collections', collectionRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/user-profile', userProfileRoutes);
+app.use('/api/recommend', recommendRoutes);
+app.use('/api/content-review', contentReviewRoutes);
+app.use('/api/risk-control', riskControlRoutes);
+app.use('/api/operation', operationRoutes);
+app.use('/api/creator', creatorRoutes);
 
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', message: '图文社区服务运行正常' });

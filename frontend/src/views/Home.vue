@@ -1,6 +1,14 @@
 <template>
   <Layout>
     <div class="home-page">
+      <div v-if="banners.length > 0" class="banner-container">
+        <el-carousel height="200px" :interval="4000" arrow="always">
+          <el-carousel-item v-for="banner in banners" :key="banner.id" @click="handleBannerClick(banner)">
+            <img :src="banner.image" class="banner-image" />
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+
       <div class="tabs-container">
         <el-tabs v-model="activeTab" class="home-tabs" @tab-change="handleTabChange">
           <el-tab-pane label="推荐" name="recommend" />
@@ -133,6 +141,7 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import { getNoteList, likeNote, favoriteNote, shareNote } from '@/api/note';
 import { getHotFeed, getNearbyFeed, dislikeNote, blockUser } from '@/api/feed';
+import { getBanners, incrementBannerClick } from '@/api/operation';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import {
   Star,
@@ -145,7 +154,7 @@ import {
   ChatDotRound,
 } from '@element-plus/icons-vue';
 import Layout from '@/components/Layout.vue';
-import type { Note } from '@/types';
+import type { Note, Banner } from '@/types';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';
@@ -164,6 +173,32 @@ const pageSize = ref(10);
 const total = ref(0);
 const notes = ref<Note[]>([]);
 const cityFilter = ref('');
+const banners = ref<Banner[]>([]);
+
+const fetchBanners = async () => {
+  try {
+    const res = await getBanners({ position: 'home_top' });
+    banners.value = res.banners;
+  } catch (error) {
+    console.error('获取Banner失败:', error);
+  }
+};
+
+const handleBannerClick = async (banner: Banner) => {
+  try {
+    await incrementBannerClick(banner.id);
+  } catch (error) {
+    console.error('统计点击量失败:', error);
+  }
+
+  if (banner.type === 'url' && banner.targetUrl) {
+    window.open(banner.targetUrl, '_blank');
+  } else if (banner.type === 'note' && banner.targetId) {
+    router.push(`/note/${banner.targetId}`);
+  } else if (banner.type === 'topic' && banner.targetId) {
+    router.push(`/topic?name=${banner.targetId}`);
+  }
+};
 
 const formatTime = (time: string) => {
   return dayjs(time).fromNow();
@@ -308,6 +343,7 @@ onMounted(async () => {
   if (userStore.isLoggedIn && !userStore.user) {
     await userStore.fetchCurrentUser();
   }
+  fetchBanners();
   fetchNotes();
 });
 </script>
@@ -316,6 +352,19 @@ onMounted(async () => {
 .home-page {
   max-width: 700px;
   margin: 0 auto;
+}
+
+.banner-container {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+
+  .banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
 }
 
 .tabs-container {
