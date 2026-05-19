@@ -1,0 +1,19 @@
+{
+  "name": "university-portal-system",
+  "version": "1.0.0",
+  "description": "大学门户网站与学生后台管理系统",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "build": "cd client && npm run build",
+    "build:server": "cd server && npm run build",
+    "start": "cd server && npm start",
+    "lint": "cd client && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
