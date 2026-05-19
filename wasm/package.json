@@ -1,0 +1,11 @@
+{
+  "name": "file-encryption-wasm",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "asc assembly/index.ts -b build/aes.wasm -t build/aes.wat --optimize --runtime stub"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.27.9"
+  }
+}
