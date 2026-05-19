@@ -1,0 +1,24 @@
+{
+  "name": "auction-system",
+  "version": "1.0.0",
+  "description": "拍卖竞价系统 - 多角色拍卖平台",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm --prefix client install && npm --prefix server install",
+    "dev": "concurrently -n client,server -c blue,green \"npm:dev --prefix client\" \"npm:dev --prefix server\"",
+    "dev:client": "npm --prefix client dev",
+    "dev:server": "npm --prefix server dev",
+    "build": "npm --prefix client build && npm --prefix server build",
+    "build:client": "npm --prefix client build",
+    "build:server": "npm --prefix server build",
+    "lint": "npm --prefix client lint && npm --prefix server lint",
+    "start": "npm --prefix server start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
