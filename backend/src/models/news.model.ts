@@ -6,7 +6,7 @@ export const newsModel = {
     const { page, pageSize, category, keyword } = params;
     const offset = (page - 1) * pageSize;
     
-    let whereClause = '1=1';
+    let whereClause = 'status = \'published\'';
     const queryParams: (string | number)[] = [];
     
     if (category) {
@@ -15,8 +15,8 @@ export const newsModel = {
     }
     
     if (keyword) {
-      whereClause += ' AND (title LIKE ? OR content LIKE ?)';
-      queryParams.push(`%${keyword}%`, `%${keyword}%`);
+      whereClause += ' AND (title LIKE ? OR content LIKE ? OR tags LIKE ?)';
+      queryParams.push(`%${keyword}%`, `%${keyword}%`, `%${keyword}%`);
     }
     
     const list = db.prepare(`
@@ -35,6 +35,40 @@ export const newsModel = {
 
   getById(id: number): News | undefined {
     return db.prepare('SELECT * FROM news WHERE id = ?').get(id) as News | undefined;
+  },
+
+  getPrevNext(id: number): { prev: News | null; next: News | null } {
+    const current = db.prepare('SELECT created_at FROM news WHERE id = ?').get(id) as { created_at: string } | undefined;
+    if (!current) return { prev: null, next: null };
+
+    const prev = db.prepare(`
+      SELECT id, title FROM news 
+      WHERE created_at > ? AND status = 'published'
+      ORDER BY created_at ASC 
+      LIMIT 1
+    `).get(current.created_at) as News | undefined;
+
+    const next = db.prepare(`
+      SELECT id, title FROM news 
+      WHERE created_at < ? AND status = 'published'
+      ORDER BY created_at DESC 
+      LIMIT 1
+    `).get(current.created_at) as News | undefined;
+
+    return { prev: prev || null, next: next || null };
+  },
+
+  getHotRecommend(limit: number = 5): News[] {
+    return db.prepare(`
+      SELECT * FROM news 
+      WHERE status = 'published' AND (is_hot = 1 OR is_recommend = 1)
+      ORDER BY is_top DESC, view_count DESC, created_at DESC 
+      LIMIT ?
+    `).all(limit) as News[];
+  },
+
+  incrementShareCount(id: number): void {
+    db.prepare('UPDATE news SET share_count = COALESCE(share_count, 0) + 1 WHERE id = ?').run(id);
   },
 
   create(data: Omit<News, 'id' | 'view_count' | 'created_at' | 'updated_at'>): number {

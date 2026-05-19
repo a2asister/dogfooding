@@ -49,12 +49,14 @@ const adminStore = useAdminStore()
 
 const menuItems = [
   { path: '/admin/dashboard', label: '数据概览', icon: '📊' },
+  { path: '/admin/statistics', label: '数据统计', icon: '📈' },
   { path: '/admin/news', label: '资讯管理', icon: '📰' },
   { path: '/admin/events', label: '活动管理', icon: '🎪' },
   { path: '/admin/home', label: '首页配置', icon: '🏠' },
   { path: '/admin/tickets', label: '工单管理', icon: '📩' },
   { path: '/admin/reservations', label: '预约管理', icon: '📝' },
   { path: '/admin/compliance', label: '合规管理', icon: '📜' },
+  { path: '/admin/logs', label: '日志管理', icon: '📋' },
   { path: '/admin/settings', label: '系统设置', icon: '⚙️' }
 ]
 

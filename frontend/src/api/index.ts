@@ -1,5 +1,5 @@
 import request from '../utils/request'
-import type { News, Event, PaginatedResponse, Ticket, Reservation, ComplianceDoc, Setting } from '../types'
+import type { News, NewsDetail, Event, PaginatedResponse, Ticket, Reservation, ComplianceDoc, Setting, FAQ } from '../types'
 
 export const newsApi = {
   getList(params: { page?: number; pageSize?: number; category?: string; keyword?: string }) {
@@ -8,8 +8,14 @@ export const newsApi = {
   getLatest(limit: number = 3) {
     return request.get<unknown, News[]>('/news/latest', { params: { limit } })
   },
+  getHotRecommend(limit: number = 5) {
+    return request.get<unknown, News[]>('/news/hot', { params: { limit } })
+  },
   getDetail(id: number) {
-    return request.get<unknown, News>(`/news/${id}`)
+    return request.get<unknown, NewsDetail>(`/news/${id}`)
+  },
+  incrementShare(id: number) {
+    return request.post(`/news/${id}/share`)
   },
   create(data: Partial<News>) {
     return request.post('/news', data)
@@ -137,5 +143,45 @@ export const uploadApi = {
     return request.post<unknown, { url: string; filename: string }>('/upload/image', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
+  },
+  batchUpload(files: File[]) {
+    const formData = new FormData()
+    files.forEach(file => formData.append('files', file))
+    return request.post<unknown, { url: string; filename: string }[]>('/admin/media/batch', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+  }
+}
+
+export const faqApi = {
+  getList(params: { category?: string; keyword?: string }) {
+    return request.get<unknown, FAQ[]>('/faqs', { params })
+  },
+  getCategories() {
+    return request.get<unknown, { category: string; count: number }[]>('/faqs/categories')
+  },
+  getDetail(id: number) {
+    return request.get<unknown, FAQ>(`/faqs/${id}`)
+  }
+}
+
+export const statisticsApi = {
+  getSummary(period: 'day' | 'week' | 'month' = 'day') {
+    return request.get<unknown, {
+      pv: number
+      uv: number
+      downloads: number
+      reservations: number
+      news_views: number
+      event_clicks: number
+      tickets: number
+      trend: { date: string; value: number; field: string }[]
+    }>('/admin/statistics/summary', { params: { period } })
+  },
+  getByDateRange(startDate: string, endDate: string) {
+    return request.get<unknown, any[]>('/admin/statistics/date-range', { params: { startDate, endDate } })
+  },
+  exportCSV(params: { startDate?: string; endDate?: string; period?: 'day' | 'week' | 'month' }) {
+    return request.get('/admin/statistics/export', { params, responseType: 'blob' })
   }
 }

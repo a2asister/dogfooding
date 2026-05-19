@@ -32,6 +32,18 @@
             {{ formatDate(row.start_time) }} - {{ formatDate(row.end_time) }}
           </template>
         </el-table-column>
+        <el-table-column label="定时发布" width="180">
+          <template #default="{ row }">
+            <span v-if="row.scheduled_publish_time">{{ formatDate(row.scheduled_publish_time) }}</span>
+            <span v-else class="text-muted">-</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="定时下架" width="180">
+          <template #default="{ row }">
+            <span v-if="row.scheduled_offline_time">{{ formatDate(row.scheduled_offline_time) }}</span>
+            <span v-else class="text-muted">-</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="sort_order" label="排序" width="80" />
         <el-table-column label="操作" width="200" fixed="right">
           <template #default="{ row }">
@@ -101,6 +113,26 @@
         <el-form-item label="排序">
           <el-input-number v-model="form.sort_order" :min="0" />
         </el-form-item>
+        <el-form-item label="定时发布">
+          <el-date-picker
+            v-model="form.scheduled_publish_time"
+            type="datetime"
+            placeholder="选择定时发布时间（不填则立即发布）"
+            format="YYYY-MM-DD HH:mm:ss"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            style="width: 100%"
+          />
+        </el-form-item>
+        <el-form-item label="定时下架">
+          <el-date-picker
+            v-model="form.scheduled_offline_time"
+            type="datetime"
+            placeholder="选择定时下架时间（不填则永久有效）"
+            format="YYYY-MM-DD HH:mm:ss"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            style="width: 100%"
+          />
+        </el-form-item>
       </el-form>
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
@@ -137,7 +169,9 @@ const form = reactive({
   status: 'upcoming',
   is_published: 0,
   link_url: '',
-  sort_order: 0
+  sort_order: 0,
+  scheduled_publish_time: '',
+  scheduled_offline_time: ''
 })
 
 const getStatusName = (status: string): string => {
@@ -179,6 +213,8 @@ const handleAdd = (): void => {
   form.is_published = 0
   form.link_url = ''
   form.sort_order = 0
+  form.scheduled_publish_time = ''
+  form.scheduled_offline_time = ''
   dialogVisible.value = true
 }
 
@@ -194,6 +230,8 @@ const handleEdit = (row: Event): void => {
   form.is_published = row.is_published
   form.link_url = row.link_url || ''
   form.sort_order = row.sort_order
+  form.scheduled_publish_time = row.scheduled_publish_time || ''
+  form.scheduled_offline_time = row.scheduled_offline_time || ''
   dialogVisible.value = true
 }
 
@@ -241,7 +279,9 @@ const handleSubmit = async (): Promise<void> => {
         status: form.status,
         is_published: form.is_published,
         link_url: form.link_url || null,
-        sort_order: form.sort_order
+        sort_order: form.sort_order,
+        scheduled_publish_time: form.scheduled_publish_time || null,
+        scheduled_offline_time: form.scheduled_offline_time || null
       })
       ElMessage.success('更新成功')
     } else {
@@ -254,7 +294,9 @@ const handleSubmit = async (): Promise<void> => {
         status: form.status,
         is_published: form.is_published,
         link_url: form.link_url || null,
-        sort_order: form.sort_order
+        sort_order: form.sort_order,
+        scheduled_publish_time: form.scheduled_publish_time || null,
+        scheduled_offline_time: form.scheduled_offline_time || null
       })
       ElMessage.success('创建成功')
     }
@@ -314,6 +356,10 @@ onMounted(() => {
     background: #e5e7eb;
     color: #374151;
   }
+}
+
+.text-muted {
+  color: var(--text-muted);
 }
 
 :deep(.el-input__wrapper), :deep(.el-textarea__inner), :deep(.el-select), :deep(.el-date-editor) {

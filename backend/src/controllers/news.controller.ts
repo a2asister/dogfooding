@@ -41,7 +41,19 @@ export const newsController = {
 
       newsModel.incrementViewCount(id);
       
-      res.json({ code: 0, message: 'success', data: news });
+      const prevNext = newsModel.getPrevNext(id);
+      const hotRecommend = newsModel.getHotRecommend(5);
+      
+      res.json({ 
+        code: 0, 
+        message: 'success', 
+        data: {
+          ...news,
+          prev: prevNext.prev,
+          next: prevNext.next,
+          hot_recommend: hotRecommend
+        } 
+      });
     } catch (error) {
       res.status(500).json({ code: 500, message: '服务器错误', data: null });
     }
@@ -116,6 +128,26 @@ export const newsController = {
       }
       
       res.json({ code: 0, message: '删除成功', data: null });
+    } catch (error) {
+      res.status(500).json({ code: 500, message: '服务器错误', data: null });
+    }
+  },
+
+  async incrementShare(req: Request, res: Response): Promise<void> {
+    try {
+      const id = Number(req.params.id);
+      newsModel.incrementShareCount(id);
+      res.json({ code: 0, message: 'success', data: null });
+    } catch (error) {
+      res.status(500).json({ code: 500, message: '服务器错误', data: null });
+    }
+  },
+
+  async getHotRecommend(req: Request, res: Response): Promise<void> {
+    try {
+      const limit = Number(req.query.limit) || 5;
+      const list = newsModel.getHotRecommend(limit);
+      res.json({ code: 0, message: 'success', data: list });
     } catch (error) {
       res.status(500).json({ code: 500, message: '服务器错误', data: null });
     }

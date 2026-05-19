@@ -28,6 +28,18 @@
             <span v-else>-</span>
           </template>
         </el-table-column>
+        <el-table-column label="定时发布" width="180">
+          <template #default="{ row }">
+            <span v-if="row.scheduled_publish_time">{{ formatDate(row.scheduled_publish_time) }}</span>
+            <span v-else class="text-muted">-</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="定时下架" width="180">
+          <template #default="{ row }">
+            <span v-if="row.scheduled_offline_time">{{ formatDate(row.scheduled_offline_time) }}</span>
+            <span v-else class="text-muted">-</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="view_count" label="浏览量" width="100" />
         <el-table-column prop="created_at" label="创建时间" width="180">
           <template #default="{ row }">{{ formatDate(row.created_at) }}</template>
@@ -71,6 +83,26 @@
         <el-form-item label="置顶">
           <el-switch v-model="form.is_top" />
         </el-form-item>
+        <el-form-item label="定时发布">
+          <el-date-picker
+            v-model="form.scheduled_publish_time"
+            type="datetime"
+            placeholder="选择定时发布时间（不填则立即发布）"
+            format="YYYY-MM-DD HH:mm:ss"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            style="width: 100%"
+          />
+        </el-form-item>
+        <el-form-item label="定时下架">
+          <el-date-picker
+            v-model="form.scheduled_offline_time"
+            type="datetime"
+            placeholder="选择定时下架时间（不填则永久有效）"
+            format="YYYY-MM-DD HH:mm:ss"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            style="width: 100%"
+          />
+        </el-form-item>
         <el-form-item label="内容">
           <RichEditor v-model="form.content" placeholder="请输入资讯内容" height="400px" />
         </el-form-item>
@@ -107,6 +139,8 @@ const form = reactive({
   category: 'announcement',
   cover_image: '',
   is_top: 0,
+  scheduled_publish_time: '',
+  scheduled_offline_time: '',
   content: ''
 })
 
@@ -145,6 +179,8 @@ const handleAdd = (): void => {
   form.category = 'announcement'
   form.cover_image = ''
   form.is_top = 0
+  form.scheduled_publish_time = ''
+  form.scheduled_offline_time = ''
   form.content = ''
   dialogVisible.value = true
 }
@@ -156,6 +192,8 @@ const handleEdit = (row: News): void => {
   form.category = row.category
   form.cover_image = row.cover_image || ''
   form.is_top = row.is_top
+  form.scheduled_publish_time = row.scheduled_publish_time || ''
+  form.scheduled_offline_time = row.scheduled_offline_time || ''
   form.content = row.content
   dialogVisible.value = true
 }
@@ -190,6 +228,8 @@ const handleSubmit = async (): Promise<void> => {
         category: form.category,
         cover_image: form.cover_image || null,
         is_top: form.is_top,
+        scheduled_publish_time: form.scheduled_publish_time || null,
+        scheduled_offline_time: form.scheduled_offline_time || null,
         content: form.content
       })
       ElMessage.success('更新成功')
@@ -199,6 +239,8 @@ const handleSubmit = async (): Promise<void> => {
         category: form.category,
         cover_image: form.cover_image || null,
         is_top: form.is_top,
+        scheduled_publish_time: form.scheduled_publish_time || null,
+        scheduled_offline_time: form.scheduled_offline_time || null,
         content: form.content
       })
       ElMessage.success('创建成功')
@@ -259,6 +301,10 @@ onMounted(() => {
     background: #fef3c7;
     color: #92400e;
   }
+}
+
+.text-muted {
+  color: var(--text-muted);
 }
 
 :deep(.el-input__wrapper), :deep(.el-textarea__inner), :deep(.el-select) {

@@ -2,9 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import routes from './routes';
+import { startScheduler } from './scheduler';
 
 const app = express();
-const PORT = 8766;
+const PORT = 8770;
 
 app.use(cors());
 app.use(express.json());
@@ -21,4 +22,5 @@ app.get('/api/health', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 后端服务已启动: http://localhost:${PORT}`);
   console.log(`📁 API 前缀: /api`);
+  startScheduler();
 });

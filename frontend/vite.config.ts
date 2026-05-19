@@ -13,13 +13,13 @@ export default defineConfig({
     port: 8765,
     proxy: {
       '/api': {
-        target: 'http://localhost:8766',
-        changeOrigin: true
+        target: 'http://localhost:8770',
+        changeOrigin: true,
       },
       '/uploads': {
-        target: 'http://localhost:8766',
-        changeOrigin: true
-      }
-    }
+        target: 'http://localhost:8770',
+        changeOrigin: true,
+      },
+    },
   }
 })

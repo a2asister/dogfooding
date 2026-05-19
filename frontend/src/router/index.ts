@@ -92,6 +92,16 @@ const routes: RouteRecordRaw[] = [
         path: 'compliance',
         name: 'AdminCompliance',
         component: () => import('../views/admin/ComplianceManageView.vue')
+      },
+      {
+        path: 'statistics',
+        name: 'AdminStatistics',
+        component: () => import('../views/admin/StatisticsView.vue')
+      },
+      {
+        path: 'logs',
+        name: 'AdminLogs',
+        component: () => import('../views/admin/LogsView.vue')
       }
     ]
   }

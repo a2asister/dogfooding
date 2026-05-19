@@ -19,11 +19,21 @@ export interface PaginatedResponse<T> {
 export interface News {
   id: number;
   title: string;
+  title_en?: string;
   content: string;
+  content_en?: string;
   category: string;
   cover_image: string | null;
   is_top: number;
+  is_hot: number;
+  is_recommend: number;
   view_count: number;
+  share_count?: number;
+  tags?: string;
+  status: string;
+  publish_time?: string;
+  scheduled_publish_time?: string;
+  scheduled_offline_time?: string;
   created_at: string;
   updated_at: string;
 }
@@ -31,13 +41,19 @@ export interface News {
 export interface Event {
   id: number;
   title: string;
+  title_en?: string;
   description: string | null;
+  description_en?: string;
   cover_image: string | null;
   start_time: string | null;
   end_time: string | null;
   status: string;
   is_published: number;
+  is_hot: number;
+  click_count?: number;
   link_url: string | null;
+  scheduled_publish_time?: string;
+  scheduled_offline_time?: string;
   sort_order: number;
   created_at: string;
   updated_at: string;
