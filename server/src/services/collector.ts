@@ -153,7 +153,7 @@ async function generateMockLogs() {
         logger: 'com.example.service',
         thread: `thread-${generateRandomValue(1, 20, 0)}`,
         message,
-        stackTrace: level === 'ERROR' ? `java.lang.Exception: ${message}\n\tat com.example.ServiceClass.method(ServiceClass.java:${generateRandomValue(50, 200, 0)})` : null,
+        stackTrace: level === 'ERROR' ? `java.lang.Exception: ${message}\n\tat com.example.ServiceClass.method(ServiceClass.java:${generateRandomValue(50, 200, 0)})` : undefined,
         traceId: `trace-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         className: 'com.example.ServiceClass',
         lineNumber: generateRandomValue(50, 200, 0),
@@ -168,15 +168,27 @@ async function generateMockLogs() {
   }
 }
 
+let isCollecting = false;
+
+async function runCollectors() {
+  if (isCollecting) return;
+  isCollecting = true;
+  try {
+    await collectHostMetrics();
+    await collectContainerMetrics();
+    await collectAppMetrics();
+  } finally {
+    isCollecting = false;
+  }
+}
+
 export function initDataCollector() {
-  collectHostMetrics();
-  collectContainerMetrics();
-  collectAppMetrics();
-  generateMockLogs();
+  setTimeout(() => {
+    runCollectors();
+    generateMockLogs();
+  }, 500);
   cron.schedule('*/30 * * * * *', () => {
-    collectHostMetrics();
-    collectContainerMetrics();
-    collectAppMetrics();
+    runCollectors();
   });
   cron.schedule('0 * * * * *', () => {
     generateMockLogs();

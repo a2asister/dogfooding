@@ -11,6 +11,12 @@ import { AppMetric } from '../entity/AppMetric';
 import { Log } from '../entity/Log';
 import { AlertRule } from '../entity/AlertRule';
 import { AlertRecord } from '../entity/AlertRecord';
+import { Trace } from '../entity/Trace';
+import { Span } from '../entity/Span';
+import { ServiceDependency } from '../entity/ServiceDependency';
+import { ApiMetric } from '../entity/ApiMetric';
+import { AlertChannel } from '../entity/AlertChannel';
+import { AlertConvergence } from '../entity/AlertConvergence';
 import { createInitialData } from './seed';
 
 export const AppDataSource = new DataSource({
@@ -30,11 +36,18 @@ export const AppDataSource = new DataSource({
     Log,
     AlertRule,
     AlertRecord,
+    Trace,
+    Span,
+    ServiceDependency,
+    ApiMetric,
+    AlertChannel,
+    AlertConvergence,
   ],
   migrations: [],
   subscribers: [],
 });
 
-AppDataSource.initialize().then(() => {
-  createInitialData();
-});
+export async function initializeDatabase() {
+  await AppDataSource.initialize();
+  await createInitialData();
+}

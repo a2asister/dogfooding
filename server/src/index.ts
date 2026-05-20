@@ -3,7 +3,7 @@ import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import cors from 'koa-cors';
 import dotenv from 'dotenv';
-import { AppDataSource } from './config/database';
+import { initializeDatabase } from './config/database';
 import { authRoutes } from './routes/auth';
 import { userRoutes } from './routes/user';
 import { environmentRoutes } from './routes/environment';
@@ -12,8 +12,11 @@ import { containerRoutes } from './routes/container';
 import { appRoutes } from './routes/app';
 import { logRoutes } from './routes/log';
 import { alertRoutes } from './routes/alert';
+import { alertExtendedRoutes } from './routes/alertExtended';
+import { traceRoutes } from './routes/trace';
 import { initDataCollector } from './services/collector';
 import { initAlertChecker } from './services/alert';
+import { initTraceDataGenerator } from './services/traceGenerator';
 
 dotenv.config();
 
@@ -50,12 +53,17 @@ app.use(containerRoutes.routes()).use(containerRoutes.allowedMethods());
 app.use(appRoutes.routes()).use(appRoutes.allowedMethods());
 app.use(logRoutes.routes()).use(logRoutes.allowedMethods());
 app.use(alertRoutes.routes()).use(alertRoutes.allowedMethods());
+app.use(alertExtendedRoutes.routes()).use(alertExtendedRoutes.allowedMethods());
+app.use(traceRoutes.routes()).use(traceRoutes.allowedMethods());
 
-AppDataSource.initialize()
+initializeDatabase()
   .then(async () => {
     console.log('Database connected successfully');
-    initDataCollector();
-    initAlertChecker();
+    setTimeout(() => {
+      initDataCollector();
+      initAlertChecker();
+      initTraceDataGenerator();
+    }, 1000);
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });

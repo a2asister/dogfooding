@@ -92,4 +92,40 @@ router.delete('/clean', async (ctx) => {
   ctx.body = success({ deleted: result.affected });
 });
 
+router.get('/trace/:traceId', async (ctx) => {
+  const { traceId } = ctx.params;
+  const { page = 1, pageSize = 100 } = ctx.query as any;
+  const logRepository = AppDataSource.getRepository(Log);
+
+  const [list, total] = await logRepository.findAndCount({
+    where: { traceId },
+    order: { timestamp: 'ASC' },
+    skip: (page - 1) * pageSize,
+    take: pageSize,
+  });
+
+  ctx.body = success(paginate(list, total, page, pageSize));
+});
+
+router.get('/trace/:traceId/count', async (ctx) => {
+  const { traceId } = ctx.params;
+  const logRepository = AppDataSource.getRepository(Log);
+
+  const result = await logRepository
+    .createQueryBuilder('log')
+    .select('log.level', 'level')
+    .addSelect('COUNT(*)', 'count')
+    .where('log.traceId = :traceId', { traceId })
+    .groupBy('log.level')
+    .getRawMany();
+
+  const stats: any = { total: 0 };
+  result.forEach((item: any) => {
+    stats[item.level] = parseInt(item.count);
+    stats.total += parseInt(item.count);
+  });
+
+  ctx.body = success(stats);
+});
+
 export const logRoutes = router;

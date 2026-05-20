@@ -12,10 +12,10 @@ export class User {
   password: string;
 
   @Column({ length: 50, nullable: true })
-  nickname: string;
+  nickname?: string;
 
   @Column({ length: 100, nullable: true })
-  email: string;
+  email?: string;
 
   @Column({ length: 20, default: 'user' })
   role: string;

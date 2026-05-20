@@ -12,10 +12,10 @@ export class AlertRule {
   metric: string;
 
   @Column({ length: 50, nullable: true })
-  targetType: string;
+  targetType?: string;
 
   @Column({ length: 50, nullable: true })
-  targetId: string;
+  targetId?: string;
 
   @Column({ length: 10 })
   operator: string;
@@ -30,13 +30,13 @@ export class AlertRule {
   level: string;
 
   @Column({ type: 'text', nullable: true })
-  notificationChannels: string;
+  notificationChannels?: string;
 
   @Column({ default: true })
   enabled: boolean;
 
   @Column({ length: 255, nullable: true })
-  description: string;
+  description?: string;
 
   @CreateDateColumn()
   createdAt: Date;

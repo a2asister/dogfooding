@@ -158,7 +158,9 @@ async function checkAlertRules() {
 }
 
 export function initAlertChecker() {
-  checkAlertRules();
+  setTimeout(() => {
+    checkAlertRules();
+  }, 2000);
   cron.schedule('0 * * * * *', () => {
     checkAlertRules();
   });

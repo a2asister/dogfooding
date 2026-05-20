@@ -28,25 +28,25 @@ export class AlertRecord {
   level: string;
 
   @Column({ length: 50, nullable: true })
-  targetType: string;
+  targetType?: string;
 
   @Column({ length: 50, nullable: true })
-  targetId: string;
+  targetId?: string;
 
   @Column({ type: 'text', nullable: true })
-  details: string;
+  details?: string;
 
   @Column({ length: 20, default: 'pending' })
   status: string;
 
   @Column({ length: 100, nullable: true })
-  handledBy: string;
+  handledBy?: string;
 
   @Column({ type: 'text', nullable: true })
-  handleNote: string;
+  handleNote?: string;
 
   @Column({ type: 'datetime', nullable: true })
-  resolvedAt: Date;
+  resolvedAt?: Date;
 
   @CreateDateColumn()
   createdAt: Date;

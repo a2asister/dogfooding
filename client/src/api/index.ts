@@ -246,9 +246,240 @@ export const envApi = {
   delete: (id: number) => request.delete(`/environments/${id}`),
 };
 
+export interface Trace {
+  id: number;
+  traceId: string;
+  appCode: string;
+  env: string;
+  userId: string;
+  serviceName: string;
+  serviceType: string;
+  serviceIp: string;
+  servicePort: number;
+  method: string;
+  path: string;
+  statusCode: number;
+  duration: number;
+  hasError: boolean;
+  errorMessage: string;
+  requestParams: any;
+  responseData: any;
+  attributes: any;
+  spanCount: number;
+  errorSpanCount: number;
+  timestamp: string;
+}
+
+export interface Span {
+  id: number;
+  traceId: string;
+  spanId: string;
+  parentSpanId: string;
+  serviceName: string;
+  serviceType: string;
+  serviceIp: string;
+  servicePort: number;
+  name: string;
+  kind: string;
+  startTime: number;
+  endTime: number;
+  duration: number;
+  hasError: boolean;
+  errorMessage: string;
+  stackTrace: string;
+  protocol: string;
+  component: string;
+  requestParams: any;
+  responseData: any;
+  attributes: any;
+  dbType: string;
+  dbStatement: string;
+  mqTopic: string;
+  callType: string;
+  region: string;
+  timestamp: string;
+}
+
+export interface ServiceNode {
+  id: string;
+  name: string;
+  type: string;
+  ip: string;
+  port: number;
+  callCount: number;
+  errorCount: number;
+  avgDuration: number;
+  errorRate: number;
+  hasError: boolean;
+  isEntry: boolean;
+  isExit: boolean;
+}
+
+export interface ServiceEdge {
+  source: string;
+  target: string;
+  callType: string;
+  callCount: number;
+  errorCount: number;
+  errorRate: number;
+  avgDuration: number;
+  p95Duration: number;
+  p99Duration: number;
+}
+
+export interface ApiMetric {
+  id: number;
+  appCode: string;
+  env: string;
+  method: string;
+  path: string;
+  requestCount: number;
+  successCount: number;
+  errorCount: number;
+  errorRate: number;
+  qps: number;
+  avgDuration: number;
+  p50Duration: number;
+  p75Duration: number;
+  p95Duration: number;
+  p99Duration: number;
+  minDuration: number;
+  maxDuration: number;
+  timestamp: string;
+}
+
+export interface AlertChannel {
+  id: number;
+  name: string;
+  type: string;
+  config: any;
+  enabled: boolean;
+  level: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AlertConvergence {
+  id: number;
+  ruleId: number;
+  ruleName: string;
+  groupKey: string;
+  groupField: string;
+  alertCount: number;
+  triggerCount: number;
+  isConverged: boolean;
+  convergedAlertIds: string;
+  summary: string;
+  firstAlertTime: string;
+  lastAlertTime: string;
+  nextNotifyTime: string;
+  updatedAt: string;
+}
+
+export const traceApi = {
+  getList: (params?: {
+    page?: number;
+    pageSize?: number;
+    traceId?: string;
+    userId?: string;
+    appCode?: string;
+    serviceName?: string;
+    path?: string;
+    env?: string;
+    hasError?: string;
+    startTime?: string;
+    endTime?: string;
+    minDuration?: number;
+    maxDuration?: number;
+  }) => request.get<any, { list: Trace[]; total: number }>('/traces', { params }),
+
+  getDetail: (traceId: string) => request.get<any, { trace: Trace; spans: Span[] }>(`/traces/${traceId}`),
+
+  getSpans: (traceId: string) => request.get<any, Span[]>(`/traces/${traceId}/spans`),
+
+  getSpanDetail: (spanId: string) => request.get<any, Span>(`/traces/spans/${spanId}`),
+
+  getOverview: (params?: { env?: string; startTime?: string; endTime?: string }) =>
+    request.get<any, any>('/traces/stats/overview', { params }),
+
+  getTopSlow: (params?: { env?: string; limit?: number; startTime?: string; endTime?: string }) =>
+    request.get<any, Trace[]>('/traces/stats/top-slow', { params }),
+
+  getTopErrors: (params?: { env?: string; limit?: number; startTime?: string; endTime?: string }) =>
+    request.get<any, Trace[]>('/traces/stats/top-errors', { params }),
+
+  getTopTimeout: (params?: { env?: string; limit?: number; threshold?: number; startTime?: string; endTime?: string }) =>
+    request.get<any, Trace[]>('/traces/stats/top-timeout', { params }),
+
+  getTopology: (params?: { env?: string; startTime?: string; endTime?: string }) =>
+    request.get<any, { nodes: ServiceNode[]; edges: ServiceEdge[] }>('/traces/dependency/topology', { params }),
+
+  getDependencyList: (params?: {
+    page?: number;
+    pageSize?: number;
+    env?: string;
+    callerService?: string;
+    calleeService?: string;
+    startTime?: string;
+    endTime?: string;
+  }) => request.get<any, { list: any[]; total: number }>('/traces/dependency/list', { params }),
+
+  getApiMetrics: (params?: {
+    page?: number;
+    pageSize?: number;
+    appCode?: string;
+    env?: string;
+    path?: string;
+    startTime?: string;
+    endTime?: string;
+  }) => request.get<any, { list: ApiMetric[]; total: number }>('/traces/api-metrics', { params }),
+
+  getApiMetricChart: (params?: { appCode?: string; env?: string; path?: string; startTime?: string; endTime?: string }) =>
+    request.get<any, ApiMetric[]>('/traces/api-metrics/chart', { params }),
+
+  getTopSlowApi: (params?: { env?: string; limit?: number; startTime?: string; endTime?: string }) =>
+    request.get<any, ApiMetric[]>('/traces/api-metrics/top-slow', { params }),
+
+  getTopErrorApi: (params?: { env?: string; limit?: number; startTime?: string; endTime?: string }) =>
+    request.get<any, ApiMetric[]>('/traces/api-metrics/top-error', { params }),
+
+  getTopQpsApi: (params?: { env?: string; limit?: number; startTime?: string; endTime?: string }) =>
+    request.get<any, ApiMetric[]>('/traces/api-metrics/top-qps', { params }),
+};
+
+export const alertChannelApi = {
+  getList: (params?: { page?: number; pageSize?: number; type?: string; enabled?: string }) =>
+    request.get<any, { list: AlertChannel[]; total: number }>('/alerts/channels', { params }),
+
+  getAll: () => request.get<any, AlertChannel[]>('/alerts/channels/all'),
+
+  get: (id: number) => request.get<any, AlertChannel>(`/alerts/channels/${id}`),
+
+  create: (data: Partial<AlertChannel>) => request.post('/alerts/channels', data),
+
+  update: (id: number, data: Partial<AlertChannel>) => request.put(`/alerts/channels/${id}`, data),
+
+  delete: (id: number) => request.delete(`/alerts/channels/${id}`),
+
+  test: (id: number) => request.post(`/alerts/channels/${id}/test`),
+};
+
+export const alertConvergenceApi = {
+  getList: (params?: { page?: number; pageSize?: number; ruleId?: string; groupField?: string; isConverged?: string }) =>
+    request.get<any, { list: AlertConvergence[]; total: number }>('/alerts/convergence', { params }),
+
+  get: (id: number) => request.get<any, AlertConvergence & { alertRecords: AlertRecord[] }>(`/alerts/convergence/${id}`),
+
+  acknowledge: (id: number) => request.post(`/alerts/convergence/${id}/acknowledge`),
+
+  getStats: (params?: { startTime?: string; endTime?: string }) =>
+    request.get<any, any>('/alerts/convergence/stats', { params }),
+};
+
 export const userApi = {
   getList: (params?: PaginationParams) => request.get<any, { list: User[]; total: number }>('/users', { params }),
-  create: (data: Partial<User> & { password: string }) => request.post('/users', data),
+  create: (data: Partial<User>) => request.post('/users', data),
   update: (id: number, data: Partial<User> & { password?: string }) => request.put(`/users/${id}`, data),
   delete: (id: number) => request.delete(`/users/${id}`),
 };

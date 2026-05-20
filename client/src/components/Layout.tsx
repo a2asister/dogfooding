@@ -9,6 +9,9 @@ import {
   SettingOutlined,
   UserOutlined,
   LogoutOutlined,
+  LinkOutlined,
+  ClusterOutlined,
+  ThunderboltOutlined,
 } from '@ant-design/icons';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../store/auth';
@@ -20,6 +23,9 @@ const menuItems = [
   { key: '/hosts', icon: <DesktopOutlined />, label: '主机监控' },
   { key: '/containers', icon: <CloudServerOutlined />, label: '容器监控' },
   { key: '/apps', icon: <AppstoreOutlined />, label: '应用监控' },
+  { key: '/traces', icon: <LinkOutlined />, label: '链路追踪' },
+  { key: '/topology', icon: <ClusterOutlined />, label: '服务拓扑' },
+  { key: '/metrics', icon: <ThunderboltOutlined />, label: '接口指标' },
   { key: '/logs', icon: <FileTextOutlined />, label: '日志检索' },
   { key: '/alerts', icon: <BellOutlined />, label: '告警中心' },
   { key: '/settings', icon: <SettingOutlined />, label: '系统设置' },

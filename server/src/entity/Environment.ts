@@ -12,7 +12,7 @@ export class Environment {
   code: string;
 
   @Column({ length: 255, nullable: true })
-  description: string;
+  description?: string;
 
   @Column({ default: 0 })
   sort: number;

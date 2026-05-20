@@ -18,7 +18,7 @@ export class App {
   type: string;
 
   @Column({ length: 50, nullable: true })
-  version: string;
+  version?: string;
 
   @Column({ type: 'int', default: 1 })
   instanceCount: number;
@@ -27,7 +27,7 @@ export class App {
   status: string;
 
   @Column({ length: 255, nullable: true })
-  description: string;
+  description?: string;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -30,7 +30,7 @@ export class Container {
   status: string;
 
   @Column({ length: 255, nullable: true })
-  description: string;
+  description?: string;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -8,6 +8,9 @@ import AppMonitor from './pages/AppMonitor';
 import LogSearch from './pages/LogSearch';
 import AlertCenter from './pages/AlertCenter';
 import SystemSettings from './pages/SystemSettings';
+import TraceList from './pages/TraceList';
+import ServiceTopology from './pages/ServiceTopology';
+import ApiMetrics from './pages/ApiMetrics';
 import { useAuthStore } from './store/auth';
 
 function App() {
@@ -23,6 +26,9 @@ function App() {
           <Route path="hosts" element={<HostMonitor />} />
           <Route path="containers" element={<ContainerMonitor />} />
           <Route path="apps" element={<AppMonitor />} />
+          <Route path="traces" element={<TraceList />} />
+          <Route path="topology" element={<ServiceTopology />} />
+          <Route path="metrics" element={<ApiMetrics />} />
           <Route path="logs" element={<LogSearch />} />
           <Route path="alerts" element={<AlertCenter />} />
           <Route path="settings" element={<SystemSettings />} />

@@ -16,28 +16,28 @@ export class Log {
   level: string;
 
   @Column({ length: 100, nullable: true })
-  logger: string;
+  logger?: string;
 
   @Column({ length: 100, nullable: true })
-  thread: string;
+  thread?: string;
 
   @Column({ type: 'text' })
   message: string;
 
   @Column({ type: 'text', nullable: true })
-  stackTrace: string | null;
+  stackTrace?: string;
 
   @Column({ length: 50, nullable: true })
-  traceId: string;
+  traceId?: string;
 
   @Column({ length: 100, nullable: true })
-  className: string;
+  className?: string;
 
   @Column({ type: 'int', nullable: true })
-  lineNumber: number;
+  lineNumber?: number;
 
   @Column({ type: 'simple-json', nullable: true })
-  extra: any;
+  extra?: any;
 
   @CreateDateColumn()
   timestamp: Date;
