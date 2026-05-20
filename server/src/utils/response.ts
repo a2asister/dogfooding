@@ -15,3 +15,6 @@ export function error(message: string, code = 1): ApiResponse<null> {
     data: null,
   };
 }
+
+export const successResponse = success;
+export const errorResponse = error;

@@ -3,6 +3,12 @@ import cors from '@koa/cors';
 import bodyParser from 'koa-bodyparser';
 import projectsRouter from './routes/projects';
 import tasksRouter from './routes/tasks';
+import authRouter from './routes/auth';
+import usersRouter from './routes/users';
+import organizationsRouter from './routes/organizations';
+import sprintsRouter from './routes/sprints';
+import backlogRouter from './routes/backlog';
+import versionsRouter from './routes/versions';
 
 const app = new Koa();
 const PORT = 31845;
@@ -29,10 +35,22 @@ app.use(async (ctx, next) => {
   }
 });
 
+app.use(authRouter.routes());
+app.use(authRouter.allowedMethods());
+app.use(usersRouter.routes());
+app.use(usersRouter.allowedMethods());
+app.use(organizationsRouter.routes());
+app.use(organizationsRouter.allowedMethods());
 app.use(projectsRouter.routes());
 app.use(projectsRouter.allowedMethods());
 app.use(tasksRouter.routes());
 app.use(tasksRouter.allowedMethods());
+app.use(sprintsRouter.routes());
+app.use(sprintsRouter.allowedMethods());
+app.use(backlogRouter.routes());
+app.use(backlogRouter.allowedMethods());
+app.use(versionsRouter.routes());
+app.use(versionsRouter.allowedMethods());
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);

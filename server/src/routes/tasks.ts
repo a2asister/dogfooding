@@ -22,7 +22,7 @@ function addTaskLog(
 
 router.get('/', async (ctx) => {
   const { projectId } = ctx.params;
-  const { status, type, assignee, includeArchived } = ctx.query;
+  const { status, type, assignee, includeArchived, sprintId, versionId } = ctx.query;
 
   let sql = 'SELECT * FROM tasks WHERE projectId = ?';
   const params: (string | number)[] = [projectId];
@@ -38,6 +38,14 @@ router.get('/', async (ctx) => {
   if (assignee) {
     sql += ' AND assignee = ?';
     params.push(assignee as string);
+  }
+  if (sprintId) {
+    sql += ' AND sprintId = ?';
+    params.push(sprintId as string);
+  }
+  if (versionId) {
+    sql += ' AND versionId = ?';
+    params.push(versionId as string);
   }
   if (includeArchived !== 'true') {
     sql += ' AND isArchived = 0';
@@ -94,7 +102,9 @@ router.post('/', async (ctx) => {
     assignee,
     reporter,
     dueDate,
-    iteration = '',
+    sprintId = null,
+    versionId = null,
+    storyPoints = 0,
     parentId = null,
   } = ctx.request.body as {
     title: string;
@@ -105,7 +115,9 @@ router.post('/', async (ctx) => {
     assignee: string;
     reporter: string;
     dueDate?: string;
-    iteration?: string;
+    sprintId?: string | null;
+    versionId?: string | null;
+    storyPoints?: number;
     parentId?: string | null;
   };
 
@@ -121,12 +133,12 @@ router.post('/', async (ctx) => {
   db.prepare(
     `INSERT INTO tasks (
       id, projectId, title, type, status, priority, description,
-      assignee, reporter, dueDate, iteration, parentId,
+      assignee, reporter, dueDate, sprintId, versionId, parentId, storyPoints,
       isPinned, isArchived, createdAt, updatedAt
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?)`
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?)`
   ).run(
     id, projectId, title, type, status, priority, description,
-    assignee, reporter, dueDate || null, iteration, parentId,
+    assignee, reporter, dueDate || null, sprintId, versionId, parentId, storyPoints,
     now, now
   );
 
@@ -154,7 +166,9 @@ router.put('/:id', async (ctx) => {
     description,
     assignee,
     dueDate,
-    iteration,
+    sprintId,
+    versionId,
+    storyPoints,
     parentId,
   } = ctx.request.body as {
     title?: string;
@@ -164,7 +178,9 @@ router.put('/:id', async (ctx) => {
     description?: string;
     assignee?: string;
     dueDate?: string | null;
-    iteration?: string;
+    sprintId?: string | null;
+    versionId?: string | null;
+    storyPoints?: number;
     parentId?: string | null;
   };
 
@@ -186,7 +202,9 @@ router.put('/:id', async (ctx) => {
     addTaskLog(id, 'assign', existing.assignee, assignee, operator);
   }
   if (dueDate !== undefined) { fields.push('dueDate = ?'); params.push(dueDate); }
-  if (iteration !== undefined) { fields.push('iteration = ?'); params.push(iteration); }
+  if (sprintId !== undefined) { fields.push('sprintId = ?'); params.push(sprintId); }
+  if (versionId !== undefined) { fields.push('versionId = ?'); params.push(versionId); }
+  if (storyPoints !== undefined) { fields.push('storyPoints = ?'); params.push(storyPoints); }
   if (parentId !== undefined) { fields.push('parentId = ?'); params.push(parentId); }
 
   if (fields.length === 0) {

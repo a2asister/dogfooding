@@ -18,16 +18,19 @@ import {
 } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, FolderOpenOutlined, FolderOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import type { Project, ProjectType, ProjectStatus } from '../types';
-import { projectApi } from '../services/api';
+import type { Project, ProjectType, ProjectStatus, User } from '../types';
+import { projectApi, userApi } from '../services/api';
 import { PROJECT_TYPE_OPTIONS } from '../types';
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
+const { Option } = Select;
+
 function ProjectList() {
   const navigate = useNavigate();
   const [projects, setProjects] = useState<Project[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
@@ -49,8 +52,20 @@ function ProjectList() {
     }
   };
 
+  const fetchUsers = async () => {
+    try {
+      const res = await userApi.getAllUsers();
+      if (res.code === 0) {
+        setUsers(res.data);
+      }
+    } catch (err) {
+      message.error('获取用户列表失败');
+    }
+  };
+
   useEffect(() => {
     fetchProjects();
+    fetchUsers();
   }, [filterStatus]);
 
   const handleCreate = () => {
@@ -284,9 +299,15 @@ function ProjectList() {
           <Form.Item
             name="manager"
             label="负责人"
-            rules={[{ required: true, message: '请输入负责人' }]}
+            rules={[{ required: true, message: '请选择负责人' }]}
           >
-            <Input placeholder="请输入负责人姓名" />
+            <Select placeholder="请选择负责人">
+              {users.map((u) => (
+                <Option key={u.id} value={u.realName}>
+                  {u.realName}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item
             name="dateRange"

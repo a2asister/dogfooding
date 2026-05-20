@@ -11,18 +11,22 @@
   },
   "dependencies": {
     "@koa/cors": "^5.0.0",
+    "bcryptjs": "^3.0.3",
     "better-sqlite3": "^11.0.0",
+    "jsonwebtoken": "^9.0.3",
     "koa": "^2.15.0",
     "koa-bodyparser": "^4.4.1",
     "koa-router": "^12.0.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/better-sqlite3": "^7.6.10",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/koa": "^2.15.0",
+    "@types/koa__cors": "^5.0.0",
     "@types/koa-bodyparser": "^4.3.12",
     "@types/koa-router": "^7.4.8",
-    "@types/koa__cors": "^5.0.0",
     "@types/node": "^20.12.0",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
