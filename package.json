@@ -1,0 +1,23 @@
+{
+  "name": "monitor-platform",
+  "version": "1.0.0",
+  "description": "企业级监控平台 - 基础架构与核心监控能力",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "dev": "concurrently -k -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "cd server && npm run build && cd ../client && npm run build",
+    "start": "cd server && npm start",
+    "lint": "cd server && npm run lint && cd ../client && npm run lint",
+    "typecheck": "cd server && npm run typecheck && cd ../client && npm run typecheck"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
