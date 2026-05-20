@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Microsoft YaHei', 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f7fa;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.blocklyEditor {
+  width: 100%;
+  height: 100%;
+}
+
+.blocklySvg {
+  background-color: #fafafa !important;
+}
+
+.blocklyToolboxDiv {
+  background-color: #ffffff !important;
+  border-right: 1px solid #e5e7eb !important;
+}
+
+.blocklyTreeRow {
+  padding: 8px 16px !important;
+  margin-bottom: 4px !important;
+  border-radius: 6px !important;
+}
+
+.blocklyTreeRow:hover {
+  background-color: #f3f4f6 !important;
+}
+
+.blocklyTreeSelected {
+  background-color: #dbeafe !important;
+}
+
+.blocklyTreeLabel {
+  font-family: 'Microsoft YaHei', sans-serif !important;
+  font-size: 14px !important;
+  color: #374151 !important;
+}
+
+.blocklyFlyoutBackground {
+  fill: #ffffff !important;
+  fill-opacity: 1 !important;
+}
+
+.blocklyScrollbarHandle {
+  fill: #d1d5db !important;
+}
+
+.blocklyScrollbarHandle:hover {
+  fill: #9ca3af !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ant-card {
+  transition: box-shadow 0.3s ease;
+}
+
+.ant-card-hoverable:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+.ant-btn-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border: none;
+}
+
+.ant-btn-primary:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+}

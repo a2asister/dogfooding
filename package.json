@@ -1,0 +1,23 @@
+{
+  "name": "kids-coding-platform",
+  "version": "1.0.0",
+  "description": "基于Blockly的少儿编程平台",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n frontend,backend -c blue,green \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd frontend && vite --port 5173",
+    "dev:backend": "cd backend && ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "cd frontend && vite build",
+    "build:backend": "cd backend && tsc",
+    "lint": "eslint \"frontend/src/**/*.{ts,tsx}\" \"backend/src/**/*.ts\"",
+    "lint:fix": "eslint \"frontend/src/**/*.{ts,tsx}\" \"backend/src/**/*.ts\" --fix",
+    "typecheck": "cd frontend && tsc --noEmit && cd ../backend && tsc --noEmit"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "typescript": "^5.4.2"
+  }
+}
